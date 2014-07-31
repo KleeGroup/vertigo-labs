@@ -1,0 +1,12 @@
+bin/
+trash/
+target/
+docco/
+.classpath
+.project
+.settings/
+vertigo-release/
+mvn-release.txt
+*.bak
+**/abak
+**/ubak
