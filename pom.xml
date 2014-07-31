@@ -24,8 +24,8 @@ limitations under the License. -->
 		<relativePath>../vertigo-parent</relativePath>
 	</parent>
 	
-	<artifactId>vertigo-ext-reactor</artifactId>
-	<name>vertigo-ext-reactor</name>
+	<artifactId>vertigo-incubator-reactor</artifactId>
+	<name>vertigo-incubator-reactor</name>
 	<packaging>pom</packaging>
 
 	<modules>
@@ -34,10 +34,10 @@ limitations under the License. -->
 	</modules>
 
 	<scm>
-		<connection>scm:git:https://github.com/KleeGroup/vertigo-ext.git</connection>
-		<developerConnection>scm:git:https://github.com/KleeGroup/vertigo-ext.git</developerConnection>
-		<url>scm:git:https://github.com/KleeGroup/vertigo-ext.git</url>
-		<tag>vertigo-ext-0.1.0</tag>
+		<connection>scm:git:https://github.com/KleeGroup/vertigo-incubator.git</connection>
+		<developerConnection>scm:git:https://github.com/KleeGroup/vertigo-incubator.git</developerConnection>
+		<url>scm:git:https://github.com/KleeGroup/vertigo-incubator.git</url>
+		<tag>vertigo-incubator-0.1.0</tag>
 	</scm>
 
 	<build>
