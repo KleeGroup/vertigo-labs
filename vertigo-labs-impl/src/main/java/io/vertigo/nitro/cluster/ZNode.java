@@ -39,7 +39,7 @@ public final class ZNode extends Thread {
 				Thread.sleep(HEART_BEAT);
 				try (final RespClient respClient = new RespClient("localhost", 6380)) {
 					final String response = respClient.execString("ping");
-					System.out.println(">>>" + response);
+					System.out.println(">>>" + response + " from "+respClient);
 				}
 			} catch (final InterruptedException e) {
 				//

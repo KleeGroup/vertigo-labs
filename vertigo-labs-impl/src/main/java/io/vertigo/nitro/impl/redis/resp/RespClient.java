@@ -78,4 +78,8 @@ public final class RespClient implements AutoCloseable {
 	public String execBulk(String command, String... args) {
 		return (String) RespProtocol.pushPull(RespProtocol.RespType.RESP_BULK, in, out, command, args);
 	}
+	
+	public String toString(){
+		return socket.toString();
+	}
 }
