@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 public final class ZNode extends Thread {
-	private static int HEART_BEAT = 100; //ms
+	private static int HEART_BEAT = 500; //ms
 
 	//	private static int TIME_OUT_HB = 3 * HEART_BEAT; //ms
 
@@ -26,14 +26,15 @@ public final class ZNode extends Thread {
 	//	}
 	private final RespServer respServer;
 
-	public ZNode(final int port) {
+	public ZNode(final int index, ZCluster cluster) {
+		int port = cluster.getAddresses().get(index).getPort();
+		//---
 		respServer = createRespServer(port);
 		new Thread(respServer).start();
 	}
-
 	@Override
 	public void run() {
-		while (!this.isInterrupted()) {
+		while (!isInterrupted()) {
 			System.out.println("pom pom");
 			try {
 				Thread.sleep(HEART_BEAT);
@@ -45,10 +46,6 @@ public final class ZNode extends Thread {
 				//
 			}
 		}
-	}
-
-	public static void main(final String[] args) {
-		new ZNode(Integer.valueOf(args[0])).start();
 	}
 
 	private static RespServer createRespServer(final int port) {
