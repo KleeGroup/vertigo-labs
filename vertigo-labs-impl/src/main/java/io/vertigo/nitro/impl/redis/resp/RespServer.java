@@ -16,7 +16,8 @@ public final class RespServer implements Runnable {
 	}
 
 	public void run() {
-		try (ServerSocket serverSocket = new ServerSocket(port)) {
+		System.out.println("start server "+ port);
+		try (ServerSocket serverSocket =  new ServerSocket(port)) {
 			while (true) {
 				Socket socket = serverSocket.accept();
 				new Thread(new TcpSocket(respCommandHandler, socket)).start();
