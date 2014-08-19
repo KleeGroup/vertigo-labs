@@ -32,6 +32,7 @@ public final class ZNode extends Thread {
 		respServer = createRespServer(port);
 		new Thread(respServer).start();
 	}
+
 	@Override
 	public void run() {
 		while (!isInterrupted()) {
@@ -40,7 +41,7 @@ public final class ZNode extends Thread {
 				Thread.sleep(HEART_BEAT);
 				try (final RespClient respClient = new RespClient("localhost", 6380)) {
 					final String response = respClient.execString("ping");
-					System.out.println(">>>" + response + " from "+respClient);
+					System.out.println(">>>" + response + " from " + respClient);
 				}
 			} catch (final InterruptedException e) {
 				//

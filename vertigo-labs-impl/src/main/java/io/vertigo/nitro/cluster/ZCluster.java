@@ -9,9 +9,9 @@ import java.util.List;
 
 public final class ZCluster {
 	private final List<InetSocketAddress> addresses;
-	
-	ZCluster (final List<InetSocketAddress> addresses ){
-		Assertion.checkNotNull(addresses );
+
+	ZCluster(final List<InetSocketAddress> addresses) {
+		Assertion.checkNotNull(addresses);
 		//---------------------------------------------------------------------
 		this.addresses = Collections.unmodifiableList(new ArrayList<>(addresses));
 	}

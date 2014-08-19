@@ -2,9 +2,14 @@ package io.vertigo.nitro.cluster.util;
 
 import io.vertigo.kernel.lang.Assertion;
 
-
+/**
+ * Execute a new process from a class and some args, and redirect output and err streams to console.
+ * This process is an autocloseable, so it can be killed using try-with-resource pattern. 
+ * 
+ * @author pchretien
+ */
 public final class ZProcessUtil {
-	
+
 	public static AutoCloseable execProcess(final Class clazz, final String... args) throws Exception {
 		Assertion.checkNotNull(clazz);
 		Assertion.checkNotNull(args);
@@ -15,13 +20,12 @@ public final class ZProcessUtil {
 				.append(" ")//
 				.append(clazz.getCanonicalName());
 
-		for(String arg : args){
+		for (final String arg : args) {
 			commandBuilder//
-			.append(" ")//
-			.append(arg);
+					.append(" ")//
+					.append(arg);
 		}
-		
+
 		return new ZProcess(commandBuilder.toString());
 	}
 }
-

@@ -82,7 +82,7 @@ public final class TraitManagerImpl implements TraitManager {
 		Assertion.checkArgNotEmpty(traitType);
 		//---------------------------------------------------------------------
 		try (KTransactionWritable transaction = transactionManager.createCurrentTransaction()) {
-			return kvDataStoreManager.find(storeName,traitType + ":" + subjectId, clazz);
+			return kvDataStoreManager.find(storeName, traitType + ":" + subjectId, clazz);
 		}
 	}
 
@@ -91,7 +91,7 @@ public final class TraitManagerImpl implements TraitManager {
 		Assertion.checkArgNotEmpty(traitType);
 		//---------------------------------------------------------------------
 		try (KTransactionWritable transaction = transactionManager.createCurrentTransaction()) {
-			kvDataStoreManager.remove(storeName,traitType + ":" + subjectId);
+			kvDataStoreManager.remove(storeName, traitType + ":" + subjectId);
 			transaction.commit();
 		}
 	}

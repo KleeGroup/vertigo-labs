@@ -12,7 +12,7 @@ public final class RespClient implements AutoCloseable {
 	private final BufferedReader in;
 	private final BufferedOutputStream out;
 
-	public RespClient(String host, int port) {
+	public RespClient(final String host, final int port) {
 		try {
 			//			System.out.println(">>");
 			//			SocketAddress socketAddress = new InetSocketAddress("172.20.0.9", 3128);
@@ -35,7 +35,7 @@ public final class RespClient implements AutoCloseable {
 
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			out = new BufferedOutputStream(socket.getOutputStream());
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			throw new RuntimeException(e);
 		}
 	}
@@ -43,11 +43,11 @@ public final class RespClient implements AutoCloseable {
 	public void close() {
 		try {
 			doClose();
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	private void doClose() throws IOException {
 		try {
 			try {
@@ -60,26 +60,29 @@ public final class RespClient implements AutoCloseable {
 			socket.close();
 		}
 	}
-	public Object execEval(String command, String... args) {
-		return  RespProtocol.pushPull(RespProtocol.RespType.RESP_EVAL, in, out, command, args);
+
+	public Object execEval(final String command, final String... args) {
+		return RespProtocol.pushPull(RespProtocol.RespType.RESP_EVAL, in, out, command, args);
 	}
-	public List<String> execArray(String command, String... args)  {
+
+	public List<String> execArray(final String command, final String... args) {
 		return (List<String>) RespProtocol.pushPull(RespProtocol.RespType.RESP_ARRAY, in, out, command, args);
 	}
 
-	public long execLong(String command, String... args) {
+	public long execLong(final String command, final String... args) {
 		return (Long) RespProtocol.pushPull(RespProtocol.RespType.RESP_INTEGER, in, out, command, args);
 	}
 
-	public String execString(String command, String... args) {
+	public String execString(final String command, final String... args) {
 		return (String) RespProtocol.pushPull(RespProtocol.RespType.RESP_STRING, in, out, command, args);
 	}
 
-	public String execBulk(String command, String... args) {
+	public String execBulk(final String command, final String... args) {
 		return (String) RespProtocol.pushPull(RespProtocol.RespType.RESP_BULK, in, out, command, args);
 	}
-	
-	public String toString(){
+
+	@Override
+	public String toString() {
 		return socket.toString();
 	}
 }

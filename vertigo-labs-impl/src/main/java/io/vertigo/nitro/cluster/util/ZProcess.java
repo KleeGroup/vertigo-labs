@@ -8,7 +8,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 
-//execute a new process with a class and args, and redirect output and err streams to console.
+/**
+ * A process is a simple command executed by the OS.  
+ * 
+ * @author pchretien
+ */
 final class ZProcess implements AutoCloseable {
 	private final Process process;
 
@@ -40,7 +44,6 @@ final class ZProcess implements AutoCloseable {
 			this.is = is;
 			this.out = out;
 		}
-
 
 		@Override
 		public void run() {
