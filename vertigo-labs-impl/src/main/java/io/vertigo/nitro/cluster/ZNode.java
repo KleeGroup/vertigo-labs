@@ -1,5 +1,6 @@
 package io.vertigo.nitro.cluster;
 
+import io.vertigo.kernel.lang.Assertion;
 import io.vertigo.nitro.impl.redis.resp.RespClient;
 import io.vertigo.nitro.impl.redis.resp.RespCommand;
 import io.vertigo.nitro.impl.redis.resp.RespCommandHandler;
@@ -8,6 +9,9 @@ import io.vertigo.nitro.impl.redis.resp.RespServer;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.InetSocketAddress;
+import java.util.ArrayList;
+import java.util.List;
 
 public final class ZNode extends Thread {
 	private static int HEART_BEAT = 500; //ms
@@ -18,15 +22,29 @@ public final class ZNode extends Thread {
 		Follower, Candidate, Leader;
 	}
 
-	//private final ZState state = ZState.Follower;
-
+	
+	//private final Map<InetSocketAddress, >
+	private ZState state = ZState.Follower;
+	private List<RespClient> connections = new ArrayList<>();
 	//
 	//	public void put(final String name, final String value) {
 	//
 	//	}
 	private final RespServer respServer;
-
+	private final int index;
 	public ZNode(final int index, ZCluster cluster) {
+		System.out.println("create znode ["+index+"]");
+		Assertion.checkNotNull(cluster);
+		//---------------------------------------------------------------------
+		this.index = index;
+		if (index==0){
+			state= ZState.Leader;
+			for(int j= 1; j<cluster.getAddresses().size(); j++){
+				InetSocketAddress address = cluster.getAddresses().get(j);
+				System.out.println("starting cx["+index+"] :" + address);
+				connections.add(new RespClient(address.getHostName(), address.getPort()));
+			}
+		}
 		int port = cluster.getAddresses().get(index).getPort();
 		//---
 		respServer = createRespServer(port);
@@ -35,14 +53,21 @@ public final class ZNode extends Thread {
 
 	@Override
 	public void run() {
+		System.out.println("start ["+index+"]");
 		while (!isInterrupted()) {
-			System.out.println("pom pom");
 			try {
 				Thread.sleep(HEART_BEAT);
-				try (final RespClient respClient = new RespClient("localhost", 6380)) {
+				//---
+				System.out.println(">>>>>>>HB  ["+index+"]");	
+				for (RespClient respClient: connections){
 					final String response = respClient.execString("ping");
-					System.out.println(">>>" + response + " from " + respClient);
+					System.out.println(">> ["+index+"]"+ respClient + ": " + response);	
 				}
+//				try (final RespClient respClient = new RespClient("localhost", 6380)) {
+//					final String response = respClient.execString("ping");
+//					System.out.println(">>>" + response + " from " + respClient);
+//				}
+//				
 			} catch (final InterruptedException e) {
 				//
 			}

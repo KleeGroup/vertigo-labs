@@ -27,7 +27,7 @@ public final class ZClusterStarter {
 		//---
 		startCluster(cluster, closeables);
 		//---	
-		Thread.sleep(10000);
+		Thread.sleep(5000);
 		//---
 		closeCluster(closeables);
 	}
