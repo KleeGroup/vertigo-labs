@@ -1,7 +1,7 @@
 package io.vertigo.nitro.redis;
 
 import io.vertigo.AbstractTestCaseJU4;
-import io.vertigo.nitro.impl.redis.RedisServer;
+import io.vertigo.nitro.impl.redis.alphaserver.RedisServer;
 
 import java.util.HashMap;
 import java.util.List;
