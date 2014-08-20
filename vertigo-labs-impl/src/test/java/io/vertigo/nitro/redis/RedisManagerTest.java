@@ -1,7 +1,6 @@
 package io.vertigo.nitro.redis;
 
 import io.vertigo.AbstractTestCaseJU4;
-import io.vertigo.nitro.impl.redis.alphaserver.RedisServer;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,8 +22,8 @@ public class RedisManagerTest extends AbstractTestCaseJU4 {
 
 	@Before
 	public void before() {
-		final RedisServer redisServer = new RedisServer(6380);
-		redisServer.start();
+//		final RedisServer redisServer = new RedisServer(6380);
+//		redisServer.start();
 		//----
 		redis = redisManager.createClient();
 		redis.flushAll();
