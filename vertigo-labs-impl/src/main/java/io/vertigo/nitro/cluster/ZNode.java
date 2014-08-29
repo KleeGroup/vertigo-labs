@@ -22,30 +22,30 @@ public final class ZNode extends Thread {
 		Follower, Candidate, Leader;
 	}
 
-	
 	//private final Map<InetSocketAddress, >
-	private ZState state = ZState.Follower;
-	private List<RespClient> connections = new ArrayList<>();
+	//	private ZState state = ZState.Follower;
+	private final List<RespClient> connections = new ArrayList<>();
 	//
 	//	public void put(final String name, final String value) {
 	//
 	//	}
 	private final RespServer respServer;
 	private final int index;
-	public ZNode(final int index, ZCluster cluster) {
-		System.out.println("create znode ["+index+"]");
+
+	public ZNode(final int index, final ZCluster cluster) {
+		System.out.println("create znode [" + index + "]");
 		Assertion.checkNotNull(cluster);
 		//---------------------------------------------------------------------
 		this.index = index;
-		if (index==0){
-			state= ZState.Leader;
-			for(int j= 1; j<cluster.getAddresses().size(); j++){
-				InetSocketAddress address = cluster.getAddresses().get(j);
-				System.out.println("starting cx["+index+"] :" + address);
+		if (index == 0) {
+			//	state = ZState.Leader;
+			for (int j = 1; j < cluster.getAddresses().size(); j++) {
+				final InetSocketAddress address = cluster.getAddresses().get(j);
+				System.out.println("starting cx[" + index + "] :" + address);
 				connections.add(new RespClient(address.getHostName(), address.getPort()));
 			}
 		}
-		int port = cluster.getAddresses().get(index).getPort();
+		final int port = cluster.getAddresses().get(index).getPort();
 		//---
 		respServer = createRespServer(port);
 		new Thread(respServer).start();
@@ -53,21 +53,21 @@ public final class ZNode extends Thread {
 
 	@Override
 	public void run() {
-		System.out.println("start ["+index+"]");
+		System.out.println("start [" + index + "]");
 		while (!isInterrupted()) {
 			try {
 				Thread.sleep(HEART_BEAT);
 				//---
-				System.out.println(">>>>>>>HB  ["+index+"]");	
-				for (RespClient respClient: connections){
+				System.out.println(">>>>>>>HB  [" + index + "]");
+				for (final RespClient respClient : connections) {
 					final String response = respClient.execString("ping");
-					System.out.println(">> ["+index+"]"+ respClient + ": " + response);	
+					System.out.println(">> [" + index + "]" + respClient + ": " + response);
 				}
-//				try (final RespClient respClient = new RespClient("localhost", 6380)) {
-//					final String response = respClient.execString("ping");
-//					System.out.println(">>>" + response + " from " + respClient);
-//				}
-//				
+				//				try (final RespClient respClient = new RespClient("localhost", 6380)) {
+				//					final String response = respClient.execString("ping");
+				//					System.out.println(">>>" + response + " from " + respClient);
+				//				}
+				//				
 			} catch (final InterruptedException e) {
 				//
 			}
