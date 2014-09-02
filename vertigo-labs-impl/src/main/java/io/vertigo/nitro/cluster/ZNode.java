@@ -1,6 +1,6 @@
 package io.vertigo.nitro.cluster;
 
-import io.vertigo.kernel.lang.Assertion;
+import io.vertigo.core.lang.Assertion;
 import io.vertigo.nitro.impl.redis.resp.RespClient;
 import io.vertigo.nitro.impl.redis.resp.RespCommand;
 import io.vertigo.nitro.impl.redis.resp.RespCommandHandler;
@@ -67,7 +67,7 @@ public final class ZNode extends Thread {
 				//					final String response = respClient.execString("ping");
 				//					System.out.println(">>>" + response + " from " + respClient);
 				//				}
-				//				
+				//
 			} catch (final InterruptedException e) {
 				//
 			}
@@ -78,11 +78,11 @@ public final class ZNode extends Thread {
 		return new RespServer(port, new RespCommandHandler() {
 			public void onCommand(final OutputStream out, final RespCommand command) throws IOException {
 				switch (command.getName().toLowerCase()) {
-					case "ping":
-						RespProtocol.writeSimpleString(out, "PONG");
-						break;
-					default:
-						RespProtocol.writeError(out, "RESP Command unknown : " + command.getName());
+				case "ping":
+					RespProtocol.writeSimpleString(out, "PONG");
+					break;
+				default:
+					RespProtocol.writeError(out, "RESP Command unknown : " + command.getName());
 				}
 			}
 		});

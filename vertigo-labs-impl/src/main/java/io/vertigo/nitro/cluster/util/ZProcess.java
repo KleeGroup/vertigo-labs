@@ -1,6 +1,6 @@
 package io.vertigo.nitro.cluster.util;
 
-import io.vertigo.kernel.lang.Assertion;
+import io.vertigo.core.lang.Assertion;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 
 /**
- * A process is a simple command executed by the OS.  
+ * A process is a simple command executed by the OS.
  * 
  * @author pchretien
  */

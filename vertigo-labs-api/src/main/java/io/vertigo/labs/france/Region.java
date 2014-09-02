@@ -18,7 +18,7 @@
  */
 package io.vertigo.labs.france;
 
-import io.vertigo.kernel.lang.Assertion;
+import io.vertigo.core.lang.Assertion;
 
 /**
  * @author pchretien
@@ -27,7 +27,7 @@ public final class Region /*implements DtObject*/{
 	private final String code;
 	private final String label;
 
-	public Region(String code, String label) {
+	public Region(final String code, final String label) {
 		Assertion.checkArgNotEmpty(code);
 		Assertion.checkArgNotEmpty(label);
 		//--------------------------------------------------------------------

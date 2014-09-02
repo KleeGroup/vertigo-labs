@@ -1,7 +1,7 @@
 package io.vertigo.nitro.impl.redis;
 
-import io.vertigo.kernel.lang.Assertion;
-import io.vertigo.kernel.lang.Option;
+import io.vertigo.core.lang.Assertion;
+import io.vertigo.core.lang.Option;
 import io.vertigo.nitro.redis.RedisClient;
 import io.vertigo.nitro.redis.RedisManager;
 
@@ -24,7 +24,7 @@ public final class RedisManagerImpl implements RedisManager {
 	}
 
 	public RedisClient createClient() {
-		RedisClient redisClient = new RedisClientImpl(host, port);
+		final RedisClient redisClient = new RedisClientImpl(host, port);
 		if (password.isDefined()){
 			redisClient.auth(password.get());
 		}

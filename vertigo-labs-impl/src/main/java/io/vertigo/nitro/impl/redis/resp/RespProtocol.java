@@ -1,6 +1,6 @@
 package io.vertigo.nitro.impl.redis.resp;
 
-import io.vertigo.kernel.lang.Assertion;
+import io.vertigo.core.lang.Assertion;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -37,7 +37,7 @@ public final class RespProtocol {
 		out.write(LN.getBytes(CHARSET));
 		//--- cas du nom de la commande
 		writeBulkString(out, command);
-		//--- cas des args 
+		//--- cas des args
 		for (final String arg : args) {
 			writeBulkString(out, arg);
 		}
@@ -65,7 +65,7 @@ public final class RespProtocol {
 			if (!line.startsWith("$")) {
 				throw new RuntimeException("protocol must contains lines with $");
 			}
-			//n = Integer.valueOf(line.substring(1)); 
+			//n = Integer.valueOf(line.substring(1));
 			//On n'exploite pas cette info
 			line = input.readLine();
 			if (i == 0) {
@@ -154,27 +154,27 @@ public final class RespProtocol {
 		Assertion.checkArgument('?' == expected || expected == response.charAt(0), "exepected {0}, find {1}", expected, response.charAt(0));
 		//----
 		switch (start) {
-			case ':': //number
-				return Long.valueOf(response.substring(1));
-			case '+': //string
-				return response.substring(1);
-			case '$': //bulk 
-				final int n = Integer.valueOf(response.substring(1));
-				if (n < 0) {
-					return null;
-				} else if (n == 0) {
-					return "";
-				}
-				return in.readLine();
-			case '*': //array
-				final int m = Integer.valueOf(response.substring(1));
-				final List list = new ArrayList<>();
-				for (int i = 0; i < m; i++) {
-					list.add(pull(in, '?'));
-				}
-				return list;
-			default:
-				throw new IllegalArgumentException("According resp protocol, a response must starts with - + : $ or *");
+		case ':': //number
+			return Long.valueOf(response.substring(1));
+		case '+': //string
+			return response.substring(1);
+		case '$': //bulk
+			final int n = Integer.valueOf(response.substring(1));
+			if (n < 0) {
+				return null;
+			} else if (n == 0) {
+				return "";
+			}
+			return in.readLine();
+		case '*': //array
+			final int m = Integer.valueOf(response.substring(1));
+			final List list = new ArrayList<>();
+			for (int i = 0; i < m; i++) {
+				list.add(pull(in, '?'));
+			}
+			return list;
+		default:
+			throw new IllegalArgumentException("According resp protocol, a response must starts with - + : $ or *");
 		}
 
 	}

@@ -19,12 +19,12 @@
 package io.vertigo.labs.impl.gedcom;
 
 import io.vertigo.commons.resource.ResourceManager;
+import io.vertigo.core.lang.Assertion;
+import io.vertigo.core.lang.Option;
 import io.vertigo.dynamo.domain.model.DtList;
 import io.vertigo.dynamo.kvdatastore.KVDataStoreManager;
 import io.vertigo.dynamo.transaction.KTransactionManager;
 import io.vertigo.dynamo.transaction.KTransactionWritable;
-import io.vertigo.kernel.lang.Assertion;
-import io.vertigo.kernel.lang.Option;
 import io.vertigo.labs.gedcom.GedcomManager;
 import io.vertigo.labs.gedcom.Individual;
 import io.vertigo.labs.geocoder.GeoCoderManager;
@@ -97,55 +97,55 @@ public final class GedcomManagerImpl implements GedcomManager {
 			for (final IndividualEvent individualEvent : gindividual.events) {
 
 				switch (individualEvent.type) {
-					case DEATH:
-						if (individualEvent.date != null) {
-							individual.setDeathDate(individualEvent.date.value);
-						}
-						if (individualEvent.place != null) {
-							individual.setDeathPlace(individualEvent.place.placeName);
-							individual.setLocation(buildLocation(individualEvent.place.placeName));
-						}
+				case DEATH:
+					if (individualEvent.date != null) {
+						individual.setDeathDate(individualEvent.date.value);
+					}
+					if (individualEvent.place != null) {
+						individual.setDeathPlace(individualEvent.place.placeName);
+						individual.setLocation(buildLocation(individualEvent.place.placeName));
+					}
 
-						break;
-					case BIRTH:
-						if (individualEvent.date != null) {
-							individual.setBirthDate(individualEvent.date.value);
-						}
-						if (individualEvent.place != null) {
-							individual.setBirthPlace(individualEvent.place.placeName);
-							individual.setLocation(buildLocation(individualEvent.place.placeName));
-						}
-						break;
-					case ADOPTION:
-					case ARRIVAL:
-					case BAPTISM:
-					case BAR_MITZVAH:
-					case BAS_MITZVAH:
-					case BLESSING:
-					case BURIAL:
-					case CENSUS:
-					case CHRISTENING:
-					case CHRISTENING_ADULT:
-					case CONFIRMATION:
-					case CREMATION:
-					case EMIGRATION:
-					case EVENT:
-					case FIRST_COMMUNION:
-					case GRADUATION:
-					case IMMIGRATION:
-					case NATURALIZATION:
-					case ORDINATION:
-					case PROBATE:
-					case RETIREMENT:
-					case WILL:
-					default:
-						//on ne gère que les evts précédents
-						break;
+					break;
+				case BIRTH:
+					if (individualEvent.date != null) {
+						individual.setBirthDate(individualEvent.date.value);
+					}
+					if (individualEvent.place != null) {
+						individual.setBirthPlace(individualEvent.place.placeName);
+						individual.setLocation(buildLocation(individualEvent.place.placeName));
+					}
+					break;
+				case ADOPTION:
+				case ARRIVAL:
+				case BAPTISM:
+				case BAR_MITZVAH:
+				case BAS_MITZVAH:
+				case BLESSING:
+				case BURIAL:
+				case CENSUS:
+				case CHRISTENING:
+				case CHRISTENING_ADULT:
+				case CONFIRMATION:
+				case CREMATION:
+				case EMIGRATION:
+				case EVENT:
+				case FIRST_COMMUNION:
+				case GRADUATION:
+				case IMMIGRATION:
+				case NATURALIZATION:
+				case ORDINATION:
+				case PROBATE:
+				case RETIREMENT:
+				case WILL:
+				default:
+					//on ne gère que les evts précédents
+					break;
 				}
 			}
 
 		}
-		//Relations 
+		//Relations
 		for (final org.gedcom4j.model.Individual gindividual : getIndividuals()) {
 			final String id = buildId(gindividual);
 			final DtList<Individual> descendants = new DtList<>(Individual.class);

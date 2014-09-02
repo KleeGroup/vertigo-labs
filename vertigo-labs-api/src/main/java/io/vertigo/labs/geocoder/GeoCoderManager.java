@@ -18,7 +18,7 @@
  */
 package io.vertigo.labs.geocoder;
 
-import io.vertigo.kernel.component.Manager;
+import io.vertigo.core.component.Manager;
 
 /**
  * API de Geocoding d'adresses postales ou de POI.
@@ -36,7 +36,7 @@ public interface GeoCoderManager extends Manager {
 
 	/**
 	 * Calcul de distance entre deux points
-	 *  
+	 * 
 	 * @param geoLocation1 Premier point
 	 * @param geoLocation2 Second point
 	 * @return Distance exprimées en km.

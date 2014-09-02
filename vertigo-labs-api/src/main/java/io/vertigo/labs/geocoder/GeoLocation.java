@@ -18,7 +18,7 @@
  */
 package io.vertigo.labs.geocoder;
 
-import io.vertigo.kernel.lang.Assertion;
+import io.vertigo.core.lang.Assertion;
 
 /**
  * Objet permettant de définir un emplacement par ses coordonnées.
@@ -27,7 +27,7 @@ import io.vertigo.kernel.lang.Assertion;
 public final class GeoLocation {
 	public static final GeoLocation UNDEFINED = new GeoLocation();
 	private final String countryCode;
-	private final String level1;//région  
+	private final String level1;//région
 	private final String level2; //département
 	private final String locality;
 
@@ -54,7 +54,7 @@ public final class GeoLocation {
 		this(latitude, longitude, null, null, null, null);
 	}
 
-	public GeoLocation(final double latitude, final double longitude, String countryCode, String level1, String level2, String locality) {
+	public GeoLocation(final double latitude, final double longitude, final String countryCode, final String level1, final String level2, final String locality) {
 		//	Assertion.notEmpty(accuracy);
 		Assertion.checkNotNull(latitude);
 		Assertion.checkNotNull(longitude);
