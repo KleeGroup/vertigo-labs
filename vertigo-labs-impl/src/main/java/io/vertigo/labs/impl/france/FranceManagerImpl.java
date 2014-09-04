@@ -43,7 +43,7 @@ public final class FranceManagerImpl implements FranceManager {
 		try {
 			regions = Collections.unmodifiableMap(loadRegions());
 			departements = Collections.unmodifiableMap(loadDepartements());
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			throw new RuntimeException(e);
 		}
 	}
@@ -52,7 +52,7 @@ public final class FranceManagerImpl implements FranceManager {
 		final Map<String, Region> tmpRegions = new LinkedHashMap<>();
 
 		try (InputStream inputStream = FranceManagerImpl.class.getResourceAsStream("reg2012.txt")) {
-			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+			final BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 			String line;
 			boolean first = true;
 			while ((line = reader.readLine()) != null) {
@@ -60,11 +60,11 @@ public final class FranceManagerImpl implements FranceManager {
 				if (first) {
 					first = false;
 				} else {
-					String[] tokens = line.split("\t");
+					final String[] tokens = line.split("\t");
 					Assertion.checkArgument(tokens.length == 5, "txt mal formé");
-					String code = tokens[0];
-					String label = tokens[4];
-					Region region = new Region(code, label);
+					final String code = tokens[0];
+					final String label = tokens[4];
+					final Region region = new Region(code, label);
 					tmpRegions.put(code, region);
 				}
 			}
@@ -76,7 +76,7 @@ public final class FranceManagerImpl implements FranceManager {
 		final Map<String, Departement> tmpDepartements = new LinkedHashMap<>();
 
 		try (InputStream inputStream = FranceManagerImpl.class.getResourceAsStream("depts2012.txt")) {
-			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+			final BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 			String line;
 			boolean first = true;
 			while ((line = reader.readLine()) != null) {
@@ -84,12 +84,12 @@ public final class FranceManagerImpl implements FranceManager {
 				if (first) {
 					first = false;
 				} else {
-					String[] tokens = line.split("\t");
+					final String[] tokens = line.split("\t");
 					Assertion.checkArgument(tokens.length == 6, "txt mal formé pour la ligne {0}, tokens:{1}", line, tokens.length);
-					String code = tokens[1];
-					String label = tokens[5];
-					String codeRegion = tokens[0];
-					Departement departement = new Departement(code, label, getRegion(codeRegion));
+					final String code = tokens[1];
+					final String label = tokens[5];
+					final String codeRegion = tokens[0];
+					final Departement departement = new Departement(code, label, getRegion(codeRegion));
 					tmpDepartements.put(code, departement);
 				}
 			}
@@ -106,15 +106,15 @@ public final class FranceManagerImpl implements FranceManager {
 	}
 
 	@Override
-	public Region getRegion(String codeInsee) {
-		Region region = regions.get(codeInsee);
+	public Region getRegion(final String codeInsee) {
+		final Region region = regions.get(codeInsee);
 		Assertion.checkNotNull(region, "code insee non reconnu :{0}", codeInsee);
 		return region;
 	}
 
 	@Override
-	public Departement getDepartement(String codeInsee) {
-		Departement departement = departements.get(codeInsee);
+	public Departement getDepartement(final String codeInsee) {
+		final Departement departement = departements.get(codeInsee);
 		Assertion.checkNotNull(departement);
 		return departement;
 	}

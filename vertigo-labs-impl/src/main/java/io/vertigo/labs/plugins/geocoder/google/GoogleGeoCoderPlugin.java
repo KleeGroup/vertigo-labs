@@ -161,7 +161,7 @@ public final class GoogleGeoCoderPlugin implements GeoCoderPlugin {
 	 * Parseur XML avec l'expression XPath.
 	 * 
 	 * @param xml : le document XML récupéré depuis Google Geocoder
-	 * @param xPathString : l'expression XPath permettant de parser le XML 
+	 * @param xPathString : l'expression XPath permettant de parser le XML
 	 * @return NodeList contenant les données du fichier XML
 	 */
 	private NodeList findNodes(final Document xml, final String xPathString) {
@@ -178,12 +178,12 @@ public final class GoogleGeoCoderPlugin implements GeoCoderPlugin {
 	}
 
 	/**
-	* Parseur XML avec l'expression XPath.
-	* 
-	* @param xml : le document XML récupéré depuis Google Geocoder
-	* @param xPathString : l'expression XPath permettant de parser le XML 
-	* @return Node contenant les données du fichier XML
-	*/
+	 * Parseur XML avec l'expression XPath.
+	 * 
+	 * @param xml : le document XML récupéré depuis Google Geocoder
+	 * @param xPathString : l'expression XPath permettant de parser le XML
+	 * @return Node contenant les données du fichier XML
+	 */
 	private Node findNode(final Document xml, final String xPathString) {
 		Assertion.checkNotNull(xml);
 		Assertion.checkArgNotEmpty(xPathString);
@@ -196,11 +196,11 @@ public final class GoogleGeoCoderPlugin implements GeoCoderPlugin {
 		}
 	}
 
-	public static String toString(Document doc) {
+	public static String toString(final Document doc) {
 		try {
-			StringWriter sw = new StringWriter();
-			TransformerFactory tf = TransformerFactory.newInstance();
-			Transformer transformer = tf.newTransformer();
+			final StringWriter sw = new StringWriter();
+			final TransformerFactory tf = TransformerFactory.newInstance();
+			final Transformer transformer = tf.newTransformer();
 			transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
 			transformer.setOutputProperty(OutputKeys.METHOD, "xml");
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
@@ -208,7 +208,7 @@ public final class GoogleGeoCoderPlugin implements GeoCoderPlugin {
 
 			transformer.transform(new DOMSource(doc), new StreamResult(sw));
 			return sw.toString();
-		} catch (Exception ex) {
+		} catch (final Exception ex) {
 			throw new RuntimeException("Error converting to String", ex);
 		}
 	}
@@ -222,7 +222,7 @@ public final class GoogleGeoCoderPlugin implements GeoCoderPlugin {
 			throw new RuntimeException("Pas de réponse du service");
 		}
 		//---------------------------------------------------------------------
-		// 0- Vérification du status 
+		// 0- Vérification du status
 		final Node StatusNode = findNode(geocoderResultDocument, XPATH_STATUS);
 		if (!"OK".equals(StatusNode.getTextContent().trim())) {
 			return GeoLocation.UNDEFINED;
@@ -260,7 +260,7 @@ public final class GoogleGeoCoderPlugin implements GeoCoderPlugin {
 		String level2 = null;
 		String locality = null;
 		for (int i = 0; i < addressNodes.getLength(); i++) {
-			Node addressNode = addressNodes.item(i);
+			final Node addressNode = addressNodes.item(i);
 			String shortName = null;
 			boolean isCountry = false;
 			boolean isAdministrative_area_level_1 = false;
@@ -268,7 +268,7 @@ public final class GoogleGeoCoderPlugin implements GeoCoderPlugin {
 			boolean isLocality = false;
 
 			for (int j = 0; j < addressNode.getChildNodes().getLength(); j++) {
-				Node node = addressNode.getChildNodes().item(j);
+				final Node node = addressNode.getChildNodes().item(j);
 				if ("short_name".equals(node.getNodeName())) {
 					shortName = node.getTextContent().trim();
 				} else if ("type".equals(node.getNodeName())) {

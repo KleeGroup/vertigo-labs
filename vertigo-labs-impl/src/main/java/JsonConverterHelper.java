@@ -17,8 +17,13 @@
  * limitations under the License.
  */
 //package io.vertigo.rest.impl.rest.handler;
+<<<<<<< HEAD
 //
 //
+=======
+
+
+>>>>>>> origin/master
 //final class JsonConverterHelper {
 //	private final JsonEngine jsonReaderEngine;
 //	private final JsonEngine jsonWriterEngine;
@@ -30,14 +35,23 @@
 //		this.jsonReaderEngine = jsonReaderEngine;
 //		this.jsonWriterEngine = jsonWriterEngine;
 //	 }
+<<<<<<< HEAD
 // 
 // 
+=======
+//
+//
+>>>>>>> origin/master
 //  public String writeValue(final Object value, boolean serverSideSave, UiSecurityTokenManager uiSecurityTokenManager, Set<String> includedFields, Set<String> excludedFields) {
 //		Assertion.checkNotNull(value);
 //		//---------------------------------------------------------------------
 //		if (serverSideSave) {
 //			if (UiContext.class.isInstance(value)) {
+<<<<<<< HEAD
 //				//TODO build json in jsonWriterEngine 
+=======
+//				//TODO build json in jsonWriterEngine
+>>>>>>> origin/master
 //				final StringBuilder sb = new StringBuilder();
 //				sb.append("{");
 //				String sep = "";

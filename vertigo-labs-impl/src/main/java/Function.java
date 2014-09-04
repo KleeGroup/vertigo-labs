@@ -16,28 +16,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.vertigo.labs.france;
 
-import io.vertigo.core.component.Manager;
-
-import java.util.Collection;
 
 /**
- * Some data about france.
+ * Approche fonctionnelle.
+ * On définit un objet fonction.
  * @author pchretien
+ * @param <IN> Type de paramètre d'entrée de la fonction
+ * @param <OUT> Type de paaramètre de sortie de la fonction
  */
-public interface FranceManager extends Manager {
+public interface Function<IN, OUT> {
 	/**
-	 * @return List of Regions
+	 * @param input Paramètre d'entrée
+	 * @return Calcul de la fonction
 	 */
-	Collection<Region> getRegions();
-
-	/**
-	 * @return list of "Départements"
-	 */
-	Collection<Departement> getDepartements();
-
-	Region getRegion(String codeInsee);
-
-	Departement getDepartement(String codeInsee);
+	OUT apply(final IN input);
 }

@@ -9,11 +9,11 @@ import java.util.List;
 
 public class ZClusterBuilder implements Builder<ZCluster>{
 	private final List<InetSocketAddress> addresses = new ArrayList<>();
-	
-	public ZClusterBuilder  withAddress(String host, int port){
+
+	public ZClusterBuilder  withAddress(final String host, final int port){
 		Assertion.checkArgNotEmpty(host);
 		//---------------------------------------------------------------------
-		InetSocketAddress address = new InetSocketAddress(host, port);
+		final InetSocketAddress address = new InetSocketAddress(host, port);
 		addresses.add(address);
 		return this;
 	}

@@ -20,8 +20,11 @@ package io.vertigo.labs.trait;
 
 import io.vertigo.AbstractTestCaseJU4;
 import io.vertigo.core.lang.Option;
+<<<<<<< HEAD
 import io.vertigo.labs.trait.Commenting;
 import io.vertigo.labs.trait.TraitManager;
+=======
+>>>>>>> origin/master
 
 import javax.inject.Inject;
 
@@ -38,17 +41,17 @@ public class TraitManagerTest extends AbstractTestCaseJU4 {
 	@Test
 	public void loadEmptyData() {
 		traitManager.deleteTrait(Commenting.class, "45");
-		Option<Commenting> commenting = traitManager.findTrait(Commenting.class, "45");
+		final Option<Commenting> commenting = traitManager.findTrait(Commenting.class, "45");
 		Assert.assertTrue(commenting.isEmpty());
 	}
 
 	@Test
 	public void putData() {
-		Commenting commenting = new Commenting();
+		final Commenting commenting = new Commenting();
 		commenting.setComments("my nice comment");
 		traitManager.putTrait(Commenting.class, "45", commenting);
 
-		Option<Commenting> commenting2 = traitManager.findTrait(Commenting.class, "45");
+		final Option<Commenting> commenting2 = traitManager.findTrait(Commenting.class, "45");
 		Assert.assertTrue(commenting2.isDefined());
 	}
 }

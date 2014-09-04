@@ -53,10 +53,10 @@ public final class GeoCoderManagerImpl implements GeoCoderManager {
 		Assertion.checkArgument(!geoLocation1.isUndefined(), "le premier point n'est pas défini");
 		Assertion.checkArgument(!geoLocation2.isUndefined(), "le second point n'est pas défini");
 		//-------------------------------------------------------------------------
-		int R = 6371; // km
+		final int R = 6371; // km
 		final double theta = Math.toRadians(geoLocation2.getLongitude() - geoLocation1.getLongitude());
-		double lat1 = Math.toRadians(geoLocation1.getLatitude());
-		double lat2 = Math.toRadians(geoLocation2.getLatitude());
+		final double lat1 = Math.toRadians(geoLocation1.getLatitude());
+		final double lat2 = Math.toRadians(geoLocation2.getLatitude());
 		return Math.acos(Math.sin(lat1) * Math.sin(lat2) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(theta)) * R;
 
 	}

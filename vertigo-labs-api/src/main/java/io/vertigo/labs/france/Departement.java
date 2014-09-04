@@ -28,7 +28,7 @@ public final class Departement /*implements DtObject*/{
 	private final String label;
 	private final Region region;
 
-	public Departement(String code, String label, Region region) {
+	public Departement(final String code, final String label, final Region region) {
 		Assertion.checkArgNotEmpty(code);
 		Assertion.checkArgNotEmpty(label);
 		Assertion.checkNotNull(region);

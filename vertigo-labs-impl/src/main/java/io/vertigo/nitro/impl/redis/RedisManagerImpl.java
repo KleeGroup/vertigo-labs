@@ -24,7 +24,7 @@ public final class RedisManagerImpl implements RedisManager {
 	}
 
 	public RedisClient createClient() {
-		RedisClient redisClient = new RedisClientImpl(host, port);
+		final RedisClient redisClient = new RedisClientImpl(host, port);
 		if (password.isDefined()){
 			redisClient.auth(password.get());
 		}

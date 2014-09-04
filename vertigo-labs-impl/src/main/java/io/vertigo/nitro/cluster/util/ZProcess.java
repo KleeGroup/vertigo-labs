@@ -9,7 +9,7 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 
 /**
- * A process is a simple command executed by the OS.  
+ * A process is a simple command executed by the OS.
  * 
  * @author pchretien
  */
