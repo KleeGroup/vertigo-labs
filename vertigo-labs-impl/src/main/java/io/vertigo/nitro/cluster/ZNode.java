@@ -1,6 +1,6 @@
 package io.vertigo.nitro.cluster;
 
-import io.vertigo.kernel.lang.Assertion;
+import io.vertigo.core.lang.Assertion;
 import io.vertigo.nitro.impl.redis.resp.RespClient;
 import io.vertigo.nitro.impl.redis.resp.RespCommand;
 import io.vertigo.nitro.impl.redis.resp.RespCommandHandler;

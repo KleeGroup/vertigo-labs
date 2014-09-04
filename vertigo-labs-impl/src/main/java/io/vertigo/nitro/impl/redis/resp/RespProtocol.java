@@ -1,6 +1,6 @@
 package io.vertigo.nitro.impl.redis.resp;
 
-import io.vertigo.kernel.lang.Assertion;
+import io.vertigo.core.lang.Assertion;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;

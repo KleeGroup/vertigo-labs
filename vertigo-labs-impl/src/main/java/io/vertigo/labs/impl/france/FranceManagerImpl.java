@@ -18,7 +18,7 @@
  */
 package io.vertigo.labs.impl.france;
 
-import io.vertigo.kernel.lang.Assertion;
+import io.vertigo.core.lang.Assertion;
 import io.vertigo.labs.france.Departement;
 import io.vertigo.labs.france.FranceManager;
 import io.vertigo.labs.france.Region;

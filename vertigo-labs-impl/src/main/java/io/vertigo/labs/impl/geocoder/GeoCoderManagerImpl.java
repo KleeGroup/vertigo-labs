@@ -18,7 +18,7 @@
  */
 package io.vertigo.labs.impl.geocoder;
 
-import io.vertigo.kernel.lang.Assertion;
+import io.vertigo.core.lang.Assertion;
 import io.vertigo.labs.geocoder.GeoCoderManager;
 import io.vertigo.labs.geocoder.GeoLocation;
 

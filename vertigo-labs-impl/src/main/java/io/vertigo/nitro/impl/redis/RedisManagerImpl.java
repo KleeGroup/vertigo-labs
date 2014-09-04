@@ -1,7 +1,7 @@
 package io.vertigo.nitro.impl.redis;
 
-import io.vertigo.kernel.lang.Assertion;
-import io.vertigo.kernel.lang.Option;
+import io.vertigo.core.lang.Assertion;
+import io.vertigo.core.lang.Option;
 import io.vertigo.nitro.redis.RedisClient;
 import io.vertigo.nitro.redis.RedisManager;
 

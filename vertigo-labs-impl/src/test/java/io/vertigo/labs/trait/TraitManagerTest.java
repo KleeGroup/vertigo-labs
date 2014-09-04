@@ -19,7 +19,7 @@
 package io.vertigo.labs.trait;
 
 import io.vertigo.AbstractTestCaseJU4;
-import io.vertigo.kernel.lang.Option;
+import io.vertigo.core.lang.Option;
 import io.vertigo.labs.trait.Commenting;
 import io.vertigo.labs.trait.TraitManager;
 

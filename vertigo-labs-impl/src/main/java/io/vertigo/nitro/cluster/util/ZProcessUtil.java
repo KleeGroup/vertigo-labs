@@ -1,6 +1,6 @@
 package io.vertigo.nitro.cluster.util;
 
-import io.vertigo.kernel.lang.Assertion;
+import io.vertigo.core.lang.Assertion;
 
 /**
  * Execute a new process from a class and some args, and redirect output and err streams to console.
