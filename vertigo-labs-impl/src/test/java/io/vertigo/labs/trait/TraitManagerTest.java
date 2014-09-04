@@ -20,11 +20,6 @@ package io.vertigo.labs.trait;
 
 import io.vertigo.AbstractTestCaseJU4;
 import io.vertigo.core.lang.Option;
-<<<<<<< HEAD
-import io.vertigo.labs.trait.Commenting;
-import io.vertigo.labs.trait.TraitManager;
-=======
->>>>>>> origin/master
 
 import javax.inject.Inject;
 

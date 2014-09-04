@@ -44,7 +44,7 @@ import org.gedcom4j.model.IndividualEvent;
 import org.gedcom4j.parser.GedcomParser;
 
 public final class GedcomManagerImpl implements GedcomManager {
-	private final String storeName;
+	private final String dataStoreName;
 	private final GedcomParser gp;
 	private final GeoCoderManager geoCoderManager;
 	private final KTransactionManager transactionManager;
@@ -53,7 +53,7 @@ public final class GedcomManagerImpl implements GedcomManager {
 	private final Map<String, DtList<Individual>> children = new HashMap<>();
 
 	@Inject
-	public GedcomManagerImpl(@Named("storeName") final String storeName, final KVDataStoreManager kvDataStoreManager, final KTransactionManager transactionManager, final GeoCoderManager geoCoderManager, final ResourceManager resourceManager, @Named("gedcom") final String gedcomResource) {
+	public GedcomManagerImpl(@Named("dataStoreName") final String storeName, final KVDataStoreManager kvDataStoreManager, final KTransactionManager transactionManager, final GeoCoderManager geoCoderManager, final ResourceManager resourceManager, @Named("gedcom") final String gedcomResource) {
 		Assertion.checkArgNotEmpty(storeName);
 		Assertion.checkNotNull(kvDataStoreManager);
 		Assertion.checkNotNull(transactionManager);
@@ -61,7 +61,7 @@ public final class GedcomManagerImpl implements GedcomManager {
 		Assertion.checkNotNull(resourceManager);
 		Assertion.checkNotNull(gedcomResource);
 		// ---------------------------------------------------------------------
-		this.storeName = storeName;
+		this.dataStoreName = storeName;
 		this.kvDataStoreManager = kvDataStoreManager;
 		this.transactionManager = transactionManager;
 		this.geoCoderManager = geoCoderManager;
@@ -97,50 +97,50 @@ public final class GedcomManagerImpl implements GedcomManager {
 			for (final IndividualEvent individualEvent : gindividual.events) {
 
 				switch (individualEvent.type) {
-				case DEATH:
-					if (individualEvent.date != null) {
-						individual.setDeathDate(individualEvent.date.value);
-					}
-					if (individualEvent.place != null) {
-						individual.setDeathPlace(individualEvent.place.placeName);
-						individual.setLocation(buildLocation(individualEvent.place.placeName));
-					}
+					case DEATH:
+						if (individualEvent.date != null) {
+							individual.setDeathDate(individualEvent.date.value);
+						}
+						if (individualEvent.place != null) {
+							individual.setDeathPlace(individualEvent.place.placeName);
+							individual.setLocation(buildLocation(individualEvent.place.placeName));
+						}
 
-					break;
-				case BIRTH:
-					if (individualEvent.date != null) {
-						individual.setBirthDate(individualEvent.date.value);
-					}
-					if (individualEvent.place != null) {
-						individual.setBirthPlace(individualEvent.place.placeName);
-						individual.setLocation(buildLocation(individualEvent.place.placeName));
-					}
-					break;
-				case ADOPTION:
-				case ARRIVAL:
-				case BAPTISM:
-				case BAR_MITZVAH:
-				case BAS_MITZVAH:
-				case BLESSING:
-				case BURIAL:
-				case CENSUS:
-				case CHRISTENING:
-				case CHRISTENING_ADULT:
-				case CONFIRMATION:
-				case CREMATION:
-				case EMIGRATION:
-				case EVENT:
-				case FIRST_COMMUNION:
-				case GRADUATION:
-				case IMMIGRATION:
-				case NATURALIZATION:
-				case ORDINATION:
-				case PROBATE:
-				case RETIREMENT:
-				case WILL:
-				default:
-					//on ne gère que les evts précédents
-					break;
+						break;
+					case BIRTH:
+						if (individualEvent.date != null) {
+							individual.setBirthDate(individualEvent.date.value);
+						}
+						if (individualEvent.place != null) {
+							individual.setBirthPlace(individualEvent.place.placeName);
+							individual.setLocation(buildLocation(individualEvent.place.placeName));
+						}
+						break;
+					case ADOPTION:
+					case ARRIVAL:
+					case BAPTISM:
+					case BAR_MITZVAH:
+					case BAS_MITZVAH:
+					case BLESSING:
+					case BURIAL:
+					case CENSUS:
+					case CHRISTENING:
+					case CHRISTENING_ADULT:
+					case CONFIRMATION:
+					case CREMATION:
+					case EMIGRATION:
+					case EVENT:
+					case FIRST_COMMUNION:
+					case GRADUATION:
+					case IMMIGRATION:
+					case NATURALIZATION:
+					case ORDINATION:
+					case PROBATE:
+					case RETIREMENT:
+					case WILL:
+					default:
+						//on ne gère que les evts précédents
+						break;
 				}
 			}
 
@@ -166,12 +166,12 @@ public final class GedcomManagerImpl implements GedcomManager {
 		try (KTransactionWritable transaction = transactionManager.createCurrentTransaction();) {
 			geoLocation = cache.get(key);
 			if (geoLocation == null) {
-				final Option<GeoLocation> storedLocation = kvDataStoreManager.find(storeName, key, GeoLocation.class);
+				final Option<GeoLocation> storedLocation = kvDataStoreManager.find(dataStoreName, key, GeoLocation.class);
 				//System.out.println("    cache "+storedLocation.isDefined());
 				if (storedLocation.isEmpty()) {
 					geoLocation = geoCoderManager.findLocation(key);
 					//-----------------
-					kvDataStoreManager.put(storeName, key, geoLocation);
+					kvDataStoreManager.put(dataStoreName, key, geoLocation);
 					transaction.commit();
 				} else {
 					geoLocation = storedLocation.get();

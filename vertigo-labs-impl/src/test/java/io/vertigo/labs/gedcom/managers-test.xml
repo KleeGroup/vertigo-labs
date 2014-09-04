@@ -10,7 +10,7 @@
 		
 		<component api="KVDataStoreManager" class="io.vertigo.dynamo.impl.kvdatastore.KVDataStoreManagerImpl" >
 	        <plugin class="io.vertigo.dynamo.plugins.kvdatastore.txberkeley.TxBerkeleyKVDataStorePlugin">
-      			<param name="storeName" value="geocomStore" />
+      			<param name="dataStoreName" value="gedcom" />
       			<param name="inMemory" value="false" />            
       			<param name="fileName" value="d:/berkeleyDB-gedcom" />            
 	        </plugin>
@@ -32,7 +32,7 @@
 			</plugin>
 		</component>
 		<component api="GedcomManager" class="io.vertigo.labs.impl.gedcom.GedcomManagerImpl">
-			<param name="storeName" value="geocomStore" />
+      		<param name="dataStoreName" value="gedcom" />
 			<param name="gedcom" value="io/vertigo/labs/gedcom/louis14.ged" />
 		</component>
 	</module>

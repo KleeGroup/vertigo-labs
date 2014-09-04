@@ -9,25 +9,18 @@
 		</component>
 		
 		<component api="KVDataStoreManager" class="io.vertigo.dynamo.impl.kvdatastore.KVDataStoreManagerImpl" >
-	        <plugin class="io.vertigo.dynamo.plugins.kvdata.txberkeley.TxBerkeleyKVDataStorePlugin">
+	        <plugin class="io.vertigo.dynamo.plugins.kvdatastore.txberkeley.TxBerkeleyKVDataStorePlugin">
+      			<param name="dataStoreName" value="traits" />            
       			<param name="inMemory" value="false" />            
       			<param name="fileName" value="d:/berkeleyDB-gedcom" />            
 	        </plugin>
 		</component>
 		
-		
-		  <component api="EnvironmentManager" class="io.vertigo.dynamo.impl.environment.EnvironmentManagerImpl">
-	        <plugin class="io.vertigo.dynamo.plugins.environment.loaders.kpr.KprLoaderPlugin" >
-	            <param name ="kpr" value="demo.kpr"/>
-	        </plugin>  
-	        <plugin class="io.vertigo.dynamo.plugins.environment.loaders.java.AnnotationLoaderPlugin" >
-	               <param name ="classes" value="com.kleegroup.demo2.domain.DtDefinitions"/>
-	        </plugin>  
+		<component api="EnvironmentManager" class="io.vertigo.dynamo.impl.environment.EnvironmentManagerImpl">
+	        <plugin class="io.vertigo.dynamo.plugins.environment.loaders.kpr.KprLoaderPlugin" />
 	        <plugin class="io.vertigo.dynamo.plugins.environment.registries.domain.DomainDynamicRegistryPlugin" />
 	    </component>
 	    
-		
-			
 		<component api="GeoCoderManager" class="io.vertigo.labs.impl.geocoder.GeoCoderManagerImpl">
 			<plugin class="io.vertigo.labs.plugins.geocoder.google.GoogleGeoCoderPlugin">
 				<param name="proxyHost" value="172.20.0.9" />
@@ -35,9 +28,16 @@
 			</plugin>
 		</component>
 		<component api="GedcomManager" class="io.vertigo.labs.impl.gedcom.GedcomManagerImpl">
+      		<param name="dataStoreName" value="gedcom" />            
 			<param name="gedcom" value="io/vertigo/labs/gedcom/louis14.ged" />
 		</component>
 		
-		<component api="TraitManager" class="io.vertigo.labs.impl.trait.TraitManagerImpl" />
+		<component api="TraitManager" class="io.vertigo.labs.impl.trait.TraitManagerImpl" >
+      			<param name="dataStoreName" value="traits" />            
+		</component>
+	</module>
+	
+	<module name="test">
+		<resource type="kpr" path="demo.kpr" />
 	</module>
 </modules>
