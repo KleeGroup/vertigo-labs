@@ -22,8 +22,8 @@ public class RedisManagerTest extends AbstractTestCaseJU4 {
 
 	@Before
 	public void before() {
-//		final RedisServer redisServer = new RedisServer(6380);
-//		redisServer.start();
+		//		final RedisServer redisServer = new RedisServer(6380);
+		//		redisServer.start();
 		//----
 		redis = redisManager.createClient();
 		redis.flushAll();
@@ -57,7 +57,7 @@ public class RedisManagerTest extends AbstractTestCaseJU4 {
 
 	//append, get
 	@Test
-	public void testString() throws Exception {
+	public void testString() {
 		Assert.assertEquals(null, redis.get("code"));
 		Assert.assertFalse(redis.exists("code"));
 		redis.append("code", "1");
@@ -69,7 +69,7 @@ public class RedisManagerTest extends AbstractTestCaseJU4 {
 	}
 
 	@Test
-	public void testList() throws Exception {
+	public void testList() {
 		Assert.assertEquals(0, redis.llen("actors"));
 		redis.lpush("actors", "marlon");
 		redis.lpushx("actors", "harrison");
@@ -201,7 +201,7 @@ public class RedisManagerTest extends AbstractTestCaseJU4 {
 	}
 
 	@Test
-	public void testHyperLogLog() throws Exception {
+	public void testHyperLogLog() {
 		redis.pfadd("hll", "foo", "bar", "zap");
 		redis.pfadd("hll", "zap", "zap", "zap");
 		redis.pfadd("hll", "foo", "bar");
@@ -220,7 +220,7 @@ public class RedisManagerTest extends AbstractTestCaseJU4 {
 	}
 
 	@Test
-	public void testHash() throws Exception {
+	public void testHash() {
 		Assert.assertEquals(0, redis.hlen("user/1"));
 		final Map<String, String> map = new HashMap<>();
 		map.put("firstname", "john");
@@ -262,7 +262,7 @@ public class RedisManagerTest extends AbstractTestCaseJU4 {
 	}
 
 	@Test
-	public void testScripting() throws Exception {
+	public void testScripting() {
 		redis.flushAll();
 		Assert.assertEquals("OK", redis.eval("return redis.call('set','foo','bar')"));
 		Assert.assertEquals("bar", redis.get("foo"));
@@ -272,7 +272,7 @@ public class RedisManagerTest extends AbstractTestCaseJU4 {
 	}
 
 	@Test
-	public void testConnection() throws Exception {
+	public void testConnection() {
 		Assert.assertEquals("PONG", redis.ping());
 		Assert.assertEquals("hello", redis.echo("hello"));
 	}
