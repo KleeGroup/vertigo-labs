@@ -73,8 +73,10 @@ final class DocumentBinding extends TupleBinding implements DocumentBindingReade
 		final DocumentBuilder documentBuilder = new DocumentBuilder(documentVersion);
 		final Long size = ti.readLong();
 		final String name = ti.readString();
-		documentBuilder.setName(name);
-		documentBuilder.setSize(size);
+
+		documentBuilder//
+				.withName(name)//
+				.withSize(size);
 
 		if (!readVersionOnly) {
 			final String content = ti.readString();
@@ -84,14 +86,14 @@ final class DocumentBinding extends TupleBinding implements DocumentBindingReade
 			final MetaDataContainer enhancedMetaDataContainer = doEntryToMdc(ti);
 			final MetaDataContainer userDefinedMetaDataContainer = doEntryToMdc(ti);
 
-			documentBuilder.setContent(content);
-			documentBuilder.setType(type);
-			documentBuilder.setExtractedMetaDataContainer(extractedMetaDataContainer);
-			documentBuilder.setEnhancedMetaDataContainer(enhancedMetaDataContainer);
-			documentBuilder.setUserDefinedMetaDataContainer(userDefinedMetaDataContainer);
+			documentBuilder//
+					.withContent(content)//
+					.withType(type)//
+					.withExtractedMetaDataContainer(extractedMetaDataContainer)//
+					.withEnhancedMetaDataContainer(enhancedMetaDataContainer)//
+					.withUserDefinedMetaDataContainer(userDefinedMetaDataContainer);
 		}
-		final Document document = documentBuilder.build();
-		return document;
+		return documentBuilder.build();
 	}
 
 	private void doDocumentToEntry(final Document document, final TupleOutput to) {
@@ -149,11 +151,11 @@ final class DocumentBinding extends TupleBinding implements DocumentBindingReade
 		final String dataSourceId = ti.readString();
 		final Date lastModified = new Date(ti.readLong());
 
-		final DocumentVersionBuilder documentVersionBuilder = new DocumentVersionBuilder();
-		documentVersionBuilder.setSourceUrl(url);
-		documentVersionBuilder.setLastModified(lastModified);
-		documentVersionBuilder.setDataSourceId(dataSourceId);
-		return documentVersionBuilder.build();
+		return new DocumentVersionBuilder()//
+				.withSourceUrl(url)//
+				.withLastModified(lastModified)//
+				.withDataSourceId(dataSourceId)//
+				.build();
 	}
 
 	private MetaDataContainer doEntryToMdc(final TupleInput ti) {

@@ -8,7 +8,7 @@ import io.vertigo.dynamo.search.metamodel.IndexDefinition;
 import io.vertigo.knock.channel.DocumentConverter;
 import io.vertigo.knock.crawler.Crawler;
 import io.vertigo.knock.document.DocumentStore;
-import io.vertigo.knock.document.processors.DocumentPostProcessor;
+import io.vertigo.knock.processors.DocumentPostProcessor;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -2,7 +2,7 @@ package io.vertigo.knock.channel;
 
 import io.vertigo.core.component.Manager;
 import io.vertigo.knock.channel.metadefinition.ChannelDefinition;
-import io.vertigo.knock.document.processors.DocumentPostProcessor;
+import io.vertigo.knock.processors.DocumentPostProcessor;
 
 import java.util.List;
 

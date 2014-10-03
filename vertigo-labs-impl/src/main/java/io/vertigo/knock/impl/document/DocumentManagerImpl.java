@@ -2,6 +2,7 @@ package io.vertigo.knock.impl.document;
 
 import io.vertigo.core.Home;
 import io.vertigo.core.lang.Assertion;
+import io.vertigo.core.util.StringUtil;
 import io.vertigo.dynamo.file.FileManager;
 import io.vertigo.dynamo.file.model.KFile;
 import io.vertigo.knock.document.DocumentManager;
@@ -74,27 +75,26 @@ public final class DocumentManagerImpl implements DocumentManager {
 		excludedMetaData.add(FileInfoMetaData.LAST_MODIFIED);
 
 		final MetaDataContainerBuilder mdcBuilder = new MetaDataContainerBuilder();
-		documentBuilder.setName((String) mdc.getValue(FileInfoMetaData.FILE_NAME));
-		documentBuilder.setSize((Long) mdc.getValue(FileInfoMetaData.SIZE));
 		final String type = (String) mdc.getValue(FileInfoMetaData.FILE_EXTENSION);
-		if (type == null || type.isEmpty()) {
-			documentBuilder.setType("<aucun>");
-		} else {
-			documentBuilder.setType(type);
-		}
+
+		documentBuilder//
+				.withName((String) mdc.getValue(FileInfoMetaData.FILE_NAME))//
+				.withSize((Long) mdc.getValue(FileInfoMetaData.SIZE))//
+				.withType(StringUtil.isEmpty(type) ? "<aucun>" : type)//
+				.withContent("");//vide par defaut
+
 		//documentBuilder.setLastModified((Date) mdc.getValue(FileInfoMetaData.LAST_MODIFIED));
-		documentBuilder.setContent("");//vide par defaut
 		boolean contentSet = false;
 		for (final MetaData metaData : mdc.getMetaDataSet()) {
 			if ("CONTENT".equals(metaData.toString())) {
 				Assertion.checkArgument(!contentSet, "Le contenu � d�j� �t� trouv�, que faire de {0}.CONTENT ?", metaData.getClass().getName());
-				documentBuilder.setContent((String) mdc.getValue(metaData));
+				documentBuilder.withContent((String) mdc.getValue(metaData));
 				contentSet = true;
 			} else if (!excludedMetaData.contains(metaData)) {
 				mdcBuilder.withMetaData(metaData, mdc.getValue(metaData));
 			}
 		}
-		documentBuilder.setExtractedMetaDataContainer(mdcBuilder.build());
+		documentBuilder.withExtractedMetaDataContainer(mdcBuilder.build());
 	}
 	//
 	//	/** {@inheritDoc} */

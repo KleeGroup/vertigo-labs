@@ -12,17 +12,17 @@ import java.util.UUID;
 */
 public final class DocumentBuilder implements Builder<Document> {
 	//Version
-	private Long size;
+	private Long mySize;
 
 	//ExtractedMetaContent
-	private String name;
-	private String content;
-	private String type;
-	private MetaDataContainer extractedMetaDataContainer;
+	private String myName;
+	private String myContent;
+	private String myType;
+	private MetaDataContainer myExtractedMetaDataContainer;
 	//Processed
-	private MetaDataContainer enhancedMetaDataContainer;
+	private MetaDataContainer myEnhancedMetaDataContainer;
 	//UserDefinedMetaData
-	private MetaDataContainer userDefinedMetaDataContainer;
+	private MetaDataContainer myUserDefinedMetaDataContainer;
 
 	private final DocumentVersion documentVersion;
 	private final Document document;
@@ -33,8 +33,8 @@ public final class DocumentBuilder implements Builder<Document> {
 		//Constructeur par d�faut.
 		this.documentVersion = documentVersion;
 		document = null;
-		content = "";
-		type = "";
+		myContent = "";
+		myType = "";
 	}
 
 	public DocumentBuilder(final Document document) {
@@ -46,55 +46,62 @@ public final class DocumentBuilder implements Builder<Document> {
 	}
 
 	//Version
-	public void setSize(final long size) {
-		this.size = size;
+	public DocumentBuilder withSize(final long size) {
+		this.mySize = size;
+		return this;
 	}
 
 	//ExtractedMetaContent
-	public void setName(final String name) {
-		this.name = name;
+	public DocumentBuilder withName(final String name) {
+		this.myName = name;
+		return this;
 	}
 
-	public void setContent(final String content) {
-		this.content = content;
+	public DocumentBuilder withContent(final String content) {
+		this.myContent = content;
+		return this;
 	}
 
-	public void setType(final String type) {
-		this.type = type;
+	public DocumentBuilder withType(final String type) {
+		this.myType = type;
+		return this;
 	}
 
-	public void setExtractedMetaDataContainer(final MetaDataContainer extractedMetaDataContainer) {
-		this.extractedMetaDataContainer = extractedMetaDataContainer;
+	public DocumentBuilder withExtractedMetaDataContainer(final MetaDataContainer extractedMetaDataContainer) {
+		this.myExtractedMetaDataContainer = extractedMetaDataContainer;
+		return this;
 	}
 
-	public void setEnhancedMetaDataContainer(final MetaDataContainer enhancedMetaDataContainer) {
-		this.enhancedMetaDataContainer = enhancedMetaDataContainer;
+	public DocumentBuilder withEnhancedMetaDataContainer(final MetaDataContainer enhancedMetaDataContainer) {
+		this.myEnhancedMetaDataContainer = enhancedMetaDataContainer;
+		return this;
 	}
 
-	public void setUserDefinedMetaDataContainer(final MetaDataContainer userDefinedMetaDataContainer) {
-		this.userDefinedMetaDataContainer = userDefinedMetaDataContainer;
+	public DocumentBuilder withUserDefinedMetaDataContainer(final MetaDataContainer userDefinedMetaDataContainer) {
+		this.myUserDefinedMetaDataContainer = userDefinedMetaDataContainer;
+		return this;
 	}
 
 	public Document build() {
 		if (document == null) {
 			//Pour le premier document on commence la r�vision � 0. (Pas de r�vision)
-			return new Document(documentVersion, size, nextRevision(), name, content, type,//
-					get(MetaDataContainer.EMPTY_META_DATA_CONTAINER, extractedMetaDataContainer),//
-					get(MetaDataContainer.EMPTY_META_DATA_CONTAINER, enhancedMetaDataContainer),//
-					get(MetaDataContainer.EMPTY_META_DATA_CONTAINER, userDefinedMetaDataContainer));
+			return new Document(documentVersion, mySize, nextRevision(), myName, myContent, myType,//
+					get(MetaDataContainer.EMPTY_META_DATA_CONTAINER, myExtractedMetaDataContainer),//
+					get(MetaDataContainer.EMPTY_META_DATA_CONTAINER, myEnhancedMetaDataContainer),//
+					get(MetaDataContainer.EMPTY_META_DATA_CONTAINER, myUserDefinedMetaDataContainer));
 		}
 
-		final MetaDataContainer overriddenExtractedMetaDataContainer = get(document.getExtractedMetaDataContainer(), extractedMetaDataContainer);
-		final MetaDataContainer overriddenEnhancedMetaDataContainer = get(document.getEnhancedMetaDataContainer(), enhancedMetaDataContainer);
-		final MetaDataContainer overriddenUserDefinedMetaDataContainer = get(document.getUserDefinedMetaDataContainer(), userDefinedMetaDataContainer);
+		final MetaDataContainer overriddenExtractedMetaDataContainer = get(document.getExtractedMetaDataContainer(), myExtractedMetaDataContainer);
+		final MetaDataContainer overriddenEnhancedMetaDataContainer = get(document.getEnhancedMetaDataContainer(), myEnhancedMetaDataContainer);
+		final MetaDataContainer overriddenUserDefinedMetaDataContainer = get(document.getUserDefinedMetaDataContainer(), myUserDefinedMetaDataContainer);
 
 		return new Document(//
 				documentVersion,//
-				get(document.getSize(), size),//
+				get(document.getSize(), mySize),//
 				nextRevision(),//
-				get(document.getName(), name),//
-				get(document.getContent(), content),//
-				get(document.getType(), type),//
+				get(document.getName(), myName),//
+				get(document.getContent(), myContent),//
+				get(document.getType(), myType),//
 				get(MetaDataContainer.EMPTY_META_DATA_CONTAINER, overriddenExtractedMetaDataContainer),//
 				get(MetaDataContainer.EMPTY_META_DATA_CONTAINER, overriddenEnhancedMetaDataContainer),//
 				get(MetaDataContainer.EMPTY_META_DATA_CONTAINER, overriddenUserDefinedMetaDataContainer));

@@ -166,11 +166,11 @@ public final class FSCrawlerPlugin implements CrawlerPlugin {
 				throw new NoSuchElementException("Liste vide");
 			}
 			final File file = fileIterator.next();
-			final DocumentVersionBuilder documentVersionBuilder = new DocumentVersionBuilder();
-			documentVersionBuilder.setSourceUrl(getRelativeUrl(file, basePath));
-			documentVersionBuilder.setDataSourceId(dataSourceId);
-			documentVersionBuilder.setLastModified(getNormalizedLastModified(file));
-			return documentVersionBuilder.build();
+			return new DocumentVersionBuilder()//
+					.withSourceUrl(getRelativeUrl(file, basePath))//
+					.withDataSourceId(dataSourceId)//
+					.withLastModified(getNormalizedLastModified(file))//
+					.build();
 		}
 
 		public void remove() {

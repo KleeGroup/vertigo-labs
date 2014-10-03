@@ -34,12 +34,13 @@ public final class MetaDataContainerBuilder implements Builder<MetaDataContainer
 	 * Les pr�c�dentes m�tadonn�es sont possiblement remplac�es par les nouvelles.
 	 * @param metaDataContainer MDC � ajouter
 	 */
-	public void withAllMetaDatas(final MetaDataContainer metaDataContainer) {
+	public MetaDataContainerBuilder withAllMetaDatas(final MetaDataContainer metaDataContainer) {
 		Assertion.checkNotNull(metaDataContainer);
 		//---------------------------------------------------------------------
 		for (final MetaData metaData : metaDataContainer.getMetaDataSet()) {
 			withMetaData(metaData, metaDataContainer.getValue(metaData));
 		}
+		return this;
 	}
 
 	/**

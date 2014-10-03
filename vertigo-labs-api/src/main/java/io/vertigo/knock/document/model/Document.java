@@ -125,11 +125,11 @@ public final class Document implements Serializable {
 	public MetaDataContainer getMetaDataContainer() {
 		//On fabrique � la vol�e le MDC total.
 		//@TODO si beaucoup utilis� alors construire au d�marrage.
-		final MetaDataContainerBuilder metaDataContainerBuilder = new MetaDataContainerBuilder();
 		//L'ordre est important les MetaDonn�es utilisateurs peuvent donc surcharg�es des Metadonn�es "techniques"
-		metaDataContainerBuilder.withAllMetaDatas(extractedMetaDataContainer);
-		metaDataContainerBuilder.withAllMetaDatas(enhancedMetaDataContainer);
-		metaDataContainerBuilder.withAllMetaDatas(userDefinedMetaDataContainer);
-		return metaDataContainerBuilder.build();
+		return new MetaDataContainerBuilder()//
+				.withAllMetaDatas(extractedMetaDataContainer)//
+				.withAllMetaDatas(enhancedMetaDataContainer)//
+				.withAllMetaDatas(userDefinedMetaDataContainer)//
+				.build();
 	}
 }

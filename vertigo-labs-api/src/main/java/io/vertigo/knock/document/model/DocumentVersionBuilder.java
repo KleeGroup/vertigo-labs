@@ -11,9 +11,9 @@ import java.util.Date;
 */
 public final class DocumentVersionBuilder implements Builder<DocumentVersion> {
 	//URL
-	private String sourceUrl;
-	private String dataSourceId;
-	private Date lastModified;
+	private String mySourceUrl;
+	private String myDataSourceId;
+	private Date myLastModified;
 
 	private final DocumentVersion documentVersion;
 
@@ -31,36 +31,39 @@ public final class DocumentVersionBuilder implements Builder<DocumentVersion> {
 		this.documentVersion = documentVersion;
 	}
 
-	public void setSourceUrl(final String sourceUrl) {
+	public DocumentVersionBuilder withSourceUrl(final String sourceUrl) {
 		Assertion.checkNotNull(sourceUrl);
-		Assertion.checkArgument(this.sourceUrl == null, "sourceUrl mus be empty");
+		Assertion.checkArgument(this.mySourceUrl == null, "sourceUrl mus be empty");
 		//---------------------------------------------------------------------
-		this.sourceUrl = sourceUrl;
+		this.mySourceUrl = sourceUrl;
+		return this;
 	}
 
-	public void setDataSourceId(final String dataSourceId) {
+	public DocumentVersionBuilder withDataSourceId(final String dataSourceId) {
 		Assertion.checkNotNull(dataSourceId);
-		Assertion.checkArgument(this.dataSourceId == null, "dataSourceId mus be empty");
+		Assertion.checkArgument(this.myDataSourceId == null, "dataSourceId mus be empty");
 		//---------------------------------------------------------------------
-		this.dataSourceId = dataSourceId;
+		this.myDataSourceId = dataSourceId;
+		return this;
 	}
 
-	public void setLastModified(final Date lastModified) {
+	public DocumentVersionBuilder withLastModified(final Date lastModified) {
 		Assertion.checkNotNull(lastModified);
-		Assertion.checkArgument(this.lastModified == null, "lastModified mus be empty");
+		Assertion.checkArgument(this.myLastModified == null, "lastModified mus be empty");
 		//---------------------------------------------------------------------
-		this.lastModified = lastModified;
+		this.myLastModified = lastModified;
+		return this;
 	}
 
 	public DocumentVersion build() {
 		if (documentVersion == null) {
-			return new DocumentVersion(dataSourceId, sourceUrl, lastModified);
+			return new DocumentVersion(myDataSourceId, mySourceUrl, myLastModified);
 		}
 
 		return new DocumentVersion(//
-				get(documentVersion.getDataSourceId(), dataSourceId), //
-				get(documentVersion.getUrl(), sourceUrl),//
-				get(documentVersion.getLastModified(), lastModified));
+				get(documentVersion.getDataSourceId(), myDataSourceId), //
+				get(documentVersion.getUrl(), mySourceUrl),//
+				get(documentVersion.getLastModified(), myLastModified));
 	}
 
 	private static <X> X get(final X firstValue, final X overriddenValue) {

@@ -12,10 +12,10 @@ import io.vertigo.knock.crawler.CrawlerManager;
 import io.vertigo.knock.document.DocumentStore;
 import io.vertigo.knock.document.model.Document;
 import io.vertigo.knock.document.model.DocumentVersion;
-import io.vertigo.knock.document.processors.DocumentEnhancer;
-import io.vertigo.knock.document.processors.DocumentPostProcessor;
 import io.vertigo.knock.impl.channel.datapipe.StatsDocument;
 import io.vertigo.knock.plugins.channel.DocumentConverterPlugin;
+import io.vertigo.knock.processors.DocumentEnhancer;
+import io.vertigo.knock.processors.DocumentPostProcessor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
