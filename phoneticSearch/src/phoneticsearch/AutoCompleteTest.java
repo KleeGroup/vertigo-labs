@@ -8,6 +8,7 @@ import java.io.Reader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -18,10 +19,9 @@ import au.com.bytecode.opencsv.CSVReader;
 
 public class AutoCompleteTest {
 
-	//private static final String DATAS_PATH = "phoneticsearch/datas/testdatas.csv";
 	//private static final String DATAS_PATH = "phoneticsearch/datas/actors.list;phoneticsearch/datas/actresses.list";
-	private static final String DATAS_PATH = "phoneticsearch/datas/actors.csv;phoneticsearch/datas/testdatas.csv";
-	//private static final String DATAS_PATH = "phoneticsearch/datas/testdatas.csv";
+	private static final String ACTORS_DATAS_PATH = "phoneticsearch/datas/actors.csv";
+	private static final String KLEE_DATAS_PATH = "phoneticsearch/datas/klee.csv";
 
 	private static final int NAME_COL = 0;
 	private static final int FIRSTNAME_COL = 1;
@@ -118,10 +118,40 @@ public class AutoCompleteTest {
 	}
 
 	public void init() throws IOException, ParseException {
-		loadDatas(DATAS_PATH);
+		loadDatas(KLEE_DATAS_PATH);
 		indexPlugin.indexDatas(datas);
 		datas.clear();
-		autoCompleteUi = new AutoCompleteUi(indexPlugin);
-	}
+		autoCompleteUi = new AutoCompleteUi(new SearchHandler() {
+			public List<Person> search(final String lookFor) {
+				if (lookFor.startsWith("index:")) {
+					try {
+						if ("index:actors".equals(lookFor)) {
+							loadDatas(ACTORS_DATAS_PATH);
+							indexPlugin.indexDatas(datas);
+						} else if ("index:klee".equals(lookFor)) {
+							loadDatas(KLEE_DATAS_PATH);
+							indexPlugin.indexDatas(datas);
+						} else if ("index:clear".equals(lookFor)) {
+							datas.clear();
+							indexPlugin.indexDatas(datas);
+						} else {
+							final Person result = new Person(lookFor, "unknown", "", null, "", "", "", "");
+							result.setScore(100);
+							return Collections.singletonList(result);
+						}
+						final Person result = new Person(lookFor, "Done", "", null, "", "", "", "");
+						result.setScore(100);
+						return Collections.singletonList(result);
+					} catch (IOException | ParseException e) {
+						datas.clear();
+						final Person result = new Person(lookFor, "Error :" + e.getMessage(), "", null, "", "", "", "");
+						result.setScore(100);
+						return Collections.singletonList(result);
+					}
+				}
 
+				return indexPlugin.getCollection(lookFor);
+			}
+		});
+	}
 }

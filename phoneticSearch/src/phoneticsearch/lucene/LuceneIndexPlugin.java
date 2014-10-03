@@ -193,7 +193,7 @@ public final class LuceneIndexPlugin {
 					final BooleanQuery frWordQuery = createWordQuery(frQueryAnalyser, fieldName, tokenizedKeyword);
 					frWordQuery.setBoost(frWordQuery.getBoost() * 2);
 					final BooleanQuery nonfrWordQuery = createWordQuery(nonfrQueryAnalyser, fieldName, tokenizedKeyword);
-					nonfrWordQuery.setBoost(nonfrWordQuery.getBoost() /2);
+					nonfrWordQuery.setBoost(nonfrWordQuery.getBoost() / 2);
 					wordQuery.add(frWordQuery, BooleanClause.Occur.SHOULD);
 					wordQuery.add(nonfrWordQuery, BooleanClause.Occur.SHOULD);
 					query.add(wordQuery, BooleanClause.Occur.MUST);
@@ -260,13 +260,14 @@ public final class LuceneIndexPlugin {
 	 */
 	public List<Person> getCollection(final String keywords) {
 		try {
-			return this.<Person> getCollection(keywords, new String[] { "fullname" }, 20,  "name");
+			return this.<Person> getCollection(keywords, new String[] { "fullname" }, 20, "name");
 		} catch (final IOException | InvalidTokenOffsetsException e) {
 			throw new RuntimeException("Erreur d'indexation", e);
 		}
 	}
 
 	public void indexDatas(final List<Person> datas) throws IOException {
+		index = null;
 		index = createIndex(datas, false);
 	}
 }
