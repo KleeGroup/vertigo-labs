@@ -167,12 +167,13 @@ public final class FSCrawlerPlugin implements CrawlerPlugin {
 			}
 			final File file = fileIterator.next();
 			return new DocumentVersionBuilder()//
-					.withSourceUrl(getRelativeUrl(file, basePath))//
-					.withDataSourceId(dataSourceId)//
-					.withLastModified(getNormalizedLastModified(file))//
-					.build();
+			.withSourceUrl(getRelativeUrl(file, basePath))//
+			.withDataSourceId(dataSourceId)//
+			.withLastModified(getNormalizedLastModified(file))//
+			.build();
 		}
 
+		@Override
 		public void remove() {
 			throw new UnsupportedOperationException();
 		}
