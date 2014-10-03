@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>io.vertigo</groupId>
 		<artifactId>vertigo-parent</artifactId>
-		<version>0.4.4-SNAPSHOT</version>
+		<version>0.5.3-SNAPSHOT</version>
 	</parent>
 	
 	<artifactId>vertigo-labs-api</artifactId>
@@ -22,6 +22,8 @@
 			<artifactId>vertigo-dynamo-api</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		
+	
 	</dependencies>
 		
 </project>

@@ -1,0 +1,34 @@
+package io.vertigo.knock.plugins.metadata.microsoft;
+
+import io.vertigo.core.lang.Assertion;
+import io.vertigo.knock.metadata.MetaDataContainerBuilder;
+
+import org.apache.poi.hpsf.PropertySetFactory;
+import org.apache.poi.hpsf.SummaryInformation;
+import org.apache.poi.poifs.eventfilesystem.POIFSReaderEvent;
+import org.apache.poi.poifs.eventfilesystem.POIFSReaderListener;
+
+final class POIFSReaderListenerImpl implements POIFSReaderListener {
+	private final MetaDataContainerBuilder metaDataContainerBuilder;
+
+	POIFSReaderListenerImpl(final MetaDataContainerBuilder metaDataContainerBuilder) {
+		Assertion.checkNotNull(metaDataContainerBuilder);
+		//---------------------------------------------------------------------
+		this.metaDataContainerBuilder = metaDataContainerBuilder;
+	}
+
+	/** {@inheritDoc} */
+	public void processPOIFSReaderEvent(final POIFSReaderEvent event) {
+		try {
+			final SummaryInformation si = (SummaryInformation) PropertySetFactory.create(event.getStream());
+			metaDataContainerBuilder//
+					.withMetaData(MSMetaData.TITLE, si.getTitle())//
+					.withMetaData(MSMetaData.AUTHOR, si.getAuthor())//
+					.withMetaData(MSMetaData.SUBJECT, si.getSubject())//
+					.withMetaData(MSMetaData.COMMENTS, si.getComments())//
+					.withMetaData(MSMetaData.KEYWORDS, si.getKeywords());
+		} catch (final Exception ex) {
+			throw new RuntimeException("processPOIFSReaderEvent", ex);
+		}
+	}
+}
