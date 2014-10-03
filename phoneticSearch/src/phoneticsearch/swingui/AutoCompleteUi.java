@@ -2,6 +2,8 @@ package phoneticsearch.swingui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
@@ -17,6 +19,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import phoneticsearch.Person;
@@ -25,7 +28,7 @@ import phoneticsearch.SearchHandler;
 public class AutoCompleteUi extends JFrame {
 
 	private static final long serialVersionUID = 3277131006759672639L;
-	private final JPanel criteriaPanel = new JPanel();
+	//private final JPanel criteriaPanel = new JPanel();
 	private final JTextField inputField = new JTextField(20);
 	private final JPanel resultPanel = new JPanel();
 
@@ -44,20 +47,29 @@ public class AutoCompleteUi extends JFrame {
 		femaleIcon = loadImageIcon("phoneticsearch/swingui/female-icon.png");
 		unknownIcon = loadImageIcon("phoneticsearch/swingui/klee-icon.png");
 		getContentPane().setBackground(Color.WHITE);
-		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
+		getContentPane().setLayout(new BorderLayout());
 
 		// setLayout(new GridLayout(3, 1));
-		setVisible(true);
 
-		add(inputField);
+		final JPanel inputContainer = new JPanel();
+		inputContainer.add(inputField);
+
+		add(inputContainer, BorderLayout.NORTH);
 		// add(criteriaPanel);
 		resultPanel.setLayout(new BoxLayout(resultPanel, BoxLayout.PAGE_AXIS));
-		resultPanel.setBackground(Color.white);
-		add(resultPanel);
-
-		pack();
+		resultPanel.setBackground(Color.WHITE);
+		final JPanel container = new JPanel(new BorderLayout());
+		container.setBackground(Color.WHITE);
+		container.add(resultPanel, BorderLayout.NORTH);
+		add(new JScrollPane(container), BorderLayout.CENTER);
+		setSize(300, 500);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		inputField.addKeyListener(new ChangeHandler());
+		final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		final int x = screenSize.width / 4; // - getWidth() /2
+		final int y = screenSize.height / 4;// - getHeight() / 2;
+		setBounds(x, y, getWidth(), getHeight());
+		setVisible(true);
 	}
 
 	private ImageIcon loadImageIcon(final String imagePath) throws IOException {
@@ -77,13 +89,15 @@ public class AutoCompleteUi extends JFrame {
 				break;
 			}
 			final JPanel personPanel = createPanel(person);
+			//personPanel.setSize(0, 0);
 			resultPanel.add(personPanel);
 			index++;
 		}
 		if (searchResult.size() == 0) {
 			resultPanel.add(new JLabel("Aucun resultat pertinent"));
 		}
-		pack();
+		//resultPanel.pack();
+		revalidate();
 		this.repaint();
 	}
 
@@ -128,11 +142,16 @@ public class AutoCompleteUi extends JFrame {
 			// rien
 		}
 
+		private String previous;
+
 		@Override
 		public void keyReleased(final KeyEvent e) {
-			clearResult();
-			if (inputField.getText().length() >= 3) {
-				initiateSearch(inputField.getText());
+			if (!inputField.getText().equals(previous)) {
+				previous = inputField.getText();
+				clearResult();
+				if (inputField.getText().length() >= 3) {
+					initiateSearch(inputField.getText());
+				}
 			}
 		}
 	}
@@ -141,7 +160,7 @@ public class AutoCompleteUi extends JFrame {
 
 	public final void clearResult() {
 		resultPanel.removeAll();
-		pack();
+		//pack();
 		this.repaint();
 	}
 }
