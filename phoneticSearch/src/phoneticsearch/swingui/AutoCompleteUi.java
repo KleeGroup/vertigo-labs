@@ -3,7 +3,11 @@ package phoneticsearch.swingui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -20,19 +24,23 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
+import phoneticsearch.MessageOutput;
 import phoneticsearch.Person;
 import phoneticsearch.SearchHandler;
 
-public class AutoCompleteUi extends JFrame {
+public class AutoCompleteUi extends JFrame implements MessageOutput {
 
 	private static final long serialVersionUID = 3277131006759672639L;
 	//private final JPanel criteriaPanel = new JPanel();
 	private final JTextField inputField = new JTextField(20);
-	private final JPanel resultPanel = new JPanel();
+	private final JPanel resultPanel;
 
 	private final ImageIcon maleIcon;
 	private final ImageIcon femaleIcon;
@@ -45,6 +53,11 @@ public class AutoCompleteUi extends JFrame {
 	// ------------------------------------------------------------------------------
 	public AutoCompleteUi(final SearchHandler searchHandler) throws IOException {
 		this.searchHandler = searchHandler;
+		setSize(413 + 5, 808 + 28);
+
+		//UIManager.put("ProgressBar.background", Color.LIGHT_GRAY);
+		UIManager.put("ProgressBar.foreground", new Color(170, 221, 0));
+		UIManager.put("Panel.background", Color.WHITE);
 
 		maleIcon = loadImageIcon("phoneticsearch/swingui/male-icon.png");
 		femaleIcon = loadImageIcon("phoneticsearch/swingui/female-icon.png");
@@ -57,7 +70,7 @@ public class AutoCompleteUi extends JFrame {
 
 		final JPanel inputContainer = new JPanel();
 		inputContainer.add(inputField);
-
+		resultPanel = new JPanel();
 		resultPanel.setLayout(new BoxLayout(resultPanel, BoxLayout.PAGE_AXIS));
 		final JPanel container = new JPanel(new BorderLayout());
 		container.add(resultPanel, BorderLayout.NORTH);
@@ -69,18 +82,15 @@ public class AutoCompleteUi extends JFrame {
 		jScrollPane.setBorder(null);
 		add(jScrollPane, BorderLayout.CENTER);
 
-		setSize(413 + 15, 808 + 38);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		inputField.addKeyListener(new ChangeHandler());
 		final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		final int x = screenSize.width / 3 - getWidth() / 2;
 		final int y = screenSize.height / 2 - getHeight() / 2;
 		setBounds(x, y, getWidth(), getHeight());
+		setResizable(false);
 
 		inputContainer.setBackground(Color.GRAY);
-		inputField.setBackground(Color.WHITE);
-		resultPanel.setBackground(Color.WHITE);
-		container.setBackground(Color.WHITE);
 		inputContainer.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
 		jScrollPane.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
 
@@ -120,34 +130,98 @@ public class AutoCompleteUi extends JFrame {
 		this.repaint();
 	}
 
-	private JPanel createPanel(final Person person) {
-		final JPanel iconedpanel = new JPanel();
-		iconedpanel.setBackground(Color.WHITE);
+	/** {@inheritDoc} */
+	public void displayMessage(final String message) {
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				//clearResult();
+				resultPanel.add(new JLabel(message));
+				revalidate();
+				repaint();
+			}
+		});
+	}
 
-		iconedpanel.setLayout(new BorderLayout());
+	private JPanel createPanel(final Person person) {
+
+		final JPanel iconedpanel = new JPanel(new GridBagLayout());
 		final JLabel iconLabel = new JLabel("F".equals(person.getSexe()) ? femaleIcon : "M".equals(person.getSexe()) ? maleIcon : unknownIcon);
-		iconLabel.setSize(32, 32);
-		iconedpanel.add(iconLabel, BorderLayout.WEST);
-		final JPanel panel = new JPanel();
-		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+		iconLabel.setSize(35, 35);
 
 		final String birthdayString = person.getBirthday() != null ? new SimpleDateFormat("dd/MM/yyyy").format(person.getBirthday()) : "";
 		final String fullName = person.getName() + " " + person.getFirstname() + (birthdayString.isEmpty() ? "" : " (" + birthdayString + ")");
-		panel.add(new JLabel("(" + person.getScore() + "%) " + fullName));
+		final JLabel fullNameLabel = new JLabel(fullName);
+
+		final JProgressBar progressBar = new JProgressBar(0, 100);
+		progressBar.setValue(person.getScore());
+		progressBar.setPreferredSize(new Dimension(30, 10));
+		iconedpanel.add(progressBar, new GridBagConstraints(1, 0, //gridx, gridy
+				1, 1, //gridwidth, gridheight
+				0d, 0d, //weightx, weighty
+				GridBagConstraints.LINE_START, //anchor 
+				GridBagConstraints.NONE, //fill
+				new Insets(0, 0, 0, 0), //insets
+				0, 0 //ipadx, ipady
+				));
+
+		iconedpanel.add(fullNameLabel, new GridBagConstraints(2, 0, //gridx, gridy
+				1, 1, //gridwidth, gridheight
+				1d, 0d, //weightx, weighty
+				GridBagConstraints.LINE_START, //anchor 
+				GridBagConstraints.HORIZONTAL, //fill
+				new Insets(0, 5, 0, 0), //insets
+				0, 0 //ipadx, ipady
+				));
+
+		final Font miniFont = new Font(fullNameLabel.getFont().getName(), Font.PLAIN, fullNameLabel.getFont().getSize() - 2);
+		int gridy = 1;
+		JLabel jlabel;
 		if (!person.getAddress().isEmpty()) {
-			panel.add(new JLabel(person.getAddress()));
+			jlabel = new JLabel(person.getAddress());
+			jlabel.setFont(miniFont);
+			iconedpanel.add(jlabel, new GridBagConstraints(1, gridy++, //gridx, gridy
+					2, 1, //gridwidth, gridheight
+					1d, 0d, //weightx, weighty
+					GridBagConstraints.LINE_START, //anchor
+					GridBagConstraints.HORIZONTAL, //fill
+					new Insets(0, 0, 0, 0), //insets
+					0, 0 //ipadx, ipady
+					));
 		}
 		if (!person.getZipcode().isEmpty() || !person.getCity().isEmpty()) {
-			panel.add(new JLabel(person.getZipcode() + " " + person.getCity()));
+			jlabel = new JLabel(person.getZipcode() + " " + person.getCity());
+			jlabel.setFont(miniFont);
+			iconedpanel.add(jlabel, new GridBagConstraints(1, gridy++, //gridx, gridy
+					2, 1, //gridwidth, gridheight
+					1d, 0d, //weightx, weighty
+					GridBagConstraints.LINE_START, //anchor 
+					GridBagConstraints.HORIZONTAL, //fill
+					new Insets(0, 0, 0, 0), //insets
+					0, 0 //ipadx, ipady
+					));
 		}
 		if (!person.getPhone().isEmpty()) {
-			panel.add(new JLabel("Tel: " + person.getPhone()));
+			jlabel = new JLabel("Tel: " + person.getPhone());
+			jlabel.setFont(miniFont);
+			iconedpanel.add(jlabel, new GridBagConstraints(1, gridy++, //gridx, gridy
+					2, 1, //gridwidth, gridheight
+					1d, 0d, //weightx, weighty
+					GridBagConstraints.LINE_START, //anchor 
+					GridBagConstraints.HORIZONTAL, //fill
+					new Insets(0, 0, 0, 0), //insets
+					0, 0 //ipadx, ipady
+					));
 		}
-		panel.setBackground(Color.WHITE);
-		panel.setBorder(new EmptyBorder(0, 5, 0, 0));
+		iconedpanel.add(iconLabel, new GridBagConstraints(0, 0, //gridx, gridy
+				1, gridy, //gridwidth, gridheight
+				0d, 0d, //weightx, weighty
+				GridBagConstraints.CENTER, //anchor 
+				GridBagConstraints.BOTH, //fill
+				new Insets(0, 0, 0, 5), //insets
+				0, 0 //ipadx, ipady
+				));
 
 		iconedpanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.DARK_GRAY), BorderFactory.createEmptyBorder(2, 2, 2, 2)));
-		iconedpanel.add(panel, BorderLayout.CENTER);
 		return iconedpanel;
 	}
 
@@ -170,7 +244,13 @@ public class AutoCompleteUi extends JFrame {
 				previous = inputField.getText();
 				clearResult();
 				if (inputField.getText().length() >= 3) {
-					initiateSearch(inputField.getText());
+					final Thread queryThread = new Thread() {
+						@Override
+						public void run() {
+							initiateSearch(inputField.getText());
+						}
+					};
+					queryThread.start();
 				}
 			}
 		}

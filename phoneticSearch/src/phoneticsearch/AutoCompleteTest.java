@@ -42,20 +42,20 @@ public class AutoCompleteTest {
 		new AutoCompleteTest().init();
 	}
 
-	private void loadDatas(final String datasPaths) throws IOException, ParseException {
+	private void loadDatas(final String datasPaths, final MessageOutput out) throws IOException, ParseException {
 		for (final String datasPath : datasPaths.split(";")) {
 			try (InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(datasPath)) {
 				final Reader reader = new InputStreamReader(is);
 				if (datasPath.endsWith(".csv")) {
-					readCsv(reader);
+					readCsv(reader, out);
 				} else if (datasPath.endsWith(".list")) { //imdb
-					readImdbList(reader);
+					readImdbList(reader, out);
 				}
 			}
 		}
 	}
 
-	private void readCsv(final Reader reader) throws IOException, ParseException {
+	private void readCsv(final Reader reader, final MessageOutput out) throws IOException, ParseException {
 		try (final CSVReader csvReader = new CSVReader(reader, ';')) {
 			String[] row;
 			while ((row = csvReader.readNext()) != null) {
@@ -70,15 +70,15 @@ public class AutoCompleteTest {
 					newPerson = new Person(row[NAME_COL].toUpperCase(), row[FIRSTNAME_COL], row[SEXE_COL], null, "", "", "", "");
 				}
 				datas.add(newPerson);
-				if (datas.size() % 1000 == 0) {
-					System.out.println("load " + datas.size());
+				if (datas.size() % 5000 == 0) {
+					out.displayMessage("load " + datas.size());
 				}
 			}
-			System.out.println("load " + datas.size());
+			out.displayMessage("load " + datas.size() + " done");
 		}
 	}
 
-	private void readImdbList(final Reader reader) throws IOException {
+	private void readImdbList(final Reader reader, final MessageOutput out) throws IOException {
 		final BufferedReader br = new BufferedReader(reader);
 		String strLine;
 		//Read File Line By Line
@@ -91,8 +91,8 @@ public class AutoCompleteTest {
 					final int commaIndex = fullName.indexOf(',');
 					if (commaIndex > 0 && fullName.indexOf('\'') == -1 && fullName.indexOf('(') == -1) {
 						if (nbMovies > 40 && newPerson != null) {
-							if (datas.size() % 1000 == 0) {
-								System.out.println("load " + datas.size());
+							if (datas.size() % 5000 == 0) {
+								out.displayMessage("load " + datas.size());
 							}
 							datas.add(newPerson);
 							//System.out.println(newPerson.getName() + ";" + newPerson.getFirstname() + ";");
@@ -109,7 +109,7 @@ public class AutoCompleteTest {
 				nbMovies++;
 			}
 		}
-		System.out.println("load " + datas.size());
+		out.displayMessage("load " + datas.size() + " done");
 	}
 
 	// ------------------------------------------------------------------------------
@@ -118,40 +118,37 @@ public class AutoCompleteTest {
 	}
 
 	public void init() throws IOException, ParseException {
-		loadDatas(KLEE_DATAS_PATH);
-		indexPlugin.indexDatas(datas);
-		datas.clear();
 		autoCompleteUi = new AutoCompleteUi(new SearchHandler() {
 			public List<Person> search(final String lookFor) {
 				if (lookFor.startsWith("index:")) {
 					try {
 						if ("index:actors".equals(lookFor)) {
-							loadDatas(ACTORS_DATAS_PATH);
-							indexPlugin.indexDatas(datas);
+							loadDatas(ACTORS_DATAS_PATH, autoCompleteUi);
+							indexPlugin.indexDatas(datas, autoCompleteUi);
 						} else if ("index:klee".equals(lookFor)) {
-							loadDatas(KLEE_DATAS_PATH);
-							indexPlugin.indexDatas(datas);
+							loadDatas(KLEE_DATAS_PATH, autoCompleteUi);
+							indexPlugin.indexDatas(datas, autoCompleteUi);
 						} else if ("index:clear".equals(lookFor)) {
 							datas.clear();
-							indexPlugin.indexDatas(datas);
+							indexPlugin.indexDatas(datas, autoCompleteUi);
 						} else {
-							final Person result = new Person(lookFor, "unknown", "", null, "", "", "", "");
-							result.setScore(100);
-							return Collections.singletonList(result);
+							autoCompleteUi.displayMessage(lookFor + " : commande inconnue");
+							return Collections.emptyList();
 						}
-						final Person result = new Person(lookFor, "Done", "", null, "", "", "", "");
-						result.setScore(100);
-						return Collections.singletonList(result);
+						return Collections.emptyList();
 					} catch (IOException | ParseException e) {
 						datas.clear();
-						final Person result = new Person(lookFor, "Error :" + e.getMessage(), "", null, "", "", "", "");
-						result.setScore(100);
-						return Collections.singletonList(result);
+						autoCompleteUi.displayMessage(lookFor + " : erreur : " + e.getMessage());
+						return Collections.emptyList();
 					}
 				}
 
 				return indexPlugin.getCollection(lookFor);
 			}
 		});
+		loadDatas(KLEE_DATAS_PATH, autoCompleteUi);
+		indexPlugin.indexDatas(datas, autoCompleteUi);
+		datas.clear();
+		autoCompleteUi.displayMessage("Recherche phonétique prète : taper un nom");
 	}
 }

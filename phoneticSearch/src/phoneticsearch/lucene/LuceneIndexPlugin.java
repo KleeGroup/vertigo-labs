@@ -28,7 +28,6 @@ import java.util.UUID;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
-import org.apache.lucene.document.DateTools;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.StringField;
@@ -49,6 +48,7 @@ import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
 
+import phoneticsearch.MessageOutput;
 import phoneticsearch.Person;
 
 /**
@@ -81,7 +81,7 @@ public final class LuceneIndexPlugin {
 		noPhoneticQueryAnalyser = new DefaultAnalyzer(false, false, false);
 	}
 
-	private LuceneIndex<Person> createIndex(final List<Person> fullDtc, final boolean storeValue) throws IOException {
+	private LuceneIndex<Person> createIndex(final List<Person> fullDtc, final MessageOutput out) throws IOException {
 		final RamLuceneIndex<Person> luceneDb = new RamLuceneIndex<>(indexAnalyser);
 		try (final IndexWriter indexWriter = luceneDb.createIndexWriter()) {
 			long indexCount = 0;
@@ -95,7 +95,7 @@ public final class LuceneIndexPlugin {
 				document.add(createIndexed("name", dto.getName(), false));
 				document.add(createIndexed("firstname", dto.getFirstname(), false));
 
-				final String birthdaysString = dto.getBirthday() != null ? DateTools.dateToString(dto.getBirthday(), DateTools.Resolution.DAY) : "";
+				//final String birthdaysString = dto.getBirthday() != null ? DateTools.dateToString(dto.getBirthday(), DateTools.Resolution.DAY) : "";
 				//document.add(createKeyword("birthday", birthdaysString, false));
 
 				//document.add(createIndexed("address", dto.getAddress(), false));
@@ -113,10 +113,10 @@ public final class LuceneIndexPlugin {
 				indexWriter.addDocument(document);
 				luceneDb.mapDocument(uuid, dto);
 				if (++indexCount % 10000 == 0) {
-					System.out.println("index " + indexCount);
+					out.displayMessage("index " + indexCount);
 				}
 			}
-			System.out.println("index " + indexCount);
+			out.displayMessage("index " + indexCount + " done");
 			return luceneDb;
 		}
 	}
@@ -266,8 +266,8 @@ public final class LuceneIndexPlugin {
 		}
 	}
 
-	public void indexDatas(final List<Person> datas) throws IOException {
+	public void indexDatas(final List<Person> datas, final MessageOutput out) throws IOException {
 		index = null;
-		index = createIndex(datas, false);
+		index = createIndex(datas, out);
 	}
 }
