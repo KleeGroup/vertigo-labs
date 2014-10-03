@@ -8,6 +8,7 @@ import java.io.Reader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -18,18 +19,18 @@ import au.com.bytecode.opencsv.CSVReader;
 
 public class AutoCompleteTest {
 
-	//private static final String DATAS_PATH = "phoneticsearch/datas/testdatas.csv";
 	//private static final String DATAS_PATH = "phoneticsearch/datas/actors.list;phoneticsearch/datas/actresses.list";
-	private static final String DATAS_PATH = "phoneticsearch/datas/actors.csv;phoneticsearch/datas/testdatas.csv";
-	//private static final String DATAS_PATH = "phoneticsearch/datas/testdatas.csv";
+	private static final String ACTORS_DATAS_PATH = "phoneticsearch/datas/actors.csv";
+	private static final String KLEE_DATAS_PATH = "phoneticsearch/datas/klee.csv";
 
 	private static final int NAME_COL = 0;
 	private static final int FIRSTNAME_COL = 1;
-	private static final int BIRTHDAY_COL = 2;
-	private static final int ADDRESS_COL = 3;
-	private static final int ZIPCODE_COL = 4;
-	private static final int CITY_COL = 5;
-	private static final int PHONE_COL = 6;
+	private static final int SEXE_COL = 2;
+	private static final int BIRTHDAY_COL = 3;
+	private static final int ADDRESS_COL = 4;
+	private static final int ZIPCODE_COL = 5;
+	private static final int CITY_COL = 6;
+	private static final int PHONE_COL = 7;
 
 	private AutoCompleteUi autoCompleteUi;
 
@@ -62,11 +63,11 @@ public class AutoCompleteTest {
 					row[i] = row[i].trim();
 				}
 				final Person newPerson;
-				if (row.length > 2) {
+				if (row.length > 3) {
 					final Date birthday = row[BIRTHDAY_COL].isEmpty() ? null : new SimpleDateFormat("dd/MM/yyyy").parse(row[BIRTHDAY_COL]);
-					newPerson = new Person(row[NAME_COL].toUpperCase(), row[FIRSTNAME_COL], birthday, row[ADDRESS_COL], row[ZIPCODE_COL], row[CITY_COL], row[PHONE_COL]);
+					newPerson = new Person(row[NAME_COL].toUpperCase(), row[FIRSTNAME_COL], row[SEXE_COL], birthday, row[ADDRESS_COL], row[ZIPCODE_COL], row[CITY_COL], row[PHONE_COL]);
 				} else {
-					newPerson = new Person(row[NAME_COL].toUpperCase(), row[FIRSTNAME_COL], null, "", "", "", "");
+					newPerson = new Person(row[NAME_COL].toUpperCase(), row[FIRSTNAME_COL], row[SEXE_COL], null, "", "", "", "");
 				}
 				datas.add(newPerson);
 				if (datas.size() % 1000 == 0) {
@@ -97,7 +98,7 @@ public class AutoCompleteTest {
 							//System.out.println(newPerson.getName() + ";" + newPerson.getFirstname() + ";");
 						}
 
-						newPerson = new Person(fullName.substring(0, commaIndex).toUpperCase(), fullName.substring(commaIndex + 1, fullName.length()), null, "", "", "", "");
+						newPerson = new Person(fullName.substring(0, commaIndex).toUpperCase(), fullName.substring(commaIndex + 1, fullName.length()), null, null, "", "", "", "");
 						nbMovies = 0;
 
 					} else {
@@ -117,10 +118,40 @@ public class AutoCompleteTest {
 	}
 
 	public void init() throws IOException, ParseException {
-		loadDatas(DATAS_PATH);
+		loadDatas(KLEE_DATAS_PATH);
 		indexPlugin.indexDatas(datas);
 		datas.clear();
-		autoCompleteUi = new AutoCompleteUi(indexPlugin);
-	}
+		autoCompleteUi = new AutoCompleteUi(new SearchHandler() {
+			public List<Person> search(final String lookFor) {
+				if (lookFor.startsWith("index:")) {
+					try {
+						if ("index:actors".equals(lookFor)) {
+							loadDatas(ACTORS_DATAS_PATH);
+							indexPlugin.indexDatas(datas);
+						} else if ("index:klee".equals(lookFor)) {
+							loadDatas(KLEE_DATAS_PATH);
+							indexPlugin.indexDatas(datas);
+						} else if ("index:clear".equals(lookFor)) {
+							datas.clear();
+							indexPlugin.indexDatas(datas);
+						} else {
+							final Person result = new Person(lookFor, "unknown", "", null, "", "", "", "");
+							result.setScore(100);
+							return Collections.singletonList(result);
+						}
+						final Person result = new Person(lookFor, "Done", "", null, "", "", "", "");
+						result.setScore(100);
+						return Collections.singletonList(result);
+					} catch (IOException | ParseException e) {
+						datas.clear();
+						final Person result = new Person(lookFor, "Error :" + e.getMessage(), "", null, "", "", "", "");
+						result.setScore(100);
+						return Collections.singletonList(result);
+					}
+				}
 
+				return indexPlugin.getCollection(lookFor);
+			}
+		});
+	}
 }

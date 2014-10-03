@@ -47,10 +47,7 @@ import org.apache.lucene.search.PrefixQuery;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
-import org.apache.lucene.search.highlight.Highlighter;
 import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
-import org.apache.lucene.search.highlight.QueryScorer;
-import org.apache.lucene.search.highlight.SimpleSpanFragmenter;
 
 import phoneticsearch.Person;
 
@@ -152,13 +149,13 @@ public final class LuceneIndexPlugin {
 		for (final ScoreDoc scoreDoc : topDocs.scoreDocs) {
 			final Document document = searcher.doc(scoreDoc.doc);
 			final Person dto = luceneDb.getObjectIndexed(document.get(UUID_KEY));
-			dto.setScore(Math.round(scoreDoc.score / topDocs.getMaxScore() * 100));
+			dto.setScore(Math.round(scoreDoc.score / Math.max(topDocs.getMaxScore(), 2.5f) * 100));
 			dtcResult.add(dto);
 
-			final QueryScorer queryScorer = new QueryScorer(query);
-			final Highlighter highlighter = new Highlighter(queryScorer);
-			highlighter.setTextFragmenter(new SimpleSpanFragmenter(queryScorer, Integer.MAX_VALUE));
-			highlighter.setMaxDocCharsToAnalyze(Integer.MAX_VALUE);
+			//final QueryScorer queryScorer = new QueryScorer(query);
+			//final Highlighter highlighter = new Highlighter(queryScorer);
+			//highlighter.setTextFragmenter(new SimpleSpanFragmenter(queryScorer, Integer.MAX_VALUE));
+			//highlighter.setMaxDocCharsToAnalyze(Integer.MAX_VALUE);
 			//final String[] strings = highlighter.getBestFragments(indexAnalyser, "fullname", dto.getName() + " " + dto.getFirstname(), 5);
 			//System.out.println("found: " + Arrays.toString(strings));
 		}
@@ -196,6 +193,7 @@ public final class LuceneIndexPlugin {
 					final BooleanQuery frWordQuery = createWordQuery(frQueryAnalyser, fieldName, tokenizedKeyword);
 					frWordQuery.setBoost(frWordQuery.getBoost() * 2);
 					final BooleanQuery nonfrWordQuery = createWordQuery(nonfrQueryAnalyser, fieldName, tokenizedKeyword);
+					nonfrWordQuery.setBoost(nonfrWordQuery.getBoost() / 2);
 					wordQuery.add(frWordQuery, BooleanClause.Occur.SHOULD);
 					wordQuery.add(nonfrWordQuery, BooleanClause.Occur.SHOULD);
 					query.add(wordQuery, BooleanClause.Occur.MUST);
@@ -262,13 +260,14 @@ public final class LuceneIndexPlugin {
 	 */
 	public List<Person> getCollection(final String keywords) {
 		try {
-			return this.<Person> getCollection(keywords, new String[] { "fullname" }, 20, "fullname");
+			return this.<Person> getCollection(keywords, new String[] { "fullname" }, 20, "name");
 		} catch (final IOException | InvalidTokenOffsetsException e) {
 			throw new RuntimeException("Erreur d'indexation", e);
 		}
 	}
 
 	public void indexDatas(final List<Person> datas) throws IOException {
+		index = null;
 		index = createIndex(datas, false);
 	}
 }
