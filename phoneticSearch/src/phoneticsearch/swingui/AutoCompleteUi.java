@@ -3,6 +3,7 @@ package phoneticsearch.swingui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -21,6 +22,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 import phoneticsearch.Person;
 import phoneticsearch.SearchHandler;
@@ -35,6 +37,7 @@ public class AutoCompleteUi extends JFrame {
 	private final ImageIcon maleIcon;
 	private final ImageIcon femaleIcon;
 	private final ImageIcon unknownIcon;
+	private final Image background;
 	// private final JList<String> resultList = new JList<>();
 
 	private final SearchHandler searchHandler;
@@ -46,37 +49,53 @@ public class AutoCompleteUi extends JFrame {
 		maleIcon = loadImageIcon("phoneticsearch/swingui/male-icon.png");
 		femaleIcon = loadImageIcon("phoneticsearch/swingui/female-icon.png");
 		unknownIcon = loadImageIcon("phoneticsearch/swingui/klee-icon.png");
-		getContentPane().setBackground(Color.WHITE);
-		getContentPane().setLayout(new BorderLayout());
-
-		// setLayout(new GridLayout(3, 1));
+		background = loadImage("phoneticsearch/swingui/androidBackground.png");
+		final JPanel backgroundPanel = new JPanelWithBackground(background);
+		backgroundPanel.setBorder(new EmptyBorder(126, 32, 131, 32));
+		backgroundPanel.setLayout(new BorderLayout());
+		setContentPane(backgroundPanel);
 
 		final JPanel inputContainer = new JPanel();
 		inputContainer.add(inputField);
 
-		add(inputContainer, BorderLayout.NORTH);
-		// add(criteriaPanel);
 		resultPanel.setLayout(new BoxLayout(resultPanel, BoxLayout.PAGE_AXIS));
-		resultPanel.setBackground(Color.WHITE);
 		final JPanel container = new JPanel(new BorderLayout());
-		container.setBackground(Color.WHITE);
 		container.add(resultPanel, BorderLayout.NORTH);
-		add(new JScrollPane(container), BorderLayout.CENTER);
-		setSize(300, 500);
+
+		add(inputContainer, BorderLayout.NORTH);
+		final JScrollPane jScrollPane = new JScrollPane(container);
+		jScrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+		jScrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 10));
+		jScrollPane.setBorder(null);
+		add(jScrollPane, BorderLayout.CENTER);
+
+		setSize(413 + 15, 808 + 38);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		inputField.addKeyListener(new ChangeHandler());
 		final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		final int x = screenSize.width / 4; // - getWidth() /2
-		final int y = screenSize.height / 4;// - getHeight() / 2;
+		final int x = screenSize.width / 3 - getWidth() / 2;
+		final int y = screenSize.height / 2 - getHeight() / 2;
 		setBounds(x, y, getWidth(), getHeight());
+
+		inputContainer.setBackground(Color.GRAY);
+		inputField.setBackground(Color.WHITE);
+		resultPanel.setBackground(Color.WHITE);
+		container.setBackground(Color.WHITE);
+		inputContainer.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
+		jScrollPane.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
+
 		setVisible(true);
 	}
 
-	private ImageIcon loadImageIcon(final String imagePath) throws IOException {
+	private Image loadImage(final String imagePath) throws IOException {
 		try (InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(imagePath)) {
 			final BufferedImage image = ImageIO.read(is);
-			return new ImageIcon(image);
+			return image;
 		}
+	}
+
+	private ImageIcon loadImageIcon(final String imagePath) throws IOException {
+		return new ImageIcon(loadImage(imagePath));
 	}
 
 	// ------------------------------------------------------------------------------
@@ -124,9 +143,10 @@ public class AutoCompleteUi extends JFrame {
 		if (!person.getPhone().isEmpty()) {
 			panel.add(new JLabel("Tel: " + person.getPhone()));
 		}
-		panel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.DARK_GRAY), BorderFactory.createEmptyBorder(2, 2, 2, 2)));
 		panel.setBackground(Color.WHITE);
+		panel.setBorder(new EmptyBorder(0, 5, 0, 0));
 
+		iconedpanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.DARK_GRAY), BorderFactory.createEmptyBorder(2, 2, 2, 2)));
 		iconedpanel.add(panel, BorderLayout.CENTER);
 		return iconedpanel;
 	}
