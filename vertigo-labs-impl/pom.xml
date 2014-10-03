@@ -4,13 +4,13 @@
 	<parent>
 		<groupId>io.vertigo</groupId>
 		<artifactId>vertigo-parent</artifactId>
-		<version>0.4.4-SNAPSHOT</version>
+		<version>0.5.3-SNAPSHOT</version>
 	</parent>
-	
+
 	<artifactId>vertigo-labs-impl</artifactId>
 	<packaging>jar</packaging>
 	<name>vertigo-labs-impl</name>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>io.vertigo</groupId>
@@ -19,41 +19,47 @@
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
-		
+
+		<dependency>
+			<groupId>io.vertigo</groupId>
+			<artifactId>vertigo-dynamo-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>io.vertigo</groupId>
 			<artifactId>vertigo-dynamo-impl</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-				
+
 		<dependency>
 			<groupId>io.vertigo</groupId>
 			<artifactId>vertigo-labs-api</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>io.vertigo</groupId>
 			<artifactId>vertigo-commons-api</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-				
-		<!-- Gedcom-->
+
+		<!-- Gedcom -->
 		<dependency>
 			<groupId>org.gedcom4j</groupId>
 			<artifactId>gedcom4j</artifactId>
 			<version>2.1.0</version><!-- 2.1.5 has some issues -->
 		</dependency>
-		<!-- /Gedcom-->
-		
-		<!-- Jedis benchmark-->
+		<!-- /Gedcom -->
+
+		<!-- Jedis benchmark -->
 		<dependency>
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
 			<version>2.5.2</version>
 		</dependency>
-		<!-- /Jedis-->
-		
+		<!-- /Jedis -->
+
 		<!-- Mail -->
 		<dependency>
 			<groupId>javax.mail</groupId>
@@ -67,6 +73,44 @@
 			</exclusions>
 		</dependency>
 		<!-- /Mail -->
+
+		<dependency>
+			<groupId>com.sleepycat</groupId>
+			<artifactId>je</artifactId>
+			<version>5.0.73</version>
+		</dependency>
+
+		<!-- begin:Document-metadatas -->
+		<!-- tika-parsers est la librairie de référence qui tire toutes les librairies -->
+		<dependency>
+			<groupId>org.apache.tika</groupId>
+			<artifactId>tika-parsers</artifactId>
+			<version>1.4</version>
+			<exclusions>
+				<exclusion>
+					<groupId>rome</groupId>
+					<artifactId>rome</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>xerces</groupId>
+			<artifactId>xercesImpl</artifactId>
+			<version>2.9.1</version> <!-- tika 1.4 pointe sur la 2.8.1, on unifie sur la 2.9.1 venant d'odfdom 0.7 -->
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.6.6</version> <!-- tika 1.4 pointe sur la 1.5.6 qui est incompatible (à l'exec) avec la 1.6.x présente dans d'autres modules -->
+		</dependency>
+		<dependency>
+			<groupId>org.apache.pdfbox</groupId>
+			<artifactId>preflight</artifactId> <!-- preflight permet la validation des PDF/A : tika 1.4 contient pdfbox 1.8.1 -->
+			<version>1.8.1</version>
+		</dependency>
+		<!-- end:Document-metadatas -->
+
 	</dependencies>
-		
+
 </project>
