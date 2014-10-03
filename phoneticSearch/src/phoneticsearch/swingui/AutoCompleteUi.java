@@ -1,15 +1,19 @@
 package phoneticsearch.swingui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.JCheckBox;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -24,48 +28,36 @@ public class AutoCompleteUi extends JFrame {
 	private final JPanel criteriaPanel = new JPanel();
 	private final JTextField inputField = new JTextField(20);
 	private final JPanel resultPanel = new JPanel();
+
+	private final ImageIcon maleIcon;
+	private final ImageIcon femaleIcon;
+	private final ImageIcon unknownIcon;
 	// private final JList<String> resultList = new JList<>();
 
-	private final JCheckBox checkAll = new JCheckBox();
-	private final JCheckBox checkName = new JCheckBox();
-	private final JCheckBox checkFirstname = new JCheckBox();
-	private final JCheckBox checkBirthday = new JCheckBox();
-	private final JCheckBox checkAddress = new JCheckBox();
-	private final JCheckBox checkZipcode = new JCheckBox();
-	private final JCheckBox checkCity = new JCheckBox();
-	private final JCheckBox checkPhone = new JCheckBox();
+	
 	private final LuceneIndexPlugin indexPlugin;
 
 	// ------------------------------------------------------------------------------
-	public AutoCompleteUi(final LuceneIndexPlugin indexPlugin) {
+	public AutoCompleteUi(final LuceneIndexPlugin indexPlugin)
+			throws IOException {
 		this.indexPlugin = indexPlugin;
-		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
 
-		//setLayout(new GridLayout(3, 1));
+		maleIcon = loadImageIcon("phoneticsearch/swingui/male-icon.png");
+		femaleIcon = loadImageIcon("phoneticsearch/swingui/female-icon.png");
+		unknownIcon = loadImageIcon("phoneticsearch/swingui/klee-icon.png");
+		getContentPane().setBackground(Color.WHITE);
+		getContentPane().setLayout(
+				new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
+
+		// setLayout(new GridLayout(3, 1));
 		setVisible(true);
 
-		criteriaPanel.setLayout(new GridLayout(2, 8));
-		criteriaPanel.add(new JLabel("Tous"));
-		criteriaPanel.add(new JLabel("Nom"));
-		criteriaPanel.add(new JLabel("Prenom"));
-		criteriaPanel.add(new JLabel("Date de naissance"));
-		criteriaPanel.add(new JLabel("Adresse"));
-		criteriaPanel.add(new JLabel("Code postal"));
-		criteriaPanel.add(new JLabel("Ville"));
-		criteriaPanel.add(new JLabel("Téléphone"));
-		criteriaPanel.add(checkAll);
-		criteriaPanel.add(checkName);
-		criteriaPanel.add(checkFirstname);
-		criteriaPanel.add(checkBirthday);
-		criteriaPanel.add(checkAddress);
-		criteriaPanel.add(checkZipcode);
-		criteriaPanel.add(checkCity);
-		criteriaPanel.add(checkPhone);
+		
 
 		add(inputField);
-		//add(criteriaPanel);
+		// add(criteriaPanel);
 		resultPanel.setLayout(new BoxLayout(resultPanel, BoxLayout.PAGE_AXIS));
-
+		resultPanel.setBackground(Color.white);
 		add(resultPanel);
 
 		pack();
@@ -73,13 +65,22 @@ public class AutoCompleteUi extends JFrame {
 		inputField.addKeyListener(new ChangeHandler());
 	}
 
+	private ImageIcon loadImageIcon(String imagePath) throws IOException {
+		try (InputStream is = Thread.currentThread().getContextClassLoader()
+				.getResourceAsStream(imagePath)) {
+			BufferedImage image = ImageIO.read(is);
+			return new ImageIcon(image);
+		}
+	}
+
 	// ------------------------------------------------------------------------------
 	public void initiateSearch(final String lookFor) {
 		final List<Person> searchResult = indexPlugin.getCollection(lookFor);
 		int index = 0;
 		for (final Person person : searchResult) {
-			if (person.getScore() < 80) {
-				resultPanel.add(new JLabel("Encore " + (searchResult.size() - index) + " résultats"));
+			if (resultPanel.getComponentCount()>3 && person.getScore() < 80 || person.getScore() < 30) {
+				resultPanel.add(new JLabel("Encore "
+						+ (searchResult.size() - index) + " résultats"));
 				break;
 			}
 			final JPanel personPanel = createPanel(person);
@@ -94,30 +95,48 @@ public class AutoCompleteUi extends JFrame {
 	}
 
 	private JPanel createPanel(final Person person) {
-		final JPanel panel = new JPanel(new GridLayout(4, 1));
-		final String birthdayString = person.getBirthday() != null ? new SimpleDateFormat("dd/MM/yyyy").format(person.getBirthday()) : "";
-		final String fullName = person.getName() + " " + person.getFirstname() + (birthdayString.isEmpty() ? "" : " (" + birthdayString + ")");
+		final JPanel iconedpanel = new JPanel();
+		iconedpanel.setBackground(Color.WHITE);
+		
+		iconedpanel.setLayout(new BorderLayout());
+		final JLabel iconLabel = new JLabel("F".equals(person.getSexe())?femaleIcon:"M".equals(person.getSexe())?maleIcon:unknownIcon);
+		iconLabel.setSize(32, 32);
+		iconedpanel.add(iconLabel, BorderLayout.WEST);
+		final JPanel panel = new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+		
+		final String birthdayString = person.getBirthday() != null ? new SimpleDateFormat(
+				"dd/MM/yyyy").format(person.getBirthday()) : "";
+		final String fullName = person.getName() + " " + person.getFirstname()
+				+ (birthdayString.isEmpty() ? "" : " (" + birthdayString + ")");
 		panel.add(new JLabel("(" + person.getScore() + "%) " + fullName));
-		panel.add(new JLabel(person.getAddress()));
+		if (!person.getAddress().isEmpty()) {
+			panel.add(new JLabel(person.getAddress()));
+		}
 		if (!person.getZipcode().isEmpty() || !person.getCity().isEmpty()) {
 			panel.add(new JLabel(person.getZipcode() + " " + person.getCity()));
 		}
 		if (!person.getPhone().isEmpty()) {
 			panel.add(new JLabel("Tel: " + person.getPhone()));
 		}
-		panel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.DARK_GRAY), BorderFactory.createEmptyBorder(2, 2, 2, 2)));
-		return panel;
+		panel.setBorder(BorderFactory.createCompoundBorder(
+				BorderFactory.createLineBorder(Color.DARK_GRAY),
+				BorderFactory.createEmptyBorder(2, 2, 2, 2)));
+		panel.setBackground(Color.WHITE);
+		
+		iconedpanel.add(panel, BorderLayout.CENTER);
+		return iconedpanel;
 	}
 
 	class ChangeHandler implements KeyListener {
 		@Override
 		public void keyTyped(final KeyEvent e) {
-			//rien
+			// rien
 		}
 
 		@Override
 		public void keyPressed(final KeyEvent e) {
-			//rien
+			// rien
 		}
 
 		@Override

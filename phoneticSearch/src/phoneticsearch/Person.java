@@ -6,15 +6,17 @@ public final class Person {
 	private int score;
 	private final String name;
 	private final String firstname;
+	private final String sexe;
 	private final Date birthday;
 	private final String address;
 	private final String zipcode;
 	private final String city;
 	private final String phone;
 
-	public Person(final String name, final String firstname, final Date birthday, final String address, final String zipcode, final String city, final String phone) {
+	public Person(final String name, final String firstname, final String sexe, final Date birthday, final String address, final String zipcode, final String city, final String phone) {
 		this.name = name;
 		this.firstname = firstname;
+		this.sexe = sexe;
 		this.birthday = birthday;
 		this.address = address;
 		this.zipcode = zipcode;
@@ -38,6 +40,10 @@ public final class Person {
 		return firstname;
 	}
 
+	public String getSexe() {
+		return sexe;
+	}
+	
 	public Date getBirthday() {
 		return birthday;
 	}

@@ -25,11 +25,12 @@ public class AutoCompleteTest {
 
 	private static final int NAME_COL = 0;
 	private static final int FIRSTNAME_COL = 1;
-	private static final int BIRTHDAY_COL = 2;
-	private static final int ADDRESS_COL = 3;
-	private static final int ZIPCODE_COL = 4;
-	private static final int CITY_COL = 5;
-	private static final int PHONE_COL = 6;
+	private static final int SEXE_COL = 2;
+	private static final int BIRTHDAY_COL = 3;
+	private static final int ADDRESS_COL = 4;
+	private static final int ZIPCODE_COL = 5;
+	private static final int CITY_COL = 6;
+	private static final int PHONE_COL = 7;
 
 	private AutoCompleteUi autoCompleteUi;
 
@@ -62,11 +63,11 @@ public class AutoCompleteTest {
 					row[i] = row[i].trim();
 				}
 				final Person newPerson;
-				if (row.length > 2) {
+				if (row.length > 3) {
 					final Date birthday = row[BIRTHDAY_COL].isEmpty() ? null : new SimpleDateFormat("dd/MM/yyyy").parse(row[BIRTHDAY_COL]);
-					newPerson = new Person(row[NAME_COL].toUpperCase(), row[FIRSTNAME_COL], birthday, row[ADDRESS_COL], row[ZIPCODE_COL], row[CITY_COL], row[PHONE_COL]);
+					newPerson = new Person(row[NAME_COL].toUpperCase(), row[FIRSTNAME_COL], row[SEXE_COL], birthday, row[ADDRESS_COL], row[ZIPCODE_COL], row[CITY_COL], row[PHONE_COL]);
 				} else {
-					newPerson = new Person(row[NAME_COL].toUpperCase(), row[FIRSTNAME_COL], null, "", "", "", "");
+					newPerson = new Person(row[NAME_COL].toUpperCase(), row[FIRSTNAME_COL], row[SEXE_COL], null, "", "", "", "");
 				}
 				datas.add(newPerson);
 				if (datas.size() % 1000 == 0) {
@@ -97,7 +98,7 @@ public class AutoCompleteTest {
 							//System.out.println(newPerson.getName() + ";" + newPerson.getFirstname() + ";");
 						}
 
-						newPerson = new Person(fullName.substring(0, commaIndex).toUpperCase(), fullName.substring(commaIndex + 1, fullName.length()), null, "", "", "", "");
+						newPerson = new Person(fullName.substring(0, commaIndex).toUpperCase(), fullName.substring(commaIndex + 1, fullName.length()), null, null, "", "", "", "");
 						nbMovies = 0;
 
 					} else {
