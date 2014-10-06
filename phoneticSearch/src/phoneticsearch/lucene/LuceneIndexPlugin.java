@@ -93,6 +93,7 @@ public final class LuceneIndexPlugin {
 
 				document.add(createIndexed("fullname", dto.getName() + " " + dto.getFirstname(), false));
 				document.add(createIndexed("name", dto.getName(), false));
+				document.add(createIndexed("fullname_nospace", dto.getName().replaceAll("\\W", "") + " " + dto.getFirstname(), false));
 				document.add(createIndexed("firstname", dto.getFirstname(), false));
 
 				//final String birthdaysString = dto.getBirthday() != null ? DateTools.dateToString(dto.getBirthday(), DateTools.Resolution.DAY) : "";
@@ -175,9 +176,48 @@ public final class LuceneIndexPlugin {
 				queryWord.setBoost(queryWord.getBoost() * 4);
 			}
 			query.add(queryWord, BooleanClause.Occur.SHOULD);
+			for (int i = 0; i < nbSpace(keywords); i++) {
+				final Query queryMergedWord = createParsedQuery(dtField, removeSpace(keywords, i));
+				queryWord.setBoost(queryWord.getBoost() * 0.5f);
+				query.add(queryMergedWord, BooleanClause.Occur.SHOULD);
+			}
+			for (int i = 0; i < nbSpace(keywords) - 1; i++) {
+				final Query queryMergedWord = createParsedQuery(dtField, removeSpace(removeSpace(keywords, i + 1), i));
+				queryWord.setBoost(queryWord.getBoost() * 0.4f);
+				query.add(queryMergedWord, BooleanClause.Occur.SHOULD);
+			}
 		}
 		System.out.println("look for : " + query);
 		return query;
+	}
+
+	private int nbSpace(final String keywords) {
+		int count = 0;
+		int lastindex = -1;
+		final String keywordsNorm = keywords.replaceAll("\\W", " ").replaceAll(" +", " ");
+		do {
+			lastindex = keywordsNorm.indexOf(' ', lastindex + 1);
+			if (lastindex > 0) {
+				count++;
+			}
+		} while (lastindex > 0);
+		return count;
+	}
+
+	private String removeSpace(final String keywords, final int spaceIndex) {
+		int count = 0;
+		int lastindex = 0;
+		final String keywordsNorm = keywords.replaceAll("\\W", " ").replaceAll(" +", " ");
+		do {
+			lastindex = keywordsNorm.indexOf(' ', lastindex + 1);
+			if (lastindex > 0) {
+				if (count == spaceIndex) {
+					return keywordsNorm.substring(0, lastindex) + keywordsNorm.substring(lastindex + 1);
+				}
+				count++;
+			}
+		} while (lastindex > 0);
+		return keywords;
 	}
 
 	private Query createParsedQuery(final String fieldName, final String keywords) throws IOException {
@@ -260,7 +300,7 @@ public final class LuceneIndexPlugin {
 	 */
 	public List<Person> getCollection(final String keywords) {
 		try {
-			return this.<Person> getCollection(keywords, new String[] { "fullname" }, 20, "name");
+			return this.<Person> getCollection(keywords, new String[] { "fullname", "fullname_nospace" }, 20, "fullname");
 		} catch (final IOException | InvalidTokenOffsetsException e) {
 			throw new RuntimeException("Erreur d'indexation", e);
 		}
