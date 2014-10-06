@@ -240,14 +240,15 @@ public class AutoCompleteUi extends JFrame implements MessageOutput {
 
 		@Override
 		public void keyReleased(final KeyEvent e) {
-			if (!inputField.getText().equals(previous)) {
-				previous = inputField.getText();
+			final String input = inputField.getText().trim();
+			if (!input.equals(previous)) {
+				previous = input;
 				clearResult();
-				if (inputField.getText().length() >= 3) {
+				if (input.length() >= 3) {
 					final Thread queryThread = new Thread() {
 						@Override
 						public void run() {
-							initiateSearch(inputField.getText());
+							initiateSearch(input);
 						}
 					};
 					queryThread.start();
