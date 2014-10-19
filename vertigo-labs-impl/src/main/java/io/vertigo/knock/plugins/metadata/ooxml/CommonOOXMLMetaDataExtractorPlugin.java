@@ -1,11 +1,11 @@
 package io.vertigo.knock.plugins.metadata.ooxml;
 
-import io.vertigo.core.lang.Assertion;
 import io.vertigo.dynamo.file.model.KFile;
 import io.vertigo.dynamo.file.util.FileUtil;
 import io.vertigo.knock.impl.metadata.MetaDataExtractorPlugin;
 import io.vertigo.knock.metadata.MetaDataContainer;
 import io.vertigo.knock.metadata.MetaDataContainerBuilder;
+import io.vertigo.lang.Assertion;
 
 import java.io.InputStream;
 import java.util.Date;
@@ -162,7 +162,7 @@ public class CommonOOXMLMetaDataExtractorPlugin implements MetaDataExtractorPlug
 				final Nullable<?> nullable = (Nullable<?>) value;
 				value = nullable.hasValue() ? nullable.getValue() : null;
 			}
-	
+
 			value = convertValue(value, metaData);
 			if (value != null) {
 				metaDataContainer.setValue(metaData, convertValue(value, metaData));
@@ -173,7 +173,7 @@ public class CommonOOXMLMetaDataExtractorPlugin implements MetaDataExtractorPlug
 			if (value == null) {
 				return null;
 			}
-	
+
 	    	switch (metaDataType) {
 				case INTEGER :
 					if (value instanceof Long) {
@@ -186,7 +186,7 @@ public class CommonOOXMLMetaDataExtractorPlugin implements MetaDataExtractorPlug
 						return Integer.parseInt((String) value);
 					}
 					return null;
-	
+
 				case LONG :
 					if (value instanceof Long) {
 						return value;
@@ -198,7 +198,7 @@ public class CommonOOXMLMetaDataExtractorPlugin implements MetaDataExtractorPlug
 						return Long.parseLong((String) value);
 					}
 					return null;
-	
+
 	    		case DATE :
 	    			if (value instanceof Date) {
 	    				return value;
@@ -218,14 +218,14 @@ public class CommonOOXMLMetaDataExtractorPlugin implements MetaDataExtractorPlug
 	    				}
 	    			}
 	    			return null;
-	
+
 	    		case DURATION :
 					try {
 						return new SimpleDateFormat("'P''T'HH'H'mm'M'ss'S'").parse((String) value).getTime();
 					} catch (final ParseException e2) {
 						return null;
 					}
-	
+
 	    		case CALENDAR :
 	    			if (value instanceof Calendar) {
 	    				return value;
@@ -233,7 +233,7 @@ public class CommonOOXMLMetaDataExtractorPlugin implements MetaDataExtractorPlug
 	    			if (value instanceof Date) {
 	    				final Calendar calendar = Calendar.getInstance();
 					    calendar.setTime((Date) value);
-	
+
 	    				return calendar;
 	    			}
 	    			if (value instanceof String) {
@@ -241,21 +241,21 @@ public class CommonOOXMLMetaDataExtractorPlugin implements MetaDataExtractorPlug
 						    final Date date = DateFormat.getDateInstance().parse((String) value);
 						    final Calendar calendar = Calendar.getInstance();
 						    calendar.setTime(date);
-	
+
 		    				return calendar;
 						} catch (final ParseException e) {
 						return null;
 						}
 	    			}
 	    			return null;
-	
+
 	    		case STRING :
 	    		case UNKNOWN :
 				default :
 					return value.toString();
 	    	}
 		}
-		*/
+	 */
 	/** {@inheritDoc} */
 	@Override
 	public boolean accept(final KFile file) {

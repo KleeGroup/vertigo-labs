@@ -1,6 +1,6 @@
 package io.vertigo.knock.plugins.document.berkeley;
 
-import io.vertigo.core.lang.Assertion;
+import io.vertigo.lang.Assertion;
 
 import java.io.File;
 import java.util.HashMap;

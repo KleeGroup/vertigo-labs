@@ -1,8 +1,8 @@
 package io.vertigo.knock.document.model;
 
-import io.vertigo.core.lang.Assertion;
 import io.vertigo.knock.metadata.MetaDataContainer;
 import io.vertigo.knock.metadata.MetaDataContainerBuilder;
+import io.vertigo.lang.Assertion;
 
 import java.io.Serializable;
 import java.util.UUID;
@@ -20,7 +20,7 @@ public final class Document implements Serializable {
 	//Cl� + Version
 	private final DocumentVersion documentVersion;
 
-	//Revision 
+	//Revision
 	private final UUID revision;
 	//ExtractedMetaContent
 	private final long size;
@@ -77,7 +77,7 @@ public final class Document implements Serializable {
 		return documentVersion;
 	}
 
-	//Identification des r�visions 
+	//Identification des r�visions
 	public UUID getRevision() {
 		return revision;
 	}
@@ -127,9 +127,9 @@ public final class Document implements Serializable {
 		//@TODO si beaucoup utilis� alors construire au d�marrage.
 		//L'ordre est important les MetaDonn�es utilisateurs peuvent donc surcharg�es des Metadonn�es "techniques"
 		return new MetaDataContainerBuilder()//
-				.withAllMetaDatas(extractedMetaDataContainer)//
-				.withAllMetaDatas(enhancedMetaDataContainer)//
-				.withAllMetaDatas(userDefinedMetaDataContainer)//
-				.build();
+		.withAllMetaDatas(extractedMetaDataContainer)//
+		.withAllMetaDatas(enhancedMetaDataContainer)//
+		.withAllMetaDatas(userDefinedMetaDataContainer)//
+		.build();
 	}
 }

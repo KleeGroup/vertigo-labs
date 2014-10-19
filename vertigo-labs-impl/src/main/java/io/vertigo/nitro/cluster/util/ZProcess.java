@@ -1,6 +1,6 @@
 package io.vertigo.nitro.cluster.util;
 
-import io.vertigo.core.lang.Assertion;
+import io.vertigo.lang.Assertion;
 
 import java.io.BufferedReader;
 import java.io.IOException;

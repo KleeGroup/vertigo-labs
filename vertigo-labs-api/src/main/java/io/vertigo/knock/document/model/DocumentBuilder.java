@@ -1,15 +1,15 @@
 package io.vertigo.knock.document.model;
 
-import io.vertigo.core.lang.Assertion;
-import io.vertigo.core.lang.Builder;
 import io.vertigo.knock.metadata.MetaDataContainer;
+import io.vertigo.lang.Assertion;
+import io.vertigo.lang.Builder;
 
 import java.util.UUID;
 
 /**
-* @author npiedeloup
-* @version $Id: DocumentBuilder.java,v 1.2 2012/02/21 18:01:30 pchretien Exp $
-*/
+ * @author npiedeloup
+ * @version $Id: DocumentBuilder.java,v 1.2 2012/02/21 18:01:30 pchretien Exp $
+ */
 public final class DocumentBuilder implements Builder<Document> {
 	//Version
 	private Long mySize;

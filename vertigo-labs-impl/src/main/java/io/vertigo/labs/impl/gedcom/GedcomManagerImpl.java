@@ -19,8 +19,6 @@
 package io.vertigo.labs.impl.gedcom;
 
 import io.vertigo.commons.resource.ResourceManager;
-import io.vertigo.core.lang.Assertion;
-import io.vertigo.core.lang.Option;
 import io.vertigo.dynamo.domain.model.DtList;
 import io.vertigo.dynamo.kvdatastore.KVDataStoreManager;
 import io.vertigo.dynamo.transaction.KTransactionManager;
@@ -29,6 +27,8 @@ import io.vertigo.labs.gedcom.GedcomManager;
 import io.vertigo.labs.gedcom.Individual;
 import io.vertigo.labs.geocoder.GeoCoderManager;
 import io.vertigo.labs.geocoder.GeoLocation;
+import io.vertigo.lang.Assertion;
+import io.vertigo.lang.Option;
 
 import java.net.URL;
 import java.util.Collection;

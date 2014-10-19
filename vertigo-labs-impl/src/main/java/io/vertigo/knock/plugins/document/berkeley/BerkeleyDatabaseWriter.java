@@ -1,7 +1,7 @@
 package io.vertigo.knock.plugins.document.berkeley;
 
-import io.vertigo.core.lang.Assertion;
 import io.vertigo.knock.document.model.Document;
+import io.vertigo.lang.Assertion;
 
 import com.sleepycat.bind.EntryBinding;
 import com.sleepycat.bind.tuple.TupleBinding;
@@ -28,7 +28,7 @@ final class BerkeleyDatabaseWriter {
 	}
 
 	/**
-	 * Ajout d'un nouvel objet. 
+	 * Ajout d'un nouvel objet.
 	 * @param document Document � inserer
 	 */
 	void put(final Document document) {

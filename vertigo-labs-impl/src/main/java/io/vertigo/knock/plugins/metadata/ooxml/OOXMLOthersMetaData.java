@@ -1,7 +1,7 @@
 package io.vertigo.knock.plugins.metadata.ooxml;
 
-import io.vertigo.core.lang.Assertion;
 import io.vertigo.knock.metadata.MetaDataType;
+import io.vertigo.lang.Assertion;
 
 /**
  * Liste des m�tadonn�es pour les fichiers Office Open XML (docx, pptx, xlsx, ...).

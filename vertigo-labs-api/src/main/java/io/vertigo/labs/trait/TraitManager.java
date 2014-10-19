@@ -18,8 +18,8 @@
  */
 package io.vertigo.labs.trait;
 
-import io.vertigo.core.component.Manager;
-import io.vertigo.core.lang.Option;
+import io.vertigo.lang.Manager;
+import io.vertigo.lang.Option;
 
 public interface TraitManager extends Manager {
 	<T extends Trait> Option<T> findTrait(Class<T> traitClass, String subjectId);

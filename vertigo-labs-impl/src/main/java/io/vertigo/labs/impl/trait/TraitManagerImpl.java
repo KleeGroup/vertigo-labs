@@ -18,13 +18,13 @@
  */
 package io.vertigo.labs.impl.trait;
 
-import io.vertigo.core.lang.Assertion;
-import io.vertigo.core.lang.Option;
 import io.vertigo.dynamo.kvdatastore.KVDataStoreManager;
 import io.vertigo.dynamo.transaction.KTransactionManager;
 import io.vertigo.dynamo.transaction.KTransactionWritable;
 import io.vertigo.labs.trait.Trait;
 import io.vertigo.labs.trait.TraitManager;
+import io.vertigo.lang.Assertion;
+import io.vertigo.lang.Option;
 
 import javax.inject.Inject;
 import javax.inject.Named;

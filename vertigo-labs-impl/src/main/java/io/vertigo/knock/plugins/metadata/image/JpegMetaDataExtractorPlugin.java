@@ -2,10 +2,10 @@ package io.vertigo.knock.plugins.metadata.image;
 
 //import java.io.InputStream;
 
-import io.vertigo.core.lang.Assertion;
 import io.vertigo.dynamo.file.model.KFile;
 import io.vertigo.knock.impl.metadata.MetaDataExtractorPlugin;
 import io.vertigo.knock.metadata.MetaDataContainer;
+import io.vertigo.lang.Assertion;
 
 //import com.drew.imaging.jpeg.JpegMetadataReader;
 //import com.drew.metadata.Metadata;

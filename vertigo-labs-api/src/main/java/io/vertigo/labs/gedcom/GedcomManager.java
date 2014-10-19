@@ -18,8 +18,10 @@
  */
 package io.vertigo.labs.gedcom;
 
-import io.vertigo.core.component.Manager;
 import io.vertigo.dynamo.domain.model.DtList;
+import io.vertigo.lang.Manager;
+
+
 
 public interface GedcomManager extends Manager {
 	DtList<Individual> getAllIndividuals();

@@ -1,7 +1,7 @@
 package io.vertigo.knock.plugins.metadata.microsoft;
 
-import io.vertigo.core.lang.Assertion;
 import io.vertigo.knock.metadata.MetaDataContainerBuilder;
+import io.vertigo.lang.Assertion;
 
 import org.apache.poi.hpsf.PropertySetFactory;
 import org.apache.poi.hpsf.SummaryInformation;
@@ -22,11 +22,11 @@ final class POIFSReaderListenerImpl implements POIFSReaderListener {
 		try {
 			final SummaryInformation si = (SummaryInformation) PropertySetFactory.create(event.getStream());
 			metaDataContainerBuilder//
-					.withMetaData(MSMetaData.TITLE, si.getTitle())//
-					.withMetaData(MSMetaData.AUTHOR, si.getAuthor())//
-					.withMetaData(MSMetaData.SUBJECT, si.getSubject())//
-					.withMetaData(MSMetaData.COMMENTS, si.getComments())//
-					.withMetaData(MSMetaData.KEYWORDS, si.getKeywords());
+			.withMetaData(MSMetaData.TITLE, si.getTitle())//
+			.withMetaData(MSMetaData.AUTHOR, si.getAuthor())//
+			.withMetaData(MSMetaData.SUBJECT, si.getSubject())//
+			.withMetaData(MSMetaData.COMMENTS, si.getComments())//
+			.withMetaData(MSMetaData.KEYWORDS, si.getKeywords());
 		} catch (final Exception ex) {
 			throw new RuntimeException("processPOIFSReaderEvent", ex);
 		}

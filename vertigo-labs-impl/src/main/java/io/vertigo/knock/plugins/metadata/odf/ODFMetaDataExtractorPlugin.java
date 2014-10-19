@@ -1,9 +1,9 @@
 package io.vertigo.knock.plugins.metadata.odf;
 
-import io.vertigo.core.lang.Assertion;
 import io.vertigo.dynamo.file.model.KFile;
 import io.vertigo.dynamo.file.util.FileUtil;
 import io.vertigo.knock.plugins.metadata.tika.AbstractTikaMetaDataExtractorPlugin;
+import io.vertigo.lang.Assertion;
 
 import org.apache.tika.parser.odf.OpenDocumentParser;
 

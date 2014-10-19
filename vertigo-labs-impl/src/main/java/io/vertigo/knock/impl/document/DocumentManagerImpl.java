@@ -1,8 +1,6 @@
 package io.vertigo.knock.impl.document;
 
 import io.vertigo.core.Home;
-import io.vertigo.core.lang.Assertion;
-import io.vertigo.core.util.StringUtil;
 import io.vertigo.dynamo.file.FileManager;
 import io.vertigo.dynamo.file.model.KFile;
 import io.vertigo.knock.document.DocumentManager;
@@ -15,6 +13,8 @@ import io.vertigo.knock.metadata.MetaData;
 import io.vertigo.knock.metadata.MetaDataContainer;
 import io.vertigo.knock.metadata.MetaDataContainerBuilder;
 import io.vertigo.knock.metadata.MetaDataManager;
+import io.vertigo.lang.Assertion;
+import io.vertigo.util.StringUtil;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -78,10 +78,10 @@ public final class DocumentManagerImpl implements DocumentManager {
 		final String type = (String) mdc.getValue(FileInfoMetaData.FILE_EXTENSION);
 
 		documentBuilder//
-				.withName((String) mdc.getValue(FileInfoMetaData.FILE_NAME))//
-				.withSize((Long) mdc.getValue(FileInfoMetaData.SIZE))//
-				.withType(StringUtil.isEmpty(type) ? "<aucun>" : type)//
-				.withContent("");//vide par defaut
+		.withName((String) mdc.getValue(FileInfoMetaData.FILE_NAME))//
+		.withSize((Long) mdc.getValue(FileInfoMetaData.SIZE))//
+		.withType(StringUtil.isEmpty(type) ? "<aucun>" : type)//
+		.withContent("");//vide par defaut
 
 		//documentBuilder.setLastModified((Date) mdc.getValue(FileInfoMetaData.LAST_MODIFIED));
 		boolean contentSet = false;

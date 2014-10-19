@@ -18,7 +18,8 @@
  */
 package io.vertigo.labs.france;
 
-import io.vertigo.core.component.Manager;
+
+import io.vertigo.lang.Manager;
 
 import java.util.Collection;
 

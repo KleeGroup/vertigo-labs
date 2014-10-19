@@ -1,12 +1,12 @@
 package io.vertigo.knock.impl.metadata;
 
-import io.vertigo.core.lang.Assertion;
-import io.vertigo.core.lang.Option;
 import io.vertigo.dynamo.file.model.KFile;
 import io.vertigo.dynamo.file.util.FileUtil;
 import io.vertigo.knock.metadata.MetaDataContainer;
 import io.vertigo.knock.metadata.MetaDataContainerBuilder;
 import io.vertigo.knock.metadata.MetaDataManager;
+import io.vertigo.lang.Assertion;
+import io.vertigo.lang.Option;
 
 import java.util.List;
 
@@ -91,13 +91,13 @@ public final class MetaDataManagerImpl implements MetaDataManager {
 		//		}
 		// Dans le cas des fichiers on ajoute la taille
 		metaDataContainerBuilder//
-				.withMetaData(FileInfoMetaData.SIZE, kFile.getLength())//
-				.withMetaData(FileInfoMetaData.FILE_EXTENSION, fileExtension.toUpperCase())//
-				// note: il y a aussi FileSystemView.getFileSystemView().getSystemIcon(file)
+		.withMetaData(FileInfoMetaData.SIZE, kFile.getLength())//
+		.withMetaData(FileInfoMetaData.FILE_EXTENSION, fileExtension.toUpperCase())//
+		// note: il y a aussi FileSystemView.getFileSystemView().getSystemIcon(file)
 
-				// throw new KSystemException("Erreur de lecture des m�ta donn�es pour " + file.getName(), e);
-				.withMetaData(FileInfoMetaData.FILE_NAME, kFile.getFileName())//
-				.withMetaData(FileInfoMetaData.LAST_MODIFIED, kFile.getLastModified());
+		// throw new KSystemException("Erreur de lecture des m�ta donn�es pour " + file.getName(), e);
+		.withMetaData(FileInfoMetaData.FILE_NAME, kFile.getFileName())//
+		.withMetaData(FileInfoMetaData.LAST_MODIFIED, kFile.getLastModified());
 		//		mdContainer.setValue(metaDataManager.getNameSpace().getMetaData(DocumentMetaData.MEDA_LAST_MODIFIED_URN), fileInfo.getLastModified());
 		// mdContainer.setValue(PATH, file.getPath());
 		//	return mdContainer;

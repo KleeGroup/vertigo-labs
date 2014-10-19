@@ -1,6 +1,6 @@
 package io.vertigo.knock.plugins.crawler.fs;
 
-import io.vertigo.core.lang.Assertion;
+import io.vertigo.lang.Assertion;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -157,6 +157,7 @@ final class FSFileIterator implements Iterator<File> {
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public void remove() {
 		throw new UnsupportedOperationException();
 	}

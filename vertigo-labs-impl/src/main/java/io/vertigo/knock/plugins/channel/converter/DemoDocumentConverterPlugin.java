@@ -2,7 +2,6 @@ package io.vertigo.knock.plugins.channel.converter;
 
 import io.vertigo.commons.codec.CodecManager;
 import io.vertigo.core.Home;
-import io.vertigo.core.lang.Assertion;
 import io.vertigo.dynamo.domain.model.URI;
 import io.vertigo.dynamo.search.metamodel.IndexDefinition;
 import io.vertigo.dynamo.search.model.Index;
@@ -11,6 +10,7 @@ import io.vertigo.knock.document.model.Document;
 import io.vertigo.knock.metadata.MetaDataContainer;
 import io.vertigo.knock.plugins.channel.DocumentConverterPlugin;
 import io.vertigo.knock.plugins.channel.processor.DemoDocumentMetaData;
+import io.vertigo.lang.Assertion;
 
 import java.io.UnsupportedEncodingException;
 

@@ -18,7 +18,7 @@
  */
 package io.vertigo.labs.france;
 
-import io.vertigo.core.lang.Assertion;
+import io.vertigo.lang.Assertion;
 
 /**
  * @author pchretien

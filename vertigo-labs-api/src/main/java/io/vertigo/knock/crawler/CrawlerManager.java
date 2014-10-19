@@ -1,8 +1,8 @@
 package io.vertigo.knock.crawler;
 
-import io.vertigo.core.component.Manager;
 import io.vertigo.knock.document.model.Document;
 import io.vertigo.knock.document.model.DocumentVersion;
+import io.vertigo.lang.Manager;
 
 /**
  * Gestionnaires des crawler de DataSource.

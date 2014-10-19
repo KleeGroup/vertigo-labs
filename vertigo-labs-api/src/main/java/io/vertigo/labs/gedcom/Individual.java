@@ -55,7 +55,7 @@ public final class Individual implements DtObject {
 	//-----------------
 	private GeoLocation location;
 
-	public void setId(String id) {
+	public void setId(final String id) {
 		this.id = id;
 	}
 
@@ -63,7 +63,7 @@ public final class Individual implements DtObject {
 		return id;
 	}
 
-	public void setGivenName(String givenName) {
+	public void setGivenName(final String givenName) {
 		this.givenName = givenName;
 	}
 
@@ -71,7 +71,7 @@ public final class Individual implements DtObject {
 		return givenName;
 	}
 
-	public void setSurName(String surName) {
+	public void setSurName(final String surName) {
 		this.surName = surName;
 	}
 
@@ -79,7 +79,7 @@ public final class Individual implements DtObject {
 		return surName;
 	}
 
-	public void setSex(String sex) {
+	public void setSex(final String sex) {
 		this.sex = sex;
 	}
 
@@ -87,7 +87,7 @@ public final class Individual implements DtObject {
 		return sex;
 	}
 
-	public void setBirthDate(String birthDate) {
+	public void setBirthDate(final String birthDate) {
 		this.birthDate = birthDate;
 	}
 
@@ -100,7 +100,7 @@ public final class Individual implements DtObject {
 		return GedcomUtil.findYear(getBirthDate());
 	}
 
-	public void setBirthPlace(String birthPlace) {
+	public void setBirthPlace(final String birthPlace) {
 		this.birthPlace = birthPlace;
 	}
 
@@ -108,7 +108,7 @@ public final class Individual implements DtObject {
 		return birthPlace;
 	}
 
-	public void setLocation(GeoLocation location) {
+	public void setLocation(final GeoLocation location) {
 		this.location = location;
 	}
 
@@ -126,11 +126,11 @@ public final class Individual implements DtObject {
 	//		return location == null ? null : location.getLevel1() + '/' + location.getLevel2();
 	//	}
 
-	public void setDeathDate(String deathDate) {
+	public void setDeathDate(final String deathDate) {
 		this.deathDate = deathDate;
 	}
 
-	public void setDeathPlace(String deathPlace) {
+	public void setDeathPlace(final String deathPlace) {
 		this.deathPlace = deathPlace;
 	}
 }

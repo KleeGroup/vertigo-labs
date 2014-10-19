@@ -1,11 +1,11 @@
 package io.vertigo.knock.plugins.metadata.tika;
 
-import io.vertigo.core.lang.Assertion;
 import io.vertigo.dynamo.file.model.KFile;
 import io.vertigo.knock.impl.metadata.MetaDataExtractorPlugin;
 import io.vertigo.knock.metadata.MetaDataContainer;
 import io.vertigo.knock.metadata.MetaDataContainerBuilder;
 import io.vertigo.knock.metadata.MetaDataType;
+import io.vertigo.lang.Assertion;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;

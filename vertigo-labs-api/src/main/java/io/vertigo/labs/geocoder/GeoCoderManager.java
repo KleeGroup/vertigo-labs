@@ -18,7 +18,7 @@
  */
 package io.vertigo.labs.geocoder;
 
-import io.vertigo.core.component.Manager;
+import io.vertigo.lang.Manager;
 
 /**
  * API de Geocoding d'adresses postales ou de POI.

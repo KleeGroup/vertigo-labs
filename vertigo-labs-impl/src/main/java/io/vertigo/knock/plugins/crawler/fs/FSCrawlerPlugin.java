@@ -1,11 +1,11 @@
 package io.vertigo.knock.plugins.crawler.fs;
 
-import io.vertigo.core.lang.Assertion;
 import io.vertigo.knock.document.DocumentManager;
 import io.vertigo.knock.document.model.Document;
 import io.vertigo.knock.document.model.DocumentVersion;
 import io.vertigo.knock.document.model.DocumentVersionBuilder;
 import io.vertigo.knock.impl.crawler.CrawlerPlugin;
+import io.vertigo.lang.Assertion;
 
 import java.io.File;
 import java.util.ArrayList;

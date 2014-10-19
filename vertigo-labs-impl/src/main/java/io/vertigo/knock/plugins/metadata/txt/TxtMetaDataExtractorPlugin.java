@@ -1,11 +1,11 @@
 package io.vertigo.knock.plugins.metadata.txt;
 
-import io.vertigo.core.lang.Assertion;
 import io.vertigo.dynamo.file.model.KFile;
 import io.vertigo.dynamo.file.util.FileUtil;
 import io.vertigo.knock.impl.metadata.MetaDataExtractorPlugin;
 import io.vertigo.knock.metadata.MetaDataContainer;
 import io.vertigo.knock.metadata.MetaDataContainerBuilder;
+import io.vertigo.lang.Assertion;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -60,8 +60,8 @@ public final class TxtMetaDataExtractorPlugin implements MetaDataExtractorPlugin
 		Assertion.checkNotNull(file);
 		//----------------------------------------------------------------------
 		return new MetaDataContainerBuilder()//
-				.withMetaData(TxtMetaData.CONTENT, getContent(file))//
-				.build();
+		.withMetaData(TxtMetaData.CONTENT, getContent(file))//
+		.build();
 	}
 
 	/** {@inheritDoc} */

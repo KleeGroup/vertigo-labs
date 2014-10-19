@@ -19,8 +19,6 @@
 package io.vertigo.dynamo.plugins.search.solr;
 
 import io.vertigo.commons.codec.CodecManager;
-import io.vertigo.core.lang.Activeable;
-import io.vertigo.core.lang.Assertion;
 import io.vertigo.dynamo.collections.ListFilter;
 import io.vertigo.dynamo.collections.model.FacetedQuery;
 import io.vertigo.dynamo.collections.model.FacetedQueryResult;
@@ -31,13 +29,13 @@ import io.vertigo.dynamo.search.SearchServicesPlugin;
 import io.vertigo.dynamo.search.metamodel.IndexDefinition;
 import io.vertigo.dynamo.search.model.Index;
 import io.vertigo.dynamo.search.model.SearchQuery;
+import io.vertigo.lang.Activeable;
+import io.vertigo.lang.Assertion;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.apache.solr.client.solrj.SolrServer;
 
 /**
  * Gestion de la connexion au serveur Solr de manière transactionnel.
@@ -185,7 +183,7 @@ public abstract class AbstractSolrSearchServicesPlugin implements SearchServices
 
 	/**
 	 * Récupération des indexes SOLR perçus comme autant de serveurs.
-	 * @param core Index SOLR/Lucene 
+	 * @param core Index SOLR/Lucene
 	 * @return Serveur Solr mappant une index SOLR/Lucene
 	 */
 	private SolrServer getSolrServer(final String core) {

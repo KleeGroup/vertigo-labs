@@ -1,7 +1,7 @@
 package io.vertigo.knock.plugins.document.berkeley;
 
-import io.vertigo.core.lang.Assertion;
 import io.vertigo.knock.document.model.DocumentVersion;
+import io.vertigo.lang.Assertion;
 
 import com.sleepycat.bind.EntryBinding;
 import com.sleepycat.bind.tuple.TupleBinding;

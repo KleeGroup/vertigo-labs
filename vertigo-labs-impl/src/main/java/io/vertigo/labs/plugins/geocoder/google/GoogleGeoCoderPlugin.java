@@ -18,10 +18,10 @@
  */
 package io.vertigo.labs.plugins.geocoder.google;
 
-import io.vertigo.core.lang.Assertion;
-import io.vertigo.core.lang.Option;
 import io.vertigo.labs.geocoder.GeoLocation;
 import io.vertigo.labs.impl.geocoder.GeoCoderPlugin;
+import io.vertigo.lang.Assertion;
+import io.vertigo.lang.Option;
 
 import java.io.IOException;
 import java.io.StringWriter;

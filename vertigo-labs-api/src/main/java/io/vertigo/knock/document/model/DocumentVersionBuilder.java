@@ -1,6 +1,6 @@
 package io.vertigo.knock.document.model;
 
-import io.vertigo.core.lang.Builder;
+import io.vertigo.lang.Builder;
 
 import java.util.Date;
 

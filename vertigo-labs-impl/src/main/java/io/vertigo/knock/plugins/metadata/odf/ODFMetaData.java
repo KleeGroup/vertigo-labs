@@ -1,8 +1,8 @@
 package io.vertigo.knock.plugins.metadata.odf;
 
-import io.vertigo.core.lang.Assertion;
 import io.vertigo.knock.metadata.MetaDataType;
 import io.vertigo.knock.plugins.metadata.tika.TikaMetaData;
+import io.vertigo.lang.Assertion;
 
 /**
  * Liste des m�tadonn�es renvoy�es par l'extracteur textuel bas� sur Tika.

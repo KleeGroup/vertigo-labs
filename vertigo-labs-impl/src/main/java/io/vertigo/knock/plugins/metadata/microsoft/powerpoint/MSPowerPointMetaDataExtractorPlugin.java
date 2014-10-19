@@ -1,9 +1,9 @@
 package io.vertigo.knock.plugins.metadata.microsoft.powerpoint;
 
-import io.vertigo.core.lang.Assertion;
 import io.vertigo.dynamo.file.model.KFile;
 import io.vertigo.dynamo.file.util.FileUtil;
 import io.vertigo.knock.plugins.metadata.microsoft.AbstractMSMetaDataExtractorPlugin;
+import io.vertigo.lang.Assertion;
 
 import java.io.InputStream;
 

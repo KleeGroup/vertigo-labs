@@ -1,6 +1,6 @@
 package io.vertigo.knock.metadata;
 
-import io.vertigo.core.lang.Assertion;
+import io.vertigo.lang.Assertion;
 
 import java.io.Serializable;
 import java.util.Collections;

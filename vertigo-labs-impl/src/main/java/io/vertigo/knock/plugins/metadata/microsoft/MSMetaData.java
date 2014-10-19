@@ -1,8 +1,8 @@
 package io.vertigo.knock.plugins.metadata.microsoft;
 
-import io.vertigo.core.lang.Assertion;
 import io.vertigo.knock.metadata.MetaData;
 import io.vertigo.knock.metadata.MetaDataType;
+import io.vertigo.lang.Assertion;
 
 /**
  * Liste des m�tadonn�es pour les fichiers Microsoft.

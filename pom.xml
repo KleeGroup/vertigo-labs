@@ -20,8 +20,8 @@ limitations under the License. -->
 	<parent>
 		<groupId>io.vertigo</groupId>
 		<artifactId>vertigo-parent</artifactId>
-		<version>0.5.3-SNAPSHOT</version>
-	</parent>
+		<version>>0.6.2-SNAPSHOT</version>
+	</parent> 
 	
 	<artifactId>vertigo-incubator-reactor</artifactId>
 	<name>vertigo-incubator-reactor</name>

@@ -1,8 +1,5 @@
 package io.vertigo.knock.plugins.document.berkeley;
 
-import io.vertigo.core.lang.Assertion;
-import io.vertigo.core.util.ClassUtil;
-import io.vertigo.core.util.StringUtil;
 import io.vertigo.knock.document.model.Document;
 import io.vertigo.knock.document.model.DocumentBuilder;
 import io.vertigo.knock.document.model.DocumentVersion;
@@ -10,6 +7,9 @@ import io.vertigo.knock.document.model.DocumentVersionBuilder;
 import io.vertigo.knock.metadata.MetaData;
 import io.vertigo.knock.metadata.MetaDataContainer;
 import io.vertigo.knock.metadata.MetaDataContainerBuilder;
+import io.vertigo.lang.Assertion;
+import io.vertigo.util.ClassUtil;
+import io.vertigo.util.StringUtil;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -75,8 +75,8 @@ final class DocumentBinding extends TupleBinding implements DocumentBindingReade
 		final String name = ti.readString();
 
 		documentBuilder//
-				.withName(name)//
-				.withSize(size);
+		.withName(name)//
+		.withSize(size);
 
 		if (!readVersionOnly) {
 			final String content = ti.readString();
@@ -87,11 +87,11 @@ final class DocumentBinding extends TupleBinding implements DocumentBindingReade
 			final MetaDataContainer userDefinedMetaDataContainer = doEntryToMdc(ti);
 
 			documentBuilder//
-					.withContent(content)//
-					.withType(type)//
-					.withExtractedMetaDataContainer(extractedMetaDataContainer)//
-					.withEnhancedMetaDataContainer(enhancedMetaDataContainer)//
-					.withUserDefinedMetaDataContainer(userDefinedMetaDataContainer);
+			.withContent(content)//
+			.withType(type)//
+			.withExtractedMetaDataContainer(extractedMetaDataContainer)//
+			.withEnhancedMetaDataContainer(enhancedMetaDataContainer)//
+			.withUserDefinedMetaDataContainer(userDefinedMetaDataContainer);
 		}
 		return documentBuilder.build();
 	}
@@ -152,10 +152,10 @@ final class DocumentBinding extends TupleBinding implements DocumentBindingReade
 		final Date lastModified = new Date(ti.readLong());
 
 		return new DocumentVersionBuilder()//
-				.withSourceUrl(url)//
-				.withLastModified(lastModified)//
-				.withDataSourceId(dataSourceId)//
-				.build();
+		.withSourceUrl(url)//
+		.withLastModified(lastModified)//
+		.withDataSourceId(dataSourceId)//
+		.build();
 	}
 
 	private MetaDataContainer doEntryToMdc(final TupleInput ti) {

@@ -1,10 +1,10 @@
 package io.vertigo.knock.plugins.document.berkeley;
 
-import io.vertigo.core.lang.Activeable;
-import io.vertigo.core.lang.Assertion;
 import io.vertigo.knock.document.model.Document;
 import io.vertigo.knock.document.model.DocumentVersion;
 import io.vertigo.knock.impl.document.DocumentStorePlugin;
+import io.vertigo.lang.Activeable;
+import io.vertigo.lang.Assertion;
 
 import java.io.File;
 import java.util.Iterator;
@@ -104,6 +104,7 @@ public final class BerkeleyDocumentStorePlugin implements DocumentStorePlugin, A
 		}
 
 		/** {@inheritDoc} */
+		@Override
 		public void remove() {
 			throw new UnsupportedOperationException();
 		}

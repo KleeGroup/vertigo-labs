@@ -1,7 +1,7 @@
 package io.vertigo.knock.plugins.metadata.tika;
 
-import io.vertigo.core.lang.Assertion;
 import io.vertigo.knock.metadata.MetaDataType;
+import io.vertigo.lang.Assertion;
 
 /**
  * Liste des m�tadonn�es renvoy�es par l'extracteur textuel bas� sur Tika.

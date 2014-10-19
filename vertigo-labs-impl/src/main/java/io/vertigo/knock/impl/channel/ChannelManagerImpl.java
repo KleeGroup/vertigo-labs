@@ -1,7 +1,6 @@
 package io.vertigo.knock.impl.channel;
 
 import io.vertigo.core.Home;
-import io.vertigo.core.lang.Assertion;
 import io.vertigo.dynamo.domain.model.DtObject;
 import io.vertigo.dynamo.search.model.Index;
 import io.vertigo.dynamo.transaction.KTransactionManager;
@@ -16,6 +15,7 @@ import io.vertigo.knock.impl.channel.datapipe.StatsDocument;
 import io.vertigo.knock.plugins.channel.DocumentConverterPlugin;
 import io.vertigo.knock.processors.DocumentEnhancer;
 import io.vertigo.knock.processors.DocumentPostProcessor;
+import io.vertigo.lang.Assertion;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -191,7 +191,7 @@ public final class ChannelManagerImpl implements ChannelManager {
 				} //else on est � jour
 				if (nbDocumentCrawled % 50 == 0) {
 					indexHandler.flush(); //on flush r�guli�rement
-					System.gc(); //TODO : on a un etrange OOM avec que des byte[] en unreachable object. Le gc permet de vider  la m�moire.					
+					System.gc(); //TODO : on a un etrange OOM avec que des byte[] en unreachable object. Le gc permet de vider  la m�moire.
 				}
 				final long elapsedTime = (System.currentTimeMillis() - startTime) / 1000;
 				final double crawlingSpeed = elapsedTime > 0 ? nbDocumentCrawled * 100 / elapsedTime / 100d : Double.NaN;

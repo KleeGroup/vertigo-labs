@@ -18,10 +18,10 @@
  */
 package io.vertigo.labs.impl.france;
 
-import io.vertigo.core.lang.Assertion;
 import io.vertigo.labs.france.Departement;
 import io.vertigo.labs.france.FranceManager;
 import io.vertigo.labs.france.Region;
+import io.vertigo.lang.Assertion;
 
 import java.io.BufferedReader;
 import java.io.IOException;

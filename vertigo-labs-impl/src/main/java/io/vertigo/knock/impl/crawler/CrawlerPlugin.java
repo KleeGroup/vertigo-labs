@@ -1,9 +1,9 @@
 package io.vertigo.knock.impl.crawler;
 
-import io.vertigo.core.component.Plugin;
 import io.vertigo.knock.crawler.Crawler;
 import io.vertigo.knock.document.model.Document;
 import io.vertigo.knock.document.model.DocumentVersion;
+import io.vertigo.lang.Plugin;
 
 /**
  * Plugin de gestion d'une datasource particuli�re.

@@ -2,7 +2,6 @@ package io.vertigo.knock.plugins.channel.indexhandler;
 
 import io.vertigo.commons.codec.CodecManager;
 import io.vertigo.core.Home;
-import io.vertigo.core.lang.Assertion;
 import io.vertigo.dynamo.domain.metamodel.DataType;
 import io.vertigo.dynamo.domain.metamodel.DtField;
 import io.vertigo.dynamo.domain.model.DtObject;
@@ -15,6 +14,7 @@ import io.vertigo.dynamo.transaction.KTransactionWritable;
 import io.vertigo.knock.channel.ChannelManager;
 import io.vertigo.knock.channel.metadefinition.ChannelDefinition;
 import io.vertigo.knock.impl.channel.IndexHandlerPlugin;
+import io.vertigo.lang.Assertion;
 
 import java.util.ArrayList;
 import java.util.Collection;

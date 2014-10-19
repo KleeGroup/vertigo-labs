@@ -1,8 +1,8 @@
 package io.vertigo.knock.impl.metadata;
 
-import io.vertigo.core.component.Plugin;
 import io.vertigo.dynamo.file.model.KFile;
 import io.vertigo.knock.metadata.MetaDataContainer;
+import io.vertigo.lang.Plugin;
 
 /**
  * Cr�ation de la liste des couples (m�tadonn�e, valeurs) partir d'un document physique.
@@ -20,7 +20,7 @@ public interface MetaDataExtractorPlugin extends Plugin {
 	MetaDataContainer extractMetaData(KFile file) throws Exception;
 
 	/**
-	 * Pr�cise quels sont les fichiers accept�s par cet extracteur. 
+	 * Pr�cise quels sont les fichiers accept�s par cet extracteur.
 	 * @param mimeType TypeMime
 	 * @return Si le type mime est accept� par l'extracteur
 	 */

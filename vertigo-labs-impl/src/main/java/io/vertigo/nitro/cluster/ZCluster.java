@@ -1,6 +1,6 @@
 package io.vertigo.nitro.cluster;
 
-import io.vertigo.core.lang.Assertion;
+import io.vertigo.lang.Assertion;
 
 import java.net.InetSocketAddress;
 import java.util.ArrayList;

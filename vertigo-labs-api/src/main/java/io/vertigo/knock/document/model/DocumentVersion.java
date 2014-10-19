@@ -1,6 +1,6 @@
 package io.vertigo.knock.document.model;
 
-import io.vertigo.core.lang.Assertion;
+import io.vertigo.lang.Assertion;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -61,7 +61,7 @@ public final class DocumentVersion implements Serializable {
 
 	//-------------------------------------------------------------------------
 	// Version
-	//-------------------------------------------------------------------------	
+	//-------------------------------------------------------------------------
 	public Date getLastModified() {
 		return lastModified;
 	}

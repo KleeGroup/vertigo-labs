@@ -1,11 +1,11 @@
 package io.vertigo.knock.plugins.document.berkeley;
 
-import io.vertigo.core.util.ClassUtil;
-import io.vertigo.core.util.StringUtil;
 import io.vertigo.knock.impl.metadata.FileInfoMetaData;
 import io.vertigo.knock.metadata.MetaData;
 import io.vertigo.knock.metadata.MetaDataContainer;
 import io.vertigo.knock.metadata.MetaDataContainerBuilder;
+import io.vertigo.util.ClassUtil;
+import io.vertigo.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.Date;

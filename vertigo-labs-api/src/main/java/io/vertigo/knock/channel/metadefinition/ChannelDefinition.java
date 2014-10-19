@@ -1,14 +1,14 @@
 package io.vertigo.knock.channel.metadefinition;
 
-import io.vertigo.core.lang.Assertion;
-import io.vertigo.core.metamodel.Definition;
-import io.vertigo.core.stereotype.Prefix;
+import io.vertigo.core.spaces.definiton.Definition;
+import io.vertigo.core.spaces.definiton.DefinitionPrefix;
 import io.vertigo.dynamo.collections.metamodel.FacetedQueryDefinition;
 import io.vertigo.dynamo.search.metamodel.IndexDefinition;
 import io.vertigo.knock.channel.DocumentConverter;
 import io.vertigo.knock.crawler.Crawler;
 import io.vertigo.knock.document.DocumentStore;
 import io.vertigo.knock.processors.DocumentPostProcessor;
+import io.vertigo.lang.Assertion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ import java.util.List;
  * @author npiedeloup
  * @version $Id: ChannelDefinition.java,v 1.13 2012/06/20 13:54:33 pchretien Exp $
  */
-@Prefix("CHN")
+@DefinitionPrefix("CHN")
 public final class ChannelDefinition implements Definition {
 	/** Nom de la d�finition. */
 	private final String name;

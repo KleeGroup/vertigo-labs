@@ -1,11 +1,11 @@
 package io.vertigo.knock.plugins.metadata.pdf;
 
-import io.vertigo.core.lang.Assertion;
 import io.vertigo.dynamo.file.model.KFile;
 import io.vertigo.dynamo.file.util.FileUtil;
 import io.vertigo.knock.impl.metadata.MetaDataExtractorPlugin;
 import io.vertigo.knock.metadata.MetaDataContainer;
 import io.vertigo.knock.metadata.MetaDataContainerBuilder;
+import io.vertigo.lang.Assertion;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -63,15 +63,15 @@ public final class PDFMetaDataExtractorPlugin implements MetaDataExtractorPlugin
 			//Metadata
 			final PDDocumentInformation documentInformation = pdd.getDocumentInformation();
 			return new MetaDataContainerBuilder()//
-					.withMetaData(PDFMetaData.AUTHOR, documentInformation.getAuthor())//
-					.withMetaData(PDFMetaData.KEYWORDS, documentInformation.getKeywords())//
-					.withMetaData(PDFMetaData.SUBJECT, documentInformation.getSubject())//
-					.withMetaData(PDFMetaData.TITLE, documentInformation.getTitle())//
-					.withMetaData(PDFMetaData.CONTENT, content)//
-					.withMetaData(PDFMetaData.PRODUCER, documentInformation.getProducer())//
-					.withMetaData(PDFMetaData.PDFA, String.valueOf(PDFA_VALID.equals(pdfaValidationMsg)))//
-					.withMetaData(PDFMetaData.PDFA_VALIDATION_MSG, pdfaValidationMsg)//
-					.build();
+			.withMetaData(PDFMetaData.AUTHOR, documentInformation.getAuthor())//
+			.withMetaData(PDFMetaData.KEYWORDS, documentInformation.getKeywords())//
+			.withMetaData(PDFMetaData.SUBJECT, documentInformation.getSubject())//
+			.withMetaData(PDFMetaData.TITLE, documentInformation.getTitle())//
+			.withMetaData(PDFMetaData.CONTENT, content)//
+			.withMetaData(PDFMetaData.PRODUCER, documentInformation.getProducer())//
+			.withMetaData(PDFMetaData.PDFA, String.valueOf(PDFA_VALID.equals(pdfaValidationMsg)))//
+			.withMetaData(PDFMetaData.PDFA_VALIDATION_MSG, pdfaValidationMsg)//
+			.build();
 			//metaDataContainer.setValue(PDFMetaData.SUMMARY, content.length() > 1000 ? content.substring(0, 1000) : content);
 			//metaDataContainer.setValue(PDFMetaData.PRODUCER, documentInformation.getCreationDate().tProducer());
 			//Autres m�ta donn�es non trait�es pour l'instant
@@ -94,13 +94,13 @@ public final class PDFMetaDataExtractorPlugin implements MetaDataExtractorPlugin
 			final PreflightParser parser = new PreflightParser(ds);
 			try {
 				/* Parse the PDF file with PreflightParser that inherits from the NonSequentialParser.
-				 * Some additional controls are present to check a set of PDF/A requirements. 
+				 * Some additional controls are present to check a set of PDF/A requirements.
 				 * (Stream length consistency, EOL after some Keyword...)
 				 */
 				parser.parse();
-				/* Once the syntax validation is done, 
-				 * the parser can provide a PreflightDocument 
-				 * (that inherits from PDDocument) 
+				/* Once the syntax validation is done,
+				 * the parser can provide a PreflightDocument
+				 * (that inherits from PDDocument)
 				 * This document process the end of PDF/A validation.
 				 */
 				final PreflightDocument document = parser.getPreflightDocument();
@@ -110,7 +110,7 @@ public final class PDFMetaDataExtractorPlugin implements MetaDataExtractorPlugin
 				result = document.getResult();
 				document.close();
 			} catch (final SyntaxValidationException e) {
-				/* the parse method can throw a SyntaxValidationException 
+				/* the parse method can throw a SyntaxValidationException
 				 * if the PDF file can't be parsed.
 				 * final In this case, the exception contains an instance of ValidationResult
 				 */

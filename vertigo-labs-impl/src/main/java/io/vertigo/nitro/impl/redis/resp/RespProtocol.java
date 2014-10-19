@@ -1,6 +1,6 @@
 package io.vertigo.nitro.impl.redis.resp;
 
-import io.vertigo.core.lang.Assertion;
+import io.vertigo.lang.Assertion;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -154,27 +154,27 @@ public final class RespProtocol {
 		Assertion.checkArgument('?' == expected || expected == response.charAt(0), "exepected {0}, find {1}", expected, response.charAt(0));
 		//----
 		switch (start) {
-		case ':': //number
-			return Long.valueOf(response.substring(1));
-		case '+': //string
-			return response.substring(1);
-		case '$': //bulk
-			final int n = Integer.valueOf(response.substring(1));
-			if (n < 0) {
-				return null;
-			} else if (n == 0) {
-				return "";
-			}
-			return in.readLine();
-		case '*': //array
-			final int m = Integer.valueOf(response.substring(1));
-			final List list = new ArrayList<>();
-			for (int i = 0; i < m; i++) {
-				list.add(pull(in, '?'));
-			}
-			return list;
-		default:
-			throw new IllegalArgumentException("According resp protocol, a response must starts with - + : $ or *");
+			case ':': //number
+				return Long.valueOf(response.substring(1));
+			case '+': //string
+				return response.substring(1);
+			case '$': //bulk
+				final int n = Integer.valueOf(response.substring(1));
+				if (n < 0) {
+					return null;
+				} else if (n == 0) {
+					return "";
+				}
+				return in.readLine();
+			case '*': //array
+				final int m = Integer.valueOf(response.substring(1));
+				final List list = new ArrayList<>();
+				for (int i = 0; i < m; i++) {
+					list.add(pull(in, '?'));
+				}
+				return list;
+			default:
+				throw new IllegalArgumentException("According resp protocol, a response must starts with - + : $ or *");
 		}
 
 	}

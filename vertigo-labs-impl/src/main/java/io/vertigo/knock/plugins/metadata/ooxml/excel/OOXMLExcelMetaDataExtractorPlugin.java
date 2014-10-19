@@ -1,9 +1,9 @@
 package io.vertigo.knock.plugins.metadata.ooxml.excel;
 
-import io.vertigo.core.lang.Assertion;
 import io.vertigo.dynamo.file.model.KFile;
 import io.vertigo.dynamo.file.util.FileUtil;
 import io.vertigo.knock.plugins.metadata.ooxml.CommonOOXMLMetaDataExtractorPlugin;
+import io.vertigo.lang.Assertion;
 
 /**
  * Permet d'�tendre l'extracteur OOXML pour des traitements particuliers sur les feuillets Excel.
