@@ -40,7 +40,7 @@ public class GoogleGeoCoderManagerTest extends AbstractTestCaseJU4 {
 	@Test(expected = NullPointerException.class)
 	public final void testNull() {
 		// On vérifie que la géolocalisation d'une addresse n'existant pas retourne une liste vide
-		GeoLocation geoLocation = geoCoderManager.findLocation(null);
+		final GeoLocation geoLocation = geoCoderManager.findLocation(null);
 		Assert.assertTrue(geoLocation.isUndefined());
 	}
 
@@ -50,7 +50,7 @@ public class GoogleGeoCoderManagerTest extends AbstractTestCaseJU4 {
 	public final void testEmpty() {
 		// On vérifie que la géolocalisation d'une addresse n'existant pas
 		// retourne une liste vide
-		GeoLocation geoLocation = geoCoderManager.findLocation("");
+		final GeoLocation geoLocation = geoCoderManager.findLocation("");
 		Assert.assertTrue(geoLocation.isUndefined());
 	}
 
@@ -61,7 +61,7 @@ public class GoogleGeoCoderManagerTest extends AbstractTestCaseJU4 {
 	@Test
 	public final void testEtain() {
 		// Géolocalisation
-		String address = "étain,55400,Meuse,Lorraine,FRANCE";
+		final String address = "étain,55400,Meuse,Lorraine,FRANCE";
 		final GeoLocation geoLocation = geoCoderManager.findLocation(address);
 		AssertNear(geoLocation, 49.213506, 5.63623222988, 2);
 		Assert.assertEquals("étain", geoLocation.getLocality().toLowerCase());
@@ -98,7 +98,7 @@ public class GoogleGeoCoderManagerTest extends AbstractTestCaseJU4 {
 		final GeoLocation paris = new GeoLocation(48.8667, 2.3333);
 		final GeoLocation roma = new GeoLocation(41.9000, 12.4833);
 
-		double distance = geoCoderManager.distanceKm(paris, roma);
+		final double distance = geoCoderManager.distanceKm(paris, roma);
 		Assert.assertTrue(Math.abs(distance - 1105.76) < 1);
 	}
 
@@ -123,15 +123,14 @@ public class GoogleGeoCoderManagerTest extends AbstractTestCaseJU4 {
 
 	/**
 	 * Méthode permettant de vérifier qu'un résultat se situe bien dans un périmètre donné.
-	 *  
-	 * @param geoCoord le résultat à vérifier
-	 * @param lat la latitude du centre du périmètre
-	 * @param lon la longitude du centre du périmètre
+	 *
+	 * @param latitude Latitude du centre du périmètre
+	 * @param longitude Longitude du centre du périmètre
 	 * @param distanceMax le rayon du cercle en km
 	 * @return True si le point recherché est dans le périmètre considéré
 	 */
 	private boolean near(final GeoLocation geoLocation, final double latitude, final double longitude, final double distanceMax) {
-		GeoLocation geoLocation2 = new GeoLocation(latitude, longitude);
+		final GeoLocation geoLocation2 = new GeoLocation(latitude, longitude);
 		return geoCoderManager.distanceKm(geoLocation, geoLocation2) < distanceMax;
 	}
 }

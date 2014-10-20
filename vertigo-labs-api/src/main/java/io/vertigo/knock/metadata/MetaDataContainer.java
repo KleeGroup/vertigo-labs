@@ -11,7 +11,7 @@ import java.util.Set;
  * Conteneur de m�ta-donn�es.
  * Un conteneur est non modifiable (ValueObject).
  * Il est n�cessaire de passer par le builder associ�.
- * 
+ *
  * @author pchretien
  * @version $Id: MetaDataContainer.java,v 1.3 2013/10/22 10:58:44 pchretien Exp $
  */
@@ -32,7 +32,6 @@ public final class MetaDataContainer implements Serializable {
 
 	/**
 	 * Constructeur ferm� (utilisable par le seul builder.
-	 * @param metadatas
 	 */
 	MetaDataContainer(final Map<MetaData, Object> metadatas) {
 		Assertion.checkNotNull(metadatas);

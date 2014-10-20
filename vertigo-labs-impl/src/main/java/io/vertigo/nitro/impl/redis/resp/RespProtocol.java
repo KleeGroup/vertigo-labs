@@ -113,16 +113,6 @@ public final class RespProtocol {
 		out.write(LN.getBytes(CHARSET));
 	}
 
-	/**
-	 * 
-	 * @param in
-	 * @param out
-	 * @param command
-	 * @param args
-	 * @param expected  T
-	 * @return
-	 * @throws IOException
-	 */
 	static Object pushPull(final RespType type, final BufferedReader in, final BufferedOutputStream out, final String command, final String[] args) {
 		try {
 			push(out, command, args);

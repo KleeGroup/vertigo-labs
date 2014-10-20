@@ -3,11 +3,9 @@ package io.vertigo.nitro.impl.redis.alphaserver;
 import java.util.HashMap;
 
 /**
- * A BlockingMap 
+ * A BlockingMap
  * @author pchretien
  *
- * @param <K>
- * @param <V>
  */
 public final class BlockingMap<K, V> {
 	private final Object lock = new Object();

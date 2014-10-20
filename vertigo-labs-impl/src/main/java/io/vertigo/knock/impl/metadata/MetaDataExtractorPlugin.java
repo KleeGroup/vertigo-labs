@@ -21,7 +21,6 @@ public interface MetaDataExtractorPlugin extends Plugin {
 
 	/**
 	 * Pr�cise quels sont les fichiers accept�s par cet extracteur.
-	 * @param mimeType TypeMime
 	 * @return Si le type mime est accept� par l'extracteur
 	 */
 	boolean accept(KFile file);
