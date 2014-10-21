@@ -22,7 +22,7 @@ import com.sleepycat.bind.tuple.TupleInput;
  */
 abstract class AbstractDocumentBindingReader implements DocumentBindingReader {
 
-	protected final MetaDataContainer filterMetaDataContainer(final MetaDataContainer mdc) {
+	protected static final MetaDataContainer filterMetaDataContainer(final MetaDataContainer mdc) {
 		final List<String> excludedMetaDataName = new ArrayList<>();
 		excludedMetaDataName.add("CONTENT");
 		final List<MetaData> excludedMetaData = new ArrayList<>(4);
@@ -40,7 +40,7 @@ abstract class AbstractDocumentBindingReader implements DocumentBindingReader {
 		return mdcBuilder.build();
 	}
 
-	protected final MetaDataContainer doEntryToMdc(final TupleInput ti) {
+	protected static final MetaDataContainer doEntryToMdc(final TupleInput ti) {
 		final MetaDataContainerBuilder metaDataContainerBuilder = new MetaDataContainerBuilder();
 		final int size = ti.readInt();
 		for (int i = 0; i < size; i++) {

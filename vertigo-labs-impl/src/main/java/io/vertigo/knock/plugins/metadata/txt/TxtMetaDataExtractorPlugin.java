@@ -35,7 +35,7 @@ public final class TxtMetaDataExtractorPlugin implements MetaDataExtractorPlugin
 		this.extensions = extensions.split(",");
 	}
 
-	private String getContent(final KFile file) throws Exception {
+	private static String getContent(final KFile file) throws Exception {
 
 		final InputStream inputStream = file.createInputStream();
 		try {
@@ -60,8 +60,8 @@ public final class TxtMetaDataExtractorPlugin implements MetaDataExtractorPlugin
 		Assertion.checkNotNull(file);
 		//----------------------------------------------------------------------
 		return new MetaDataContainerBuilder()//
-		.withMetaData(TxtMetaData.CONTENT, getContent(file))//
-		.build();
+				.withMetaData(TxtMetaData.CONTENT, getContent(file))//
+				.build();
 	}
 
 	/** {@inheritDoc} */

@@ -75,8 +75,8 @@ final class DocumentBinding extends TupleBinding implements DocumentBindingReade
 		final String name = ti.readString();
 
 		documentBuilder//
-		.withName(name)//
-		.withSize(size);
+				.withName(name)//
+				.withSize(size);
 
 		if (!readVersionOnly) {
 			final String content = ti.readString();
@@ -87,16 +87,16 @@ final class DocumentBinding extends TupleBinding implements DocumentBindingReade
 			final MetaDataContainer userDefinedMetaDataContainer = doEntryToMdc(ti);
 
 			documentBuilder//
-			.withContent(content)//
-			.withType(type)//
-			.withExtractedMetaDataContainer(extractedMetaDataContainer)//
-			.withEnhancedMetaDataContainer(enhancedMetaDataContainer)//
-			.withUserDefinedMetaDataContainer(userDefinedMetaDataContainer);
+					.withContent(content)//
+					.withType(type)//
+					.withExtractedMetaDataContainer(extractedMetaDataContainer)//
+					.withEnhancedMetaDataContainer(enhancedMetaDataContainer)//
+					.withUserDefinedMetaDataContainer(userDefinedMetaDataContainer);
 		}
 		return documentBuilder.build();
 	}
 
-	private void doDocumentToEntry(final Document document, final TupleOutput to) {
+	private static void doDocumentToEntry(final Document document, final TupleOutput to) {
 		to.writeString(CURRENT_VERSION);
 		doDocumentVersionToEntry(document.getDocumentVersion(), to);
 
@@ -110,13 +110,13 @@ final class DocumentBinding extends TupleBinding implements DocumentBindingReade
 		doMdcToEntry(document.getUserDefinedMetaDataContainer(), to);
 	}
 
-	private void doDocumentVersionToEntry(final DocumentVersion documentVersion, final TupleOutput to) {
+	private static void doDocumentVersionToEntry(final DocumentVersion documentVersion, final TupleOutput to) {
 		to.writeString(documentVersion.getUrl());
 		to.writeString(documentVersion.getDataSourceId());
 		to.writeLong(documentVersion.getLastModified().getTime());
 	}
 
-	private void doMdcToEntry(final MetaDataContainer metaDataContainer, final TupleOutput to) {
+	private static void doMdcToEntry(final MetaDataContainer metaDataContainer, final TupleOutput to) {
 		to.writeInt(metaDataContainer.getMetaDataSet().size());
 		for (final MetaData metaData : metaDataContainer.getMetaDataSet()) {
 			Assertion.checkArgument(metaData instanceof Enum, "Les MetaData doivent �tre des enums pour �tre serializable !! {0} est une {1}", metaData, metaData.getClass().getName());
@@ -146,19 +146,19 @@ final class DocumentBinding extends TupleBinding implements DocumentBindingReade
 		}
 	}
 
-	private DocumentVersion doEntryToDocumentVersion(final TupleInput ti) {
+	private static DocumentVersion doEntryToDocumentVersion(final TupleInput ti) {
 		final String url = ti.readString();
 		final String dataSourceId = ti.readString();
 		final Date lastModified = new Date(ti.readLong());
 
 		return new DocumentVersionBuilder()//
-		.withSourceUrl(url)//
-		.withLastModified(lastModified)//
-		.withDataSourceId(dataSourceId)//
-		.build();
+				.withSourceUrl(url)//
+				.withLastModified(lastModified)//
+				.withDataSourceId(dataSourceId)//
+				.build();
 	}
 
-	private MetaDataContainer doEntryToMdc(final TupleInput ti) {
+	private static MetaDataContainer doEntryToMdc(final TupleInput ti) {
 		final MetaDataContainerBuilder metaDataContainerBuilder = new MetaDataContainerBuilder();
 		final int size = ti.readInt();
 		for (int i = 0; i < size; i++) {

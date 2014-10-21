@@ -144,7 +144,7 @@ public final class ChannelManagerImpl implements ChannelManager {
 		}
 	}
 
-	private DocumentEnhancer getEnhancer(final ChannelDefinition channelDefinition) {
+	private static DocumentEnhancer getEnhancer(final ChannelDefinition channelDefinition) {
 		return new DocumentEnhancer(channelDefinition.getDocumentPostProcessors());
 	}
 
@@ -153,7 +153,7 @@ public final class ChannelManagerImpl implements ChannelManager {
 		return documentPostProcessors;
 	}
 
-	private Iterable<Document> readStoredDocuments(final ChannelDefinition channelDefinition) {
+	private static Iterable<Document> readStoredDocuments(final ChannelDefinition channelDefinition) {
 		return channelDefinition.getDocumentStore();
 	}
 

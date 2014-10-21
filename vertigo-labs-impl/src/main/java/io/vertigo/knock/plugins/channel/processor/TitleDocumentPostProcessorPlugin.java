@@ -24,12 +24,12 @@ public final class TitleDocumentPostProcessorPlugin implements DocumentPostProce
 				.build();
 	}
 
-	private String extractTitle(final MetaDataContainer metaDataContainer) {
+	private static String extractTitle(final MetaDataContainer metaDataContainer) {
 		final Set<MetaData> metaDataSet = metaDataContainer.getMetaDataSet();
 
 		//		if (metaDataSet.contains(Mp3MetaData.TITLE)) {
 		//			return (String) metaDataContainer.getValue(Mp3MetaData.TITLE);
-		//		} else 
+		//		} else
 		if (metaDataSet.contains(MSMetaData.TITLE)) {
 			return (String) metaDataContainer.getValue(MSMetaData.TITLE);
 		} else if (metaDataSet.contains(PDFMetaData.TITLE)) {

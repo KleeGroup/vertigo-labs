@@ -28,7 +28,7 @@ import javax.inject.Inject;
  * Cette constitution assure :
  * - un nombre d'�lement limit� : 50
  * - une taille m�moire limit�e : < freeMem + 20%
- * 
+ *
  * @author npiedeloup
  * @version $Id: IndexHandlerPluginImpl.java,v 1.12 2013/04/25 12:33:28 npiedeloup Exp $
  */
@@ -87,7 +87,7 @@ public final class IndexHandlerPluginImpl implements IndexHandlerPlugin {
 		}
 	}
 
-	private long estimateDtObjectSize(final DtObject dto) {
+	private static long estimateDtObjectSize(final DtObject dto) {
 		long estimatedSize = 1 * 1024;
 		for (final DtField dtField : DtObjectUtil.findDtDefinition(dto).getFields()) {
 			if (DataType.String == dtField.getDomain().getDataType()) {

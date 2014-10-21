@@ -47,7 +47,7 @@ public final class DocumentManagerImpl implements DocumentManager {
 		//		throw new KRuntimeException("Pas de DocumentStorePlugin d'id : " + storeId);
 	}
 
-	private Document createDocument(final DocumentVersion documentVersion, final MetaDataContainer extractedMdc) {
+	private static Document createDocument(final DocumentVersion documentVersion, final MetaDataContainer extractedMdc) {
 		//On cr�e le document
 		//System.out.println("createDocument :" + fileDownloadUrl);
 		final DocumentBuilder documentBuilder = new DocumentBuilder(documentVersion);
@@ -67,7 +67,7 @@ public final class DocumentManagerImpl implements DocumentManager {
 		return createDocument(documentVersion, mdc);
 	}
 
-	private void populateDocument(final DocumentBuilder documentBuilder, final MetaDataContainer mdc) {
+	private static void populateDocument(final DocumentBuilder documentBuilder, final MetaDataContainer mdc) {
 		final List<MetaData> excludedMetaData = new ArrayList<>(4);
 		excludedMetaData.add(FileInfoMetaData.FILE_NAME);
 		excludedMetaData.add(FileInfoMetaData.SIZE);
@@ -78,10 +78,10 @@ public final class DocumentManagerImpl implements DocumentManager {
 		final String type = (String) mdc.getValue(FileInfoMetaData.FILE_EXTENSION);
 
 		documentBuilder//
-		.withName((String) mdc.getValue(FileInfoMetaData.FILE_NAME))//
-		.withSize((Long) mdc.getValue(FileInfoMetaData.SIZE))//
-		.withType(StringUtil.isEmpty(type) ? "<aucun>" : type)//
-		.withContent("");//vide par defaut
+				.withName((String) mdc.getValue(FileInfoMetaData.FILE_NAME))//
+				.withSize((Long) mdc.getValue(FileInfoMetaData.SIZE))//
+				.withType(StringUtil.isEmpty(type) ? "<aucun>" : type)//
+				.withContent("");//vide par defaut
 
 		//documentBuilder.setLastModified((Date) mdc.getValue(FileInfoMetaData.LAST_MODIFIED));
 		boolean contentSet = false;

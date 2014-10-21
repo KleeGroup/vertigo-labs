@@ -30,7 +30,7 @@ final class DocumentVersionWriter extends TupleBinding {
 		}
 	}
 
-	private void doDocumentVersionToEntry(final DocumentVersion documentVersion, final TupleOutput to) {
+	private static void doDocumentVersionToEntry(final DocumentVersion documentVersion, final TupleOutput to) {
 		to.writeString(documentVersion.getUrl());
 		to.writeString(documentVersion.getDataSourceId());
 		to.writeLong(documentVersion.getLastModified().getTime());

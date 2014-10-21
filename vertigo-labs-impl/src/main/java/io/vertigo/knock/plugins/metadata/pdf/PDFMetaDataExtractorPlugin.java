@@ -63,15 +63,15 @@ public final class PDFMetaDataExtractorPlugin implements MetaDataExtractorPlugin
 			//Metadata
 			final PDDocumentInformation documentInformation = pdd.getDocumentInformation();
 			return new MetaDataContainerBuilder()//
-			.withMetaData(PDFMetaData.AUTHOR, documentInformation.getAuthor())//
-			.withMetaData(PDFMetaData.KEYWORDS, documentInformation.getKeywords())//
-			.withMetaData(PDFMetaData.SUBJECT, documentInformation.getSubject())//
-			.withMetaData(PDFMetaData.TITLE, documentInformation.getTitle())//
-			.withMetaData(PDFMetaData.CONTENT, content)//
-			.withMetaData(PDFMetaData.PRODUCER, documentInformation.getProducer())//
-			.withMetaData(PDFMetaData.PDFA, String.valueOf(PDFA_VALID.equals(pdfaValidationMsg)))//
-			.withMetaData(PDFMetaData.PDFA_VALIDATION_MSG, pdfaValidationMsg)//
-			.build();
+					.withMetaData(PDFMetaData.AUTHOR, documentInformation.getAuthor())//
+					.withMetaData(PDFMetaData.KEYWORDS, documentInformation.getKeywords())//
+					.withMetaData(PDFMetaData.SUBJECT, documentInformation.getSubject())//
+					.withMetaData(PDFMetaData.TITLE, documentInformation.getTitle())//
+					.withMetaData(PDFMetaData.CONTENT, content)//
+					.withMetaData(PDFMetaData.PRODUCER, documentInformation.getProducer())//
+					.withMetaData(PDFMetaData.PDFA, String.valueOf(PDFA_VALID.equals(pdfaValidationMsg)))//
+					.withMetaData(PDFMetaData.PDFA_VALIDATION_MSG, pdfaValidationMsg)//
+					.build();
 			//metaDataContainer.setValue(PDFMetaData.SUMMARY, content.length() > 1000 ? content.substring(0, 1000) : content);
 			//metaDataContainer.setValue(PDFMetaData.PRODUCER, documentInformation.getCreationDate().tProducer());
 			//Autres m�ta donn�es non trait�es pour l'instant
@@ -87,7 +87,7 @@ public final class PDFMetaDataExtractorPlugin implements MetaDataExtractorPlugin
 		}
 	}
 
-	private String getPdfA1bValidation(final KFile file) throws IOException {
+	private static String getPdfA1bValidation(final KFile file) throws IOException {
 		ValidationResult result;
 		try (final InputStream inputStream = file.createInputStream()) {
 			final DataSource ds = new ByteArrayDataSource(inputStream);

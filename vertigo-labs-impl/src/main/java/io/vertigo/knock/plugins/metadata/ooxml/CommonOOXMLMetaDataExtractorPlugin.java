@@ -47,11 +47,11 @@ public class CommonOOXMLMetaDataExtractorPlugin implements MetaDataExtractorPlug
 	/**
 	 * Extrait m�tadonn�es (et texte) du document repr�sent� par l'extracteur.
 	 * Surcharger pour extraire des m�tadonn�es sp�cifiques au document
-	 * 
+	 *
 	 * @param extractor Extracteur des m�tadonn�es
 	 * @return Container Conteneur o� placer les m�tadonn�es
 	 */
-	protected final MetaDataContainer doExtractMetaData(final POIXMLTextExtractor extractor) {
+	protected static final MetaDataContainer doExtractMetaData(final POIXMLTextExtractor extractor) {
 		final MetaDataContainerBuilder metaDataContainerBuilder = new MetaDataContainerBuilder();
 
 		// Content
