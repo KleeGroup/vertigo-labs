@@ -2,7 +2,7 @@ package io.vertigo.knock.document;
 
 import io.vertigo.knock.document.model.Document;
 import io.vertigo.knock.document.model.DocumentVersion;
-import io.vertigo.lang.Manager;
+import io.vertigo.lang.Component;
 
 import java.io.File;
 
@@ -10,7 +10,7 @@ import java.io.File;
  * @author npiedeloup
  * @version $Id: DocumentManager.java,v 1.6 2011/09/13 16:58:32 pchretien Exp $
  */
-public interface DocumentManager extends Manager {
+public interface DocumentManager extends Component {
 	//Stockage des documents par channel
 	DocumentStore getDocumentStore(final String storeId);
 

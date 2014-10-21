@@ -18,8 +18,7 @@
  */
 package io.vertigo.labs.france;
 
-
-import io.vertigo.lang.Manager;
+import io.vertigo.lang.Component;
 
 import java.util.Collection;
 
@@ -27,7 +26,7 @@ import java.util.Collection;
  * Some data about france.
  * @author pchretien
  */
-public interface FranceManager extends Manager {
+public interface FranceManager extends Component {
 	/**
 	 * @return List of Regions
 	 */

@@ -2,16 +2,16 @@ package io.vertigo.knock.crawler;
 
 import io.vertigo.knock.document.model.Document;
 import io.vertigo.knock.document.model.DocumentVersion;
-import io.vertigo.lang.Manager;
+import io.vertigo.lang.Component;
 
 /**
  * Gestionnaires des crawler de DataSource.
  * Ce manager g�re les diff�rentes sources de donn�es et utilise un plugin adapat� leurs sp�cificit�es techniques.
- * 
+ *
  * @author npiedeloup
  * @version $Id: CrawlerManager.java,v 1.5 2011/08/02 14:36:12 pchretien Exp $
  */
-public interface CrawlerManager extends Manager {
+public interface CrawlerManager extends Component {
 	/**
 	 * Crawl une dataSource.
 	 * @param dataSourceId Identifiant de la dataSource � parcourir

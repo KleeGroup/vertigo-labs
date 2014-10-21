@@ -2,7 +2,7 @@ package io.vertigo.knock.channel;
 
 import io.vertigo.knock.channel.metadefinition.ChannelDefinition;
 import io.vertigo.knock.processors.DocumentPostProcessor;
-import io.vertigo.lang.Manager;
+import io.vertigo.lang.Component;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import java.util.List;
  * @author npiedeloup
  * @version $Id: ChannelManager.java,v 1.15 2014/02/17 17:55:57 npiedeloup Exp $
  */
-public interface ChannelManager extends Manager {
+public interface ChannelManager extends Component {
 
 	List<ChannelDefinition> getChannelDefinitions();
 

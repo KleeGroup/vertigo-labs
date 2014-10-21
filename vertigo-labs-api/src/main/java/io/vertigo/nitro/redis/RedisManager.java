@@ -1,7 +1,7 @@
 package io.vertigo.nitro.redis;
 
-import io.vertigo.lang.Manager;
+import io.vertigo.lang.Component;
 
-public interface RedisManager extends Manager {
+public interface RedisManager extends Component {
 	RedisClient createClient();
 }

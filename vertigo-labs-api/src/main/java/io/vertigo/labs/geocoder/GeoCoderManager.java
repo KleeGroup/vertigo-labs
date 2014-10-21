@@ -18,17 +18,17 @@
  */
 package io.vertigo.labs.geocoder;
 
-import io.vertigo.lang.Manager;
+import io.vertigo.lang.Component;
 
 /**
  * API de Geocoding d'adresses postales ou de POI.
- * 
+ *
  * @author spoitrenaud, pchretien
  */
-public interface GeoCoderManager extends Manager {
+public interface GeoCoderManager extends Component {
 	/**
 	 * Geocoding d'une adresse.
-	 * 
+	 *
 	 * @param address Chaine de caractères représentant une adresse.
 	 * @return Liste des emplacements (latitude ; longitude) correspondant à l'adresse recherchée.
 	 */
@@ -36,7 +36,7 @@ public interface GeoCoderManager extends Manager {
 
 	/**
 	 * Calcul de distance entre deux points
-	 * 
+	 *
 	 * @param geoLocation1 Premier point
 	 * @param geoLocation2 Second point
 	 * @return Distance exprimées en km.
