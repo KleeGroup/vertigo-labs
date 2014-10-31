@@ -18,8 +18,6 @@
  */
 package io.vertigo.dynamo.plugins.search.solr;
 
-import io.vertigo.core.lang.Assertion;
-import io.vertigo.core.lang.MessageText;
 import io.vertigo.dynamo.collections.ListFilter;
 import io.vertigo.dynamo.collections.metamodel.FacetDefinition;
 import io.vertigo.dynamo.collections.metamodel.FacetedQueryDefinition;
@@ -36,6 +34,8 @@ import io.vertigo.dynamo.search.IndexFieldNameResolver;
 import io.vertigo.dynamo.search.metamodel.IndexDefinition;
 import io.vertigo.dynamo.search.model.Index;
 import io.vertigo.dynamo.search.model.SearchQuery;
+import io.vertigo.lang.Assertion;
+import io.vertigo.lang.MessageText;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -47,16 +47,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import org.apache.solr.client.solrj.SolrQuery;
-import org.apache.solr.client.solrj.SolrQuery.ORDER;
-import org.apache.solr.client.solrj.SolrServer;
-import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.response.FacetField;
-import org.apache.solr.client.solrj.response.FacetField.Count;
-import org.apache.solr.client.solrj.response.QueryResponse;
-import org.apache.solr.common.SolrDocument;
-import org.apache.solr.common.SolrInputDocument;
-import org.apache.solr.common.params.CommonParams;
+import org.apache.poi.ss.formula.functions.Count;
 
 //vérifier
 /**
@@ -246,7 +237,7 @@ final class SolrStatement<I extends DtObject, R extends DtObject> {
 	private static void appendFacetDefinition(final FacetedQueryDefinition queryDefinition, final SolrQuery solrQuery, final IndexFieldNameResolver indexFieldNameResolver) {
 		Assertion.checkNotNull(solrQuery);
 		//---------------------------------------------------------------------
-		//Activation des facettes 
+		//Activation des facettes
 		final boolean hasFacet = !queryDefinition.getFacetDefinitions().isEmpty();
 		solrQuery.setFacet(hasFacet);
 
@@ -254,12 +245,12 @@ final class SolrStatement<I extends DtObject, R extends DtObject> {
 			//Récupération des noms des champs correspondant aux facettes.
 			final DtField dtField = facetDefinition.getDtField();
 			if (facetDefinition.isRangeFacet()) {
-				//facette par range 
+				//facette par range
 				for (final FacetValue facetRange : facetDefinition.getFacetRanges()) {
 					solrQuery.addFacetQuery(translateToSolr(facetRange.getListFilter(), indexFieldNameResolver));
 				}
 			} else {
-				//facette par field 
+				//facette par field
 				solrQuery.addFacetField(indexFieldNameResolver.obtainIndexFieldName(dtField));
 			}
 		}
@@ -268,13 +259,14 @@ final class SolrStatement<I extends DtObject, R extends DtObject> {
 	private static String translateToSolr(final ListFilter query, final IndexFieldNameResolver indexFieldNameResolver) {
 		Assertion.checkNotNull(query);
 		//---------------------------------------------------------------------
-		final StringBuilder stringQuery = new StringBuilder();
-		//for (final QueryFilter facetQuery : queryFilters) {
-		stringQuery.append(" +(");
-		stringQuery.append(query.getFilterValue());
-		stringQuery.append(')');
+		final String stringQuery = new StringBuilder()
+				//for (final QueryFilter facetQuery : queryFilters) {
+				.append(" +(")
+				.append(query.getFilterValue())
+				.append(')')
+				.toString();
 		//}
-		return indexFieldNameResolver.replaceAllIndexFieldNames(stringQuery.toString());
+		return indexFieldNameResolver.replaceAllIndexFieldNames(stringQuery);
 	}
 
 	private QueryResponse executeQuery(final SolrQuery solrQuery) {
@@ -327,7 +319,7 @@ final class SolrStatement<I extends DtObject, R extends DtObject> {
 		//Pour chaque type de facette
 		for (final FacetDefinition facetDefinition : queryDefinition.getFacetDefinitions()) {
 			if (facetDefinition.isRangeFacet()) {
-				//Cas des facettes par 'range' 
+				//Cas des facettes par 'range'
 				final Map<String, Integer> responseFacetQuery = queryResponse.getFacetQuery();
 				final Facet currentFacet = createFacetRange(facetDefinition, responseFacetQuery);
 				facetList.add(currentFacet);
@@ -369,7 +361,7 @@ final class SolrStatement<I extends DtObject, R extends DtObject> {
 	}
 
 	private Facet createFacetRange(final FacetDefinition facetDefinition, final Map<String, Integer> responseFacetQuery) {
-		//Cas des facettes par range 
+		//Cas des facettes par range
 		final Map<FacetValue, Long> rangeValues = new LinkedHashMap<>();
 		for (final FacetValue facetRange : facetDefinition.getFacetRanges()) {
 			final String rangeQueryString = translateToSolr(facetRange.getListFilter(), indexFieldNameResolver);
