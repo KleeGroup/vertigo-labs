@@ -148,7 +148,6 @@ public class AutoCompleteTest {
 		});
 		loadDatas(KLEE_DATAS_PATH, autoCompleteUi);
 		indexPlugin.indexDatas(datas, autoCompleteUi);
-		datas.clear();
 		autoCompleteUi.displayMessage("Recherche phonétique prète : taper un nom");
 	}
 }
