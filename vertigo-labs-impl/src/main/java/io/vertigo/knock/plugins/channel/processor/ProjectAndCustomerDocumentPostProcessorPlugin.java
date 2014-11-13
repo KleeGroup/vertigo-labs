@@ -8,6 +8,7 @@ import io.vertigo.knock.metadata.MetaDataContainerBuilder;
 public final class ProjectAndCustomerDocumentPostProcessorPlugin implements DocumentPostProcessorPlugin {
 
 	/** {@inheritDoc} */
+	@Override
 	public MetaDataContainer extract(final Document document) {
 		//----------------------------
 		final String url = document.getDocumentVersion().getUrl();

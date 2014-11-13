@@ -115,7 +115,7 @@ public final class IndexHandlerPluginImpl implements IndexHandlerPlugin {
 		try {
 			synchronized (indexCollection) {
 				if (!indexCollection.isEmpty()) {
-					searchManager.getSearchServices().<DtObject, DtObject> putAll(indexDefinition, indexCollection);
+					searchManager.<DtObject, DtObject> putAll(indexDefinition, indexCollection);
 					transaction.commit();
 					indexCollection.clear();
 				}

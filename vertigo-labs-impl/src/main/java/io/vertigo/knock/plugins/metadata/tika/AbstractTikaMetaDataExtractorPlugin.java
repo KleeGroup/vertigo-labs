@@ -170,6 +170,8 @@ public abstract class AbstractTikaMetaDataExtractorPlugin<M extends TikaMetaData
 			case STRING:
 				//		case UNKNOWN:
 				return stringValue;
+			case LONG:
+				return Long.parseLong(stringValue);
 			default:
 				throw new IllegalStateException("Type non reconu" + metaDataType.name());
 		}

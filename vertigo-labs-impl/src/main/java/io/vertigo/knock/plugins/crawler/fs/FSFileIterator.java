@@ -21,12 +21,14 @@ import java.util.regex.Pattern;
  */
 final class FSFileIterator implements Iterator<File> {
 	private final class OnlyDirectoryFilter implements FileFilter {
+		@Override
 		public boolean accept(final File file) {
 			return file.isDirectory() && checkExcludes(file.getName());
 		}
 	}
 
 	private final class OnlyFileFilter implements FileFilter {
+		@Override
 		public boolean accept(final File file) {
 			return file.isFile() && checkExcludes(file.getName());
 		}
@@ -96,6 +98,7 @@ final class FSFileIterator implements Iterator<File> {
 	private File current;
 
 	/** {@inheritDoc} */
+	@Override
 	public boolean hasNext() {
 		if (next == null) {
 			next = doNext();
@@ -105,6 +108,7 @@ final class FSFileIterator implements Iterator<File> {
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public File next() {
 		if (next == null) {
 			throw new NoSuchElementException("Liste vide");
@@ -144,6 +148,7 @@ final class FSFileIterator implements Iterator<File> {
 			resultFiles = Arrays.asList(files);
 
 			Collections.sort(resultFiles, new Comparator<File>() {
+				@Override
 				public int compare(final File o1, final File o2) {
 					return o2.getAbsolutePath().compareTo(o1.getAbsolutePath());
 				}

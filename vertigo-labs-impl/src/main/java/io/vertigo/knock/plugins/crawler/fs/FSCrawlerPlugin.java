@@ -102,12 +102,14 @@ public final class FSCrawlerPlugin implements CrawlerPlugin {
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public Document readDocument(final DocumentVersion documentVersion) {
 		final File file = getFile(documentVersion, dataSourceId, getNormalizedAbsolutePath(directory));
 		return documentManager.createDocumentFromFile(documentVersion, file);
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public String getBaseDownloadUrl() {
 		return downloadUrl;
 	}
@@ -123,8 +125,10 @@ public final class FSCrawlerPlugin implements CrawlerPlugin {
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public Iterable<DocumentVersion> crawl(final String startAtUrl) {
 		return new Iterable<DocumentVersion>() {
+			@Override
 			public Iterator<DocumentVersion> iterator() {
 				return new DocumentVersionIterator(directory, dataSourceId, createFileIterator(startAtUrl));
 			}
@@ -132,6 +136,7 @@ public final class FSCrawlerPlugin implements CrawlerPlugin {
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public boolean accept(final String testDataSourceId) {
 		return dataSourceId.equals(testDataSourceId);
 	}
@@ -157,20 +162,22 @@ public final class FSCrawlerPlugin implements CrawlerPlugin {
 			this.fileIterator = fileIterator;
 		}
 
+		@Override
 		public boolean hasNext() {
 			return fileIterator.hasNext();
 		}
 
+		@Override
 		public DocumentVersion next() {
 			if (!hasNext()) {
 				throw new NoSuchElementException("Liste vide");
 			}
 			final File file = fileIterator.next();
 			return new DocumentVersionBuilder()//
-			.withSourceUrl(getRelativeUrl(file, basePath))//
-			.withDataSourceId(dataSourceId)//
-			.withLastModified(getNormalizedLastModified(file))//
-			.build();
+					.withSourceUrl(getRelativeUrl(file, basePath))//
+					.withDataSourceId(dataSourceId)//
+					.withLastModified(getNormalizedLastModified(file))//
+					.build();
 		}
 
 		@Override
