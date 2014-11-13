@@ -47,6 +47,7 @@ public final class DemoDocumentConverterPlugin implements DocumentConverterPlugi
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public Index process(final Document document) {
 		final DocumentIndexed documentIndexed = new DocumentIndexed();
 		final DocumentResult documentResult = new DocumentResult();

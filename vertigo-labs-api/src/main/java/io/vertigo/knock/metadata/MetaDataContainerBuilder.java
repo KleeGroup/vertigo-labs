@@ -47,6 +47,7 @@ public final class MetaDataContainerBuilder implements Builder<MetaDataContainer
 	 * Cr�ation du MDC.
 	 * @return Conteneur des m�tadonn�es
 	 */
+	@Override
 	public MetaDataContainer build() {
 		if (metadatas.isEmpty()) {
 			return MetaDataContainer.EMPTY_META_DATA_CONTAINER;

@@ -19,11 +19,13 @@ public final class CrawlerManagerImpl implements CrawlerManager {
 	private List<CrawlerPlugin> crawlerPlugins;
 
 	/** {@inheritDoc} */
+	@Override
 	public Document readDocument(final DocumentVersion documentVersion) {
 		return getCrawler(documentVersion.getDataSourceId()).readDocument(documentVersion);
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public CrawlerPlugin getCrawler(final String dataSourceId) {
 		for (final CrawlerPlugin crawler : crawlerPlugins) {
 			if (crawler.accept(dataSourceId)) {

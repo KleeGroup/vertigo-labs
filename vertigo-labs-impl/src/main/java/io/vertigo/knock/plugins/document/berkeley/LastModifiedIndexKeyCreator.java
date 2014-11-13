@@ -13,6 +13,7 @@ final class LastModifiedIndexKeyCreator implements SecondaryKeyCreator {
 	private final TupleBinding documentBinding = new DocumentBinding(true);
 
 	/** {@inheritDoc} */
+	@Override
 	public boolean createSecondaryKey(final SecondaryDatabase secondary, final DatabaseEntry key, final DatabaseEntry data, final DatabaseEntry result) throws DatabaseException {
 		final Document document = (Document) documentBinding.entryToObject(data);
 		documentVersionBinding.objectToEntry(document.getDocumentVersion(), result);

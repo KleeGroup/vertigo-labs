@@ -82,6 +82,7 @@ public final class DocumentBuilder implements Builder<Document> {
 		return this;
 	}
 
+	@Override
 	public Document build() {
 		if (document == null) {
 			//Pour le premier document on commence la r�vision � 0. (Pas de r�vision)

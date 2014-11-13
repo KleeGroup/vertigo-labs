@@ -44,6 +44,7 @@ public enum MSMetaData implements MetaData {
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public MetaDataType getType() {
 		return metaDataType;
 	}

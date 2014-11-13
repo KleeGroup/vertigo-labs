@@ -20,12 +20,13 @@ public final class RedisManagerImpl implements RedisManager {
 		//---------------------------------------------------------------------
 		this.host = host;
 		this.port = port;
-		this.password=password;
+		this.password = password;
 	}
 
+	@Override
 	public RedisClient createClient() {
 		final RedisClient redisClient = new RedisClientImpl(host, port);
-		if (password.isDefined()){
+		if (password.isDefined()) {
 			redisClient.auth(password.get());
 		}
 		return redisClient;

@@ -111,6 +111,7 @@ public final class ChannelDefinition implements Definition {
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public String getName() {
 		return name;
 	}

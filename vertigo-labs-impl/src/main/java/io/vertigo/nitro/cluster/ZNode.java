@@ -76,6 +76,7 @@ public final class ZNode extends Thread {
 
 	private static RespServer createRespServer(final int port) {
 		return new RespServer(port, new RespCommandHandler() {
+			@Override
 			public void onCommand(final OutputStream out, final RespCommand command) throws IOException {
 				switch (command.getName().toLowerCase()) {
 					case "ping":

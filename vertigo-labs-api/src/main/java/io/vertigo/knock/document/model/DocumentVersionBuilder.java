@@ -14,8 +14,6 @@ public final class DocumentVersionBuilder implements Builder<DocumentVersion> {
 	private String myDataSourceId;
 	private Date myLastModified;
 
-
-
 	public DocumentVersionBuilder withSourceUrl(final String sourceUrl) {
 		this.mySourceUrl = sourceUrl;
 		return this;
@@ -31,6 +29,7 @@ public final class DocumentVersionBuilder implements Builder<DocumentVersion> {
 		return this;
 	}
 
+	@Override
 	public DocumentVersion build() {
 		return new DocumentVersion(myDataSourceId, mySourceUrl, myLastModified);
 	}

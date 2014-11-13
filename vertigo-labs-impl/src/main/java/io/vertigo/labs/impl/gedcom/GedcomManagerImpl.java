@@ -79,6 +79,7 @@ public final class GedcomManagerImpl implements GedcomManager {
 		return gindividual.xref.toString();
 	}
 
+	@Override
 	public DtList<Individual> getAllIndividuals() {
 		final Map<String, Individual> map = new HashMap<>();
 		final DtList<Individual> individuals = new DtList<>(Individual.class);
@@ -197,6 +198,7 @@ public final class GedcomManagerImpl implements GedcomManager {
 		// }
 	}
 
+	@Override
 	public DtList<Individual> getChildren(final Individual individual) {
 		Assertion.checkNotNull(individual);
 		//---------------------------------------------------------------------

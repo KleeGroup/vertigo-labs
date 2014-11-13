@@ -40,6 +40,7 @@ public final class RespClient implements AutoCloseable {
 		}
 	}
 
+	@Override
 	public void close() {
 		try {
 			doClose();

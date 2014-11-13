@@ -26,6 +26,7 @@ import org.openxmlformats.schemas.officeDocument.x2006.extendedProperties.CTProp
 public class CommonOOXMLMetaDataExtractorPlugin implements MetaDataExtractorPlugin {
 
 	/** {@inheritDoc} */
+	@Override
 	public final MetaDataContainer extractMetaData(final KFile file) throws Exception {
 		Assertion.checkNotNull(file);
 		//----------------------------------------------------------------------

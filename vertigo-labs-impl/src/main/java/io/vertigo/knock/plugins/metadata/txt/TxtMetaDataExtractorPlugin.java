@@ -56,6 +56,7 @@ public final class TxtMetaDataExtractorPlugin implements MetaDataExtractorPlugin
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public MetaDataContainer extractMetaData(final KFile file) throws Exception {
 		Assertion.checkNotNull(file);
 		//----------------------------------------------------------------------
@@ -65,6 +66,7 @@ public final class TxtMetaDataExtractorPlugin implements MetaDataExtractorPlugin
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public boolean accept(final KFile file) {
 		Assertion.checkNotNull(file);
 		//---------------------------------------------------------------------

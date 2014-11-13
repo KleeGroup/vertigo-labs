@@ -28,6 +28,7 @@ public final class RedisServer implements RespCommandHandler {
 		new Thread(respServer).start();
 	}
 
+	@Override
 	public void onCommand(final OutputStream out, final RespCommand command) throws IOException {
 		switch (command.getName().toLowerCase()) {
 		//-------------------------Connection----------------------------------

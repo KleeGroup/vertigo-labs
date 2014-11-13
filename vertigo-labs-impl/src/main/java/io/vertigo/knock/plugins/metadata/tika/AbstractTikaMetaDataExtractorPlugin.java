@@ -74,6 +74,7 @@ public abstract class AbstractTikaMetaDataExtractorPlugin<M extends TikaMetaData
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public final MetaDataContainer extractMetaData(final KFile file) throws Exception {
 		Assertion.checkNotNull(file);
 		//----------------------------------------------------------------------
@@ -174,6 +175,7 @@ public abstract class AbstractTikaMetaDataExtractorPlugin<M extends TikaMetaData
 		}
 	}
 
+	@Override
 	public boolean accept(final KFile file) {
 		Assertion.checkNotNull(file);
 		//----------------------------------------------------------------------

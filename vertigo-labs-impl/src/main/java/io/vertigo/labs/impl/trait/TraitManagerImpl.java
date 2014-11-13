@@ -46,6 +46,7 @@ public final class TraitManagerImpl implements TraitManager {
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public <T extends Trait> Option<T> findTrait(final Class<T> traitClass, final String subjectId) {
 		Assertion.checkNotNull(traitClass);
 		//---------------------------------------------------------------------
@@ -53,6 +54,7 @@ public final class TraitManagerImpl implements TraitManager {
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public <T extends Trait> void putTrait(final Class<T> traitClass, final String subjectId, final T trait) {
 		Assertion.checkNotNull(traitClass);
 		//---------------------------------------------------------------------
@@ -60,6 +62,7 @@ public final class TraitManagerImpl implements TraitManager {
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public <T extends Trait> void deleteTrait(final Class<T> traitClass, final String subjectId) {
 		doDelete(subjectId, traitClass.getSimpleName());
 	}

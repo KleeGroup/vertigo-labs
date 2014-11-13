@@ -106,5 +106,6 @@ public interface RedisClient extends AutoCloseable {
 
 	//-------------------------------------------------------------------------
 	//close is overrided to avoid exception
+	@Override
 	void close();
 }

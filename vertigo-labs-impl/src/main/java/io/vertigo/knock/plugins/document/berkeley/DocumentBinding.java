@@ -68,6 +68,7 @@ final class DocumentBinding extends TupleBinding implements DocumentBindingReade
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public Document doEntryToDocument(final TupleInput ti) throws Exception {
 		final DocumentVersion documentVersion = doEntryToDocumentVersion(ti);
 		final DocumentBuilder documentBuilder = new DocumentBuilder(documentVersion);

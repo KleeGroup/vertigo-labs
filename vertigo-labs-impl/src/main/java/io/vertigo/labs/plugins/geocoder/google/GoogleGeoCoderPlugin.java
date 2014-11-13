@@ -55,7 +55,7 @@ import org.xml.sax.SAXException;
 
 /**
  * @author spoitrenaud
- * 
+ *
  */
 public final class GoogleGeoCoderPlugin implements GeoCoderPlugin {
 	// Début de la requête http
@@ -90,7 +90,7 @@ public final class GoogleGeoCoderPlugin implements GeoCoderPlugin {
 
 	/**
 	 * Récupération d'une connexion.
-	 * 
+	 *
 	 * @param url type URL
 	 * @return type Document contenant les résultats de la requête
 	 */
@@ -117,7 +117,7 @@ public final class GoogleGeoCoderPlugin implements GeoCoderPlugin {
 
 	/**
 	 * Méthode de connexion au service Google.
-	 * 
+	 *
 	 * @param address Chaîne de caractères contenant l'adresse à geocoder
 	 * @return Document
 	 */
@@ -159,7 +159,7 @@ public final class GoogleGeoCoderPlugin implements GeoCoderPlugin {
 
 	/**
 	 * Parseur XML avec l'expression XPath.
-	 * 
+	 *
 	 * @param xml : le document XML récupéré depuis Google Geocoder
 	 * @param xPathString : l'expression XPath permettant de parser le XML
 	 * @return NodeList contenant les données du fichier XML
@@ -179,7 +179,7 @@ public final class GoogleGeoCoderPlugin implements GeoCoderPlugin {
 
 	/**
 	 * Parseur XML avec l'expression XPath.
-	 * 
+	 *
 	 * @param xml : le document XML récupéré depuis Google Geocoder
 	 * @param xPathString : l'expression XPath permettant de parser le XML
 	 * @return Node contenant les données du fichier XML
@@ -214,6 +214,7 @@ public final class GoogleGeoCoderPlugin implements GeoCoderPlugin {
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public GeoLocation findLocation(final String address) {
 		Assertion.checkNotNull(address);
 		//---------------------------------------------------------------------------

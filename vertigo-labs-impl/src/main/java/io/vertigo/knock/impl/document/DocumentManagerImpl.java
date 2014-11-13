@@ -36,6 +36,7 @@ public final class DocumentManagerImpl implements DocumentManager {
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public DocumentStore getDocumentStore(final String storeId) {
 		//		final Collection<Plugin> plugins = Home.getContainer().getPlugins(CrawlerManager.class);
 		return Home.getComponentSpace().resolve(storeId, DocumentStorePlugin.class);
@@ -56,6 +57,7 @@ public final class DocumentManagerImpl implements DocumentManager {
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public Document createDocumentFromFile(final DocumentVersion documentVersion, final File file) {
 		Assertion.checkNotNull(documentVersion);
 		Assertion.checkNotNull(file);

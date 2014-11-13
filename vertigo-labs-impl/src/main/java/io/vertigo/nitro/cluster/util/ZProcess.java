@@ -10,7 +10,7 @@ import java.io.PrintStream;
 
 /**
  * A process is a simple command executed by the OS.
- * 
+ *
  * @author pchretien
  */
 final class ZProcess implements AutoCloseable {
@@ -26,6 +26,7 @@ final class ZProcess implements AutoCloseable {
 		new StreamGobbler(process.getInputStream(), System.out).start();
 	}
 
+	@Override
 	public void close() {
 		//kill process
 		process.destroy();

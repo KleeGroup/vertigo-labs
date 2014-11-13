@@ -6,7 +6,7 @@ import io.vertigo.lang.Assertion;
 
 /**
  * Liste des m�tadonn�es pour les MP3.
- * 
+ *
  * @author pchretien
  * @version $Id: JpegMetaData.java,v 1.3 2013/10/22 12:08:46 pchretien Exp $
  */
@@ -33,6 +33,7 @@ public enum JpegMetaData implements MetaData {
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public MetaDataType getType() {
 		return metaDataType;
 	}

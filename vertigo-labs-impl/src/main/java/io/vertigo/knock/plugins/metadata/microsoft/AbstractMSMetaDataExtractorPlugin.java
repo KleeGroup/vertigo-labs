@@ -26,6 +26,7 @@ public abstract class AbstractMSMetaDataExtractorPlugin implements MetaDataExtra
 	protected abstract String extractContent(final KFile file) throws Exception;
 
 	/** {@inheritDoc} */
+	@Override
 	public MetaDataContainer extractMetaData(final KFile file) throws Exception {
 		Assertion.checkNotNull(file);
 		//----------------------------------------------------------------------

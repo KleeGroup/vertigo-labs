@@ -17,6 +17,7 @@ import io.vertigo.lang.Assertion;
 public final class JpegMetaDataExtractorPlugin implements MetaDataExtractorPlugin {
 
 	/** {@inheritDoc} */
+	@Override
 	public MetaDataContainer extractMetaData(final KFile file) throws Exception {
 		throw new UnsupportedOperationException();
 		/*		Assertion.notNull(fileInfo);
@@ -57,6 +58,7 @@ public final class JpegMetaDataExtractorPlugin implements MetaDataExtractorPlugi
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public boolean accept(final KFile file) {
 		Assertion.checkNotNull(file);
 		//---------------------------------------------------------------------

@@ -60,11 +60,13 @@ public final class ChannelManagerImpl implements ChannelManager {
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public List<ChannelDefinition> getChannelDefinitions() {
 		return new ArrayList<>(Home.getDefinitionSpace().getAll(ChannelDefinition.class));
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public void crawlChannel(final ChannelDefinition channelDefinition) {
 		mapStateChannel.put(channelDefinition, String.format("STARTING CRAWL"));
 		final StatsDocument statsDocument = new StatsDocument(channelDefinition.getLabel());
@@ -98,6 +100,7 @@ public final class ChannelManagerImpl implements ChannelManager {
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public void processChannel(final ChannelDefinition channelDefinition) {
 		mapStateChannel.put(channelDefinition, String.format("STARTING PROCESS"));
 		final DocumentEnhancer documentProcessor = getEnhancer(channelDefinition);
@@ -120,6 +123,7 @@ public final class ChannelManagerImpl implements ChannelManager {
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public void indexChannel(final ChannelDefinition channelDefinition) {
 		mapStateChannel.put(channelDefinition, String.format("STARTING INDEX"));
 		final IndexHandlerPlugin indexHandler = getIndexHandlerPlugin();
@@ -149,6 +153,7 @@ public final class ChannelManagerImpl implements ChannelManager {
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public List<DocumentPostProcessor> getDocumentPostProcessors() {
 		return documentPostProcessors;
 	}
@@ -158,6 +163,7 @@ public final class ChannelManagerImpl implements ChannelManager {
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public void crawlAndIndexChannel(final ChannelDefinition channelDefinition) {
 		mapStateChannel.put(channelDefinition, String.format("STARTING CRAWL & INDEX"));
 		final StatsDocument statsDocument = new StatsDocument(channelDefinition.getLabel());
@@ -214,6 +220,7 @@ public final class ChannelManagerImpl implements ChannelManager {
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public DocumentConverter getDocumentConverter(final String documentConverterId) {
 		return Home.getComponentSpace().resolve(documentConverterId, DocumentConverterPlugin.class);
 		//		final Collection<Plugin> plugins = Home.getContainer().getPlugins(ChannelManager.class);
@@ -233,12 +240,14 @@ public final class ChannelManagerImpl implements ChannelManager {
 	//	}
 
 	/** {@inheritDoc} */
+	@Override
 	public String getChannelState(final ChannelDefinition channelDefinition) {
 		final String state = mapStateChannel.get(channelDefinition);
 		return state != null ? state : "NOT STARTED";
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public boolean isRunning() {
 		for (final ChannelDefinition definition : getChannelDefinitions()) {
 			if (getChannelState(definition).contains("ING")) {

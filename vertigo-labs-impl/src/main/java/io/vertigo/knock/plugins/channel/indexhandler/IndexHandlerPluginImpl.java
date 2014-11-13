@@ -68,6 +68,7 @@ public final class IndexHandlerPluginImpl implements IndexHandlerPlugin {
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public void onIndex(final Index<DtObject, DtObject> index) {
 		if (!initialized) {
 			init();
@@ -99,6 +100,7 @@ public final class IndexHandlerPluginImpl implements IndexHandlerPlugin {
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public void flush() {
 		if (!initialized) {
 			init();

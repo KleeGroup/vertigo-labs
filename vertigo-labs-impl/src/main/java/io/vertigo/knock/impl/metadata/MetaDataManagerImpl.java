@@ -16,7 +16,7 @@ import org.apache.log4j.Logger;
 
 /**
  * Impl�mentation de r�f�rence de l'extracteur de m�tadonn�es.
- * 
+ *
  * @author npiedeloup, pchretien
  * @version $Id: MetaDataManagerImpl.java,v 1.4 2014/01/28 18:49:34 pchretien Exp $
  */
@@ -40,6 +40,7 @@ public final class MetaDataManagerImpl implements MetaDataManager {
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public MetaDataContainer extractMetaData(final KFile file) {
 		Assertion.checkNotNull(file);
 		//---------------------------------------------------------------------
@@ -91,13 +92,13 @@ public final class MetaDataManagerImpl implements MetaDataManager {
 		//		}
 		// Dans le cas des fichiers on ajoute la taille
 		metaDataContainerBuilder//
-		.withMetaData(FileInfoMetaData.SIZE, kFile.getLength())//
-		.withMetaData(FileInfoMetaData.FILE_EXTENSION, fileExtension.toUpperCase())//
-		// note: il y a aussi FileSystemView.getFileSystemView().getSystemIcon(file)
+				.withMetaData(FileInfoMetaData.SIZE, kFile.getLength())//
+				.withMetaData(FileInfoMetaData.FILE_EXTENSION, fileExtension.toUpperCase())//
+				// note: il y a aussi FileSystemView.getFileSystemView().getSystemIcon(file)
 
-		// throw new KSystemException("Erreur de lecture des m�ta donn�es pour " + file.getName(), e);
-		.withMetaData(FileInfoMetaData.FILE_NAME, kFile.getFileName())//
-		.withMetaData(FileInfoMetaData.LAST_MODIFIED, kFile.getLastModified());
+				// throw new KSystemException("Erreur de lecture des m�ta donn�es pour " + file.getName(), e);
+				.withMetaData(FileInfoMetaData.FILE_NAME, kFile.getFileName())//
+				.withMetaData(FileInfoMetaData.LAST_MODIFIED, kFile.getLastModified());
 		//		mdContainer.setValue(metaDataManager.getNameSpace().getMetaData(DocumentMetaData.MEDA_LAST_MODIFIED_URN), fileInfo.getLastModified());
 		// mdContainer.setValue(PATH, file.getPath());
 		//	return mdContainer;

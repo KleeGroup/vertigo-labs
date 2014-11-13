@@ -49,6 +49,7 @@ final class ClientNode {
 		sb.append("./target/classes");
 		sb.append(CP_SEP).append("./target/test-classes");
 		for (final File dependencyJar : new File(CP_DEPENDENCIES_PATH).listFiles(new FileFilter() {
+			@Override
 			public boolean accept(final File pathname) {
 				return pathname.isFile() && pathname.getName().endsWith(".jar");
 			}
@@ -69,6 +70,7 @@ final class ClientNode {
 
 	private Thread createMaxLifeTime() {
 		return new Thread(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					Thread.sleep(maxLifeTime * 1000);
@@ -90,6 +92,7 @@ final class ClientNode {
 
 	private static Thread createOutputFlusher(final InputStream inputStream, final String prefix, final PrintStream out) {
 		return new Thread(new Runnable() {
+			@Override
 			public void run() {
 				try (final InputStreamReader isr = new InputStreamReader(inputStream)) {
 					try (final BufferedReader br = new BufferedReader(isr)) {

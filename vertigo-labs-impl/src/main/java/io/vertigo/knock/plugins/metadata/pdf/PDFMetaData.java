@@ -50,6 +50,7 @@ public enum PDFMetaData implements MetaData {
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public MetaDataType getType() {
 		return metaDataType;
 	}

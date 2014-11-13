@@ -7,16 +7,18 @@ import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ZClusterBuilder implements Builder<ZCluster>{
+public class ZClusterBuilder implements Builder<ZCluster> {
 	private final List<InetSocketAddress> addresses = new ArrayList<>();
 
-	public ZClusterBuilder  withAddress(final String host, final int port){
+	public ZClusterBuilder withAddress(final String host, final int port) {
 		Assertion.checkArgNotEmpty(host);
 		//---------------------------------------------------------------------
 		final InetSocketAddress address = new InetSocketAddress(host, port);
 		addresses.add(address);
 		return this;
 	}
+
+	@Override
 	public ZCluster build() {
 		return new ZCluster(addresses);
 	}

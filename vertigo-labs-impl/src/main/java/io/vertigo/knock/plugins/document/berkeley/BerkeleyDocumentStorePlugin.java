@@ -41,31 +41,37 @@ public final class BerkeleyDocumentStorePlugin implements DocumentStorePlugin, A
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public void add(final Document document) {
 		writer.put(document);
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public Iterator<Document> iterator() {
 		return new DocumentLoader(new BerkeleyDatabaseCursor(database)/*, timeout*/);
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public boolean contains(final DocumentVersion documentVersion) {
 		return reader.contains(documentVersion);
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public long size() {
 		return database.count();
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public void start() {
 		database.open(false);
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public void stop() {
 		database.close();
 	}
@@ -86,6 +92,7 @@ public final class BerkeleyDocumentStorePlugin implements DocumentStorePlugin, A
 		}
 
 		/** {@inheritDoc} */
+		@Override
 		public boolean hasNext() {
 			if (next == null) {
 				next = cursor.next();
@@ -94,6 +101,7 @@ public final class BerkeleyDocumentStorePlugin implements DocumentStorePlugin, A
 		}
 
 		/** {@inheritDoc} */
+		@Override
 		public Document next() {
 			if (next == null) {
 				throw new NoSuchElementException("Liste vide");

@@ -35,11 +35,11 @@ public final class RedisClientImpl implements RedisClient {
 		return tcpClient.execArray("brpop", args);
 	}
 
-
 	@Override
 	public String brpoplpush(final String source, final String destination, final long timeout) {
 		return tcpClient.execBulk("brpoplpush", source, destination, String.valueOf(timeout));
 	}
+
 	@Override
 	public String lindex(final String key, final int index) {
 		return tcpClient.execBulk("lindex", key, String.valueOf(index));
@@ -49,7 +49,6 @@ public final class RedisClientImpl implements RedisClient {
 	public long llen(final String key) {
 		return tcpClient.execLong("llen", key);
 	}
-
 
 	@Override
 	public String lpop(final String key) {
@@ -249,6 +248,7 @@ public final class RedisClientImpl implements RedisClient {
 		return tcpClient.execEval("eval", script, String.valueOf(0));
 	}
 
+	@Override
 	public void close() {
 		tcpClient.close();
 	}

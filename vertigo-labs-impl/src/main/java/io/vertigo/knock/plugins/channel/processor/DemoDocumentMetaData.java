@@ -37,6 +37,7 @@ public enum DemoDocumentMetaData implements MetaData {
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public MetaDataType getType() {
 		return metaDataType;
 	}

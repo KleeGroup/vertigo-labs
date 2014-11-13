@@ -16,7 +16,7 @@ public final class SummaryDocumentPostProcessorPlugin implements DocumentPostPro
 
 	//Le pattern de collusion des espaces :
 	//[\\x00-\\x09\\x0B-\\x20\\x7F] : caract�res de contr�le sauf le \n (ie : \x0A)
-	//{2,} : au moins deux caract�res  
+	//{2,} : au moins deux caract�res
 	private static final String SPACES_BUT_LF_REGEXP = "[\\x00-\\x09\\x0B-\\x20\\x7F]";
 	private static final String SPACES_COLLAPSE_REGEXP = SPACES_BUT_LF_REGEXP + "{2,}";
 	private static final String REMOVE_LINES_REGEXP = "(\\n" + SPACES_BUT_LF_REGEXP + "?){2,}";
@@ -28,6 +28,7 @@ public final class SummaryDocumentPostProcessorPlugin implements DocumentPostPro
 	private static final Pattern TRUNCATE_LINES_PATTERN = Pattern.compile(TRUNCATE_LINES_REGEXP);
 
 	/** {@inheritDoc} */
+	@Override
 	public MetaDataContainer extract(final Document document) {
 		//----------------------------
 		final String summary = extractSummary(document.getContent());
@@ -54,7 +55,7 @@ public final class SummaryDocumentPostProcessorPlugin implements DocumentPostPro
 			summary = SPACES_COLLAPSE_PATTERN.matcher(summary).replaceAll(" ");
 		}
 		if (REMOVE_EMPTY_LINES) {
-			//Certains docs utilisent \r seul comme saut de ligne. On les remplacent par \n si ils sont seul. 
+			//Certains docs utilisent \r seul comme saut de ligne. On les remplacent par \n si ils sont seul.
 			summary = LINE_CHAR_PATTERN.matcher(summary).replaceAll("\n");
 			summary = summary.replace('\r', '\n');
 			summary = REMOVE_LINES_PATTERN.matcher(summary).replaceAll("\n");

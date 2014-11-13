@@ -50,6 +50,7 @@ public final class PDFMetaDataExtractorPlugin implements MetaDataExtractorPlugin
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public MetaDataContainer extractMetaData(final KFile file) throws Exception {
 		Assertion.checkNotNull(file);
 		//----------------------------------------------------------------------

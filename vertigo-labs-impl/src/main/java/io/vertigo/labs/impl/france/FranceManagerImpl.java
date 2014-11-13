@@ -97,10 +97,12 @@ public final class FranceManagerImpl implements FranceManager {
 		return tmpDepartements;
 	}
 
+	@Override
 	public Collection<Region> getRegions() {
 		return regions.values();
 	}
 
+	@Override
 	public Collection<Departement> getDepartements() {
 		return departements.values();
 	}

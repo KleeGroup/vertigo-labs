@@ -67,6 +67,7 @@ public enum AutoTikaMetaData implements TikaMetaData {
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public MetaDataType getType() {
 		return metaDataType;
 	}

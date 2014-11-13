@@ -28,6 +28,7 @@ public enum OOXMLOthersMetaData implements OOXMLMetaData {
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public MetaDataType getType() {
 		return metaDataType;
 	}

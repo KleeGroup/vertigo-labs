@@ -54,26 +54,31 @@ public final class KFileSerializable implements KFile {
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public final String getFileName() {
 		return file.getFileName();
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public final String getMimeType() {
 		return file.getMimeType();
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public final Long getLength() {
 		return file.getLength();
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public final Date getLastModified() {
 		return file.getLastModified();
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public InputStream createInputStream() throws IOException {
 		return file.createInputStream();
 	}

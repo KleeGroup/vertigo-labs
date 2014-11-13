@@ -10,19 +10,20 @@ public final class RespServer implements Runnable {
 	private final int port;
 	private final RespCommandHandler respCommandHandler;
 
-	public RespServer(int port, RespCommandHandler respCommandHandler) {
+	public RespServer(final int port, final RespCommandHandler respCommandHandler) {
 		this.port = port;
 		this.respCommandHandler = respCommandHandler;
 	}
 
+	@Override
 	public void run() {
-		System.out.println("start server "+ port);
-		try (ServerSocket serverSocket =  new ServerSocket(port)) {
+		System.out.println("start server " + port);
+		try (ServerSocket serverSocket = new ServerSocket(port)) {
 			while (true) {
-				Socket socket = serverSocket.accept();
+				final Socket socket = serverSocket.accept();
 				new Thread(new TcpSocket(respCommandHandler, socket)).start();
 			}
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			throw new RuntimeException(e);
 		}
 	}
@@ -31,7 +32,7 @@ public final class RespServer implements Runnable {
 		private final Socket socket;
 		private final RespCommandHandler respCommandHandler;
 
-		TcpSocket(RespCommandHandler respCommandHandler, Socket socket) {
+		TcpSocket(final RespCommandHandler respCommandHandler, final Socket socket) {
 			this.socket = socket;
 			this.respCommandHandler = respCommandHandler;
 		}
@@ -47,7 +48,7 @@ public final class RespServer implements Runnable {
 			//			} catch (IOException e) {
 			//				throw new RuntimeException(e);
 			//			}
-			catch (IOException e) {
+			catch (final IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

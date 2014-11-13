@@ -86,6 +86,7 @@ public enum ODFMetaData implements TikaMetaData {
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public MetaDataType getType() {
 		return metaDataType;
 	}

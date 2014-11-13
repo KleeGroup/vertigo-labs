@@ -15,6 +15,7 @@ import java.util.Set;
 public final class TitleDocumentPostProcessorPlugin implements DocumentPostProcessorPlugin {
 
 	/** {@inheritDoc} */
+	@Override
 	public MetaDataContainer extract(final Document document) {
 		//----------------------------
 		final String title = extractTitle(document.getMetaDataContainer());
