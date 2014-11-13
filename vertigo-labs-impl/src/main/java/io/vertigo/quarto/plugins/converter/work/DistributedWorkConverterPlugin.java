@@ -28,7 +28,7 @@ import javax.inject.Inject;
 
 /**
  * Plugin de Conversion des fichiers par un work (pour la distribution).
- * 
+ *
  * @author npiedeloup
  */
 public final class DistributedWorkConverterPlugin implements ConverterPlugin {
@@ -46,6 +46,7 @@ public final class DistributedWorkConverterPlugin implements ConverterPlugin {
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public KFile convertToFormat(final KFile file, final String targetFormat) {
 		return workManager.process(new ConverterWork(file, targetFormat), new WorkEngineProvider<>(ConverterWorkEngine.class));
 	}

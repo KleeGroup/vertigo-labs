@@ -30,12 +30,13 @@ import java.util.Iterator;
  * Attention cette classe est générée automatiquement !
  */
 public final class DtDefinitions implements Iterable<Class<?>> {
+	@Override
 	public Iterator<Class<?>> iterator() {
 		return Arrays.asList(new Class<?>[] { //
 				Rating.class,//
 						Tagging.class,//
 						Commenting.class,//
 						Individual.class //
-				}).iterator();
+		}).iterator();
 	}
 }

@@ -32,7 +32,6 @@ public final class HttpRequestWrapper extends HttpServletRequestWrapper {
 	 * Creates a new KRequestWrapper object.
 	 *
 	 * @param request Requ�te � g�rer.
-	 * @throws Exception Exception de lecture du flux
 	 */
 	HttpRequestWrapper(final HttpServletRequest request, final Map<String, String[]> parameters, final Map<String, KFile> uploadedFiles, final Map<String, RuntimeException> tooBigFiles) {
 		super(request);
