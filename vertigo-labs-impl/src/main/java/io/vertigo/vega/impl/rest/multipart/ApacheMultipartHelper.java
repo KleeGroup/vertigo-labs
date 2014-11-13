@@ -2,12 +2,12 @@ package io.vertigo.vega.impl.rest.multipart;
 
 import io.vertigo.commons.codec.CodecManager;
 import io.vertigo.core.Home;
-import io.vertigo.core.exception.VUserException;
-import io.vertigo.core.lang.Assertion;
-import io.vertigo.core.lang.MessageText;
 import io.vertigo.dynamo.file.FileManager;
 import io.vertigo.dynamo.file.model.InputStreamBuilder;
 import io.vertigo.dynamo.file.model.KFile;
+import io.vertigo.lang.Assertion;
+import io.vertigo.lang.MessageText;
+import io.vertigo.lang.VUserException;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,11 +18,27 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.google.gson.internal.Streams;
+import javax.servlet.MultipartConfigElement;
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemHeaders;
+import org.apache.commons.fileupload.FileItemHeadersSupport;
+import org.apache.commons.fileupload.FileItemIterator;
+import org.apache.commons.fileupload.FileItemStream;
+import org.apache.commons.fileupload.FileUploadBase.FileSizeLimitExceededException;
+import org.apache.commons.fileupload.FileUploadBase.FileUploadIOException;
+import org.apache.commons.fileupload.FileUploadBase.IOFileUploadException;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.fileupload.util.Streams;
+
+import spark.Request;
 
 /**
  * Plugin d'upload de fichier, par la librairie org.apache.commons.upload.
- * 
+ *
  * @author npiedeloup
  * @version $Id: ApacheFileUploadPlugin.java,v 1.11 2013/06/25 10:57:08 pchretien Exp $
  */
@@ -74,7 +90,7 @@ public final class ApacheMultipartHelper {
 		final ServletFileUpload upload = new ServletFileUpload(factory);
 		// Set overall request size constraint
 		upload.setSizeMax(multipartConfigElement.getMaxRequestSize());
-		// Paramétrage de la limite par fichier (celle sur la taille de la request n'est pas interceptable)
+		// Paramï¿½trage de la limite par fichier (celle sur la taille de la request n'est pas interceptable)
 		upload.setFileSizeMax(multipartConfigElement.getMaxFileSize());
 
 		// Parse the request
@@ -91,8 +107,8 @@ public final class ApacheMultipartHelper {
 			}
 			if (fileItem.isFormField()) {
 				processFormField(parameters, fileItem);
-			} else if (fileItem.getName().length() > 0) { // Si le nom est vide, le champ n'était pas renseigné.
-				// Si le fichier est vide alors soit le nom ne correspond pas à un fichier, soit il était vide coté coté
+			} else if (fileItem.getName().length() > 0) { // Si le nom est vide, le champ n'ï¿½tait pas renseignï¿½.
+				// Si le fichier est vide alors soit le nom ne correspond pas ï¿½ un fichier, soit il ï¿½tait vide cotï¿½ cotï¿½
 				// client
 				if (fileItem.getSize() > 0) {
 					processUploadedFile(fileItem, uploadedFiles, tooBigFiles, sizeExcedeed, upload.getFileSizeMax());
@@ -157,11 +173,11 @@ public final class ApacheMultipartHelper {
 	}
 
 	/**
-	 * Création d'un KFile à partir d'un FileItem.
-	 * 
+	 * Crï¿½ation d'un KFile ï¿½ partir d'un FileItem.
+	 *
 	 * @param fileName Nom du fichier
 	 * @param fileItem Fichier
-	 * @return FileInfo crée
+	 * @return FileInfo crï¿½e
 	 */
 	private static KFile createKFIle(final String fileName, final FileItem fileItem) {
 		String contentType = fileItem.getContentType();
@@ -172,6 +188,7 @@ public final class ApacheMultipartHelper {
 		final FileManager fileManager = Home.getComponentSpace().resolve(FileManager.class);
 		return fileManager.createFile(fileName, contentType, new Date(), fileItem.getSize(), new InputStreamBuilder() {
 
+			@Override
 			public InputStream createInputStream() throws IOException {
 				return fileItem.getInputStream();
 			}

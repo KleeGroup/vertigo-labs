@@ -1,8 +1,8 @@
 package io.vertigo.vega.impl.rest.multipart;
 
-import io.vertigo.core.exception.VUserException;
-import io.vertigo.core.lang.Option;
 import io.vertigo.dynamo.file.model.KFile;
+import io.vertigo.lang.Option;
+import io.vertigo.lang.VUserException;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,9 +11,14 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Map;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
+import javax.servlet.http.Part;
+
 /**
- * Wrapping de la requête Http pour la gestion des requête multipart.
- * 
+ * Wrapping de la requï¿½te Http pour la gestion des requï¿½te multipart.
+ *
  * @author npiedeloup
  * @version $Id: RequestWrapper.java,v 1.6 2013/06/25 10:57:08 pchretien Exp $
  */
@@ -25,8 +30,8 @@ public final class HttpRequestWrapper extends HttpServletRequestWrapper {
 
 	/**
 	 * Creates a new KRequestWrapper object.
-	 * 
-	 * @param request Requête à gérer.
+	 *
+	 * @param request Requï¿½te ï¿½ gï¿½rer.
 	 * @throws Exception Exception de lecture du flux
 	 */
 	HttpRequestWrapper(final HttpServletRequest request, final Map<String, String[]> parameters, final Map<String, KFile> uploadedFiles, final Map<String, RuntimeException> tooBigFiles) {
@@ -37,10 +42,10 @@ public final class HttpRequestWrapper extends HttpServletRequestWrapper {
 	}
 
 	/**
-	 * Donne le fichier téléchargé.
-	 * 
-	 * @param fileName Nom du paramètre portant le fichier dans la request
-	 * @return Fichier téléchargé.
+	 * Donne le fichier tï¿½lï¿½chargï¿½.
+	 *
+	 * @param fileName Nom du paramï¿½tre portant le fichier dans la request
+	 * @return Fichier tï¿½lï¿½chargï¿½.
 	 */
 	public Option<KFile> getUploadedFile(final String fileName) {
 		if (tooBigFiles.containsKey(fileName)) {
@@ -56,7 +61,7 @@ public final class HttpRequestWrapper extends HttpServletRequestWrapper {
 		if (values == null) {
 			return null;
 		}
-		// 1ère occurence.
+		// 1ï¿½re occurence.
 		return values[0];
 	}
 
@@ -90,38 +95,47 @@ public final class HttpRequestWrapper extends HttpServletRequestWrapper {
 		final Option<KFile> file = getUploadedFile(name);
 		return new Part() {
 
+			@Override
 			public InputStream getInputStream() throws IOException {
 				return file.get().createInputStream();
 			}
 
+			@Override
 			public String getContentType() {
 				return file.get().getMimeType();
 			}
 
+			@Override
 			public String getName() {
 				return file.get().getFileName();
 			}
 
+			@Override
 			public long getSize() {
 				return file.get().getLength();
 			}
 
+			@Override
 			public void write(final String paramString) throws IOException {
 				throw new UnsupportedOperationException("Not implemented");
 			}
 
+			@Override
 			public void delete() throws IOException {
 				throw new UnsupportedOperationException("Not implemented");
 			}
 
+			@Override
 			public String getHeader(final String paramString) {
 				throw new UnsupportedOperationException("Not implemented");
 			}
 
+			@Override
 			public Collection<String> getHeaders(final String paramString) {
 				throw new UnsupportedOperationException("Not implemented");
 			}
 
+			@Override
 			public Collection<String> getHeaderNames() {
 				throw new UnsupportedOperationException("Not implemented");
 			}

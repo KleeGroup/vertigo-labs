@@ -21,8 +21,8 @@ package io.vertigo.dynamo.plugins.search.solr.embedded;
 import io.vertigo.commons.codec.CodecManager;
 import io.vertigo.commons.locale.LocaleManager;
 import io.vertigo.commons.resource.ResourceManager;
-import io.vertigo.core.lang.Assertion;
 import io.vertigo.dynamo.plugins.search.solr.AbstractSolrSearchServicesPlugin;
+import io.vertigo.lang.Assertion;
 
 import java.io.File;
 import java.net.URL;
@@ -37,7 +37,7 @@ import org.apache.solr.core.CoreContainer;
 //Vérifier
 /**
  * Gestion de la connexion au serveur Solr en mode embarqué.
- * 
+ *
  * @author pchretien
  */
 public final class EmbeddedSolrSearchServicesPlugin extends AbstractSolrSearchServicesPlugin {
@@ -64,6 +64,7 @@ public final class EmbeddedSolrSearchServicesPlugin extends AbstractSolrSearchSe
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public void stop() {
 		coreContainer.shutdown();
 	}

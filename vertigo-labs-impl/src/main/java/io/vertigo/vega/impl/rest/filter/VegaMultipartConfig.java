@@ -18,6 +18,13 @@
  */
 package io.vertigo.vega.impl.rest.filter;
 
+import io.vertigo.vega.impl.rest.multipart.ApacheMultipartHelper;
+
+import javax.servlet.MultipartConfigElement;
+
+import spark.Filter;
+import spark.Request;
+import spark.Response;
 
 /**
  * Filter to configure MultipartConfigElement when Servlet 3.0 getPart don't work.

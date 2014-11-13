@@ -47,7 +47,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import org.apache.poi.ss.formula.functions.Count;
+import org.apache.solr.client.solrj.SolrQuery;
+import org.apache.solr.client.solrj.SolrQuery.ORDER;
+import org.apache.solr.client.solrj.SolrServer;
+import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.client.solrj.response.FacetField;
+import org.apache.solr.client.solrj.response.FacetField.Count;
+import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.common.SolrDocument;
+import org.apache.solr.common.SolrInputDocument;
+import org.apache.solr.common.params.CommonParams;
 
 //vérifier
 /**
@@ -349,6 +358,7 @@ final class SolrStatement<I extends DtObject, R extends DtObject> {
 
 		//tri des facettes
 		final Comparator<FacetValue> facetComparator = new Comparator<FacetValue>() {
+			@Override
 			public int compare(final FacetValue o1, final FacetValue o2) {
 				final int compareNbDoc = (int) (facetValues.get(o2) - facetValues.get(o1));
 				return compareNbDoc != 0 ? compareNbDoc : o1.getLabel().getDisplay().compareToIgnoreCase(o2.getLabel().getDisplay());

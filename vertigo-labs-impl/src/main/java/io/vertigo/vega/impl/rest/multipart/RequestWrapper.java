@@ -7,11 +7,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import javax.mail.Session;
+import javax.servlet.http.HttpServletRequest;
+
+import spark.QueryParamsMap;
+import spark.Request;
+import spark.Session;
 
 /**
- * Wrapping de la requête Http pour la gestion des requête multipart.
- * 
+ * Wrapping de la requï¿½te Http pour la gestion des requï¿½te multipart.
+ *
  * @author npiedeloup
  * @version $Id: RequestWrapper.java,v 1.6 2013/06/25 10:57:08 pchretien Exp $
  */
@@ -24,8 +28,8 @@ public final class RequestWrapper extends Request {
 
 	/**
 	 * Creates a new KRequestWrapper object.
-	 * 
-	 * @param request Requête à gérer.
+	 *
+	 * @param request Requï¿½te ï¿½ gï¿½rer.
 	 * @throws Exception Exception de lecture du flux
 	 */
 	RequestWrapper(final Request innerRequest, final Map<String, String[]> parameters, final Map<String, KFile> uploadedFiles, final Map<String, RuntimeException> tooBigFiles) {
@@ -115,7 +119,7 @@ public final class RequestWrapper extends Request {
 		if (values == null) {
 			return null;
 		}
-		// 1ère occurence.
+		// 1ï¿½re occurence.
 		return values[0];
 		//return innerRequest.queryParams(queryParam);
 	}

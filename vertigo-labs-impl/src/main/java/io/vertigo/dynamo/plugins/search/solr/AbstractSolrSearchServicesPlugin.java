@@ -24,8 +24,8 @@ import io.vertigo.dynamo.collections.model.FacetedQuery;
 import io.vertigo.dynamo.collections.model.FacetedQueryResult;
 import io.vertigo.dynamo.domain.model.DtObject;
 import io.vertigo.dynamo.domain.model.URI;
+import io.vertigo.dynamo.impl.search.SearchServicesPlugin;
 import io.vertigo.dynamo.search.IndexFieldNameResolver;
-import io.vertigo.dynamo.search.SearchServicesPlugin;
 import io.vertigo.dynamo.search.metamodel.IndexDefinition;
 import io.vertigo.dynamo.search.model.Index;
 import io.vertigo.dynamo.search.model.SearchQuery;
@@ -36,6 +36,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.apache.solr.client.solrj.SolrServer;
 
 /**
  * Gestion de la connexion au serveur Solr de manière transactionnel.
@@ -70,6 +72,7 @@ public abstract class AbstractSolrSearchServicesPlugin implements SearchServices
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public final void start() {
 		//SOLR appelle constitue un server par indexe/Core
 		for (final String splitedCore : cores.split(",")) {
@@ -89,6 +92,7 @@ public abstract class AbstractSolrSearchServicesPlugin implements SearchServices
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public final void registerIndexFieldNameResolver(final IndexDefinition indexDefinition, final IndexFieldNameResolver indexFieldNameResolver) {
 		Assertion.checkNotNull(indexDefinition);
 		Assertion.checkNotNull(indexFieldNameResolver);
@@ -109,6 +113,7 @@ public abstract class AbstractSolrSearchServicesPlugin implements SearchServices
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public final <I extends DtObject, R extends DtObject> void putAll(final IndexDefinition indexDefinition, final Collection<Index<I, R>> indexCollection) {
 		Assertion.checkNotNull(indexCollection);
 		//---------------------------------------------------------------------
@@ -126,6 +131,7 @@ public abstract class AbstractSolrSearchServicesPlugin implements SearchServices
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public final <I extends DtObject, R extends DtObject> void put(final IndexDefinition indexDefinition, final Index<I, R> index) {
 		//On vérifie la cohérence des données SO et SOD.
 		Assertion.checkNotNull(indexDefinition);
@@ -138,6 +144,7 @@ public abstract class AbstractSolrSearchServicesPlugin implements SearchServices
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public final void remove(final IndexDefinition indexDefinition, final URI uri) {
 		Assertion.checkNotNull(uri);
 		Assertion.checkNotNull(indexDefinition);
@@ -156,6 +163,7 @@ public abstract class AbstractSolrSearchServicesPlugin implements SearchServices
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public final <R extends DtObject> FacetedQueryResult<R, SearchQuery> loadList(final SearchQuery searchQuery, final FacetedQuery facetedQuery) {
 		Assertion.checkNotNull(searchQuery);
 		Assertion.checkNotNull(facetedQuery);
@@ -165,6 +173,7 @@ public abstract class AbstractSolrSearchServicesPlugin implements SearchServices
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public final long count(final IndexDefinition indexDefinition) {
 		Assertion.checkNotNull(indexDefinition);
 		//---------------------------------------------------------------------
@@ -172,6 +181,7 @@ public abstract class AbstractSolrSearchServicesPlugin implements SearchServices
 	}
 
 	/** {@inheritDoc} */
+	@Override
 	public final void remove(final IndexDefinition indexDefinition, final ListFilter listFilter) {
 		Assertion.checkNotNull(indexDefinition);
 		Assertion.checkNotNull(listFilter);

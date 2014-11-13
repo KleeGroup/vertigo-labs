@@ -20,8 +20,8 @@ package io.vertigo.dynamo.plugins.search.solr.commonshttp;
 
 import io.vertigo.commons.codec.CodecManager;
 import io.vertigo.commons.locale.LocaleManager;
-import io.vertigo.core.lang.Assertion;
 import io.vertigo.dynamo.plugins.search.solr.AbstractSolrSearchServicesPlugin;
+import io.vertigo.lang.Assertion;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -31,7 +31,7 @@ import org.apache.solr.client.solrj.impl.HttpSolrServer;
 
 /**
  * Gestion de la connexion au serveur Solr en mode HTTP.
- * 
+ *
  * @author dchallas
  */
 public final class CommonsHttpSolrSearchServicesPlugin extends AbstractSolrSearchServicesPlugin {
@@ -59,6 +59,7 @@ public final class CommonsHttpSolrSearchServicesPlugin extends AbstractSolrSearc
 		return new HttpSolrServer(serverURL + '/' + core);
 	}
 
+	@Override
 	public void stop() {
 		// nada
 	}
