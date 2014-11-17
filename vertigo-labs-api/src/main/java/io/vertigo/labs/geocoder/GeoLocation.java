@@ -31,8 +31,8 @@ public final class GeoLocation {
 	private final String level2; //département
 	private final String locality;
 
-	private final double latitude;
-	private final double longitude;
+	private final Double latitude;
+	private final Double longitude;
 
 	//	private final String accuracy;
 
@@ -41,8 +41,8 @@ public final class GeoLocation {
 	 * Notamment utilisé pour la désérialisation.
 	 */
 	public GeoLocation() {
-		latitude = Float.NaN;
-		longitude = Float.NaN;
+		latitude = null;
+		longitude = null;
 		//		accuracy = null;
 		this.countryCode = null;
 		this.level1 = null;
@@ -61,8 +61,8 @@ public final class GeoLocation {
 		Assertion.checkArgument((!Double.isNaN(latitude) && !Double.isNaN(longitude)), "UNDEFINDED or defined");
 		//----------------------------------------------------------------
 		//		this.accuracy = accuracy;
-		this.latitude = latitude;
-		this.longitude = longitude;
+		this.latitude = Double.isNaN(latitude) ? null : latitude;
+		this.longitude = Double.isNaN(longitude) ? null : longitude;
 		this.countryCode = countryCode;
 		this.level1 = level1;
 		this.level2 = level2;
@@ -73,7 +73,7 @@ public final class GeoLocation {
 	 * @return Latitude du résultat
 	 */
 	public double getLatitude() {
-		Assertion.checkArgument(!Double.isNaN(latitude), "Utiliser isUndefined");
+		Assertion.checkArgument(latitude != null, "latitude is not defined, Use isUndefined");
 		//---------------------------------------------------------------------
 		return latitude;
 	}
@@ -82,12 +82,12 @@ public final class GeoLocation {
 	 * @return Longitude du résultat
 	 */
 	public double getLongitude() {
-		Assertion.checkArgument(!Double.isNaN(longitude), "Utiliser isUndefined");
+		Assertion.checkArgument(longitude != null, "longitude is not defined, Use isUndefined");
 		return longitude;
 	}
 
 	public boolean isUndefined() {
-		return Double.isNaN(latitude);
+		return latitude == null;
 	}
 
 	public String getLocality() {
@@ -108,7 +108,7 @@ public final class GeoLocation {
 
 	@Override
 	public String toString() {
-		if (Double.isNaN(latitude)) {
+		if (isUndefined()) {
 			return "UNDEFINDED";
 		}
 		return "lat:" + latitude + " ; lng:" + longitude;
