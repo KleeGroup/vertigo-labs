@@ -1,5 +1,5 @@
 <?xml version =	'1.0' encoding = 'ISO-8859-1'?>
-<modules>
+<config>
 	<module name="kasper-commons">
 	   <component api="AnalyticsManager" class="io.vertigo.commons.impl.analytics.AnalyticsManagerImpl" />
 	    <component api="WorkManager" class="io.vertigo.dynamo.impl.work.WorkManagerImpl">	
@@ -22,4 +22,4 @@
 	        <plugin class="io.vertigo.knock.plugins.metadata.tika.AutoTikaMetaDataExtractorPlugin" />      
 	    </component>  
 	</module>
-</modules>
+</config>

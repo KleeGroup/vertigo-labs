@@ -1,5 +1,5 @@
 <?xml version =	'1.0' encoding = 'ISO-8859-1'?>
-<modules>
+<config>
 	<module name="gedcom">
 	
 	   <component api="KTransactionManager" class="io.vertigo.dynamo.impl.transaction.KTransactionManagerImpl"/>
@@ -9,7 +9,7 @@
 		</component>
 		
 		<component api="KVDataStoreManager" class="io.vertigo.dynamo.impl.kvdatastore.KVDataStoreManagerImpl" >
-	        <plugin class="io.vertigo.dynamo.plugins.kvdatastore.txberkeley.TxBerkeleyKVDataStorePlugin">
+	        <plugin class="io.vertigo.dynamo.plugins.kvdatastore.berkeley.BerkeleyKVDataStorePlugin">
       			<param name="dataStoreName" value="traits" />            
       			<param name="inMemory" value="false" />            
       			<param name="fileName" value="d:/berkeleyDB-gedcom" />            
@@ -40,4 +40,4 @@
 	<module name="test">
 		<resource type="kpr" path="demo.kpr" />
 	</module>
-</modules>
+</config>
