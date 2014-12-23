@@ -36,11 +36,11 @@ public final class ChannelDefinition implements Definition {
 	 * @param label Nom du channel
 	 * @param crawler Identifiant du Crawler
 	 * param documentConverter Convertisseur de Document en Index
-	 * @param documentStore Identifiant du Store de Document
+	 * param documentStore Identifiant du Store de Document
 	 * param indexDefinition IndexDefinition
 	 * param facetQueryDefinition Nom de la d�finition des facettes
 	 */
-	public ChannelDefinition(final String name, final String label, final Crawler crawler, final List<DocumentPostProcessor> documentPostProcessors, final DocumentStore documentStore /*final DocumentConverter documentConverter, final IndexDefinition indexDefinition, final FacetedQueryDefinition facetQueryDefinition*/) {
+	public ChannelDefinition(final String name, final String label, final Crawler crawler, final List<DocumentPostProcessor> documentPostProcessors, final DocumentStore documentStore/* final DocumentConverter documentConverter, final IndexDefinition indexDefinition, final FacetedQueryDefinition facetQueryDefinition*/) {
 		Assertion.checkArgNotEmpty(name);
 		Assertion.checkArgNotEmpty(label);
 		Assertion.checkNotNull(crawler);

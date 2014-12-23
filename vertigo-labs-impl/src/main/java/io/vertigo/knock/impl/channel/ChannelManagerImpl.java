@@ -1,7 +1,6 @@
 package io.vertigo.knock.impl.channel;
 
 import io.vertigo.core.Home;
-import io.vertigo.dynamo.transaction.KTransactionManager;
 import io.vertigo.knock.channel.ChannelManager;
 import io.vertigo.knock.channel.metadefinition.ChannelDefinition;
 import io.vertigo.knock.crawler.CrawlerManager;
@@ -31,13 +30,13 @@ public final class ChannelManagerImpl implements ChannelManager {
 	/**
 	 * Constructeur.
 	 * @param crawlerManager Manager de parcours de source
-	 * @param transactionManager Manager de transaction
+	 * aram transactionManager Manager de transaction
 	 * param indexHandlerPlugin Handler d'indexation
 	 */
 	@Inject
-	public ChannelManagerImpl(final CrawlerManager crawlerManager, final List<DocumentPostProcessorPlugin> documentPostProcessorPlugins, final KTransactionManager transactionManager/*, final IndexHandlerPlugin indexHandlerPlugin*/) {
+	public ChannelManagerImpl(final CrawlerManager crawlerManager, final List<DocumentPostProcessorPlugin> documentPostProcessorPlugins /*final KTransactionManager transactionManager/*, final IndexHandlerPlugin indexHandlerPlugin*/) {
 		Assertion.checkNotNull(crawlerManager);
-		Assertion.checkNotNull(transactionManager);
+		//Assertion.checkNotNull(transactionManager);
 		//	Assertion.checkNotNull(indexHandlerPlugin);
 		Assertion.checkNotNull(documentPostProcessorPlugins);
 		//-----
