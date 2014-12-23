@@ -28,7 +28,7 @@ public final class MetaDataManagerImpl implements MetaDataManager {
 
 	private Option<MetaDataExtractorPlugin> getMetaDataExtractorPlugin(final KFile file) {
 		Assertion.checkNotNull(file);
-		//---------------------------------------------------------------------
+		//-----
 		for (final MetaDataExtractorPlugin plugin : metaDataExtractorPlugins) {
 			if (plugin.accept(file)) {
 				return Option.some(plugin);
@@ -43,10 +43,10 @@ public final class MetaDataManagerImpl implements MetaDataManager {
 	@Override
 	public MetaDataContainer extractMetaData(final KFile file) {
 		Assertion.checkNotNull(file);
-		//---------------------------------------------------------------------
+		//-----
 		//		Assertion.notNull(extractorWork.getResource());
 		//		Assertion.precondition(extractorWork.getResource() instanceof FileInfo, "seules les ressources de type FileInfo sont g�r�es.");
-		//---------------------------------------------------------------------
+		//-----
 		//		final FileInfo fileInfo = (FileInfo) extractorWork.getResource();
 		//
 		//		return extractMetaData(fileInfo);
@@ -54,7 +54,7 @@ public final class MetaDataManagerImpl implements MetaDataManager {
 		//
 		//	private MetaDataContainer2 extractMetaData(final Resource<?, ?> resource) throws KSystemException {
 		//		Assertion.notNull(fileInfo);
-		//		// ---------------------------------------------------------------------
+		//-----
 		//		final String fileExtension = FileInfoHelper.getFileExtension(resource);
 		LOGGER.trace(String.format("Start extract MetaData on %s ", file.getFileName()));
 		final Option<MetaDataExtractorPlugin> metaDataExtractor = getMetaDataExtractorPlugin(file);

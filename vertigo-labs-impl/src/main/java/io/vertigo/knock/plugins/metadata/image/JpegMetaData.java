@@ -19,7 +19,7 @@ public enum JpegMetaData implements MetaData {
 	// ARTIST(MetaDataType.STRING);
 	;
 
-	//-------------------------------------------------------------------------
+	//-----
 	private final MetaDataType metaDataType;
 
 	/** Constructeur.
@@ -28,7 +28,7 @@ public enum JpegMetaData implements MetaData {
 	 */
 	private JpegMetaData(final MetaDataType metaDataType) {
 		Assertion.checkNotNull(metaDataType);
-		//---------------------------------------------------------
+		//-----
 		this.metaDataType = metaDataType;
 	}
 

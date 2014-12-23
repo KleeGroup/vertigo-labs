@@ -35,7 +35,7 @@ public enum PDFMetaData implements MetaData {
 	/** Compatibilit� PDF/A-1b. ("VALID" ou "INVALID : ${causes}") */
 	PDFA_VALIDATION_MSG(MetaDataType.STRING);
 
-	//-------------------------------------------------------------------------
+	//-----
 	private final MetaDataType metaDataType;
 
 	/**
@@ -45,7 +45,7 @@ public enum PDFMetaData implements MetaData {
 	 */
 	private PDFMetaData(final MetaDataType metaDataType) {
 		Assertion.checkNotNull(metaDataType);
-		//---------------------------------------------------------
+		//-----
 		this.metaDataType = metaDataType;
 	}
 

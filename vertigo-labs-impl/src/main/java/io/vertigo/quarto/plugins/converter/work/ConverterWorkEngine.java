@@ -40,7 +40,7 @@ public final class ConverterWorkEngine implements WorkEngine<KFileSerializable, 
 	@Inject
 	public ConverterWorkEngine(final ConverterManager converterManager) {
 		Assertion.checkNotNull(converterManager);
-		//-----------------------------------------------------------------
+		//-----
 		this.converterManager = converterManager;
 	}
 

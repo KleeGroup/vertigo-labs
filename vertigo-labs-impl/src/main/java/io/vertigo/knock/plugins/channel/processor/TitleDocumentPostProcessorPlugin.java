@@ -17,7 +17,7 @@ public final class TitleDocumentPostProcessorPlugin implements DocumentPostProce
 	/** {@inheritDoc} */
 	@Override
 	public MetaDataContainer extract(final Document document) {
-		//----------------------------
+		//-----
 		final String title = extractTitle(document.getMetaDataContainer());
 
 		return new MetaDataContainerBuilder()//

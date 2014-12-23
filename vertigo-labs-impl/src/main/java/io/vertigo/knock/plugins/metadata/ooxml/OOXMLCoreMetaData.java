@@ -60,7 +60,6 @@ public enum OOXMLCoreMetaData implements OOXMLMetaData {
 	/** The version number. This value is set by the user or by the application. */
 	VERSION(MetaDataType.STRING);
 
-	//-------------------------------------------------------------------------
 	private final MetaDataType metaDataType;
 
 	/**
@@ -70,7 +69,7 @@ public enum OOXMLCoreMetaData implements OOXMLMetaData {
 	 */
 	private OOXMLCoreMetaData(final MetaDataType metaDataType) {
 		Assertion.checkNotNull(metaDataType);
-		//---------------------------------------------------------
+		//-----
 		this.metaDataType = metaDataType;
 	}
 

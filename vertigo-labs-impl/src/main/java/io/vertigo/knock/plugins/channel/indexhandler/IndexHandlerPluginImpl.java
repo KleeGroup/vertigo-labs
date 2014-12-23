@@ -50,7 +50,7 @@ public final class IndexHandlerPluginImpl implements IndexHandlerPlugin {
 	public IndexHandlerPluginImpl(final SearchManager searchManager, final KTransactionManager transactionManager, final CodecManager codecManager) {
 		Assertion.checkNotNull(searchManager);
 		Assertion.checkNotNull(transactionManager);
-		//---------------------------------------------------------------------
+		//-----
 		this.searchManager = searchManager;
 		this.transactionManager = transactionManager;
 	}

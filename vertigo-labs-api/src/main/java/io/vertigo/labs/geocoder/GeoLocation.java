@@ -59,7 +59,7 @@ public final class GeoLocation {
 		Assertion.checkNotNull(latitude);
 		Assertion.checkNotNull(longitude);
 		Assertion.checkArgument((!Double.isNaN(latitude) && !Double.isNaN(longitude)), "UNDEFINDED or defined");
-		//----------------------------------------------------------------
+		//-----
 		//		this.accuracy = accuracy;
 		this.latitude = Double.isNaN(latitude) ? null : latitude;
 		this.longitude = Double.isNaN(longitude) ? null : longitude;
@@ -74,7 +74,7 @@ public final class GeoLocation {
 	 */
 	public double getLatitude() {
 		Assertion.checkArgument(latitude != null, "latitude is not defined, Use isUndefined");
-		//---------------------------------------------------------------------
+		//-----
 		return latitude;
 	}
 

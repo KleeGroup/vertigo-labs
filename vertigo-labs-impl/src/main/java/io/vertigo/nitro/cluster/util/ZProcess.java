@@ -18,7 +18,7 @@ final class ZProcess implements AutoCloseable {
 
 	ZProcess(final String command) throws Exception {
 		Assertion.checkArgNotEmpty(command);
-		//---------------------------------------------------------------------
+		//-----
 		process = Runtime.getRuntime().exec(command);
 		//redirect error to System.err
 		new StreamGobbler(process.getErrorStream(), System.err).start();
@@ -32,7 +32,7 @@ final class ZProcess implements AutoCloseable {
 		process.destroy();
 	}
 
-	//------------------------------------------------------------------------_
+	//-----
 	//to redirect output and err streams
 	final static class StreamGobbler extends Thread {
 		private final InputStream is;
@@ -41,7 +41,7 @@ final class ZProcess implements AutoCloseable {
 		private StreamGobbler(final InputStream is, final PrintStream out) {
 			Assertion.checkNotNull(is);
 			Assertion.checkNotNull(out);
-			//---------------------------------------------------------------------
+			//-----
 			this.is = is;
 			this.out = out;
 		}

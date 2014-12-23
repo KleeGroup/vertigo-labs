@@ -71,7 +71,7 @@ public enum ODFMetaData implements TikaMetaData {
 	/** Nombre de caract�res dans le document. */
 	CHARACTER_COUNT(MetaDataType.INTEGER);
 
-	//-------------------------------------------------------------------------
+	//-----
 	private final MetaDataType metaDataType;
 
 	/**
@@ -81,7 +81,7 @@ public enum ODFMetaData implements TikaMetaData {
 	 */
 	private ODFMetaData(final MetaDataType metaDataType) {
 		Assertion.checkNotNull(metaDataType);
-		//---------------------------------------------------------
+		//-----
 		this.metaDataType = metaDataType;
 	}
 

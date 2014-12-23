@@ -22,7 +22,7 @@ public final class StatsDocument {
 	 */
 	public StatsDocument(final String channel) {
 		Assertion.checkArgNotEmpty(channel);
-		//---------------------------------------------------------------------
+		//-----
 		this.channel = channel;
 	}
 

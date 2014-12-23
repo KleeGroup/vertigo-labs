@@ -41,7 +41,7 @@ public final class DistributedWorkConverterPlugin implements ConverterPlugin {
 	@Inject
 	public DistributedWorkConverterPlugin(final WorkManager workManager) {
 		Assertion.checkNotNull(workManager);
-		//---------------------------------------------------------------------
+		//-----
 		this.workManager = workManager;
 	}
 

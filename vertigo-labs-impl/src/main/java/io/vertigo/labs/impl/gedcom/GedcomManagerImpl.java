@@ -60,7 +60,7 @@ public final class GedcomManagerImpl implements GedcomManager {
 		Assertion.checkNotNull(geoCoderManager);
 		Assertion.checkNotNull(resourceManager);
 		Assertion.checkNotNull(gedcomResource);
-		// ---------------------------------------------------------------------
+		//-----
 		this.dataStoreName = storeName;
 		this.kvDataStoreManager = kvDataStoreManager;
 		this.transactionManager = transactionManager;
@@ -160,7 +160,7 @@ public final class GedcomManagerImpl implements GedcomManager {
 
 	private GeoLocation buildLocation(final String address) {
 		Assertion.checkArgNotEmpty(address);
-		//---------------------------------------------------------------------
+		//-----
 		final String key = address.trim().toLowerCase();
 		//System.out.println("buildLocation "+key);
 		GeoLocation geoLocation;
@@ -171,7 +171,7 @@ public final class GedcomManagerImpl implements GedcomManager {
 				//System.out.println("    cache "+storedLocation.isDefined());
 				if (storedLocation.isEmpty()) {
 					geoLocation = geoCoderManager.findLocation(key);
-					//-----------------
+					//-----
 					kvDataStoreManager.put(dataStoreName, key, geoLocation);
 					transaction.commit();
 				} else {
@@ -201,7 +201,7 @@ public final class GedcomManagerImpl implements GedcomManager {
 	@Override
 	public DtList<Individual> getChildren(final Individual individual) {
 		Assertion.checkNotNull(individual);
-		//---------------------------------------------------------------------
+		//-----
 		final String id = individual.getId();
 		return children.containsKey(id) ? children.get(id) : new DtList<Individual>(Individual.class);
 	}

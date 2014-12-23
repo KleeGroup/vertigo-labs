@@ -24,7 +24,7 @@ public final class MetaDataContainerBuilder implements Builder<MetaDataContainer
 	public MetaDataContainerBuilder withMetaData(final MetaData metaData, final Object value) {
 		Assertion.checkNotNull(metaData);
 		metaData.getType().checkValue(value);
-		//------------------------------------------------------------------------
+		//-----
 		metadatas.put(metaData, value);
 		return this;
 	}
@@ -36,7 +36,7 @@ public final class MetaDataContainerBuilder implements Builder<MetaDataContainer
 	 */
 	public MetaDataContainerBuilder withAllMetaDatas(final MetaDataContainer metaDataContainer) {
 		Assertion.checkNotNull(metaDataContainer);
-		//---------------------------------------------------------------------
+		//-----
 		for (final MetaData metaData : metaDataContainer.getMetaDataSet()) {
 			withMetaData(metaData, metaDataContainer.getValue(metaData));
 		}

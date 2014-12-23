@@ -10,7 +10,7 @@ public final class ProjectAndCustomerDocumentPostProcessorPlugin implements Docu
 	/** {@inheritDoc} */
 	@Override
 	public MetaDataContainer extract(final Document document) {
-		//----------------------------
+		//-----
 		final String url = document.getDocumentVersion().getUrl();
 		final String firstFolderName = extractFolderName(url, 1);
 		final String secondFolderName = extractFolderName(url, 2);

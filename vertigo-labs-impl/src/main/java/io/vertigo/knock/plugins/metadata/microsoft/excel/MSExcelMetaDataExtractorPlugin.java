@@ -60,7 +60,7 @@ public final class MSExcelMetaDataExtractorPlugin extends AbstractMSMetaDataExtr
 	@Override
 	public boolean accept(final KFile file) {
 		Assertion.checkNotNull(file);
-		//---------------------------------------------------------------------
+		//-----
 		final String fileExtension = FileUtil.getFileExtension(file.getFileName());
 		return "xls".equalsIgnoreCase(fileExtension);
 	}

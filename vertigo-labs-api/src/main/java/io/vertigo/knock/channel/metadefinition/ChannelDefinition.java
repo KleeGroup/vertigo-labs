@@ -50,7 +50,7 @@ public final class ChannelDefinition implements Definition {
 		Assertion.checkNotNull(documentStore);
 		Assertion.checkNotNull(indexDefinition);
 		Assertion.checkNotNull(facetQueryDefinition);
-		//-----------------------------------------------------------------
+		//-----
 		this.name = name;
 		this.label = label;
 		this.crawler = crawler;

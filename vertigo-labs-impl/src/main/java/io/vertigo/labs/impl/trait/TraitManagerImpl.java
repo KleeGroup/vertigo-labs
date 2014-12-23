@@ -39,7 +39,7 @@ public final class TraitManagerImpl implements TraitManager {
 		Assertion.checkArgNotEmpty(dataStoreName);
 		Assertion.checkNotNull(kvDataStoreManager);
 		Assertion.checkNotNull(transactionManager);
-		//---------------------------------------------------------------------s
+		//-----
 		this.dataStoreName = dataStoreName;
 		this.kvDataStoreManager = kvDataStoreManager;
 		this.transactionManager = transactionManager;
@@ -49,7 +49,7 @@ public final class TraitManagerImpl implements TraitManager {
 	@Override
 	public <T extends Trait> Option<T> findTrait(final Class<T> traitClass, final String subjectId) {
 		Assertion.checkNotNull(traitClass);
-		//---------------------------------------------------------------------
+		//-----
 		return doFind(subjectId, traitClass.getSimpleName(), traitClass);
 	}
 
@@ -57,7 +57,7 @@ public final class TraitManagerImpl implements TraitManager {
 	@Override
 	public <T extends Trait> void putTrait(final Class<T> traitClass, final String subjectId, final T trait) {
 		Assertion.checkNotNull(traitClass);
-		//---------------------------------------------------------------------
+		//-----
 		doStore(subjectId, traitClass.getSimpleName(), trait);
 	}
 
@@ -74,7 +74,7 @@ public final class TraitManagerImpl implements TraitManager {
 	private void doStore(final String subjectId, final String traitType, final Trait trait) {
 		Assertion.checkNotNull(trait);
 		Assertion.checkArgNotEmpty(traitType);
-		//---------------------------------------------------------------------
+		//-----
 		try (KTransactionWritable transaction = transactionManager.createCurrentTransaction()) {
 			kvDataStoreManager.put(dataStoreName, traitType + ":" + subjectId, trait);
 			transaction.commit();
@@ -84,7 +84,7 @@ public final class TraitManagerImpl implements TraitManager {
 	private <C extends Trait> Option<C> doFind(final String subjectId, final String traitType, final Class<C> clazz) {
 		Assertion.checkNotNull(subjectId);
 		Assertion.checkArgNotEmpty(traitType);
-		//---------------------------------------------------------------------
+		//-----
 		try (KTransactionWritable transaction = transactionManager.createCurrentTransaction()) {
 			return kvDataStoreManager.find(dataStoreName, traitType + ":" + subjectId, clazz);
 		}
@@ -93,7 +93,7 @@ public final class TraitManagerImpl implements TraitManager {
 	private void doDelete(final String subjectId, final String traitType) {
 		Assertion.checkNotNull(subjectId);
 		Assertion.checkArgNotEmpty(traitType);
-		//---------------------------------------------------------------------
+		//-----
 		try (KTransactionWritable transaction = transactionManager.createCurrentTransaction()) {
 			kvDataStoreManager.remove(dataStoreName, traitType + ":" + subjectId);
 			transaction.commit();

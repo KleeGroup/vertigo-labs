@@ -30,7 +30,7 @@ public final class DocumentManagerImpl implements DocumentManager {
 	public DocumentManagerImpl(final MetaDataManager metaDataManager, final FileManager fileManager) {
 		Assertion.checkNotNull(metaDataManager);
 		Assertion.checkNotNull(fileManager);
-		//---------------------------------------------------------------------
+		//=========================================================================
 		this.metaDataManager = metaDataManager;
 		this.fileManager = fileManager;
 	}
@@ -61,7 +61,7 @@ public final class DocumentManagerImpl implements DocumentManager {
 	public Document createDocumentFromFile(final DocumentVersion documentVersion, final File file) {
 		Assertion.checkNotNull(documentVersion);
 		Assertion.checkNotNull(file);
-		//---------------------------------------------------------------------
+		//-----
 		final KFile kFile = fileManager.createFile(file);
 
 		//On extrait les MetaDatas

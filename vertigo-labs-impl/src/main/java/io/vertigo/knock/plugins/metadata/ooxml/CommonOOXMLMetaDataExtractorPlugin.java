@@ -29,7 +29,7 @@ public class CommonOOXMLMetaDataExtractorPlugin implements MetaDataExtractorPlug
 	@Override
 	public final MetaDataContainer extractMetaData(final KFile file) throws Exception {
 		Assertion.checkNotNull(file);
-		//----------------------------------------------------------------------
+		//-----
 		if (file.getFileName().endsWith(".xlsx") && file.getLength() > 3.5d * 1024 * 1024) {
 			throw new java.lang.UnsupportedOperationException("Fichier XLSX trop gros pour �tre trait� : " + file.getLength() / 1024 + "Ko");
 		}
@@ -261,7 +261,7 @@ public class CommonOOXMLMetaDataExtractorPlugin implements MetaDataExtractorPlug
 	@Override
 	public boolean accept(final KFile file) {
 		Assertion.checkNotNull(file);
-		//---------------------------------------------------------------------
+		//-----
 		final String fileExtension = FileUtil.getFileExtension(file.getFileName());
 		return "pptx".equalsIgnoreCase(fileExtension)//
 				|| "docx".equalsIgnoreCase(fileExtension)//

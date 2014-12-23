@@ -15,7 +15,7 @@ public final class OOXMLPowerPointMetaDataExtractorPlugin extends CommonOOXMLMet
 	@Override
 	public boolean accept(final KFile file) {
 		Assertion.checkNotNull(file);
-		//---------------------------------------------------------------------
+		//-----
 		final String fileExtension = FileUtil.getFileExtension(file.getFileName());
 		return "pptx".equalsIgnoreCase(fileExtension);
 	}

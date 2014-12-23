@@ -32,7 +32,7 @@ public final class Departement /*implements DtObject*/{
 		Assertion.checkArgNotEmpty(code);
 		Assertion.checkArgNotEmpty(label);
 		Assertion.checkNotNull(region);
-		//--------------------------------------------------------------------
+		//-----
 		this.code = code;
 		this.label = label;
 		this.region = region;

@@ -18,7 +18,7 @@ public final class MSWordMetaDataExtractorPlugin extends AbstractMSMetaDataExtra
 	@Override
 	protected String extractContent(final KFile file) throws Exception {
 		Assertion.checkNotNull(file);
-		//----------------------------------------------------------------------
+		//-----
 		//Extraction des donn�es d'un fichier word
 		try (final InputStream inputStream = file.createInputStream()) {
 			final WordExtractor extractor = new WordExtractor(inputStream);
@@ -30,7 +30,7 @@ public final class MSWordMetaDataExtractorPlugin extends AbstractMSMetaDataExtra
 	@Override
 	public boolean accept(final KFile file) {
 		Assertion.checkNotNull(file);
-		//---------------------------------------------------------------------
+		//-----
 		final String fileExtension = FileUtil.getFileExtension(file.getFileName());
 		return "doc".equalsIgnoreCase(fileExtension);
 	}

@@ -29,7 +29,7 @@ public final class DocumentBuilder implements Builder<Document> {
 
 	public DocumentBuilder(final DocumentVersion documentVersion) {
 		Assertion.checkNotNull(documentVersion);
-		//---------------------------------------------------------------------
+		//-----
 		//Constructeur par d�faut.
 		this.documentVersion = documentVersion;
 		document = null;
@@ -40,7 +40,7 @@ public final class DocumentBuilder implements Builder<Document> {
 	public DocumentBuilder(final Document document) {
 		Assertion.checkNotNull(document);
 		Assertion.checkNotNull(document.getDocumentVersion());
-		//---------------------------------------------------------------------
+		//-----
 		documentVersion = document.getDocumentVersion();
 		this.document = document;
 	}

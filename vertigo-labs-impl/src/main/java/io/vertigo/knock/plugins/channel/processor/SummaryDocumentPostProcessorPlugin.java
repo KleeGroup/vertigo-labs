@@ -30,7 +30,7 @@ public final class SummaryDocumentPostProcessorPlugin implements DocumentPostPro
 	/** {@inheritDoc} */
 	@Override
 	public MetaDataContainer extract(final Document document) {
-		//----------------------------
+		//-----
 		final String summary = extractSummary(document.getContent());
 
 		return new MetaDataContainerBuilder()//

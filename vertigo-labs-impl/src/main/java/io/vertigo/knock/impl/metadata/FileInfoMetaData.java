@@ -23,7 +23,7 @@ public enum FileInfoMetaData implements MetaData {
 	/** Date de modification du fichier. */
 	LAST_MODIFIED(MetaDataType.DATE);
 
-	//-------------------------------------------------------------------------
+	//-----
 	private final MetaDataType metaDataType;
 
 	/**
@@ -32,7 +32,7 @@ public enum FileInfoMetaData implements MetaData {
 	 */
 	private FileInfoMetaData(final MetaDataType metaDataType) {
 		Assertion.checkNotNull(metaDataType);
-		//---------------------------------------------------------
+		//-----
 		this.metaDataType = metaDataType;
 	}
 

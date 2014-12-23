@@ -44,7 +44,7 @@ public abstract class AbstractTikaMetaDataExtractorPlugin<M extends TikaMetaData
 	protected AbstractTikaMetaDataExtractorPlugin(final Parser parser, final M contentMetaData) {
 		Assertion.checkNotNull(parser);
 		Assertion.checkNotNull(contentMetaData);
-		//---------------------------------------------------------------------
+		//-----
 		this.parser = parser;
 		this.contentMetaData = contentMetaData;
 		this.metaDataMap = new HashMap<>();
@@ -58,7 +58,7 @@ public abstract class AbstractTikaMetaDataExtractorPlugin<M extends TikaMetaData
 	protected final void bindMetaData(final M metaData, final String tikaMetaData) {
 		Assertion.checkNotNull(metaData);
 		Assertion.checkNotNull(tikaMetaData);
-		//---------------------------------------------------------------------
+		//-----
 		final Object previous = metaDataMap.put(tikaMetaData, metaData);
 		Assertion.checkState(previous == null, "Binding d�ja effectu� pour {0}", tikaMetaData);
 	}
@@ -69,7 +69,7 @@ public abstract class AbstractTikaMetaDataExtractorPlugin<M extends TikaMetaData
 	 */
 	protected final boolean isMetaDataBinded(final String tikaMetaData) {
 		Assertion.checkNotNull(tikaMetaData);
-		//---------------------------------------------------------------------
+		//-----
 		return metaDataMap.containsKey(tikaMetaData);
 	}
 
@@ -77,7 +77,7 @@ public abstract class AbstractTikaMetaDataExtractorPlugin<M extends TikaMetaData
 	@Override
 	public final MetaDataContainer extractMetaData(final KFile file) throws Exception {
 		Assertion.checkNotNull(file);
-		//----------------------------------------------------------------------
+		//-----
 		final MetaDataContainerBuilder metaDataContainerBuilder = new MetaDataContainerBuilder();
 		final org.apache.tika.metadata.Metadata tikaMetaData = new org.apache.tika.metadata.Metadata();
 
@@ -180,7 +180,7 @@ public abstract class AbstractTikaMetaDataExtractorPlugin<M extends TikaMetaData
 	@Override
 	public boolean accept(final KFile file) {
 		Assertion.checkNotNull(file);
-		//----------------------------------------------------------------------
+		//-----
 		// On cr�e un conteneur de m�tadonn�es Tika, avec le nom de la resource
 		final org.apache.tika.metadata.Metadata metadata = new org.apache.tika.metadata.Metadata();
 		metadata.set(org.apache.tika.metadata.TikaMetadataKeys.RESOURCE_NAME_KEY, file.getFileName());

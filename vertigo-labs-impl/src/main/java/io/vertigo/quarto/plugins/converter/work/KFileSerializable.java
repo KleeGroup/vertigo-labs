@@ -49,7 +49,7 @@ public final class KFileSerializable implements KFile {
 	protected KFileSerializable(final KFile kfile) {
 		Assertion.checkNotNull(kfile);
 		Assertion.checkArgument(!(kfile instanceof KFileSerializable), "Le fichier {0} est déjà encapsuler dans KFileSerializable", kfile.getFileName());
-		//---------------------------------------------------------------------
+		//-----
 		file = kfile;
 	}
 

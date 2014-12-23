@@ -33,7 +33,7 @@ public final class MSPowerPointMetaDataExtractorPlugin extends AbstractMSMetaDat
 	@Override
 	public boolean accept(final KFile file) {
 		Assertion.checkNotNull(file);
-		//---------------------------------------------------------------------
+		//-----
 		final String fileExtension = FileUtil.getFileExtension(file.getFileName());
 		return "ppt".equalsIgnoreCase(fileExtension);
 	}

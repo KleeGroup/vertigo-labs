@@ -54,7 +54,7 @@ public final class FSCrawlerPlugin implements CrawlerPlugin {
 		Assertion.checkArgNotEmpty(downloadUrl);
 		Assertion.checkArgument(!downloadUrl.endsWith("/"), "L'url de download ne doit pas finir par /");
 		Assertion.checkArgument(maxFiles == null || maxFiles > 0, "maxFiles est null ou positif");
-		//---------------------------------------------------------------------
+		//-----
 		this.dataSourceId = dataSourceId;
 		directory = new File(strDirectory);
 		this.documentManager = documentManager;
@@ -68,7 +68,7 @@ public final class FSCrawlerPlugin implements CrawlerPlugin {
 		} else {
 			excludePatterns = Collections.emptyList();
 		}
-		//---------------------------------------------------------------------
+		//-----
 		Assertion.checkState(directory.isDirectory(), "Le directory ({0}) doit �tre un directory", strDirectory);
 	}
 
@@ -156,7 +156,7 @@ public final class FSCrawlerPlugin implements CrawlerPlugin {
 			Assertion.checkNotNull(baseDirectory);
 			Assertion.checkArgNotEmpty(dataSourceId);
 			Assertion.checkNotNull(fileIterator);
-			//-----------------------------------------------------------------
+			//-----
 			basePath = getNormalizedAbsolutePath(baseDirectory);
 			this.dataSourceId = dataSourceId;
 			this.fileIterator = fileIterator;

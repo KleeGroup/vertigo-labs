@@ -52,7 +52,7 @@ public final class Individual implements DtObject {
 	//	Option<Individual> getFather(Individual individual);
 	//
 	//	Option<Individual> getMother(Individual individual);
-	//-----------------
+	//-----
 	private GeoLocation location;
 
 	public void setId(final String id) {

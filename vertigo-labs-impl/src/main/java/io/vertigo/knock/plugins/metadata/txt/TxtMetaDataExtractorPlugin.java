@@ -31,7 +31,7 @@ public final class TxtMetaDataExtractorPlugin implements MetaDataExtractorPlugin
 	@Inject
 	public TxtMetaDataExtractorPlugin(final @Named("extensions") String extensions) {
 		Assertion.checkNotNull(extensions);
-		//---------------------------------------------------------------------
+		//-----
 		this.extensions = extensions.split(",");
 	}
 
@@ -59,7 +59,7 @@ public final class TxtMetaDataExtractorPlugin implements MetaDataExtractorPlugin
 	@Override
 	public MetaDataContainer extractMetaData(final KFile file) throws Exception {
 		Assertion.checkNotNull(file);
-		//----------------------------------------------------------------------
+		//-----
 		return new MetaDataContainerBuilder()//
 				.withMetaData(TxtMetaData.CONTENT, getContent(file))//
 				.build();
@@ -69,7 +69,7 @@ public final class TxtMetaDataExtractorPlugin implements MetaDataExtractorPlugin
 	@Override
 	public boolean accept(final KFile file) {
 		Assertion.checkNotNull(file);
-		//---------------------------------------------------------------------
+		//-----
 		for (final String _extension : extensions) {
 			final String fileExtension = FileUtil.getFileExtension(file.getFileName());
 			if (_extension.trim().equalsIgnoreCase(fileExtension)) {

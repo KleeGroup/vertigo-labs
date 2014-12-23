@@ -48,7 +48,7 @@ final class FSFileIterator implements Iterator<File> {
 		Assertion.checkNotNull(directory);
 		Assertion.checkNotNull(startAtFile);
 		Assertion.checkNotNull(startAtFile);
-		//----------------------------------------------------------------------
+		//-----
 		this.maxFiles = maxFiles;
 		this.excludePatterns = excludePatterns;
 		fileStack.add(directory);
@@ -141,7 +141,7 @@ final class FSFileIterator implements Iterator<File> {
 	 */
 	private List<File> getFiles(final File directory, final boolean onlyDirectories) {
 		Assertion.checkArgument(directory.isDirectory(), "directory doit �tre un r�pertoire");
-		//---------------------------------------------------------------------
+		//-----
 		final List<File> resultFiles;
 		final File[] files = directory.listFiles(onlyDirectories ? new OnlyDirectoryFilter() : new OnlyFileFilter());
 		if (files != null) {

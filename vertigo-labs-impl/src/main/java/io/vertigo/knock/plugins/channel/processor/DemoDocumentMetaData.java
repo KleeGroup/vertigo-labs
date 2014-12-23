@@ -23,7 +23,7 @@ public enum DemoDocumentMetaData implements MetaData {
 	/** Titre extrait du document. */
 	TITLE(MetaDataType.STRING), ;
 
-	//-------------------------------------------------------------------------
+	//-----
 	private final MetaDataType metaDataType;
 
 	/**
@@ -32,7 +32,7 @@ public enum DemoDocumentMetaData implements MetaData {
 	 */
 	private DemoDocumentMetaData(final MetaDataType metaDataType) {
 		Assertion.checkNotNull(metaDataType);
-		//---------------------------------------------------------
+		//-----
 		this.metaDataType = metaDataType;
 	}
 

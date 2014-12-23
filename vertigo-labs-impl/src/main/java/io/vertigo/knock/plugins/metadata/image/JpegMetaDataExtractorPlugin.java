@@ -21,9 +21,9 @@ public final class JpegMetaDataExtractorPlugin implements MetaDataExtractorPlugi
 	public MetaDataContainer extractMetaData(final KFile file) throws Exception {
 		throw new UnsupportedOperationException();
 		/*		Assertion.notNull(fileInfo);
-		// ----------------------------------------------------------------------
+		//-----
 		final MetaDataContainer2<JpegMetaData> metaDataContainer = new MetaDataContainer2Impl<JpegMetaData>();
-		// ----------------------------------------------------------------------
+		//-----
 		// http://www.drewnoakes.com/code/exif/sampleUsage.html
 		final InputStream inputStream = fileInfo.createInputStream();
 		final Metadata metadata;
@@ -53,7 +53,7 @@ public final class JpegMetaDataExtractorPlugin implements MetaDataExtractorPlugi
 		// }
 		// }
 
-		// ----------------------------------------------------------------------
+		//-----
 		//return metaDataContainer;
 	}
 
@@ -61,7 +61,7 @@ public final class JpegMetaDataExtractorPlugin implements MetaDataExtractorPlugi
 	@Override
 	public boolean accept(final KFile file) {
 		Assertion.checkNotNull(file);
-		//---------------------------------------------------------------------
+		//-----
 		throw new UnsupportedOperationException();
 	}
 }

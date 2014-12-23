@@ -12,7 +12,7 @@ public final class ZCluster {
 
 	ZCluster(final List<InetSocketAddress> addresses) {
 		Assertion.checkNotNull(addresses);
-		//---------------------------------------------------------------------
+		//-----
 		this.addresses = Collections.unmodifiableList(new ArrayList<>(addresses));
 	}
 

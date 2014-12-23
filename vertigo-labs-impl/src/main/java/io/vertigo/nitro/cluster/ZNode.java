@@ -35,7 +35,7 @@ public final class ZNode extends Thread {
 	public ZNode(final int index, final ZCluster cluster) {
 		System.out.println("create znode [" + index + "]");
 		Assertion.checkNotNull(cluster);
-		//---------------------------------------------------------------------
+		//-----
 		this.index = index;
 		if (index == 0) {
 			//	state = ZState.Leader;

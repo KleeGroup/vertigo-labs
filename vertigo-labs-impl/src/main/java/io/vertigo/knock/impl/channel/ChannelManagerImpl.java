@@ -46,7 +46,7 @@ public final class ChannelManagerImpl implements ChannelManager {
 		Assertion.checkNotNull(transactionManager);
 		Assertion.checkNotNull(indexHandlerPlugin);
 		Assertion.checkNotNull(documentPostProcessorPlugins);
-		//---------------------------------------------------------------------
+		//-----
 		this.documentPostProcessors = new ArrayList<>();
 		for (final DocumentPostProcessorPlugin documentPostProcessorPlugin : documentPostProcessorPlugins) {
 			documentPostProcessors.add(documentPostProcessorPlugin);

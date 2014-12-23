@@ -6,7 +6,7 @@ import java.util.Date;
 
 /**
  * Type des m�tadonn�es.
- * 
+ *
  * @author  pchretien
  * @version $Id: MetaDataType.java,v 1.3 2013/10/22 10:58:44 pchretien Exp $
  */
@@ -32,7 +32,7 @@ public enum MetaDataType {
 	/** Type de m�tadonn�e g�n�rique stock�e sous forme de String. */
 	//UNKNOWN(String.class);
 
-	//-------------------------------------------------------------------------
+	//-----
 	private final Class<?> javaClass;
 
 	/**
@@ -41,7 +41,7 @@ public enum MetaDataType {
 	 */
 	MetaDataType(final Class<?> javaClass) {
 		Assertion.checkNotNull(javaClass);
-		//---------------------------------------------------------
+		//-----
 		this.javaClass = javaClass;
 	}
 

@@ -14,7 +14,7 @@ public enum TxtMetaData implements MetaData {
 	/** Contenu textuel. */
 	CONTENT(MetaDataType.STRING);
 
-	//-------------------------------------------------------------------------
+	//-----
 	private final MetaDataType metaDataType;
 
 	/**
@@ -24,7 +24,7 @@ public enum TxtMetaData implements MetaData {
 	 */
 	private TxtMetaData(final MetaDataType metaDataType) {
 		Assertion.checkNotNull(metaDataType);
-		//---------------------------------------------------------
+		//-----
 		this.metaDataType = metaDataType;
 	}
 

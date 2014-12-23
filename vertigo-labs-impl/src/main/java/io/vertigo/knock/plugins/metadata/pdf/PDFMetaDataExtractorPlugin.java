@@ -39,7 +39,7 @@ public final class PDFMetaDataExtractorPlugin implements MetaDataExtractorPlugin
 	//	 */
 	//	public PDFMetaDataExtractorPlugin(final MetaDataManager metaDataManager) {
 	//		Assertion.notNull(metaDataManager);
-	//		//---------------------------------------------------------------------
+	//-----
 	//		this.metaDataNameSpace = metaDataManager.getNameSpace();
 	//	}
 
@@ -53,7 +53,7 @@ public final class PDFMetaDataExtractorPlugin implements MetaDataExtractorPlugin
 	@Override
 	public MetaDataContainer extractMetaData(final KFile file) throws Exception {
 		Assertion.checkNotNull(file);
-		//----------------------------------------------------------------------
+		//-----
 		//Extraction de TOUT le contenu d'un pdf
 		final PDDocument pdd = createPDDocument(file);
 		try {
@@ -134,7 +134,7 @@ public final class PDFMetaDataExtractorPlugin implements MetaDataExtractorPlugin
 	@Override
 	public boolean accept(final KFile file) {
 		Assertion.checkNotNull(file);
-		//---------------------------------------------------------------------
+		//-----
 		final String fileExtension = FileUtil.getFileExtension(file.getFileName());
 		return "pdf".equalsIgnoreCase(fileExtension);
 	}

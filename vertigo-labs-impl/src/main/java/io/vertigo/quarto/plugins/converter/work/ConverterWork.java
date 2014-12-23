@@ -44,7 +44,7 @@ final class ConverterWork implements Serializable {
 	ConverterWork(final KFile file, final String targetFormat) {
 		Assertion.checkNotNull(file);
 		Assertion.checkNotNull(targetFormat);
-		//-----------------------------------------------------------------
+		//-----
 		this.file = new KFileSerializable(file);
 		this.targetFormat = targetFormat;
 	}

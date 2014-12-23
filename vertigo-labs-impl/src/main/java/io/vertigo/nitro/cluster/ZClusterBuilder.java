@@ -12,7 +12,7 @@ public class ZClusterBuilder implements Builder<ZCluster> {
 
 	public ZClusterBuilder withAddress(final String host, final int port) {
 		Assertion.checkArgNotEmpty(host);
-		//---------------------------------------------------------------------
+		//-----
 		final InetSocketAddress address = new InetSocketAddress(host, port);
 		addresses.add(address);
 		return this;

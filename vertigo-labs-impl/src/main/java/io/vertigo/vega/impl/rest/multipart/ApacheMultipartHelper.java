@@ -83,7 +83,7 @@ public final class ApacheMultipartHelper {
 	private static void wrapParameters(final HttpServletRequest httpServletRequest, final Map<String, List<String>> parameters, final Map<String, KFile> uploadedFiles, final Map<String, RuntimeException> tooBigFiles) throws FileUploadException, IOException {
 		final MultipartConfigElement multipartConfigElement = (MultipartConfigElement) httpServletRequest.getAttribute(MULTIPART_CONFIG_ELEMENT);
 		Assertion.checkNotNull(multipartConfigElement, "No MultipartConfigElement found. Set it as request.attibute({0}", MULTIPART_CONFIG_ELEMENT);
-		//---------------------------------------------------------------------
+		//-----
 		// Create a factory for disk-based file items
 		final DiskFileItemFactory factory = new DiskFileItemFactory(multipartConfigElement.getFileSizeThreshold(), new File(multipartConfigElement.getLocation()));
 		// Create a new file upload handler

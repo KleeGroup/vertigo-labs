@@ -80,7 +80,7 @@ public final class GoogleGeoCoderPlugin implements GeoCoderPlugin {
 		Assertion.checkNotNull(proxyHost);
 		Assertion.checkNotNull(proxyPort);
 		Assertion.checkArgument((proxyHost.isDefined() && proxyPort.isDefined()) || (proxyHost.isEmpty() && proxyPort.isEmpty()), "les deux paramètres host et port doivent être tous les deux remplis ou vides");
-		//-----------------------------------------------------------------------
+		//-----
 		if (proxyHost.isDefined()) {
 			proxy = Option.some(new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyHost.get(), Integer.parseInt(proxyPort.get()))));
 		} else {
@@ -104,7 +104,7 @@ public final class GoogleGeoCoderPlugin implements GeoCoderPlugin {
 
 	private HttpURLConnection doCreateConnection(final URL url) throws IOException {
 		Assertion.checkNotNull(url);
-		//---------------------------------------------------------------------------
+		//-----
 		HttpURLConnection connection;
 		if (proxy.isDefined()) {
 			connection = (HttpURLConnection) url.openConnection(proxy.get());
@@ -123,7 +123,7 @@ public final class GoogleGeoCoderPlugin implements GeoCoderPlugin {
 	 */
 	private Document geoCode(final String address) {
 		Assertion.checkNotNull(address);
-		//---------------------------------------------------------------------------
+		//-----
 		final String urlString;
 		try {
 			urlString = GEOCODE_REQUEST_PREFIX + "?address=" + URLEncoder.encode(address, "UTF-8") + "&sensor=false";
@@ -167,7 +167,7 @@ public final class GoogleGeoCoderPlugin implements GeoCoderPlugin {
 	private NodeList findNodes(final Document xml, final String xPathString) {
 		Assertion.checkNotNull(xml);
 		Assertion.checkArgNotEmpty(xPathString);
-		//---------------------------------------------------------------------------
+		//-----
 		final XPath xpath = xPathFactory.newXPath();
 
 		try {
@@ -187,7 +187,7 @@ public final class GoogleGeoCoderPlugin implements GeoCoderPlugin {
 	private Node findNode(final Document xml, final String xPathString) {
 		Assertion.checkNotNull(xml);
 		Assertion.checkArgNotEmpty(xPathString);
-		//---------------------------------------------------------------------------
+		//-----
 		final XPath xpath = xPathFactory.newXPath();
 		try {
 			return (Node) xpath.evaluate(xPathString, xml, XPathConstants.NODE);
@@ -217,12 +217,12 @@ public final class GoogleGeoCoderPlugin implements GeoCoderPlugin {
 	@Override
 	public GeoLocation findLocation(final String address) {
 		Assertion.checkNotNull(address);
-		//---------------------------------------------------------------------------
+		//-----
 		final Document geocoderResultDocument = geoCode(address);
 		if (geocoderResultDocument == null) {
 			throw new RuntimeException("Pas de réponse du service");
 		}
-		//---------------------------------------------------------------------
+		//-----
 		// 0- Vérification du status
 		final Node StatusNode = findNode(geocoderResultDocument, XPATH_STATUS);
 		if (!"OK".equals(StatusNode.getTextContent().trim())) {
@@ -235,7 +235,7 @@ public final class GoogleGeoCoderPlugin implements GeoCoderPlugin {
 		//final Node formattedAddressNode = findNode(geocoderResultDocument, XPATH_FORMATTED_ADDRESS);
 		//		final Node accuracyNode = findNode(geocoderResultDocument, XPATH_ACCURACY);
 		final NodeList addressNodes = findNodes(geocoderResultDocument, XPATH_ADDRESSES);
-		//---------------------------------------------------------------------
+		//-----
 		// 2- Typage des données
 		//		System.out.println(">>address : " + address);
 		//		System.out.println(">>>>>> : " + toString(geocoderResultDocument));
@@ -247,7 +247,7 @@ public final class GoogleGeoCoderPlugin implements GeoCoderPlugin {
 		//		final String accuracy = accuracyNode.getTextContent();
 
 		//	Map<GeoLocation.Level, String> codes = findCodes(addressNodes);
-		//---------------------------------------------------------------------
+		//-----
 		// 2- Cas des adresses dites "political"
 		//		<address_component>
 		//			<long_name>France</long_name>
@@ -255,7 +255,7 @@ public final class GoogleGeoCoderPlugin implements GeoCoderPlugin {
 		//			<type>country</type>
 		//			<type>political</type>
 		//		</address_component>
-		//----------------------------------------
+		//-----
 		String countryCode = null;
 		String level1 = null;
 		String level2 = null;
@@ -294,7 +294,7 @@ public final class GoogleGeoCoderPlugin implements GeoCoderPlugin {
 				locality = shortName;
 			}
 		}
-		//---------------------------------------------------------------------
+		//-----
 		// 3- Création du résultat :  GeoLocation
 		System.out.println(">>address : " + address);
 		System.out.println("		>>level1 : " + level1);

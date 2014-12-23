@@ -35,7 +35,7 @@ public final class MetaDataContainer implements Serializable {
 	 */
 	MetaDataContainer(final Map<MetaData, Object> metadatas) {
 		Assertion.checkNotNull(metadatas);
-		//---------------------------------------------------------------------
+		//-----
 		this.metadatas = Collections.unmodifiableMap(metadatas);
 	}
 
@@ -55,7 +55,7 @@ public final class MetaDataContainer implements Serializable {
 	 */
 	public Object getValue(final MetaData metaData) {
 		Assertion.checkNotNull(metaData);
-		//------------------------------------------------------------------------
+		//-----
 		return metadatas.get(metaData);
 	}
 }

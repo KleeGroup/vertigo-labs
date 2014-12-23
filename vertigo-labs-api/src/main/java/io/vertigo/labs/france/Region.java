@@ -30,7 +30,7 @@ public final class Region /*implements DtObject*/{
 	public Region(final String code, final String label) {
 		Assertion.checkArgNotEmpty(code);
 		Assertion.checkArgNotEmpty(label);
-		//--------------------------------------------------------------------
+		//-----
 		this.code = code;
 		this.label = label;
 

@@ -41,7 +41,7 @@ public final class DemoDocumentConverterPlugin implements DocumentConverterPlugi
 	public DemoDocumentConverterPlugin(@Named("outputIndex") final String indexName, final KTransactionManager transactionManager, final CodecManager codecManager) {
 		Assertion.checkArgNotEmpty(indexName);
 		Assertion.checkNotNull(transactionManager);
-		//---------------------------------------------------------------------
+		//-----
 		this.indexName = indexName;
 		this.codecManager = codecManager;
 	}
@@ -53,7 +53,7 @@ public final class DemoDocumentConverterPlugin implements DocumentConverterPlugi
 		final DocumentResult documentResult = new DocumentResult();
 		final IndexDefinition documentIndexDefinition = Home.getComponentSpace().resolve(indexName, IndexDefinition.class);
 
-		//----------------------------
+		//-----
 		final String url = document.getDocumentVersion().getUrl().replaceAll("\\\\", "/"); //replace \ par /
 
 		final MetaDataContainer mdc = document.getMetaDataContainer();
@@ -100,7 +100,7 @@ public final class DemoDocumentConverterPlugin implements DocumentConverterPlugi
 		documentResult.setLastModified(document.getDocumentVersion().getLastModified());
 		documentResult.setSize(document.getSize());
 		documentResult.setType(document.getType());
-		//----------------------------
+		//-----
 		return Index.createIndex(documentIndexDefinition, uri, documentIndexed, documentResult);
 
 	}

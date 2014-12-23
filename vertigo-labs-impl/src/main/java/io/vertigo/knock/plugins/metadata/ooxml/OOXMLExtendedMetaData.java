@@ -63,7 +63,7 @@ public enum OOXMLExtendedMetaData implements OOXMLMetaData {
 	/** Total number of words contained in a document when last saved. */
 	WORDS(MetaDataType.INTEGER);
 
-	//-------------------------------------------------------------------------
+	//-----
 	private final MetaDataType metaDataType;
 
 	/**
@@ -73,7 +73,7 @@ public enum OOXMLExtendedMetaData implements OOXMLMetaData {
 	 */
 	private OOXMLExtendedMetaData(final MetaDataType metaDataType) {
 		Assertion.checkNotNull(metaDataType);
-		//---------------------------------------------------------
+		//-----
 		this.metaDataType = metaDataType;
 	}
 
