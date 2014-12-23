@@ -21,7 +21,7 @@ public final class DocumentEnhancer {
 		this.documentPostProcessors = documentPostProcessors;
 	}
 
-	public final Document process(final Document document) {
+	public final Document enhance(final Document document) {
 		Assertion.checkNotNull(document);
 		//-----
 		final MetaDataContainerBuilder metaDataContainerBuilder = new MetaDataContainerBuilder();

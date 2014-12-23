@@ -29,7 +29,7 @@ public final class FSCrawlerPlugin implements CrawlerPlugin {
 
 	private final String dataSourceId;
 	private final File directory;
-	private final String downloadUrl;
+	//	private final String downloadUrl;
 	private final Integer maxFiles;
 	private final List<Pattern> excludePatterns;
 
@@ -37,28 +37,28 @@ public final class FSCrawlerPlugin implements CrawlerPlugin {
 	 * Constructeur.
 	 * @param dataSourceId dataSourceId
 	 * @param strDirectory Repertoire source
-	 * @param downloadUrl Base des url de download
+	 * aram downloadUrl Base des url de download
 	 * @param maxFiles Nombre de fichier maximum � crawler, ou null pour aucune limite
 	 * @param documentManager Manager de document
 	 * @param strExcludePatterns Patterns d'exclusion de fichier
 	 */
 	@Inject
-	public FSCrawlerPlugin(@Named("dataSourceId") final String dataSourceId, //
-			@Named("directory") final String strDirectory, //
-			@Named("downloadUrl") final String downloadUrl,//
-			@Named("maxFiles") final Integer maxFiles, //
-			@Named("excludePatterns") final String strExcludePatterns, //
+	public FSCrawlerPlugin(@Named("dataSourceId") final String dataSourceId,
+			@Named("directory") final String strDirectory,
+			//		@Named("downloadUrl") final String downloadUrl,
+			@Named("maxFiles") final Integer maxFiles,
+			@Named("excludePatterns") final String strExcludePatterns,
 			final DocumentManager documentManager) {
 		Assertion.checkArgNotEmpty(dataSourceId);
 		Assertion.checkArgNotEmpty(strDirectory);
-		Assertion.checkArgNotEmpty(downloadUrl);
-		Assertion.checkArgument(!downloadUrl.endsWith("/"), "L'url de download ne doit pas finir par /");
+		//Assertion.checkArgNotEmpty(downloadUrl);
+		//	Assertion.checkArgument(!downloadUrl.endsWith("/"), "L'url de download ne doit pas finir par /");
 		Assertion.checkArgument(maxFiles == null || maxFiles > 0, "maxFiles est null ou positif");
 		//-----
 		this.dataSourceId = dataSourceId;
 		directory = new File(strDirectory);
 		this.documentManager = documentManager;
-		this.downloadUrl = downloadUrl;
+		//		this.downloadUrl = downloadUrl;
 		this.maxFiles = maxFiles;
 		if (strExcludePatterns != null && !strExcludePatterns.isEmpty()) {
 			excludePatterns = new ArrayList<>();
@@ -108,11 +108,12 @@ public final class FSCrawlerPlugin implements CrawlerPlugin {
 		return documentManager.createDocumentFromFile(documentVersion, file);
 	}
 
-	/** {@inheritDoc} */
-	@Override
-	public String getBaseDownloadUrl() {
-		return downloadUrl;
-	}
+	//
+	//	/** {@inheritDoc} */
+	//	@Override
+	//	public String getBaseDownloadUrl() {
+	//		return downloadUrl;
+	//	}
 
 	private static String getNormalizedAbsolutePath(final File file) {
 		//normalization pour eviter les disctinctions Windows vs Linux

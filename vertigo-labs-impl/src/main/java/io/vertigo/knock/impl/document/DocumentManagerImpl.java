@@ -79,10 +79,10 @@ public final class DocumentManagerImpl implements DocumentManager {
 		final MetaDataContainerBuilder mdcBuilder = new MetaDataContainerBuilder();
 		final String type = (String) mdc.getValue(FileInfoMetaData.FILE_EXTENSION);
 
-		documentBuilder//
-				.withName((String) mdc.getValue(FileInfoMetaData.FILE_NAME))//
-				.withSize((Long) mdc.getValue(FileInfoMetaData.SIZE))//
-				.withType(StringUtil.isEmpty(type) ? "<aucun>" : type)//
+		documentBuilder
+				.withName((String) mdc.getValue(FileInfoMetaData.FILE_NAME))
+				.withSize((Long) mdc.getValue(FileInfoMetaData.SIZE))
+				.withType(StringUtil.isEmpty(type) ? "<aucun>" : type)
 				.withContent("");//vide par defaut
 
 		//documentBuilder.setLastModified((Date) mdc.getValue(FileInfoMetaData.LAST_MODIFIED));

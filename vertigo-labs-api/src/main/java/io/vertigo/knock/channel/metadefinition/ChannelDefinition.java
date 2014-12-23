@@ -2,9 +2,6 @@ package io.vertigo.knock.channel.metadefinition;
 
 import io.vertigo.core.spaces.definiton.Definition;
 import io.vertigo.core.spaces.definiton.DefinitionPrefix;
-import io.vertigo.dynamo.collections.metamodel.FacetedQueryDefinition;
-import io.vertigo.dynamo.search.metamodel.IndexDefinition;
-import io.vertigo.knock.channel.DocumentConverter;
 import io.vertigo.knock.crawler.Crawler;
 import io.vertigo.knock.document.DocumentStore;
 import io.vertigo.knock.processors.DocumentPostProcessor;
@@ -25,40 +22,42 @@ public final class ChannelDefinition implements Definition {
 	private final String name;
 	private final String label;
 	private final Crawler crawler;
-	private final DocumentConverter documentConverter;
 	private final DocumentStore documentStore;
 	private final List<DocumentPostProcessor> documentPostProcessors;
-	private final IndexDefinition indexDefinition;
-	private final FacetedQueryDefinition facetQueryDefinition;
+
+	//-----
+	//	private final DocumentConverter documentConverter;
+	//	private final IndexDefinition indexDefinition;
+	//	private final FacetedQueryDefinition facetQueryDefinition;
 
 	/**
 	 * Constructeur.
 	 * @param name Nom du channel
 	 * @param label Nom du channel
 	 * @param crawler Identifiant du Crawler
-	 * @param documentConverter Convertisseur de Document en Index
+	 * param documentConverter Convertisseur de Document en Index
 	 * @param documentStore Identifiant du Store de Document
-	 * @param indexDefinition IndexDefinition
-	 * @param facetQueryDefinition Nom de la d�finition des facettes
+	 * param indexDefinition IndexDefinition
+	 * param facetQueryDefinition Nom de la d�finition des facettes
 	 */
-	public ChannelDefinition(final String name, final String label, final Crawler crawler, final List<DocumentPostProcessor> documentPostProcessors, final DocumentConverter documentConverter, final DocumentStore documentStore, final IndexDefinition indexDefinition, final FacetedQueryDefinition facetQueryDefinition) {
+	public ChannelDefinition(final String name, final String label, final Crawler crawler, final List<DocumentPostProcessor> documentPostProcessors, final DocumentStore documentStore /*final DocumentConverter documentConverter, final IndexDefinition indexDefinition, final FacetedQueryDefinition facetQueryDefinition*/) {
 		Assertion.checkArgNotEmpty(name);
 		Assertion.checkArgNotEmpty(label);
 		Assertion.checkNotNull(crawler);
 		Assertion.checkNotNull(documentPostProcessors);
-		Assertion.checkNotNull(documentConverter);
 		Assertion.checkNotNull(documentStore);
-		Assertion.checkNotNull(indexDefinition);
-		Assertion.checkNotNull(facetQueryDefinition);
+		//		Assertion.checkNotNull(documentConverter);
+		//		Assertion.checkNotNull(indexDefinition);
+		//		Assertion.checkNotNull(facetQueryDefinition);
 		//-----
 		this.name = name;
 		this.label = label;
 		this.crawler = crawler;
 		this.documentPostProcessors = new ArrayList<>(documentPostProcessors);
-		this.documentConverter = documentConverter;
 		this.documentStore = documentStore;
-		this.indexDefinition = indexDefinition;
-		this.facetQueryDefinition = facetQueryDefinition;
+		//		this.documentConverter = documentConverter;
+		//		this.indexDefinition = indexDefinition;
+		//		this.facetQueryDefinition = facetQueryDefinition;
 	}
 
 	/**
@@ -75,26 +74,26 @@ public final class ChannelDefinition implements Definition {
 		return crawler;
 	}
 
-	/**
-	 * @return Convertisseur de Document en Index.
-	 */
-	public DocumentConverter getDocumentConverter() {
-		return documentConverter;
-	}
-
-	/**
-	 * @return Nom de l'indexDefinition.
-	 */
-	public IndexDefinition getIndexDefinition() {
-		return indexDefinition;
-	}
-
-	/**
-	 * @return D�finition de facette.
-	 */
-	public FacetedQueryDefinition getFacetedQueryDefinition() {
-		return facetQueryDefinition;
-	}
+	//	/**
+	//	 * @return Convertisseur de Document en Index.
+	//	 */
+	//	public DocumentConverter getDocumentConverter() {
+	//		return documentConverter;
+	//	}
+	//
+	//	/**
+	//	 * @return Nom de l'indexDefinition.
+	//	 */
+	//	public IndexDefinition getIndexDefinition() {
+	//		return indexDefinition;
+	//	}
+	//
+	//	/**
+	//	 * @return D�finition de facette.
+	//	 */
+	//	public FacetedQueryDefinition getFacetedQueryDefinition() {
+	//		return facetQueryDefinition;
+	//	}
 
 	/**
 	 * @return Liste Post-processors de document.

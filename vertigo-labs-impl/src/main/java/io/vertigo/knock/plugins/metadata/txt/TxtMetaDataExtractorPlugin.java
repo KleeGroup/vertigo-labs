@@ -60,8 +60,8 @@ public final class TxtMetaDataExtractorPlugin implements MetaDataExtractorPlugin
 	public MetaDataContainer extractMetaData(final KFile file) throws Exception {
 		Assertion.checkNotNull(file);
 		//-----
-		return new MetaDataContainerBuilder()//
-				.withMetaData(TxtMetaData.CONTENT, getContent(file))//
+		return new MetaDataContainerBuilder()
+				.withMetaData(TxtMetaData.CONTENT, getContent(file))
 				.build();
 	}
 

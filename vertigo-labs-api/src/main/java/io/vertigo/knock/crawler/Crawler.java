@@ -7,7 +7,7 @@ import io.vertigo.knock.document.model.DocumentVersion;
  * Fournit les services de :
  * - parcours de la source.
  * - lecture d'un document avec extraction de ses m�ta-donn�es
- * - d�finition de la base d'url de download 
+ * - d�finition de la base d'url de download
  * @author npiedeloup
  * @version $Id: Crawler.java,v 1.1 2011/08/02 14:36:12 pchretien Exp $
  */
@@ -18,9 +18,9 @@ public interface Crawler {
 	 */
 	Iterable<DocumentVersion> crawl(final String startAtUrl);
 
-	/**
-	 * TODO : ceci est de la conf de dataSource, ne devrait pas �tre dans le plugin.
-	 * @return Base de l'url de download
-	 */
-	String getBaseDownloadUrl();
+	//	/**
+	//	 * TODO : ceci est de la conf de dataSource, ne devrait pas �tre dans le plugin.
+	//	 * @return Base de l'url de download
+	//	 */
+	//	String getBaseDownloadUrl();
 }

@@ -86,9 +86,9 @@ public final class DocumentBuilder implements Builder<Document> {
 	public Document build() {
 		if (document == null) {
 			//Pour le premier document on commence la r�vision � 0. (Pas de r�vision)
-			return new Document(documentVersion, mySize, nextRevision(), myName, myContent, myType,//
-					get(MetaDataContainer.EMPTY_META_DATA_CONTAINER, myExtractedMetaDataContainer),//
-					get(MetaDataContainer.EMPTY_META_DATA_CONTAINER, myEnhancedMetaDataContainer),//
+			return new Document(documentVersion, mySize, nextRevision(), myName, myContent, myType,
+					get(MetaDataContainer.EMPTY_META_DATA_CONTAINER, myExtractedMetaDataContainer),
+					get(MetaDataContainer.EMPTY_META_DATA_CONTAINER, myEnhancedMetaDataContainer),
 					get(MetaDataContainer.EMPTY_META_DATA_CONTAINER, myUserDefinedMetaDataContainer));
 		}
 
@@ -96,15 +96,15 @@ public final class DocumentBuilder implements Builder<Document> {
 		final MetaDataContainer overriddenEnhancedMetaDataContainer = get(document.getEnhancedMetaDataContainer(), myEnhancedMetaDataContainer);
 		final MetaDataContainer overriddenUserDefinedMetaDataContainer = get(document.getUserDefinedMetaDataContainer(), myUserDefinedMetaDataContainer);
 
-		return new Document(//
-				documentVersion,//
-				get(document.getSize(), mySize),//
-				nextRevision(),//
-				get(document.getName(), myName),//
-				get(document.getContent(), myContent),//
-				get(document.getType(), myType),//
-				get(MetaDataContainer.EMPTY_META_DATA_CONTAINER, overriddenExtractedMetaDataContainer),//
-				get(MetaDataContainer.EMPTY_META_DATA_CONTAINER, overriddenEnhancedMetaDataContainer),//
+		return new Document(
+				documentVersion,
+				get(document.getSize(), mySize),
+				nextRevision(),
+				get(document.getName(), myName),
+				get(document.getContent(), myContent),
+				get(document.getType(), myType),
+				get(MetaDataContainer.EMPTY_META_DATA_CONTAINER, overriddenExtractedMetaDataContainer),
+				get(MetaDataContainer.EMPTY_META_DATA_CONTAINER, overriddenEnhancedMetaDataContainer),
 				get(MetaDataContainer.EMPTY_META_DATA_CONTAINER, overriddenUserDefinedMetaDataContainer));
 	}
 
