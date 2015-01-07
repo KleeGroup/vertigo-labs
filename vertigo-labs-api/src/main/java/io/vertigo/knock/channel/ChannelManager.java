@@ -3,6 +3,8 @@ package io.vertigo.knock.channel;
 import io.vertigo.knock.channel.metadefinition.ChannelDefinition;
 import io.vertigo.lang.Component;
 
+import java.util.List;
+
 /**
  * Manager de Channel.
  * @author npiedeloup
@@ -10,7 +12,7 @@ import io.vertigo.lang.Component;
  */
 public interface ChannelManager extends Component {
 	//
-	//	List<ChannelDefinition> getChannelDefinitions();
+		List<ChannelDefinition> getChannelDefinitions();
 	//
 	//	/**
 	//	 * @param channelDefinition Channel

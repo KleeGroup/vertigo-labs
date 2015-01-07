@@ -16,12 +16,11 @@ import io.vertigo.knock.channel.metadefinition.ChannelDefinition;
 import io.vertigo.knock.impl.channel.IndexHandlerPlugin;
 import io.vertigo.lang.Assertion;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.inject.Inject;
 
 /**
  * Impl�mentation du IndexHandlerPlugin avec constitution de packet.
@@ -61,7 +60,7 @@ public final class IndexHandlerPluginImpl implements IndexHandlerPlugin {
 			indexMap = new HashMap<>();
 			for (final ChannelDefinition channelDefinition : getChannelManager().getChannelDefinitions()) {
 				final Collection<Index<DtObject, DtObject>> indexes = new ArrayList<>();
-				indexMap.put(channelDefinition.getIndexDefinition(), indexes);
+//				indexMap.put(channelDefinition.getIndexDefinition(), indexes);
 			}
 			initialized = true;
 		}
@@ -115,7 +114,7 @@ public final class IndexHandlerPluginImpl implements IndexHandlerPlugin {
 		try {
 			synchronized (indexCollection) {
 				if (!indexCollection.isEmpty()) {
-					searchManager.<DtObject, DtObject> putAll(indexDefinition, indexCollection);
+					searchManager.putAll(indexDefinition, indexCollection);
 					transaction.commit();
 					indexCollection.clear();
 				}

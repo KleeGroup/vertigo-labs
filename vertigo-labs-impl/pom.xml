@@ -28,6 +28,12 @@
 
 		<dependency>
 			<groupId>io.vertigo</groupId>
+			<artifactId>vertigo-enhancer</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.vertigo</groupId>
 			<artifactId>vertigo-dynamo-api</artifactId>
 			<version>${project.version}</version>
 		</dependency>

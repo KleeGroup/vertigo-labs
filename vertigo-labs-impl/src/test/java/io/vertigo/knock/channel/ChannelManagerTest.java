@@ -7,16 +7,16 @@ import io.vertigo.knock.crawler.CrawlerManager;
 import io.vertigo.knock.document.DocumentStore;
 import io.vertigo.knock.document.model.Document;
 import io.vertigo.knock.document.model.DocumentVersion;
+import io.vertigo.knock.enrichment.EnrichmentManager;
+import io.vertigo.knock.plugins.channel.processor.NamedEntitiesDocumentPostProcessorPlugin;
 import io.vertigo.knock.processors.DocumentPostProcessor;
+import org.junit.Test;
 
+import javax.inject.Inject;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-
-import javax.inject.Inject;
-
-import org.junit.Test;
 
 /**
  * Test de l'impl�mentation standard.
@@ -29,10 +29,13 @@ public final class ChannelManagerTest extends AbstractTestCaseJU4 {
 	private ChannelManager channelManager;
 	@Inject
 	private CrawlerManager crawlerManager;
+	@Inject
+	private EnrichmentManager enrichmentManager;
 
 	@Test
 	public void testDiskC() {
-		final DocumentPostProcessor documentPostProcessor = new MockPostProcessorPlugin();
+//		final DocumentPostProcessor documentPostProcessor = new MockPostProcessorPlugin();
+		final DocumentPostProcessor documentPostProcessor = new NamedEntitiesDocumentPostProcessorPlugin(enrichmentManager);
 		final DocumentStore documentStore = new DocumentStore() {
 			private final Map<DocumentVersion, Document> map = new HashMap<>();
 
@@ -53,13 +56,13 @@ public final class ChannelManagerTest extends AbstractTestCaseJU4 {
 
 			@Override
 			public void add(final Document document) {
-				System.out.println("add doc[" + map.size() + "]: " + document.getDocumentVersion().getUrl());
+//				System.out.println("add doc[" + map.size() + "]: " + document.getDocumentVersion().getUrl());
 				map.put(document.getDocumentVersion(), document);
 			}
 		};
 		final ChannelDefinition channelDefinition = new ChannelDefinition("CHN_MOCK",
-				"test mock",
-				crawlerManager.getCrawler("myFS"),
+				"test data channel",
+				crawlerManager.getCrawler("testFS"),
 				Collections.singletonList(documentPostProcessor),
 				documentStore);
 		Home.getDefinitionSpace().put(channelDefinition, ChannelDefinition.class);
@@ -67,7 +70,6 @@ public final class ChannelManagerTest extends AbstractTestCaseJU4 {
 		//-------
 
 		channelManager.crawlChannel(channelDefinition);
-
 		channelManager.processChannel(channelDefinition);
 
 	}

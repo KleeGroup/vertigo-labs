@@ -12,12 +12,11 @@ import io.vertigo.knock.processors.DocumentEnhancer;
 import io.vertigo.knock.processors.DocumentPostProcessor;
 import io.vertigo.lang.Assertion;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.inject.Inject;
 
 public final class ChannelManagerImpl implements ChannelManager {
 	//	private final Logger logger = Logger.getLogger(getClass());
@@ -52,11 +51,11 @@ public final class ChannelManagerImpl implements ChannelManager {
 		//this.indexHandlerPlugin = indexHandlerPlugin;
 	}
 
-	//	/** {@inheritDoc} */
-	//	@Override
-	//	public List<ChannelDefinition> getChannelDefinitions() {
-	//		return new ArrayList<>(Home.getDefinitionSpace().getAll(ChannelDefinition.class));
-	//	}
+		/** {@inheritDoc} */
+		@Override
+		public List<ChannelDefinition> getChannelDefinitions() {
+			return new ArrayList<>(Home.getDefinitionSpace().getAll(ChannelDefinition.class));
+		}
 
 	/** {@inheritDoc} */
 	@Override
