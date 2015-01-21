@@ -28,29 +28,11 @@
 		
 		<component api="ChannelManager" class="io.vertigo.knock.impl.channel.ChannelManagerImpl">
 			<plugin class="io.vertigo.knock.channel.MockPostProcessorPlugin"/>
-			<plugin class="io.vertigo.knock.plugins.channel.processor.NamedEntitiesDocumentPostProcessorPlugin"/>
-		</component>
-
-		<component api="EnrichmentManager" class="io.vertigo.knock.impl.enrichment.EnrichmentManagerImpl">
-			<plugin class="io.vertigo.knock.plugins.enrichment.namedentity.NamedEntityEnrichmentPlugin"/>
-		</component>
-
-		<component api="TokenizationManager" class="io.vertigo.knock.impl.tokenization.TokenizationManagerImpl">
-			<plugin class="io.vertigo.knock.plugins.tokenization.stanfordNlp.StanfordTokenizerPlugin">
-				<param name="taggerModel" value="io/vertigo/knock/channel/french.tagger"/>
-			</plugin>
+			<plugin class="io.vertigo.knock.plugins.channel.processor.io.vertigo.knock.plugins.channel.processor.NamedEntitiesDocumentPostProcessorPlugin"/>
 		</component>
 
 		<component api="ResourceManager" class="io.vertigo.commons.impl.resource.ResourceManagerImpl">
 			<plugin class="io.vertigo.commons.plugins.resource.java.ClassPathResourceResolverPlugin"/>
-		</component>
-
-		<component api="CharacterizationManager" class="io.vertigo.knock.impl.characterization.CharacterizationManagerImpl">
-			<plugin class="io.vertigo.knock.plugins.characterization.freebase.FreebaseCharacterizerPlugin">
-				<param name="proxyHost" value="172.20.0.9" />
-				<param name="proxyPort" value="3128" />
-				<param name="apiKey" value="AIzaSyCCdSJ7FMwQUnzmVWTLpemdCJVQZYdxQDg" />
-			</plugin>
 		</component>
 		
 	</module>

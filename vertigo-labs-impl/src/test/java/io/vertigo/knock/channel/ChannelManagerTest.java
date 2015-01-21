@@ -7,8 +7,6 @@ import io.vertigo.knock.crawler.CrawlerManager;
 import io.vertigo.knock.document.DocumentStore;
 import io.vertigo.knock.document.model.Document;
 import io.vertigo.knock.document.model.DocumentVersion;
-import io.vertigo.knock.enrichment.EnrichmentManager;
-import io.vertigo.knock.plugins.channel.processor.NamedEntitiesDocumentPostProcessorPlugin;
 import io.vertigo.knock.processors.DocumentPostProcessor;
 import org.junit.Test;
 
@@ -30,12 +28,11 @@ public final class ChannelManagerTest extends AbstractTestCaseJU4 {
 	@Inject
 	private CrawlerManager crawlerManager;
 	@Inject
-	private EnrichmentManager enrichmentManager;
+	private DocumentPostProcessor documentPostProcessor;
 
 	@Test
 	public void testDiskC() {
-//		final DocumentPostProcessor documentPostProcessor = new MockPostProcessorPlugin();
-		final DocumentPostProcessor documentPostProcessor = new NamedEntitiesDocumentPostProcessorPlugin(enrichmentManager);
+		final DocumentPostProcessor documentPostProcessor = new MockPostProcessorPlugin();
 		final DocumentStore documentStore = new DocumentStore() {
 			private final Map<DocumentVersion, Document> map = new HashMap<>();
 
