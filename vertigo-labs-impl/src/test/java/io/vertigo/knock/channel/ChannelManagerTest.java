@@ -8,13 +8,15 @@ import io.vertigo.knock.document.DocumentStore;
 import io.vertigo.knock.document.model.Document;
 import io.vertigo.knock.document.model.DocumentVersion;
 import io.vertigo.knock.processors.DocumentPostProcessor;
-import org.junit.Test;
 
-import javax.inject.Inject;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+
+import javax.inject.Inject;
+
+import org.junit.Test;
 
 /**
  * Test de l'impl�mentation standard.
@@ -27,8 +29,6 @@ public final class ChannelManagerTest extends AbstractTestCaseJU4 {
 	private ChannelManager channelManager;
 	@Inject
 	private CrawlerManager crawlerManager;
-	@Inject
-	private DocumentPostProcessor documentPostProcessor;
 
 	@Test
 	public void testDiskC() {
@@ -53,7 +53,7 @@ public final class ChannelManagerTest extends AbstractTestCaseJU4 {
 
 			@Override
 			public void add(final Document document) {
-//				System.out.println("add doc[" + map.size() + "]: " + document.getDocumentVersion().getUrl());
+				//				System.out.println("add doc[" + map.size() + "]: " + document.getDocumentVersion().getUrl());
 				map.put(document.getDocumentVersion(), document);
 			}
 		};

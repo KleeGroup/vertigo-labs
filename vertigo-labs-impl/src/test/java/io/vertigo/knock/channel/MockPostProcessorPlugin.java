@@ -8,23 +8,21 @@ import io.vertigo.knock.metadata.MetaDataContainer;
 import java.util.Iterator;
 
 public final class MockPostProcessorPlugin implements DocumentPostProcessorPlugin {
-	private static int id = 0;
 
 	/** {@inheritDoc} */
 	@Override
 	public MetaDataContainer extract(final Document document) {
 		System.out.println("I post-processed the document : " + document.getName());
-//		MetaDataContainer metaDataContainer = new MetaDataContainerBuilder()//
-//				.withMetaData(DemoDocumentMetaData.TITLE, "$" + id++)//
-//				.build();
-		MetaDataContainer metaDataContainer = document.getExtractedMetaDataContainer();
-		Iterator<MetaData> metaDataIterator = metaDataContainer.getMetaDataSet().iterator();
+		//		MetaDataContainer metaDataContainer = new MetaDataContainerBuilder()//
+		//				.withMetaData(DemoDocumentMetaData.TITLE, "$" + id++)//
+		//				.build();
+		final MetaDataContainer metaDataContainer = document.getExtractedMetaDataContainer();
+		final Iterator<MetaData> metaDataIterator = metaDataContainer.getMetaDataSet().iterator();
 		while (metaDataIterator.hasNext()) {
-			MetaData metaData = metaDataIterator.next();
+			final MetaData metaData = metaDataIterator.next();
 			System.out.println(metaData.toString());
 		}
 		System.out.println(document.getContent());
-
 
 		return metaDataContainer;
 	}
