@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>io.vertigo</groupId>
 		<artifactId>vertigo-parent</artifactId>
-		<version>0.7.3</version>
+		<version>0.7.4-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>vertigo-labs-impl</artifactId>
@@ -112,36 +112,7 @@
 			<version>5.0.73</version>
 		</dependency>
 
-		<!-- begin:Document-metadatas -->
-		<!-- tika-parsers est la librairie de référence qui tire toutes les librairies -->
-		<dependency>
-			<groupId>org.apache.tika</groupId>
-			<artifactId>tika-parsers</artifactId>
-			<version>1.6</version>
-			<exclusions>
-				<exclusion>
-					<groupId>rome</groupId>
-					<artifactId>rome</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
-		<dependency>
-			<groupId>xerces</groupId>
-			<artifactId>xercesImpl</artifactId>
-			<version>2.9.1</version> <!-- tika 1.4 pointe sur la 2.8.1, on unifie sur la 2.9.1 venant d'odfdom 0.7 -->
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.6.6</version> <!-- tika 1.4 pointe sur la 1.5.6 qui est incompatible (à l'exec) avec la 1.6.x présente dans d'autres modules -->
-		</dependency>
-		<dependency>
-			<groupId>org.apache.pdfbox</groupId>
-			<artifactId>preflight</artifactId> <!-- preflight permet la validation des PDF/A : tika 1.4 contient pdfbox 1.8.1 -->
-			<version>1.8.1</version>
-		</dependency>
-		<!-- end:Document-metadatas -->
+	
 	
 		
 		<dependency>
