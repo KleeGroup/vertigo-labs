@@ -18,7 +18,7 @@
  */
 package io.vertigo.quarto.plugins.converter.work;
 
-import io.vertigo.dynamo.file.model.KFile;
+import io.vertigo.dynamo.file.model.VFile;
 import io.vertigo.lang.Assertion;
 
 import java.io.Serializable;
@@ -33,7 +33,7 @@ import java.io.Serializable;
  */
 final class ConverterWork implements Serializable {
 	private static final long serialVersionUID = -8627255258640375006L;
-	private final KFileSerializable file;
+	private final VFileSerializable file;
 	private final String targetFormat;
 
 	/**
@@ -41,18 +41,18 @@ final class ConverterWork implements Serializable {
 	 * @param file fichier à convertir
 	 * @param targetFormat format destination
 	 */
-	ConverterWork(final KFile file, final String targetFormat) {
+	ConverterWork(final VFile file, final String targetFormat) {
 		Assertion.checkNotNull(file);
 		Assertion.checkNotNull(targetFormat);
 		//-----
-		this.file = new KFileSerializable(file);
+		this.file = new VFileSerializable(file);
 		this.targetFormat = targetFormat;
 	}
 
 	/**
 	 * @return fichier à convertir
 	 */
-	KFile getInputFile() {
+	VFile getInputFile() {
 		return file;
 	}
 

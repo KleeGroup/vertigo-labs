@@ -30,7 +30,7 @@ import javax.inject.Inject;
  * Attention à utiliser un plugin qui effectue directement la conversion sans work, pour ne pas boucler.
  * @author npiedeloup
  */
-public final class ConverterWorkEngine implements WorkEngine<KFileSerializable, ConverterWork> {
+public final class ConverterWorkEngine implements WorkEngine<VFileSerializable, ConverterWork> {
 	private final ConverterManager converterManager;
 
 	/**
@@ -46,7 +46,7 @@ public final class ConverterWorkEngine implements WorkEngine<KFileSerializable, 
 
 	/** {@inheritDoc} */
 	@Override
-	public KFileSerializable process(final ConverterWork work) {
-		return new KFileSerializable(converterManager.convert(work.getInputFile(), work.geTargetFormat()));
+	public VFileSerializable process(final ConverterWork work) {
+		return new VFileSerializable(converterManager.convert(work.getInputFile(), work.geTargetFormat()));
 	}
 }

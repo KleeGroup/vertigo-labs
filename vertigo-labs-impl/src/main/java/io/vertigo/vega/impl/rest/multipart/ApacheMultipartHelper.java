@@ -4,7 +4,7 @@ import io.vertigo.commons.codec.CodecManager;
 import io.vertigo.core.Home;
 import io.vertigo.dynamo.file.FileManager;
 import io.vertigo.dynamo.file.model.InputStreamBuilder;
-import io.vertigo.dynamo.file.model.KFile;
+import io.vertigo.dynamo.file.model.VFile;
 import io.vertigo.lang.Assertion;
 import io.vertigo.lang.MessageText;
 import io.vertigo.lang.VUserException;
@@ -61,7 +61,7 @@ public final class ApacheMultipartHelper {
 	 */
 	public static Request createRequestWrapper(final Request request) {
 		final Map<String, List<String>> parameters = new HashMap<>();
-		final Map<String, KFile> uploadedFiles = new HashMap<>();
+		final Map<String, VFile> uploadedFiles = new HashMap<>();
 		final Map<String, RuntimeException> tooBigFiles = new HashMap<>();
 		try {
 			wrapParameters(request.raw(), parameters, uploadedFiles, tooBigFiles);
@@ -80,7 +80,7 @@ public final class ApacheMultipartHelper {
 		return result;
 	}
 
-	private static void wrapParameters(final HttpServletRequest httpServletRequest, final Map<String, List<String>> parameters, final Map<String, KFile> uploadedFiles, final Map<String, RuntimeException> tooBigFiles) throws FileUploadException, IOException {
+	private static void wrapParameters(final HttpServletRequest httpServletRequest, final Map<String, List<String>> parameters, final Map<String, VFile> uploadedFiles, final Map<String, RuntimeException> tooBigFiles) throws FileUploadException, IOException {
 		final MultipartConfigElement multipartConfigElement = (MultipartConfigElement) httpServletRequest.getAttribute(MULTIPART_CONFIG_ELEMENT);
 		Assertion.checkNotNull(multipartConfigElement, "No MultipartConfigElement found. Set it as request.attibute({0}", MULTIPART_CONFIG_ELEMENT);
 		//-----
@@ -137,7 +137,7 @@ public final class ApacheMultipartHelper {
 		addValue(parameters, fileItem.getFieldName(), fileItem.getString()/* convertToString(fileItem) */);
 	}
 
-	private static void processUploadedFile(final FileItem fileItem, final Map<String, KFile> uploadedFiles, final Map<String, RuntimeException> tooBigFiles, final boolean sizeExcedeed, final long maxFileSize) throws IOException {
+	private static void processUploadedFile(final FileItem fileItem, final Map<String, VFile> uploadedFiles, final Map<String, RuntimeException> tooBigFiles, final boolean sizeExcedeed, final long maxFileSize) throws IOException {
 		final String fileName;
 		try {
 			fileName = Home.getComponentSpace().resolve(CodecManager.class).getHtmlCodec().decode(fileItem.getName());
@@ -146,7 +146,7 @@ public final class ApacheMultipartHelper {
 		}
 
 		if (!sizeExcedeed) {
-			final KFile file = createKFIle(fileName, fileItem);
+			final VFile file = createVFile(fileName, fileItem);
 			uploadedFiles.put(fileItem.getFieldName(), file);
 		} else {
 			final MessageText msg = new MessageText("Too big file, {0} must be smaller than {1} bytes", null, fileName, maxFileSize / 1024d / 1024d);
@@ -173,13 +173,13 @@ public final class ApacheMultipartHelper {
 	}
 
 	/**
-	 * Cr�ation d'un KFile � partir d'un FileItem.
+	 * Cr�ation d'un VFile � partir d'un FileItem.
 	 *
 	 * @param fileName Nom du fichier
 	 * @param fileItem Fichier
 	 * @return FileInfo cr�e
 	 */
-	private static KFile createKFIle(final String fileName, final FileItem fileItem) {
+	private static VFile createVFile(final String fileName, final FileItem fileItem) {
 		String contentType = fileItem.getContentType();
 		if (contentType == null) {
 			contentType = "application/octet-stream";

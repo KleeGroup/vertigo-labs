@@ -1,6 +1,6 @@
 package io.vertigo.vega.impl.rest.multipart;
 
-import io.vertigo.dynamo.file.model.KFile;
+import io.vertigo.dynamo.file.model.VFile;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -29,7 +29,7 @@ public final class RequestWrapper extends Request {
 	/**
 	 * Creates a new KRequestWrapper object.
 	 */
-	RequestWrapper(final Request innerRequest, final Map<String, String[]> parameters, final Map<String, KFile> uploadedFiles, final Map<String, RuntimeException> tooBigFiles) {
+	RequestWrapper(final Request innerRequest, final Map<String, String[]> parameters, final Map<String, VFile> uploadedFiles, final Map<String, RuntimeException> tooBigFiles) {
 		this.innerRequest = innerRequest;
 		rawRequest = new HttpRequestWrapper(innerRequest.raw(), parameters, uploadedFiles, tooBigFiles);
 		queryParamsMap = new QueryParamsMap(rawRequest);

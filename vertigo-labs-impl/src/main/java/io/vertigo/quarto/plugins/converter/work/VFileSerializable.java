@@ -18,7 +18,7 @@
  */
 package io.vertigo.quarto.plugins.converter.work;
 
-import io.vertigo.dynamo.file.model.KFile;
+import io.vertigo.dynamo.file.model.VFile;
 import io.vertigo.dynamo.file.util.FileUtil;
 import io.vertigo.dynamo.file.util.TempFile;
 import io.vertigo.dynamo.impl.file.model.FSFile;
@@ -34,23 +34,23 @@ import java.io.OutputStream;
 import java.util.Date;
 
 /**
- * Class d'encapsulation pour rendre un KFile Serializable.
+ * Class d'encapsulation pour rendre un VFile Serializable.
  * @author npiedeloup
  */
-public final class KFileSerializable implements KFile {
+public final class VFileSerializable implements VFile {
 
 	private static final long serialVersionUID = -8193943440741831844L;
-	private transient KFile file; //file est transient
+	private transient VFile file; //file est transient
 
 	/**
 	 * Constructeur.
-	 * @param kfile fichier d'origine
+	 * @param vFile fichier d'origine
 	 */
-	protected KFileSerializable(final KFile kfile) {
-		Assertion.checkNotNull(kfile);
-		Assertion.checkArgument(!(kfile instanceof KFileSerializable), "Le fichier {0} est déjà encapsuler dans KFileSerializable", kfile.getFileName());
+	protected VFileSerializable(final VFile vFile) {
+		Assertion.checkNotNull(vFile);
+		Assertion.checkArgument(!(vFile instanceof VFileSerializable), "Le fichier {0} est déjà encapsuler dans VFileSerializable", vFile.getFileName());
 		//-----
-		file = kfile;
+		file = vFile;
 	}
 
 	/** {@inheritDoc} */
@@ -94,10 +94,10 @@ public final class KFileSerializable implements KFile {
 
 	private void readObject(final ObjectInputStream stream) throws IOException, ClassNotFoundException {
 		stream.defaultReadObject();
-		file = readKFile(stream);
+		file = readVFile(stream);
 	}
 
-	private static KFile readKFile(final ObjectInputStream stream) throws IOException {
+	private static VFile readVFile(final ObjectInputStream stream) throws IOException {
 		final String fileName = stream.readUTF();
 		final String mimeType = stream.readUTF();
 		final File tempFile = new TempFile("kConverter", "." + FileUtil.getFileExtension(fileName));

@@ -2,7 +2,7 @@
 <config>
 	<module name="gedcom">
 	
-	   <component api="KTransactionManager" class="io.vertigo.dynamo.impl.transaction.KTransactionManagerImpl"/>
+	   <component api="VTransactionManager" class="io.vertigo.dynamo.impl.transaction.VTransactionManagerImpl"/>
 		    
 		<component api="ResourceManager" class="io.vertigo.commons.impl.resource.ResourceManagerImpl" >
 			<plugin	 class="io.vertigo.commons.plugins.resource.java.ClassPathResourceResolverPlugin"/>

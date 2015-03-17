@@ -1,6 +1,6 @@
 package io.vertigo.vega.impl.rest.multipart;
 
-import io.vertigo.dynamo.file.model.KFile;
+import io.vertigo.dynamo.file.model.VFile;
 import io.vertigo.lang.Option;
 import io.vertigo.lang.VUserException;
 
@@ -25,7 +25,7 @@ import javax.servlet.http.Part;
 public final class HttpRequestWrapper extends HttpServletRequestWrapper {
 
 	private final Map<String, String[]> parameters;
-	private final Map<String, KFile> uploadedFiles;
+	private final Map<String, VFile> uploadedFiles;
 	private final Map<String, RuntimeException> tooBigFiles;
 
 	/**
@@ -33,7 +33,7 @@ public final class HttpRequestWrapper extends HttpServletRequestWrapper {
 	 *
 	 * @param request Requ�te � g�rer.
 	 */
-	HttpRequestWrapper(final HttpServletRequest request, final Map<String, String[]> parameters, final Map<String, KFile> uploadedFiles, final Map<String, RuntimeException> tooBigFiles) {
+	HttpRequestWrapper(final HttpServletRequest request, final Map<String, String[]> parameters, final Map<String, VFile> uploadedFiles, final Map<String, RuntimeException> tooBigFiles) {
 		super(request);
 		this.parameters = parameters;
 		this.uploadedFiles = uploadedFiles;
@@ -46,7 +46,7 @@ public final class HttpRequestWrapper extends HttpServletRequestWrapper {
 	 * @param fileName Nom du param�tre portant le fichier dans la request
 	 * @return Fichier t�l�charg�.
 	 */
-	public Option<KFile> getUploadedFile(final String fileName) {
+	public Option<VFile> getUploadedFile(final String fileName) {
 		if (tooBigFiles.containsKey(fileName)) {
 			throw (VUserException) tooBigFiles.get(fileName);
 		}
@@ -91,7 +91,7 @@ public final class HttpRequestWrapper extends HttpServletRequestWrapper {
 	/** {@inheritDoc} */
 	@Override
 	public Part getPart(final String name) throws IOException, ServletException {
-		final Option<KFile> file = getUploadedFile(name);
+		final Option<VFile> file = getUploadedFile(name);
 		return new Part() {
 
 			@Override

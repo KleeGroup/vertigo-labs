@@ -21,8 +21,8 @@ package io.vertigo.labs.impl.gedcom;
 import io.vertigo.commons.resource.ResourceManager;
 import io.vertigo.dynamo.domain.model.DtList;
 import io.vertigo.dynamo.kvdatastore.KVDataStoreManager;
-import io.vertigo.dynamo.transaction.KTransactionManager;
-import io.vertigo.dynamo.transaction.KTransactionWritable;
+import io.vertigo.dynamo.transaction.VTransactionManager;
+import io.vertigo.dynamo.transaction.VTransactionWritable;
 import io.vertigo.labs.gedcom.GedcomManager;
 import io.vertigo.labs.gedcom.Individual;
 import io.vertigo.labs.geocoder.GeoCoderManager;
@@ -47,13 +47,13 @@ public final class GedcomManagerImpl implements GedcomManager {
 	private final String dataStoreName;
 	private final GedcomParser gp;
 	private final GeoCoderManager geoCoderManager;
-	private final KTransactionManager transactionManager;
+	private final VTransactionManager transactionManager;
 	private final KVDataStoreManager kvDataStoreManager;
 	private final Map<String, GeoLocation> cache = Collections.synchronizedMap(new HashMap<String, GeoLocation>());
 	private final Map<String, DtList<Individual>> children = new HashMap<>();
 
 	@Inject
-	public GedcomManagerImpl(@Named("dataStoreName") final String storeName, final KVDataStoreManager kvDataStoreManager, final KTransactionManager transactionManager, final GeoCoderManager geoCoderManager, final ResourceManager resourceManager, @Named("gedcom") final String gedcomResource) {
+	public GedcomManagerImpl(@Named("dataStoreName") final String storeName, final KVDataStoreManager kvDataStoreManager, final VTransactionManager transactionManager, final GeoCoderManager geoCoderManager, final ResourceManager resourceManager, @Named("gedcom") final String gedcomResource) {
 		Assertion.checkArgNotEmpty(storeName);
 		Assertion.checkNotNull(kvDataStoreManager);
 		Assertion.checkNotNull(transactionManager);
@@ -164,7 +164,7 @@ public final class GedcomManagerImpl implements GedcomManager {
 		final String key = address.trim().toLowerCase();
 		//System.out.println("buildLocation "+key);
 		GeoLocation geoLocation;
-		try (KTransactionWritable transaction = transactionManager.createCurrentTransaction();) {
+		try (VTransactionWritable transaction = transactionManager.createCurrentTransaction();) {
 			geoLocation = cache.get(key);
 			if (geoLocation == null) {
 				final Option<GeoLocation> storedLocation = kvDataStoreManager.find(dataStoreName, key, GeoLocation.class);
