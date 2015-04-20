@@ -5,6 +5,7 @@ import io.vertigo.dynamo.domain.model.URI;
 import io.vertigo.dynamo.domain.util.DtObjectUtil;
 import io.vertigo.lang.Activeable;
 import io.vertigo.lang.Assertion;
+import io.vertigo.lang.Option;
 import io.vertigo.notifications.impl.users.NotificationEvent;
 import io.vertigo.notifications.impl.users.NotificationsPlugin;
 import io.vertigo.notifications.users.Notification;
@@ -37,22 +38,26 @@ public final class RedisNotificationsPlugin implements NotificationsPlugin, Acti
 	//private final int readTimeout;
 
 	@Inject
-	public RedisNotificationsPlugin(final @Named("host") String redisHost, final @Named("port") int redisPort) {
-		//			final @Named("timeoutSeconds") int timeoutSeconds, final @Named("password") Option<String> password) {
+	public RedisNotificationsPlugin(final @Named(
+			"host") String redisHost,
+			final @Named("port") int redisPort,
+			final @Named("password") Option<String> passwordOption) {
+		//			final @Named("timeoutSeconds") int timeoutSeconds) {
 		Assertion.checkArgNotEmpty(redisHost);
-		//		Assertion.checkNotNull(password);
+		Assertion.checkNotNull(passwordOption);
 		//-----
 		//this.readTimeout = timeoutSeconds;
 		final JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
 		//jedisPoolConfig.setMaxActive(10);
-		//		if (password.isDefined()) {
-		//			jedisPool = new JedisPool(jedisPoolConfig, redisHost, redisPort, CONNECT_TIMEOUT, password.get());
-		//		} else {
-		jedisPool = new JedisPool(jedisPoolConfig, redisHost, redisPort, CONNECT_TIMEOUT);
-		//		}
+		if (passwordOption.isDefined()) {
+			jedisPool = new JedisPool(jedisPoolConfig, redisHost, redisPort, CONNECT_TIMEOUT, passwordOption.get());
+		} else {
+			jedisPool = new JedisPool(jedisPoolConfig, redisHost, redisPort, CONNECT_TIMEOUT);
+		}
 		//test
 		try (Jedis jedis = jedisPool.getResource()) {
 			jedis.ping();
+			jedis.flushAll();
 		}
 	}
 

@@ -20,12 +20,16 @@
 	   <component api="VUsersManager" class="io.vertigo.notifications.impl.users.VUsersManagerImpl" >
   			<plugin class="io.vertigo.notifications.plugins.users.memory.MemoryVUsersPlugin" />
 
-	<!-- 		<plugin class="io.vertigo.notifications.plugins.notifications.memory.MemoryNotificationsPlugin" />
-  -->
+<!-- 		<plugin class="io.vertigo.notifications.plugins.notifications.memory.MemoryNotificationsPlugin" />
+-->
  			<plugin class="io.vertigo.notifications.plugins.notifications.redis.RedisNotificationsPlugin">
- 				<param name="host" value="localhost"/>
- 				<param name="port" value="6379"/>
- 			</plugin>
+ <!-- 			 <param name="host" value="localhost"/>
+  			 	 <param name="port" value="6379"/>
+ -->
+ 				 <param name="host" value="pub-redis-12999.us-east-1-3.2.ec2.garantiadata.com"/>
+ 				 <param name="port" value="12999"/>
+ 				 <param name="password" value="kleegroup"/> 
+  			</plugin>
 	   </component>
 	</module>
 

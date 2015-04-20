@@ -47,12 +47,12 @@ public class VUsersManagerTest extends AbstractTestCaseJU4 {
 				.withMsg("discover this amazing app !!")
 				.build();
 
-		for (int i = 0; i < 1000; i++) {
+		for (int i = 0; i < 10; i++) {
 			usersManager.send(notification, user1);
 		}
 
 		Assert.assertEquals(0, usersManager.getCurrentNotifications(user0).size());
-		Assert.assertEquals(1000, usersManager.getCurrentNotifications(user1).size());
+		Assert.assertEquals(10, usersManager.getCurrentNotifications(user1).size());
 		Assert.assertEquals(0, usersManager.getCurrentNotifications(user2).size());
 	}
 }
