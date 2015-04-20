@@ -1,0 +1,9 @@
+package io.vertigo.notifications
+
+create Domain DO_ID{
+	dataType : String
+}
+
+create Domain DO_NAME {
+	dataType : String
+}
