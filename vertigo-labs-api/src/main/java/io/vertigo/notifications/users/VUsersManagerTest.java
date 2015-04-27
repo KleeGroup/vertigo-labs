@@ -15,7 +15,7 @@ public class VUsersManagerTest extends AbstractTestCaseJU4 {
 	private VUsersManager usersManager;
 
 	@Test
-	public void testSend() {
+	public void testSend() throws InterruptedException {
 		final DtDefinition dtDefinition = DtObjectUtil.findDtDefinition(VUserProfile.class);
 		final URI<VUserProfile> user0 = new URI<>(dtDefinition, "0");
 		final URI<VUserProfile> user1 = new URI<>(dtDefinition, "1");
@@ -45,6 +45,7 @@ public class VUsersManagerTest extends AbstractTestCaseJU4 {
 				.withSender(user0)
 				.withTitle("news")
 				.withMsg("discover this amazing app !!")
+				.withTTLinSeconds(2)
 				.build();
 
 		for (int i = 0; i < 10; i++) {
@@ -54,5 +55,7 @@ public class VUsersManagerTest extends AbstractTestCaseJU4 {
 		Assert.assertEquals(0, usersManager.getCurrentNotifications(user0).size());
 		Assert.assertEquals(10, usersManager.getCurrentNotifications(user1).size());
 		Assert.assertEquals(0, usersManager.getCurrentNotifications(user2).size());
+		Thread.sleep(3000);
+		Assert.assertEquals(0, usersManager.getCurrentNotifications(user1).size());
 	}
 }

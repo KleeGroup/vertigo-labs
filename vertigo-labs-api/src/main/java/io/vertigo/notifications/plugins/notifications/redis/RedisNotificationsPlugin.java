@@ -82,9 +82,10 @@ public final class RedisNotificationsPlugin implements NotificationsPlugin, Acti
 			data.put("sender", notification.getSender().getKey().toString());
 			data.put("title", notification.getTitle());
 			data.put("msg", notification.getMsg());
-
 			tx.hmset("notif:" + uuid, data);
-
+			if (notification.getTTLInSeconds() > 0) {
+				tx.expire("notif:" + uuid, notification.getTTLInSeconds());
+			}
 			for (final URI<VUserProfile> userProfileURI : notificationEvent.getToUserProfileURIs()) {
 				//On publie la notif
 				tx.lpush("notifs:" + userProfileURI.getKey(), uuid);
@@ -112,13 +113,15 @@ public final class RedisNotificationsPlugin implements NotificationsPlugin, Acti
 			notificationsAsUUID = jedis.lrange("notifs:" + userProfileURI.getKey(), 0, -1);
 			for (final String notificationAsUUID : notificationsAsUUID) {
 				final Map<String, String> data = jedis.hgetAll("notif:" + notificationAsUUID);
-				final Notification notification = new NotificationBuilder()
-						.withMsg(data.get("msg"))
-						.withTitle(data.get("title"))
-						.withSender(new URI<VUserProfile>(dtDefinition, data.get("sender")))
-						.build();
+				if (!data.isEmpty()) {
+					final Notification notification = new NotificationBuilder()
+							.withMsg(data.get("msg"))
+							.withTitle(data.get("title"))
+							.withSender(new URI<VUserProfile>(dtDefinition, data.get("sender")))
+							.build();
 
-				notifications.add(notification);
+					notifications.add(notification);
+				}
 			}
 		}
 		return notifications;

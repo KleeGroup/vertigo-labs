@@ -8,6 +8,7 @@ public final class NotificationBuilder implements Builder<Notification> {
 	private String myTitle;
 	private String myMsg;
 	private URI<VUserProfile> mySender;
+	private int myTtlInSeconds = -1;
 
 	public NotificationBuilder withSender(final URI<VUserProfile> sender) {
 		Assertion.checkArgument(mySender == null, "sender already set");
@@ -33,8 +34,15 @@ public final class NotificationBuilder implements Builder<Notification> {
 		return this;
 	}
 
+	public NotificationBuilder withTTLinSeconds(final int ttlInSeconds) {
+		Assertion.checkArgument(ttlInSeconds > 0, "ttl must be strictly positive or undefined.");
+		//-----
+		this.myTtlInSeconds = ttlInSeconds;
+		return this;
+	}
+
 	@Override
 	public Notification build() {
-		return new Notification(mySender, myTitle, myMsg);
+		return new Notification(mySender, myTitle, myMsg, myTtlInSeconds);
 	}
 }
