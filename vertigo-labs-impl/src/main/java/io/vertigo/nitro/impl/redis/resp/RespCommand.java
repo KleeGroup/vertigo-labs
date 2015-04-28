@@ -4,7 +4,7 @@ public final class RespCommand {
 	private final String name;
 	private final String[] args;
 
-	public RespCommand(String name, String... args) {
+	RespCommand(String name, String... args) {
 		if (name == null) {
 			throw new NullPointerException("name is required");
 		}
