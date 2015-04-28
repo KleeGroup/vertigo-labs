@@ -86,9 +86,10 @@ public class AddonsTest extends AbstractTestCaseJU4 {
 				.withAuthor(user0)
 				.withMsg("Tu as bien fait de partir, Arthur Rimbaud! Tes dix-huit ans réfractaires à l'amitié, à la malveillance, à la sottise des poètes de Paris ainsi qu'au ronronnement d'abeille stérile de ta famille ardennaise un peu folle, tu as bien fait de les éparpiller aux vents du large..")
 				.build();
+		for (int i = 0; i < 10; i++) {
+			commentsManager.publish(comment, movieURI);
+		}
 
-		commentsManager.publish(comment, movieURI);
-
-		Assert.assertEquals(1, commentsManager.getComments(movieURI).size());
+		Assert.assertEquals(10, commentsManager.getComments(movieURI).size());
 	}
 }
