@@ -23,9 +23,6 @@ public final class NotificationsManagerImpl implements NotificationsManager {
 
 	@Override
 	public void send(final Notification notification, final URI<VUserProfile> userProfileURI) {
-		Assertion.checkNotNull(notification);
-		Assertion.checkNotNull(userProfileURI);
-		//-----
 		final NotificationEvent notificationEvent = new NotificationEvent(notification, Collections.singletonList(userProfileURI));
 		notificationsPlugin.emit(notificationEvent);
 	}
