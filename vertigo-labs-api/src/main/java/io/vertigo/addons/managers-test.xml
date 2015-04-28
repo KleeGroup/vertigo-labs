@@ -18,13 +18,13 @@
 
 	<module name="vertigo-addons" api="false">
 		<component class="io.vertigo.addons.connectors.redis.RedisConnector">
- 			<param name="host" value="localhost"/>
+ <!-- 			<param name="host" value="localhost"/>
   			<param name="port" value="6379"/>
- <!--
+  -->
   			<param name="host" value="pub-redis-12999.us-east-1-3.2.ec2.garantiadata.com"/>
  			<param name="port" value="12999"/>
  			<param name="password" value="kleegroup"/> 
- -->
+ 
   		</component>
 	
 	
@@ -40,6 +40,10 @@
 
 	   <component api="CommentsManager" class="io.vertigo.addons.impl.comments.CommentsManagerImpl" >
  			<plugin class="io.vertigo.addons.plugins.comments.redis.RedisCommentsPlugin"/>
+	   </component>
+	   
+     <component api="EventsManager" class="io.vertigo.addons.impl.events.EventsManagerImpl" >
+ 			<plugin class="io.vertigo.addons.plugins.events.redis.RedisEventsPlugin"/>
 	   </component>
 	</module>
 

@@ -21,13 +21,13 @@ public final class CommentsManagerImpl implements CommentsManager {
 	}
 
 	@Override
-	public <S extends DtSubject> void publish(final Comment comment, final URI<S> subjectURI) {
+	public void publish(final Comment comment, final URI<? extends DtSubject> subjectURI) {
 		final CommentEvent notificationEvent = new CommentEvent(comment, subjectURI);
 		commentsPlugin.emit(notificationEvent);
 	}
 
 	@Override
-	public <S extends DtSubject> List<Comment> getComments(final URI<S> subjectURI) {
+	public List<Comment> getComments(final URI<? extends DtSubject> subjectURI) {
 		Assertion.checkNotNull(subjectURI);
 		//-----
 		return commentsPlugin.getComments(subjectURI);

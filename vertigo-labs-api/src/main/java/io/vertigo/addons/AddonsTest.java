@@ -4,6 +4,10 @@ import io.vertigo.AbstractTestCaseJU4;
 import io.vertigo.addons.comments.Comment;
 import io.vertigo.addons.comments.CommentBuilder;
 import io.vertigo.addons.comments.CommentsManager;
+import io.vertigo.addons.events.Event;
+import io.vertigo.addons.events.EventBuilder;
+import io.vertigo.addons.events.EventListener;
+import io.vertigo.addons.events.EventsManager;
 import io.vertigo.addons.notifications.Notification;
 import io.vertigo.addons.notifications.NotificationBuilder;
 import io.vertigo.addons.notifications.NotificationsManager;
@@ -28,6 +32,9 @@ public class AddonsTest extends AbstractTestCaseJU4 {
 
 	@Inject
 	private CommentsManager commentsManager;
+
+	@Inject
+	private EventsManager eventsManager;
 
 	@Test
 	public void testUsers() {
@@ -92,4 +99,21 @@ public class AddonsTest extends AbstractTestCaseJU4 {
 
 		Assert.assertEquals(10, commentsManager.getComments(movieURI).size());
 	}
+
+	@Test
+	public void testEvents() {
+		eventsManager.register(new EventListener() {
+			@Override
+			public void onEvent(Event event) {
+				System.out.println("OK");
+				Assert.assertEquals("ping", event.getPayload());
+			}
+		});
+
+		final Event event = new EventBuilder()
+				.withPayload("ping")
+				.build();
+		eventsManager.emit(event);
+	}
+
 }
