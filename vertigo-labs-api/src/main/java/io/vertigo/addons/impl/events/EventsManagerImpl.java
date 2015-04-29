@@ -18,13 +18,13 @@ public final class EventsManagerImpl implements EventsManager {
 	}
 
 	@Override
-	public void emit(Event event) {
-		eventsPlugin.emit(event);
+	public void emit(final String channel, final Event event) {
+		eventsPlugin.emit(channel, event);
 	}
 
 	@Override
-	public void register(EventListener eventListener) {
-		eventsPlugin.register(eventListener);
+	public void register(final String channel, final EventListener eventListener) {
+		eventsPlugin.register(channel, eventListener);
 	}
 
 }

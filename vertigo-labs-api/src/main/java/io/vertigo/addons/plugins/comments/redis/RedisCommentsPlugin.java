@@ -41,20 +41,19 @@ public final class RedisCommentsPlugin implements CommentsPlugin {
 	public void emit(final CommentEvent commentEvent) {
 		try (final Jedis jedis = redisConnector.getResource()) {
 			final Comment comment = commentEvent.getComment();
-			final UUID uuid = UUID.randomUUID();
 			final Transaction tx = jedis.multi();
-			tx.hmset("comment:" + uuid, toMap(uuid, comment));
-			tx.lpush("comments:" + commentEvent.getSubjectURI().getKey(), uuid.toString());
+			tx.hmset("comment:" + comment.getUuid(), toMap(comment));
+			tx.lpush("comments:" + commentEvent.getSubjectURI().getKey(), comment.getUuid().toString());
 			tx.exec();
 		}
 
 	}
 
-	private static Map<String, String> toMap(final UUID uuid, final Comment comment) {
+	private static Map<String, String> toMap(final Comment comment) {
 		final Map<String, String> data = new HashMap<>();
 		data.put("author", comment.getAuthor().getKey().toString());
 		data.put("msg", comment.getMsg());
-		data.put("uuid", uuid.toString());
+		data.put("uuid", comment.getUuid().toString());
 		//			data.put("creationDate", comment.getCreationDate());
 		return data;
 	}

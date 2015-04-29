@@ -56,6 +56,7 @@ public final class CommentBuilder implements Builder<Comment> {
 
 	@Override
 	public Comment build() {
+		myUuid = myUuid == null ? UUID.randomUUID() : myUuid;
 		return new Comment(myUuid, myAuthor, myMsg);
 	}
 }

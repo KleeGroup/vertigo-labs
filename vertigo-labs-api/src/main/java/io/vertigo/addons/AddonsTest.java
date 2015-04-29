@@ -18,6 +18,8 @@ import io.vertigo.dynamo.domain.metamodel.DtDefinition;
 import io.vertigo.dynamo.domain.model.URI;
 import io.vertigo.dynamo.domain.util.DtObjectUtil;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import javax.inject.Inject;
 
 import org.junit.Assert;
@@ -101,19 +103,24 @@ public class AddonsTest extends AbstractTestCaseJU4 {
 	}
 
 	@Test
-	public void testEvents() {
-		eventsManager.register(new EventListener() {
+	public void testEvents() throws InterruptedException {
+		final AtomicBoolean flag = new AtomicBoolean(false);
+		eventsManager.register("news", new EventListener() {
 			@Override
-			public void onEvent(Event event) {
+			public void onEvent(final Event event) {
 				System.out.println("OK");
 				Assert.assertEquals("ping", event.getPayload());
+				flag.set(true);
 			}
 		});
 
 		final Event event = new EventBuilder()
 				.withPayload("ping")
 				.build();
-		eventsManager.emit(event);
+		eventsManager.emit("news", event);
+		Thread.sleep(1000);
+		Assert.assertTrue(flag.get());
+
 	}
 
 }

@@ -27,6 +27,7 @@ public final class EventBuilder implements Builder<Event> {
 
 	@Override
 	public Event build() {
+		myUuid = myUuid == null ? UUID.randomUUID() : myUuid;
 		return new Event(myUuid, myPayload);
 	}
 }

@@ -28,27 +28,34 @@ public final class RedisEventsPlugin implements EventsPlugin {
 	}
 
 	@Override
-	public void emit(final Event event) {
+	public void emit(final String channel, final Event event) {
+		Assertion.checkArgNotEmpty(channel);
+		Assertion.checkNotNull(event);
+		//----
 		try (final Jedis jedis = redisConnector.getResource()) {
-			final UUID uuid = UUID.randomUUID();
-			Transaction tx = jedis.multi();
-			tx.hset("event:" + uuid, "payload", event.getPayload());
-			tx.lpush("events:pending", "event:" + uuid);
+			final Transaction tx = jedis.multi();
+			tx.hset("event:" + event.getUuid(), "payload", event.getPayload());
+			tx.lpush("events:" + channel + ":pending", "event:" + event.getUuid());
 			tx.exec();
 		}
 
 	}
 
 	@Override
-	public void register(EventListener eventListener) {
-		new MyListener(eventListener, redisConnector).start();
+	public void register(final String channel, final EventListener eventListener) {
+		Assertion.checkArgNotEmpty(channel);
+		Assertion.checkNotNull(eventListener);
+		//----
+		new MyListener(channel, eventListener, redisConnector).start();
 	}
 
 	private static class MyListener extends Thread {
+		private final String channel;
 		private final RedisConnector redisConnector;
-		private EventListener eventListener;
+		private final EventListener eventListener;
 
-		MyListener(EventListener eventListener, RedisConnector redisConnector) {
+		MyListener(final String channel, final EventListener eventListener, final RedisConnector redisConnector) {
+			this.channel = channel;
 			this.redisConnector = redisConnector;
 			this.eventListener = eventListener;
 		}
@@ -57,9 +64,9 @@ public final class RedisEventsPlugin implements EventsPlugin {
 		public void run() {
 			while (!isInterrupted()) {
 				try (final Jedis jedis = redisConnector.getResource()) {
-					String eventUUID = jedis.brpoplpush("events", "events:done", 10);
-					UUID uuid = UUID.fromString(eventUUID.substring("event:".length()));
-					Event event = new EventBuilder()
+					final String eventUUID = jedis.brpoplpush("events:" + channel + ":pending", "events:done", 10);
+					final UUID uuid = UUID.fromString(eventUUID.substring("event:".length()));
+					final Event event = new EventBuilder()
 							.withUUID(uuid)
 							.withPayload(jedis.hget(eventUUID, "payload"))
 							.build();

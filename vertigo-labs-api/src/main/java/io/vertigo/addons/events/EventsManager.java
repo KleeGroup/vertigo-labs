@@ -3,7 +3,7 @@ package io.vertigo.addons.events;
 import io.vertigo.lang.Component;
 
 public interface EventsManager extends Component {
-	void emit(Event event);
+	void emit(String channel, Event event);
 
-	void register(EventListener eventListener);
+	void register(String channel, EventListener eventListener);
 }
