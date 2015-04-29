@@ -4,6 +4,9 @@ import io.vertigo.addons.users.VUserProfile;
 import io.vertigo.dynamo.domain.model.URI;
 import io.vertigo.lang.Plugin;
 
+/**
+ * @author pchretien
+ */
 public interface VUsersPlugin extends Plugin {
 	boolean exists(URI<VUserProfile> userPofileURI);
 

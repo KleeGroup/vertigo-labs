@@ -5,6 +5,9 @@ import io.vertigo.dynamo.domain.model.URI;
 import io.vertigo.lang.Assertion;
 import io.vertigo.lang.Builder;
 
+/**
+ * @author pchretien
+ */
 public final class NotificationBuilder implements Builder<Notification> {
 	private String myTitle;
 	private String myMsg;

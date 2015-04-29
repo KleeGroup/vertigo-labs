@@ -7,6 +7,9 @@ import io.vertigo.lang.Plugin;
 
 import java.util.List;
 
+/**
+ * @author pchretien
+ */
 public interface CommentsPlugin extends Plugin {
 	void emit(CommentEvent commentEvent);
 

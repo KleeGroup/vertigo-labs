@@ -7,6 +7,9 @@ import io.vertigo.lang.Assertion;
 
 import javax.inject.Inject;
 
+/**
+ * @author pchretien
+ */
 public final class VUsersManagerImpl implements VUsersManager {
 	private final VUsersPlugin usersPlugin;
 

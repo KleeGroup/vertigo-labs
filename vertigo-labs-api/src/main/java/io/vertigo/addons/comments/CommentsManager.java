@@ -6,6 +6,9 @@ import io.vertigo.lang.Component;
 
 import java.util.List;
 
+/**
+ * @author pchretien
+ */
 public interface CommentsManager extends Component {
 	void publish(Comment comment, URI<? extends DtSubject> subjectURI);
 

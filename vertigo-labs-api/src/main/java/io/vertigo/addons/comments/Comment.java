@@ -6,6 +6,9 @@ import io.vertigo.lang.Assertion;
 
 import java.util.UUID;
 
+/**
+ * @author pchretien
+ */
 public final class Comment {
 	private final UUID uuid;
 	private final URI<VUserProfile> author;

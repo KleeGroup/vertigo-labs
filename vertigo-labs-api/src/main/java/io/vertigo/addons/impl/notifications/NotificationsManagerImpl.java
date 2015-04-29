@@ -11,6 +11,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+/**
+ * @author pchretien
+ */
 public final class NotificationsManagerImpl implements NotificationsManager {
 	private final NotificationsPlugin notificationsPlugin;
 

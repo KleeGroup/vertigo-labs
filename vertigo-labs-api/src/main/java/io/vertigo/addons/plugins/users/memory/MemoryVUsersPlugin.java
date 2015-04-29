@@ -10,6 +10,9 @@ import io.vertigo.lang.Assertion;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * @author pchretien
+ */
 public final class MemoryVUsersPlugin implements VUsersPlugin {
 	private final Map<URI<VUserProfile>, VUserProfile> userProfiles = new ConcurrentHashMap<>();
 

@@ -117,7 +117,7 @@ public class AddonsTest extends AbstractTestCaseJU4 {
 		final Event event = new EventBuilder()
 				.withPayload("ping")
 				.build();
-		eventsManager.emit("news", event);
+		eventsManager.fire("news", event);
 		Thread.sleep(1000);
 		Assert.assertTrue(flag.get());
 

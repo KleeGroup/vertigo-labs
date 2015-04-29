@@ -3,6 +3,9 @@ package io.vertigo.addons.users;
 import io.vertigo.lang.Assertion;
 import io.vertigo.lang.Builder;
 
+/**
+ * @author pchretien
+ */
 public final class VUserProfileBuilder implements Builder<VUserProfile> {
 	private String myId;
 	private String myDisplayName;

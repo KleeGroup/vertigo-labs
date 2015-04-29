@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * @author pchretien
+ */
 public final class NotificationEvent {
 	private final Notification notification;
 	public final List<URI<VUserProfile>> toUserProfileURIs;

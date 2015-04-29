@@ -75,26 +75,4 @@ public final class RedisEventsPlugin implements EventsPlugin {
 			}
 		}
 	}
-
-	//	@Override
-	//	public <S extends DtSubject> List<Comment> getComments(final URI<S> subjectURI) {
-	//		final List<Response<Map<String, String>>> responses = new ArrayList<>();
-	//		try (final Jedis jedis = redisConnector.getResource()) {
-	//			final List<String> uuids = jedis.lrange("comments:" + subjectURI.getKey(), 0, -1);
-	//			final Transaction tx = jedis.multi();
-	//			for (final String uuid : uuids) {
-	//				responses.add(tx.hgetAll("comment:" + uuid));
-	//			}
-	//			tx.exec();
-	//		}
-	//		//----- we are using tx to avoid roundtrips
-	//		final List<Comment> comments = new ArrayList<>();
-	//		for (final Response<Map<String, String>> response : responses) {
-	//			final Map<String, String> data = response.get();
-	//			if (!data.isEmpty()) {
-	//				comments.add(fromMap(data));
-	//			}
-	//		}
-	//		return comments;
-	//	}
 }

@@ -13,6 +13,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * @author pchretien
+ */
 public final class MemoryNotificationsPlugin implements NotificationsPlugin {
 	private final Map<URI<VUserProfile>, List<Notification>> notificationsByUserId = new ConcurrentHashMap<>();
 

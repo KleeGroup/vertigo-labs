@@ -6,6 +6,9 @@ import io.vertigo.lang.Component;
 
 import java.util.List;
 
+/**
+ * @author pchretien
+ */
 public interface NotificationsManager extends Component {
 	//	void attach(URI<VUserProfile> userPofileURI, URI<VUserGroup> userGroupURI);
 	//

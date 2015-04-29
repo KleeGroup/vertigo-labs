@@ -5,6 +5,9 @@ import io.vertigo.dynamo.domain.model.DtSubject;
 import io.vertigo.dynamo.domain.model.URI;
 import io.vertigo.lang.Assertion;
 
+/**
+ * @author pchretien
+ */
 public final class CommentEvent<S extends DtSubject> {
 	private final Comment comment;
 	public final URI<S> subjectURI;

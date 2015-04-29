@@ -4,6 +4,9 @@ import io.vertigo.dynamo.domain.model.DtSubject;
 import io.vertigo.dynamo.domain.stereotype.DtDefinition;
 import io.vertigo.dynamo.domain.stereotype.Field;
 
+/**
+ * @author pchretien
+ */
 @DtDefinition
 public final class Movie implements DtSubject {
 	private static final long serialVersionUID = -3629724099843015770L;

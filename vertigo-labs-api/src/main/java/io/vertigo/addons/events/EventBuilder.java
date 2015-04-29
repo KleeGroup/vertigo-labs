@@ -5,6 +5,9 @@ import io.vertigo.lang.Builder;
 
 import java.util.UUID;
 
+/**
+ * @author pchretien
+ */
 public final class EventBuilder implements Builder<Event> {
 	private UUID myUuid;
 	private String myPayload;

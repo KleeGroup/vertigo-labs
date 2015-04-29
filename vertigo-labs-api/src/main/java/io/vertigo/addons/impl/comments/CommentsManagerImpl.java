@@ -10,6 +10,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+/**
+ * @author pchretien
+ */
 public final class CommentsManagerImpl implements CommentsManager {
 	private final CommentsPlugin commentsPlugin;
 

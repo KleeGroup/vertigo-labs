@@ -5,6 +5,9 @@ import io.vertigo.dynamo.domain.stereotype.DtDefinition;
 import io.vertigo.dynamo.domain.stereotype.Field;
 import io.vertigo.lang.Assertion;
 
+/**
+ * @author pchretien
+ */
 @DtDefinition
 public final class VUserProfile implements DtObject {
 	private static final long serialVersionUID = 7509030642946579907L;

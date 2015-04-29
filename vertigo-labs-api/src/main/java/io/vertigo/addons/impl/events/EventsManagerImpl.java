@@ -7,6 +7,9 @@ import io.vertigo.lang.Assertion;
 
 import javax.inject.Inject;
 
+/**
+ * @author pchretien
+ */
 public final class EventsManagerImpl implements EventsManager {
 	private final EventsPlugin eventsPlugin;
 
@@ -18,7 +21,7 @@ public final class EventsManagerImpl implements EventsManager {
 	}
 
 	@Override
-	public void emit(final String channel, final Event event) {
+	public void fire(final String channel, final Event event) {
 		eventsPlugin.emit(channel, event);
 	}
 

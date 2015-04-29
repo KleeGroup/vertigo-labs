@@ -4,6 +4,9 @@ import io.vertigo.addons.events.Event;
 import io.vertigo.addons.events.EventListener;
 import io.vertigo.lang.Plugin;
 
+/**
+ * @author pchretien
+ */
 public interface EventsPlugin extends Plugin {
 	void emit(String channel, Event event);
 

@@ -7,6 +7,9 @@ import io.vertigo.lang.Builder;
 
 import java.util.UUID;
 
+/**
+ * @author pchretien
+ */
 public final class CommentBuilder implements Builder<Comment> {
 	//	private URI<? extends DtSubject> mySubjectURI;
 	//	private Comment myParent;

@@ -4,6 +4,9 @@ import io.vertigo.addons.users.VUserProfile;
 import io.vertigo.dynamo.domain.model.URI;
 import io.vertigo.lang.Assertion;
 
+/**
+ * @author pchretien
+ */
 public final class Notification {
 	private final URI<VUserProfile> sender;
 	private final String title;

@@ -4,6 +4,9 @@ import io.vertigo.dynamo.domain.stereotype.DtDefinition;
 import io.vertigo.dynamo.domain.stereotype.Field;
 import io.vertigo.lang.Assertion;
 
+/**
+ * @author pchretien
+ */
 @DtDefinition
 public final class VUserGroup {
 	@Field(domain = "DO_ID", type = "PRIMARY_KEY", notNull = true, label = "id")

@@ -7,6 +7,9 @@ import io.vertigo.lang.Plugin;
 
 import java.util.List;
 
+/**
+ * @author pchretien
+ */
 public interface NotificationsPlugin extends Plugin {
 	void emit(NotificationEvent notificationEvent);
 
