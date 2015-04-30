@@ -17,6 +17,7 @@ public final class Comment {
 	//	private final Date creationDate;
 
 	Comment(final UUID uuid, final URI<VUserProfile> author, final String msg) {
+		Assertion.checkNotNull(uuid);
 		Assertion.checkNotNull(author);
 		Assertion.checkArgNotEmpty(msg);
 		//-----
