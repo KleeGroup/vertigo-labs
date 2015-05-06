@@ -49,7 +49,7 @@ public final class RedisNotificationsPlugin implements NotificationsPlugin {
 			}
 			for (final URI<VUserProfile> userProfileURI : notificationEvent.getToUserProfileURIs()) {
 				//On publie la notif
-				tx.lpush("notifs:" + userProfileURI.getKey(), uuid);
+				tx.lpush("notifs:" + userProfileURI.getId(), uuid);
 			}
 			tx.exec();
 		}
@@ -57,7 +57,7 @@ public final class RedisNotificationsPlugin implements NotificationsPlugin {
 
 	private static Map<String, String> toMap(final Notification notification) {
 		final Map<String, String> data = new HashMap<>();
-		data.put("sender", notification.getSender().getKey().toString());
+		data.put("sender", notification.getSender().getId().toString());
 		data.put("title", notification.getTitle());
 		data.put("msg", notification.getMsg());
 		return data;
@@ -76,7 +76,7 @@ public final class RedisNotificationsPlugin implements NotificationsPlugin {
 	public List<Notification> getCurrentNotifications(final URI<VUserProfile> userProfileURI) {
 		final List<Response<Map<String, String>>> responses = new ArrayList<>();
 		try (final Jedis jedis = redisConnector.getResource()) {
-			final List<String> uuids = jedis.lrange("notifs:" + userProfileURI.getKey(), 0, -1);
+			final List<String> uuids = jedis.lrange("notifs:" + userProfileURI.getId(), 0, -1);
 			final Transaction tx = jedis.multi();
 			for (final String uuid : uuids) {
 				responses.add(tx.hgetAll("notif:" + uuid));

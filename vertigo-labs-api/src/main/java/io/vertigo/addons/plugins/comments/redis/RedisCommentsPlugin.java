@@ -43,7 +43,7 @@ public final class RedisCommentsPlugin implements CommentsPlugin {
 			final Comment comment = commentEvent.getComment();
 			final Transaction tx = jedis.multi();
 			tx.hmset("comment:" + comment.getUuid(), toMap(comment));
-			tx.lpush("comments:" + commentEvent.getSubjectURI().getKey(), comment.getUuid().toString());
+			tx.lpush("comments:" + commentEvent.getSubjectURI().getId(), comment.getUuid().toString());
 			tx.exec();
 		}
 
@@ -51,7 +51,7 @@ public final class RedisCommentsPlugin implements CommentsPlugin {
 
 	private static Map<String, String> toMap(final Comment comment) {
 		final Map<String, String> data = new HashMap<>();
-		data.put("author", comment.getAuthor().getKey().toString());
+		data.put("author", comment.getAuthor().getId().toString());
 		data.put("msg", comment.getMsg());
 		data.put("uuid", comment.getUuid().toString());
 		//			data.put("creationDate", comment.getCreationDate());
@@ -72,7 +72,7 @@ public final class RedisCommentsPlugin implements CommentsPlugin {
 	public <S extends DtSubject> List<Comment> getComments(final URI<S> subjectURI) {
 		final List<Response<Map<String, String>>> responses = new ArrayList<>();
 		try (final Jedis jedis = redisConnector.getResource()) {
-			final List<String> uuids = jedis.lrange("comments:" + subjectURI.getKey(), 0, -1);
+			final List<String> uuids = jedis.lrange("comments:" + subjectURI.getId(), 0, -1);
 			final Transaction tx = jedis.multi();
 			for (final String uuid : uuids) {
 				responses.add(tx.hgetAll("comment:" + uuid));
