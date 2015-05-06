@@ -1,19 +1,15 @@
 package snowblood.services.job;
 
-import snowblood.domain.DtDefinitions.JobdefinitionFields;
 import io.vertigo.core.Home;
 import io.vertigo.dynamo.domain.model.DtList;
 import io.vertigo.dynamo.file.FileManager;
 import io.vertigo.dynamo.file.model.VFile;
 import io.vertigo.dynamo.transaction.Transactional;
 import io.vertigo.persona.security.VSecurityManager;
-import io.vertigo.tempo.job.JobManager;
 
 import java.io.File;
 
 import javax.inject.Inject;
-
-import org.apache.log4j.Logger;
 
 import snowblood.gen.dao.tourdecontrole.JobdefinitionDAO;
 import snowblood.gen.dao.tourdecontrole.JobexecutionDAO;
@@ -21,15 +17,9 @@ import snowblood.gen.domain.tourdecontrole.Jobdefinition;
 import snowblood.gen.domain.tourdecontrole.Jobexecution;
 import snowblood.gen.services.tourdecontrole.TourdecontrolePAO;
 import snowblood.services.file.FileServices;
-import snowblood.task.CodeJobDefinition;
 
 @Transactional
 public class JobServicesImpl implements JobServices {
-
-	private final static Logger LOG = Logger.getLogger(JobServicesImpl.class);
-
-	@Inject
-	private JobManager jobManager;
 
 	@Inject
 	private TourdecontrolePAO tourdecontrolePAO;
@@ -46,28 +36,28 @@ public class JobServicesImpl implements JobServices {
 	@Inject
 	private FileServices fileServices;
 
-	private final static String[] REGISTERED_JOB_CODE = {//
-		CodeJobDefinition.MAINTENANCE_TDC.getCode(),//
-	};
+	//	private final static String[] REGISTERED_JOB_CODE = {//
+	//	CodeJobDefinition.MAINTENANCE_TDC.getCode(),//
+	//	};
 
 	@Override
 	public void registerJobsAndSchedule() {
-//		for (final String code : REGISTERED_JOB_CODE) {
-//			final DtList<Jobdefinition> tmpList = jobdefinitionDAO.getListByDtField(JobdefinitionFields.CODE.name(), code, 1);
-//			if (!tmpList.isEmpty()) {
-//				final Jobdefinition definition = tmpList.get(0);
-//				jobManager.registerJob(definition);
-//				if (!ConfigHelper.isConnexionDevMode() && definition.getActivation() && definition.getFrequence() != null) {
-//					try {
-//						jobManager.scheduleCron(definition.getCode(), definition.getFrequence());
-//					} catch (final RuntimeException e) {
-//						LOG.error("Erreur pendant l'initiatlisation des jobs", e);
-//					}
-//				} else {
-//					jobManager.stopSchedule(definition.getCode());
-//				}
-//			}
-//		}
+		//		for (final String code : REGISTERED_JOB_CODE) {
+		//			final DtList<Jobdefinition> tmpList = jobdefinitionDAO.getListByDtField(JobdefinitionFields.CODE.name(), code, 1);
+		//			if (!tmpList.isEmpty()) {
+		//				final Jobdefinition definition = tmpList.get(0);
+		//				jobManager.registerJob(definition);
+		//				if (!ConfigHelper.isConnexionDevMode() && definition.getActivation() && definition.getFrequence() != null) {
+		//					try {
+		//						jobManager.scheduleCron(definition.getCode(), definition.getFrequence());
+		//					} catch (final RuntimeException e) {
+		//						LOG.error("Erreur pendant l'initiatlisation des jobs", e);
+		//					}
+		//				} else {
+		//					jobManager.stopSchedule(definition.getCode());
+		//				}
+		//			}
+		//		}
 	}
 
 	@Override
@@ -87,8 +77,8 @@ public class JobServicesImpl implements JobServices {
 
 	@Override
 	public Long getJobdefinitionIdByCode(final String code) {
-		final DtList<Jobdefinition> listJobdef = jobdefinitionDAO.getListByDtField(JobdefinitionFields.CODE.name(), code, 2);
-		if (listJobdef.size() == 0) {
+		final DtList<Jobdefinition> listJobdef = jobdefinitionDAO.getListByDtField("CODE", code, 2);
+		if (listJobdef.isEmpty()) {
 			throw new RuntimeException("Le job " + code + " est introuvable parmi les Jobdefinitions");
 		}
 		if (listJobdef.size() > 1) {
@@ -123,12 +113,12 @@ public class JobServicesImpl implements JobServices {
 
 	@Override
 	public void initJobSession() {
-//		final Utilisateur systemUser = utilisateurDAO.getListByDtField(UtilisateurFields.LOGIN.name(), "system", 1).get(0);
-//		final DtList<Profils> profilsAdmin = profilsDAO.getListByDtField(ProfilsFields.CODE.name(), "Admin", 1);
-//		final JobUserSession session = new JobUserSession();
-//		session.setUtilisateur(systemUser);
-//		session.registerProfils(profilsAdmin);
-//		Home.getComponentSpace().resolve(VSecurityManager.class).startCurrentUserSession(session);
+		//		final Utilisateur systemUser = utilisateurDAO.getListByDtField(UtilisateurFields.LOGIN.name(), "system", 1).get(0);
+		//		final DtList<Profils> profilsAdmin = profilsDAO.getListByDtField(ProfilsFields.CODE.name(), "Admin", 1);
+		//		final JobUserSession session = new JobUserSession();
+		//		session.setUtilisateur(systemUser);
+		//		session.registerProfils(profilsAdmin);
+		//		Home.getComponentSpace().resolve(VSecurityManager.class).startCurrentUserSession(session);
 	}
 
 	@Override
@@ -137,4 +127,3 @@ public class JobServicesImpl implements JobServices {
 	}
 
 }
-

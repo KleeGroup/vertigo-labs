@@ -60,7 +60,11 @@ public class JobExecution extends Thread {
 		execution.setJodId(definition.getJodId());
 		// FIXME : Node name, IP/Hostname is not reliable (many NIC, many dns aliases)
 		// NetworkUtils.getLocalAddress().getHostName()
-		try { execution.setServeur(InetAddress.getLocalHost().getHostName()); } catch (Exception e) {}
+		try {
+			execution.setServeur(InetAddress.getLocalHost().getHostName());
+		} catch (final Exception e) {
+			//
+		}
 		services.saveJobexecution(execution);
 		final Long id = execution.getJoeId();
 		parametres.put(PARAM_JOB_EXECUTION_ID, id.toString());

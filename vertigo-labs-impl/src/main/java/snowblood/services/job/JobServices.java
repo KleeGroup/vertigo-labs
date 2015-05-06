@@ -1,7 +1,5 @@
 package snowblood.services.job;
 
-import java.io.File;
-
 import snowblood.gen.domain.tourdecontrole.Jobexecution;
 
 /**
