@@ -5,7 +5,6 @@ import io.vertigo.lang.Option;
 import snowblood.gen.domain.tourdecontrole.Jobdefinition;
 import snowblood.gen.domain.tourdecontrole.Jobexecution;
 import snowblood.gen.services.tourdecontrole.TdcDetailCritere;
-import snowblood.task.JobManager;
 
 /**
  * Services pour la tour de contrôle.
@@ -52,13 +51,6 @@ public interface TourDeControleServices {
 	 * @param jobex Jobexecution à enregistrer.
 	 */
 	void saveJobexecution(Jobexecution jobex);
-
-	/**
-	 * Récupère le jobmanager.
-	 *
-	 * @return JobManager.
-	 */
-	JobManager getJobManager();
 
 	/**
 	 * Renvoie l'ensemble des exécutions d'un job ayant pour état 'En cours'.

@@ -1,8 +1,11 @@
 package snowblood.services.tourdecontrole;
 
+import io.vertigo.core.Home;
 import io.vertigo.dynamo.domain.model.DtList;
 import io.vertigo.dynamo.transaction.Transactional;
 import io.vertigo.lang.Option;
+import io.vertigo.tempo.job.metamodel.JobDefinition;
+import io.vertigo.tempo.scheduler.SchedulerManager;
 
 import javax.inject.Inject;
 
@@ -15,7 +18,6 @@ import snowblood.gen.domain.tourdecontrole.Jobexecution;
 import snowblood.gen.services.tourdecontrole.TdcDetailCritere;
 import snowblood.services.file.FileServices;
 import snowblood.task.JobMaintenanceTdc;
-import snowblood.task.JobManager;
 
 /**
  * Implémentation des services de la tour de contrôle.
@@ -23,18 +25,18 @@ import snowblood.task.JobManager;
  * @author fdangelotillon
  */
 @Transactional
-public class TourDeControleServicesImpl implements TourDeControleServices { 
+public class TourDeControleServicesImpl implements TourDeControleServices {
 	@Inject
 	private JobexecutionDAO jobexecutionDAO;
 	@Inject
 	private JobdefinitionDAO jobdefinitionDAO;
-	
+
 	//@Inject
 	//private DossierPfeDAO dossierPfeDAO;
-	
+
 	@Inject
-	private JobManager jobManager;
-	
+	private SchedulerManager schedulerManager;
+
 	@Inject
 	private FileServices fileServices;
 
@@ -51,7 +53,14 @@ public class TourDeControleServicesImpl implements TourDeControleServices {
 	@Override
 	public void saveJobdefinition(final Jobdefinition jobdef) {
 		// if (!ConfigHelper.isConnexionDevMode() && jobdef.getActivation() && jobdef.getFrequence() != null) {
-			jobManager.scheduleCron(jobdef.getCode(), jobdef.getFrequence());
+		//Fixme
+		//Fixme
+		//Fixme
+		//Fixme
+		//Fixme
+
+		schedulerManager.scheduleEverySecondInterval(Home.getDefinitionSpace().resolve(jobdef.getCode(), JobDefinition.class), 10);
+
 		// } else {
 		//	jobManager.stopSchedule(jobdef.getCode());
 		// }
@@ -64,19 +73,14 @@ public class TourDeControleServicesImpl implements TourDeControleServices {
 	}
 
 	@Override
-	public JobManager getJobManager() {
-		return jobManager;
-	}
-
-	@Override
 	public Option<DtList<Jobexecution>> getJobexecutionEncours(final Long jodId) {
 		return jobexecutionDAO.getJobexecutionEnCours(jodId);
 	}
 
-//	@Override
-//	public DtList<DossierPfe> getDossierPFEparJodId(final Long jodId) {
-//		return dossierPfeDAO.getDossierPfeParJobdef(jodId);
-//	}
+	//	@Override
+	//	public DtList<DossierPfe> getDossierPFEparJodId(final Long jodId) {
+	//		return dossierPfeDAO.getDossierPfeParJobdef(jodId);
+	//	}
 
 	@Override
 	public Jobexecution getJobexecution(final Long exeId) {

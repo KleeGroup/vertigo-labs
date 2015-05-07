@@ -44,7 +44,6 @@ create Domain DO_NOMBRE_ENTIER {
 	formatter : FMT_DEFAULT
 }
 	
-
 create Domain DO_BOOLEEN {
 	dataType : Boolean
 	formatter : FMT_DEFAULT
@@ -52,6 +51,11 @@ create Domain DO_BOOLEEN {
 	
 create Domain DO_FICHIER {
 	dataType : String
+	formatter : FMT_DEFAULT
+}
+
+create Domain DO_DATE_HEURE {
+	dataType : Date
 	formatter : FMT_DEFAULT
 }
 	
