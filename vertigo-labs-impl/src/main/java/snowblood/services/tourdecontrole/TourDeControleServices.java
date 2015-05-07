@@ -2,9 +2,9 @@ package snowblood.services.tourdecontrole;
 
 import io.vertigo.dynamo.domain.model.DtList;
 import io.vertigo.lang.Option;
-import snowblood.gen.domain.tourdecontrole.Jobdefinition;
-import snowblood.gen.domain.tourdecontrole.Jobexecution;
-import snowblood.gen.services.tourdecontrole.TdcDetailCritere;
+import snowblood.gen.domain.Jobdefinition;
+import snowblood.gen.domain.Jobexecution;
+import snowblood.gen.services.TdcDetailCritere;
 
 /**
  * Services pour la tour de contrôle.

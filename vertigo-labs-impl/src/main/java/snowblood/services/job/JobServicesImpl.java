@@ -11,11 +11,11 @@ import java.io.File;
 
 import javax.inject.Inject;
 
-import snowblood.gen.dao.tourdecontrole.JobdefinitionDAO;
-import snowblood.gen.dao.tourdecontrole.JobexecutionDAO;
-import snowblood.gen.domain.tourdecontrole.Jobdefinition;
-import snowblood.gen.domain.tourdecontrole.Jobexecution;
-import snowblood.gen.services.tourdecontrole.TourdecontrolePAO;
+import snowblood.gen.dao.JobdefinitionDAO;
+import snowblood.gen.dao.JobexecutionDAO;
+import snowblood.gen.domain.Jobdefinition;
+import snowblood.gen.domain.Jobexecution;
+import snowblood.gen.services.TourdecontrolePAO;
 import snowblood.services.file.FileServices;
 
 @Transactional

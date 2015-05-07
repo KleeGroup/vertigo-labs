@@ -1,4 +1,4 @@
-package snowblood.gen.domain.tourdecontrole;
+package snowblood.gen.domain;
 
 import io.vertigo.dynamo.domain.model.DtObject;
 import io.vertigo.dynamo.domain.stereotype.DtDefinition;
@@ -41,9 +41,9 @@ public final class Jobdefinition implements DtObject {
 	private String jseCd;
 	private String jreCd;
 	private String jdcCd;
-	private snowblood.gen.domain.tourdecontrole.JobSens sens;
-	private snowblood.gen.domain.tourdecontrole.JobRejet rejet;
-	private snowblood.gen.domain.tourdecontrole.JobDeltaComplet jobDeltaComplet;
+	private snowblood.gen.domain.JobSens sens;
+	private snowblood.gen.domain.JobRejet rejet;
+	private snowblood.gen.domain.JobDeltaComplet jobDeltaComplet;
 
 	/**
 	 * Champ : PRIMARY_KEY.
@@ -549,15 +549,15 @@ public final class Jobdefinition implements DtObject {
     	foreignLabel = "Jobdefinition",
     	foreignMultiplicity = "0..*"
     )
-	public snowblood.gen.domain.tourdecontrole.JobSens getSens() {
-		final io.vertigo.dynamo.domain.model.URI<snowblood.gen.domain.tourdecontrole.JobSens> fkURI = getSensURI();
+	public snowblood.gen.domain.JobSens getSens() {
+		final io.vertigo.dynamo.domain.model.URI<snowblood.gen.domain.JobSens> fkURI = getSensURI();
 		if (fkURI == null) {
 			return null;
 		}
 		//On est toujours dans un mode lazy. On s'assure cependant que l'objet associé n'a pas changé
 		if (sens != null) {
 			// On s'assure que l'objet correspond à la bonne clé
-			final io.vertigo.dynamo.domain.model.URI<snowblood.gen.domain.tourdecontrole.JobSens> uri;
+			final io.vertigo.dynamo.domain.model.URI<snowblood.gen.domain.JobSens> uri;
 			uri = new io.vertigo.dynamo.domain.model.URI<>(io.vertigo.dynamo.domain.util.DtObjectUtil.findDtDefinition(sens), io.vertigo.dynamo.domain.util.DtObjectUtil.getId(sens));
 			if (!fkURI.toURN().equals(uri.toURN())) {
 				sens = null;
@@ -588,8 +588,8 @@ public final class Jobdefinition implements DtObject {
     	foreignLabel = "Jobdefinition",
     	foreignMultiplicity = "0..*"
     )
-	public io.vertigo.dynamo.domain.model.URI<snowblood.gen.domain.tourdecontrole.JobSens> getSensURI() {
-		return DtObjectUtil.createURI(this, "A_JOD_JSE", snowblood.gen.domain.tourdecontrole.JobSens.class);
+	public io.vertigo.dynamo.domain.model.URI<snowblood.gen.domain.JobSens> getSensURI() {
+		return DtObjectUtil.createURI(this, "A_JOD_JSE", snowblood.gen.domain.JobSens.class);
 	}
 	/**
 	 * Association : Rejet.
@@ -610,15 +610,15 @@ public final class Jobdefinition implements DtObject {
     	foreignLabel = "Jobdefinition",
     	foreignMultiplicity = "0..*"
     )
-	public snowblood.gen.domain.tourdecontrole.JobRejet getRejet() {
-		final io.vertigo.dynamo.domain.model.URI<snowblood.gen.domain.tourdecontrole.JobRejet> fkURI = getRejetURI();
+	public snowblood.gen.domain.JobRejet getRejet() {
+		final io.vertigo.dynamo.domain.model.URI<snowblood.gen.domain.JobRejet> fkURI = getRejetURI();
 		if (fkURI == null) {
 			return null;
 		}
 		//On est toujours dans un mode lazy. On s'assure cependant que l'objet associé n'a pas changé
 		if (rejet != null) {
 			// On s'assure que l'objet correspond à la bonne clé
-			final io.vertigo.dynamo.domain.model.URI<snowblood.gen.domain.tourdecontrole.JobRejet> uri;
+			final io.vertigo.dynamo.domain.model.URI<snowblood.gen.domain.JobRejet> uri;
 			uri = new io.vertigo.dynamo.domain.model.URI<>(io.vertigo.dynamo.domain.util.DtObjectUtil.findDtDefinition(rejet), io.vertigo.dynamo.domain.util.DtObjectUtil.getId(rejet));
 			if (!fkURI.toURN().equals(uri.toURN())) {
 				rejet = null;
@@ -649,8 +649,8 @@ public final class Jobdefinition implements DtObject {
     	foreignLabel = "Jobdefinition",
     	foreignMultiplicity = "0..*"
     )
-	public io.vertigo.dynamo.domain.model.URI<snowblood.gen.domain.tourdecontrole.JobRejet> getRejetURI() {
-		return DtObjectUtil.createURI(this, "A_JOD_JRE", snowblood.gen.domain.tourdecontrole.JobRejet.class);
+	public io.vertigo.dynamo.domain.model.URI<snowblood.gen.domain.JobRejet> getRejetURI() {
+		return DtObjectUtil.createURI(this, "A_JOD_JRE", snowblood.gen.domain.JobRejet.class);
 	}
 
 	// Association : Dossier pfe non navigable
@@ -673,15 +673,15 @@ public final class Jobdefinition implements DtObject {
     	foreignLabel = "Jobdefinition",
     	foreignMultiplicity = "0..*"
     )
-	public snowblood.gen.domain.tourdecontrole.JobDeltaComplet getJobDeltaComplet() {
-		final io.vertigo.dynamo.domain.model.URI<snowblood.gen.domain.tourdecontrole.JobDeltaComplet> fkURI = getJobDeltaCompletURI();
+	public snowblood.gen.domain.JobDeltaComplet getJobDeltaComplet() {
+		final io.vertigo.dynamo.domain.model.URI<snowblood.gen.domain.JobDeltaComplet> fkURI = getJobDeltaCompletURI();
 		if (fkURI == null) {
 			return null;
 		}
 		//On est toujours dans un mode lazy. On s'assure cependant que l'objet associé n'a pas changé
 		if (jobDeltaComplet != null) {
 			// On s'assure que l'objet correspond à la bonne clé
-			final io.vertigo.dynamo.domain.model.URI<snowblood.gen.domain.tourdecontrole.JobDeltaComplet> uri;
+			final io.vertigo.dynamo.domain.model.URI<snowblood.gen.domain.JobDeltaComplet> uri;
 			uri = new io.vertigo.dynamo.domain.model.URI<>(io.vertigo.dynamo.domain.util.DtObjectUtil.findDtDefinition(jobDeltaComplet), io.vertigo.dynamo.domain.util.DtObjectUtil.getId(jobDeltaComplet));
 			if (!fkURI.toURN().equals(uri.toURN())) {
 				jobDeltaComplet = null;
@@ -712,8 +712,8 @@ public final class Jobdefinition implements DtObject {
     	foreignLabel = "Jobdefinition",
     	foreignMultiplicity = "0..*"
     )
-	public io.vertigo.dynamo.domain.model.URI<snowblood.gen.domain.tourdecontrole.JobDeltaComplet> getJobDeltaCompletURI() {
-		return DtObjectUtil.createURI(this, "A_ASSOCIATION_8", snowblood.gen.domain.tourdecontrole.JobDeltaComplet.class);
+	public io.vertigo.dynamo.domain.model.URI<snowblood.gen.domain.JobDeltaComplet> getJobDeltaCompletURI() {
+		return DtObjectUtil.createURI(this, "A_ASSOCIATION_8", snowblood.gen.domain.JobDeltaComplet.class);
 	}
 
 	/** {@inheritDoc} */

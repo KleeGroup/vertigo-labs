@@ -12,8 +12,8 @@ import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
 
-import snowblood.gen.domain.tourdecontrole.Jobdefinition;
-import snowblood.gen.domain.tourdecontrole.Jobexecution;
+import snowblood.gen.domain.Jobdefinition;
+import snowblood.gen.domain.Jobexecution;
 import snowblood.services.job.JobServices;
 
 /**

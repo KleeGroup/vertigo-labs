@@ -1,4 +1,4 @@
-package snowblood.gen.dao.tourdecontrole;
+package snowblood.gen.dao;
 
 import io.vertigo.core.Home;
 import io.vertigo.dynamo.impl.persistence.util.DAOBroker;
@@ -16,7 +16,7 @@ import javax.inject.Inject;
  * DAO : Accès à un object (DTO, DTC). 
  * JobexecutionDAO
  */
-public final class JobexecutionDAO extends DAOBroker<snowblood.gen.domain.tourdecontrole.Jobexecution, java.lang.Long> {
+public final class JobexecutionDAO extends DAOBroker<snowblood.gen.domain.Jobexecution, java.lang.Long> {
 	/** Liste des taches. */
 	private static enum Tasks {
 		/** Tache TK_GET_LIST_JOBEXECUTION_JOURNAUX_A_SUPPRIMER */
@@ -69,7 +69,7 @@ public final class JobexecutionDAO extends DAOBroker<snowblood.gen.domain.tourde
 	 */
 	@Inject
 	public JobexecutionDAO(final PersistenceManager persistenceManager, final TaskManager taskManager) {
-		super(snowblood.gen.domain.tourdecontrole.Jobexecution.class, persistenceManager, taskManager);
+		super(snowblood.gen.domain.Jobexecution.class, persistenceManager, taskManager);
 	}
 
 	/**
@@ -86,7 +86,7 @@ public final class JobexecutionDAO extends DAOBroker<snowblood.gen.domain.tourde
 	 * Execute la tache TK_GET_LIST_JOBEXECUTION_JOURNAUX_A_SUPPRIMER.
 	 * @return fr.justice.isis.toolbox.kitvertigo.dynamo.domain.model.DtList<fr.justice.isis.domain.tourdecontrole.Jobexecution> dtcJobexecution
 	*/
-	public io.vertigo.dynamo.domain.model.DtList<snowblood.gen.domain.tourdecontrole.Jobexecution> getListJobexecutionJournauxASupprimer() {
+	public io.vertigo.dynamo.domain.model.DtList<snowblood.gen.domain.Jobexecution> getListJobexecutionJournauxASupprimer() {
 		final Task task = createTaskBuilder(Tasks.TK_GET_LIST_JOBEXECUTION_JOURNAUX_A_SUPPRIMER)
 				.build();
 		final TaskResult taskResult = getTaskManager().execute(task);
@@ -98,7 +98,7 @@ public final class JobexecutionDAO extends DAOBroker<snowblood.gen.domain.tourde
 	 * @param jodId Long 
 	 * @return fr.justice.isis.toolbox.kitvertigo.dynamo.domain.model.DtList<fr.justice.isis.domain.tourdecontrole.Jobexecution> dtcJobexecution
 	*/
-	public io.vertigo.dynamo.domain.model.DtList<snowblood.gen.domain.tourdecontrole.Jobexecution> getJobexecutionParJobdefinitionSupervision(final Long jodId) {
+	public io.vertigo.dynamo.domain.model.DtList<snowblood.gen.domain.Jobexecution> getJobexecutionParJobdefinitionSupervision(final Long jodId) {
 		final Task task = createTaskBuilder(Tasks.TK_GET_JOBEXECUTION_PAR_JOBDEFINITION_SUPERVISION)
 				.withValue(ATTR_IN_TK_GET_JOBEXECUTION_PAR_JOBDEFINITION_SUPERVISION_JOD_ID, jodId)
 				.build();
@@ -111,12 +111,12 @@ public final class JobexecutionDAO extends DAOBroker<snowblood.gen.domain.tourde
 	 * @param jodId Long 
 	 * @return Option de fr.justice.isis.domain.tourdecontrole.Jobexecution dtJobexecution
 	*/
-	public Option<snowblood.gen.domain.tourdecontrole.Jobexecution> getLastJobExecution(final Long jodId) {
+	public Option<snowblood.gen.domain.Jobexecution> getLastJobExecution(final Long jodId) {
 		final Task task = createTaskBuilder(Tasks.TK_GET_LAST_JOB_EXECUTION)
 				.withValue(ATTR_IN_TK_GET_LAST_JOB_EXECUTION_JOD_ID, jodId)
 				.build();
 		final TaskResult taskResult = getTaskManager().execute(task);
-		return Option.option(taskResult.<snowblood.gen.domain.tourdecontrole.Jobexecution> getValue(ATTR_OUT_TK_GET_LAST_JOB_EXECUTION_DT_JOBEXECUTION));
+		return Option.option(taskResult.<snowblood.gen.domain.Jobexecution> getValue(ATTR_OUT_TK_GET_LAST_JOB_EXECUTION_DT_JOBEXECUTION));
 	}
 
 	/**
@@ -125,13 +125,13 @@ public final class JobexecutionDAO extends DAOBroker<snowblood.gen.domain.tourde
 	 * @param critere fr.justice.isis.services.tourdecontrole.TdcDetailCritere 
 	 * @return Option de fr.justice.isis.toolbox.kitvertigo.dynamo.domain.model.DtList<fr.justice.isis.domain.tourdecontrole.Jobexecution> dtcJobexecution
 	*/
-	public Option<io.vertigo.dynamo.domain.model.DtList<snowblood.gen.domain.tourdecontrole.Jobexecution>> getListeJobexecutionFiltree(final Long jodId, final snowblood.gen.services.tourdecontrole.TdcDetailCritere critere) {
+	public Option<io.vertigo.dynamo.domain.model.DtList<snowblood.gen.domain.Jobexecution>> getListeJobexecutionFiltree(final Long jodId, final snowblood.gen.services.TdcDetailCritere critere) {
 		final Task task = createTaskBuilder(Tasks.TK_GET_LISTE_JOBEXECUTION_FILTREE)
 				.withValue(ATTR_IN_TK_GET_LISTE_JOBEXECUTION_FILTREE_JOD_ID, jodId)
 				.withValue(ATTR_IN_TK_GET_LISTE_JOBEXECUTION_FILTREE_CRITERE, critere)
 				.build();
 		final TaskResult taskResult = getTaskManager().execute(task);
-		return Option.option(taskResult.<io.vertigo.dynamo.domain.model.DtList<snowblood.gen.domain.tourdecontrole.Jobexecution>> getValue(ATTR_OUT_TK_GET_LISTE_JOBEXECUTION_FILTREE_DTC_JOBEXECUTION));
+		return Option.option(taskResult.<io.vertigo.dynamo.domain.model.DtList<snowblood.gen.domain.Jobexecution>> getValue(ATTR_OUT_TK_GET_LISTE_JOBEXECUTION_FILTREE_DTC_JOBEXECUTION));
 	}
 
 	/**
@@ -139,12 +139,12 @@ public final class JobexecutionDAO extends DAOBroker<snowblood.gen.domain.tourde
 	 * @param jodId Long 
 	 * @return Option de fr.justice.isis.toolbox.kitvertigo.dynamo.domain.model.DtList<fr.justice.isis.domain.tourdecontrole.Jobexecution> dtcJobexecution
 	*/
-	public Option<io.vertigo.dynamo.domain.model.DtList<snowblood.gen.domain.tourdecontrole.Jobexecution>> getJobexecutionEnCours(final Long jodId) {
+	public Option<io.vertigo.dynamo.domain.model.DtList<snowblood.gen.domain.Jobexecution>> getJobexecutionEnCours(final Long jodId) {
 		final Task task = createTaskBuilder(Tasks.TK_GET_JOBEXECUTION_EN_COURS)
 				.withValue(ATTR_IN_TK_GET_JOBEXECUTION_EN_COURS_JOD_ID, jodId)
 				.build();
 		final TaskResult taskResult = getTaskManager().execute(task);
-		return Option.option(taskResult.<io.vertigo.dynamo.domain.model.DtList<snowblood.gen.domain.tourdecontrole.Jobexecution>> getValue(ATTR_OUT_TK_GET_JOBEXECUTION_EN_COURS_DTC_JOBEXECUTION));
+		return Option.option(taskResult.<io.vertigo.dynamo.domain.model.DtList<snowblood.gen.domain.Jobexecution>> getValue(ATTR_OUT_TK_GET_JOBEXECUTION_EN_COURS_DTC_JOBEXECUTION));
 	}
 
 }

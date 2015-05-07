@@ -11,7 +11,7 @@ import org.apache.log4j.FileAppender;
 import org.apache.log4j.Logger;
 import org.apache.log4j.SimpleLayout;
 
-import snowblood.gen.domain.tourdecontrole.Jobexecution;
+import snowblood.gen.domain.Jobexecution;
 import snowblood.services.job.JobServices;
 import snowblood.services.tourdecontrole.TourDeControleServices;
 

@@ -3,13 +3,13 @@ package snowblood.boot;
 import java.util.Arrays;
 import java.util.Iterator;
 
-import snowblood.gen.domain.tourdecontrole.JobDeltaComplet;
-import snowblood.gen.domain.tourdecontrole.JobEtat;
-import snowblood.gen.domain.tourdecontrole.JobMode;
-import snowblood.gen.domain.tourdecontrole.JobRejet;
-import snowblood.gen.domain.tourdecontrole.JobSens;
-import snowblood.gen.domain.tourdecontrole.Jobdefinition;
-import snowblood.gen.domain.tourdecontrole.Jobexecution;
+import snowblood.gen.domain.JobDeltaComplet;
+import snowblood.gen.domain.JobEtat;
+import snowblood.gen.domain.JobMode;
+import snowblood.gen.domain.JobRejet;
+import snowblood.gen.domain.JobSens;
+import snowblood.gen.domain.Jobdefinition;
+import snowblood.gen.domain.Jobexecution;
 
 public final class DtDefinitions implements Iterable<Class<?>> {
 	@Override

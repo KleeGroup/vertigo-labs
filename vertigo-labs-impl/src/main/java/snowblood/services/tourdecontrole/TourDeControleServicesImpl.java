@@ -11,11 +11,11 @@ import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
 
-import snowblood.gen.dao.tourdecontrole.JobdefinitionDAO;
-import snowblood.gen.dao.tourdecontrole.JobexecutionDAO;
-import snowblood.gen.domain.tourdecontrole.Jobdefinition;
-import snowblood.gen.domain.tourdecontrole.Jobexecution;
-import snowblood.gen.services.tourdecontrole.TdcDetailCritere;
+import snowblood.gen.dao.JobdefinitionDAO;
+import snowblood.gen.dao.JobexecutionDAO;
+import snowblood.gen.domain.Jobdefinition;
+import snowblood.gen.domain.Jobexecution;
+import snowblood.gen.services.TdcDetailCritere;
 import snowblood.services.file.FileServices;
 import snowblood.task.JobMaintenanceTdc;
 

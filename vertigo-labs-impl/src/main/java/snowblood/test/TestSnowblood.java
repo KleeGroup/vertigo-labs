@@ -37,10 +37,10 @@ import io.vertigo.tempo.scheduler.SchedulerManager;
 import org.junit.Test;
 
 import snowblood.boot.DtDefinitions;
-import snowblood.gen.dao.tourdecontrole.JobdefinitionDAO;
-import snowblood.gen.dao.tourdecontrole.JobexecutionDAO;
-import snowblood.gen.domain.tourdecontrole.Jobdefinition;
-import snowblood.gen.services.tourdecontrole.TourdecontrolePAO;
+import snowblood.gen.dao.JobdefinitionDAO;
+import snowblood.gen.dao.JobexecutionDAO;
+import snowblood.gen.domain.Jobdefinition;
+import snowblood.gen.services.TourdecontrolePAO;
 import snowblood.services.file.FileServices;
 import snowblood.services.file.FileServicesImpl;
 import snowblood.services.job.JobServices;

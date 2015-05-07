@@ -1,6 +1,6 @@
 package snowblood.services.job;
 
-import snowblood.gen.domain.tourdecontrole.Jobexecution;
+import snowblood.gen.domain.Jobexecution;
 
 /**
  * Interface de gestion des Job.

@@ -1,4 +1,4 @@
-package snowblood.gen.domain.tourdecontrole;
+package snowblood.gen.domain;
 
 import io.vertigo.dynamo.domain.model.DtObject;
 import io.vertigo.dynamo.domain.stereotype.DtDefinition;
@@ -7,40 +7,40 @@ import io.vertigo.dynamo.domain.util.DtObjectUtil;
 
 /**
  * Attention cette classe est générée automatiquement !
- * Objet de données JobMode
+ * Objet de données JobRejet
  */
 @javax.persistence.Entity
-@javax.persistence.Table (name = "JOB_MODE")
+@javax.persistence.Table (name = "JOB_REJET")
 @DtDefinition
-public final class JobMode implements DtObject {
+public final class JobRejet implements DtObject {
 
 	/** SerialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	private String jmoCd;
+	private String jreCd;
 	private String libelle;
 
 	/**
 	 * Champ : PRIMARY_KEY.
-	 * Récupère la valeur de la propriété 'JMO_CD'. 
-	 * @return String jmoCd <b>Obligatoire</b>
+	 * Récupère la valeur de la propriété 'JRE_CD'. 
+	 * @return String jreCd <b>Obligatoire</b>
 	 */
 	@javax.persistence.Id
-	@javax.persistence.SequenceGenerator(name = "sequence", sequenceName = "SEQ_JOB_MODE")
+	@javax.persistence.SequenceGenerator(name = "sequence", sequenceName = "SEQ_JOB_REJET")
 	@javax.persistence.GeneratedValue(strategy = javax.persistence.GenerationType.AUTO, generator = "sequence")
-	@javax.persistence.Column(name = "JMO_CD")
-	@Field(domain = "DO_CODE", type = "PRIMARY_KEY", notNull = true, label = "JMO_CD")
-	public String getJmoCd() {
-		return jmoCd;
+	@javax.persistence.Column(name = "JRE_CD")
+	@Field(domain = "DO_CODE", type = "PRIMARY_KEY", notNull = true, label = "JRE_CD")
+	public String getJreCd() {
+		return jreCd;
 	}
 
 	/**
 	 * Champ : PRIMARY_KEY.
-	 * Définit la valeur de la propriété 'JMO_CD'.
-	 * @param jmoCd String <b>Obligatoire</b>
+	 * Définit la valeur de la propriété 'JRE_CD'.
+	 * @param jreCd String <b>Obligatoire</b>
 	 */
-	public void setJmoCd(final String jmoCd) {
-		this.jmoCd = jmoCd;
+	public void setJreCd(final String jreCd) {
+		this.jreCd = jreCd;
 	}
 
 	/**
@@ -64,7 +64,7 @@ public final class JobMode implements DtObject {
 	}
 
 
-	// Association : Jobexecution non navigable
+	// Association : Jobdefinition non navigable
 
 	/** {@inheritDoc} */
 	@Override

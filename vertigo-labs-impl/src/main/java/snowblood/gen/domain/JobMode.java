@@ -1,4 +1,4 @@
-package snowblood.gen.domain.tourdecontrole;
+package snowblood.gen.domain;
 
 import io.vertigo.dynamo.domain.model.DtObject;
 import io.vertigo.dynamo.domain.stereotype.DtDefinition;
@@ -7,40 +7,40 @@ import io.vertigo.dynamo.domain.util.DtObjectUtil;
 
 /**
  * Attention cette classe est générée automatiquement !
- * Objet de données JobDeltaComplet
+ * Objet de données JobMode
  */
 @javax.persistence.Entity
-@javax.persistence.Table (name = "JOB_DELTA_COMPLET")
+@javax.persistence.Table (name = "JOB_MODE")
 @DtDefinition
-public final class JobDeltaComplet implements DtObject {
+public final class JobMode implements DtObject {
 
 	/** SerialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	private String jdcCd;
+	private String jmoCd;
 	private String libelle;
 
 	/**
 	 * Champ : PRIMARY_KEY.
-	 * Récupère la valeur de la propriété 'JDC_CD'. 
-	 * @return String jdcCd <b>Obligatoire</b>
+	 * Récupère la valeur de la propriété 'JMO_CD'. 
+	 * @return String jmoCd <b>Obligatoire</b>
 	 */
 	@javax.persistence.Id
-	@javax.persistence.SequenceGenerator(name = "sequence", sequenceName = "SEQ_JOB_DELTA_COMPLET")
+	@javax.persistence.SequenceGenerator(name = "sequence", sequenceName = "SEQ_JOB_MODE")
 	@javax.persistence.GeneratedValue(strategy = javax.persistence.GenerationType.AUTO, generator = "sequence")
-	@javax.persistence.Column(name = "JDC_CD")
-	@Field(domain = "DO_CODE", type = "PRIMARY_KEY", notNull = true, label = "JDC_CD")
-	public String getJdcCd() {
-		return jdcCd;
+	@javax.persistence.Column(name = "JMO_CD")
+	@Field(domain = "DO_CODE", type = "PRIMARY_KEY", notNull = true, label = "JMO_CD")
+	public String getJmoCd() {
+		return jmoCd;
 	}
 
 	/**
 	 * Champ : PRIMARY_KEY.
-	 * Définit la valeur de la propriété 'JDC_CD'.
-	 * @param jdcCd String <b>Obligatoire</b>
+	 * Définit la valeur de la propriété 'JMO_CD'.
+	 * @param jmoCd String <b>Obligatoire</b>
 	 */
-	public void setJdcCd(final String jdcCd) {
-		this.jdcCd = jdcCd;
+	public void setJmoCd(final String jmoCd) {
+		this.jmoCd = jmoCd;
 	}
 
 	/**
@@ -49,7 +49,7 @@ public final class JobDeltaComplet implements DtObject {
 	 * @return String libelle 
 	 */
 	@javax.persistence.Column(name = "LIBELLE")
-	@Field(domain = "DO_LIBELLE_COURT", label = "Libellé")
+	@Field(domain = "DO_LIBELLE_LONG", label = "Libellé")
 	public String getLibelle() {
 		return libelle;
 	}
@@ -64,7 +64,7 @@ public final class JobDeltaComplet implements DtObject {
 	}
 
 
-	// Association : Jobdefinition non navigable
+	// Association : Jobexecution non navigable
 
 	/** {@inheritDoc} */
 	@Override

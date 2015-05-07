@@ -1,4 +1,4 @@
-package snowblood.gen.services.tourdecontrole;
+package snowblood.gen.services;
 
 import io.vertigo.core.Home;
 import io.vertigo.dynamo.task.TaskManager;

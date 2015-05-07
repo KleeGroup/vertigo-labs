@@ -1,4 +1,4 @@
-package snowblood.gen.domain.tourdecontrole;
+package snowblood.gen.domain;
 
 import io.vertigo.lang.MessageKey;
 
