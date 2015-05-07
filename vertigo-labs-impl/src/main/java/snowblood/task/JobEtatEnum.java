@@ -13,9 +13,7 @@ public enum JobEtatEnum {
 	/** Succès. */
 	SUCCES("SUC"),
 	/** Succès partiel. */
-	SUCCES_PARTIEL("SUP"),
-
-	;
+	SUCCES_PARTIEL("SUP");
 
 	private String code;
 
@@ -25,7 +23,7 @@ public enum JobEtatEnum {
 
 	/**
 	 * Renvoie le code correspondant à l'état.
-	 * 
+	 *
 	 * @return le code.
 	 */
 	public String getCode() {

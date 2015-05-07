@@ -1,4 +1,4 @@
-package snowblood.task;
+package snowblood.oldies.task;
 
 import io.vertigo.lang.Component;
 
@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.Map;
 
 import snowblood.gen.domain.tourdecontrole.Jobdefinition;
+import snowblood.task.JobExecution;
 
 /**
  * Manager des différents jobs.

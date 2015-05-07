@@ -1,4 +1,4 @@
-package snowblood.gen.services.tourdecontrole;
+package snowblood.oldies.services;
 
 import io.vertigo.dynamo.domain.model.DtObject;
 import io.vertigo.dynamo.domain.stereotype.DtDefinition;
@@ -20,8 +20,8 @@ public final class TdcListe implements DtObject {
 
 	/**
 	 * Champ : DATA.
-	 * Récupère la valeur de la propriété 'Id'. 
-	 * @return String id 
+	 * Récupère la valeur de la propriété 'Id'.
+	 * @return String id
 	 */
 	@Field(domain = "DO_CODE", persistent = false, label = "Id")
 	public String getId() {
@@ -31,7 +31,7 @@ public final class TdcListe implements DtObject {
 	/**
 	 * Champ : DATA.
 	 * Définit la valeur de la propriété 'Id'.
-	 * @param id String 
+	 * @param id String
 	 */
 	public void setId(final String id) {
 		this.id = id;
@@ -39,8 +39,8 @@ public final class TdcListe implements DtObject {
 
 	/**
 	 * Champ : DATA.
-	 * Récupère la valeur de la propriété 'Libellé'. 
-	 * @return String libelle 
+	 * Récupère la valeur de la propriété 'Libellé'.
+	 * @return String libelle
 	 */
 	@Field(domain = "DO_LIBELLE_COURT", persistent = false, label = "Libellé")
 	public String getLibelle() {
@@ -50,7 +50,7 @@ public final class TdcListe implements DtObject {
 	/**
 	 * Champ : DATA.
 	 * Définit la valeur de la propriété 'Libellé'.
-	 * @param libelle String 
+	 * @param libelle String
 	 */
 	public void setLibelle(final String libelle) {
 		this.libelle = libelle;

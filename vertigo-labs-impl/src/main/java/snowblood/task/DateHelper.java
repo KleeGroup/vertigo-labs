@@ -36,16 +36,16 @@ public final class DateHelper {
 		return convertDateToAutreFuseau(date, fromTimeZoneLibelle, "GMT");
 	}
 
-	/**
-	 * Convertit une date du fuseau GMT vers un autre fuseau.
-	 *
-	 * @param date la date à convertir
-	 * @param toTimeZoneLibelle le fuseau d'arrivée
-	 * @return la date convertie
-	 */
-	public static Date convertDateFromGMT(final Date date, final String toTimeZoneLibelle) {
-		return convertDateToAutreFuseau(date, "GMT", toTimeZoneLibelle);
-	}
+	//	/**
+	//	 * Convertit une date du fuseau GMT vers un autre fuseau.
+	//	 *
+	//	 * @param date la date à convertir
+	//	 * @param toTimeZoneLibelle le fuseau d'arrivée
+	//	 * @return la date convertie
+	//	 */
+	//	public static Date convertDateFromGMT(final Date date, final String toTimeZoneLibelle) {
+	//		return convertDateToAutreFuseau(date, "GMT", toTimeZoneLibelle);
+	//	}
 
 	/**
 	 * Convertit une date d'un fuseau horaire vers un autre.
@@ -65,9 +65,8 @@ public final class DateHelper {
 		sdfFrom.setTimeZone(fromTimeZone);
 		sdfTo.setTimeZone(toTimeZone);
 		final String dateInitString = sdfParis.format(dateInit);
-		Date dateFrom;
 		try {
-			dateFrom = sdfFrom.parse(dateInitString);
+			final Date dateFrom = sdfFrom.parse(dateInitString);
 
 			final String dateToString = sdfTo.format(dateFrom);
 

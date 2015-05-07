@@ -37,10 +37,6 @@ import io.vertigo.tempo.scheduler.SchedulerManager;
 import org.junit.Test;
 
 import snowblood.boot.DtDefinitions;
-import snowblood.gen.dao.tourdecontrole.JobDeltaCompletDAO;
-import snowblood.gen.dao.tourdecontrole.JobModeDAO;
-import snowblood.gen.dao.tourdecontrole.JobRejetDAO;
-import snowblood.gen.dao.tourdecontrole.JobSensDAO;
 import snowblood.gen.dao.tourdecontrole.JobdefinitionDAO;
 import snowblood.gen.dao.tourdecontrole.JobexecutionDAO;
 import snowblood.gen.domain.tourdecontrole.Jobdefinition;
@@ -88,11 +84,7 @@ public class TestSnowblood {
 				.withNoAPI()
 				.withInheritance(Object.class)
 				.beginComponent(JobdefinitionDAO.class).endComponent()
-				.beginComponent(JobDeltaCompletDAO.class).endComponent()
 				.beginComponent(JobexecutionDAO.class).endComponent()
-				.beginComponent(JobModeDAO.class).endComponent()
-				.beginComponent(JobRejetDAO.class).endComponent()
-				.beginComponent(JobSensDAO.class).endComponent()
 				.beginComponent(TourdecontrolePAO.class).endComponent()
 				//-----
 				.beginComponent(FileServices.class, FileServicesImpl.class).endComponent()

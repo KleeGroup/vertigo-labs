@@ -1,4 +1,4 @@
-package snowblood.gen.services.tourdecontrole;
+package snowblood.oldies.services;
 
 import io.vertigo.dynamo.domain.model.DtObject;
 import io.vertigo.dynamo.domain.stereotype.DtDefinition;

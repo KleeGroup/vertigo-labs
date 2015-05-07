@@ -1,4 +1,4 @@
-package snowblood.gen.dao.tourdecontrole;
+package snowblood.oldies.dao;
 
 import io.vertigo.dynamo.impl.persistence.util.DAOBroker;
 import io.vertigo.dynamo.persistence.PersistenceManager;
@@ -8,9 +8,9 @@ import javax.inject.Inject;
 
 /**
  * DAO : Accès à un object (DTO, DTC). 
- * JobEtatDAO
+ * JobModeDAO
  */
-public final class JobEtatDAO extends DAOBroker<snowblood.gen.domain.tourdecontrole.JobEtat, java.lang.String> {
+public final class JobModeDAO extends DAOBroker<snowblood.gen.domain.tourdecontrole.JobMode, java.lang.String> {
 	 
 	/**
 	 * Contructeur.
@@ -18,7 +18,7 @@ public final class JobEtatDAO extends DAOBroker<snowblood.gen.domain.tourdecontr
 	 * @param taskManager Manager de Task
 	 */
 	@Inject
-	public JobEtatDAO(final PersistenceManager persistenceManager, final TaskManager taskManager) {
-		super(snowblood.gen.domain.tourdecontrole.JobEtat.class, persistenceManager, taskManager);
+	public JobModeDAO(final PersistenceManager persistenceManager, final TaskManager taskManager) {
+		super(snowblood.gen.domain.tourdecontrole.JobMode.class, persistenceManager, taskManager);
 	}
 }
