@@ -51,58 +51,69 @@ import snowblood.services.tourdecontrole.TourDeControleServicesImpl;
 public class TestSnowblood {
 	@Test
 	public void test() {
+		// @formatter:off
 		final AppConfig appConfig = new AppConfigBuilder()
 				.beginModule("vertigo")
-				.beginComponent(ResourceManager.class, ResourceManagerImpl.class)
-				.beginPlugin(ClassPathResourceResolverPlugin.class).endPlugin()
-				.endComponent()
-				.beginComponent(SchedulerManager.class, SchedulerManagerImpl.class)
-				.beginPlugin(BasicSchedulerPlugin.class).endPlugin()
-				.endComponent()
-				.beginComponent(JobManager.class, JobManagerImpl.class).endComponent()
-				.beginComponent(CollectionsManager.class, CollectionsManagerImpl.class).endComponent()
-				.beginComponent(CodecManager.class, CodecManagerImpl.class).endComponent()
-				.beginComponent(CacheManager.class, CacheManagerImpl.class)
-				.beginPlugin(MemoryCachePlugin.class).endPlugin()
-				.endComponent()
-				.beginComponent(AnalyticsManager.class, AnalyticsManagerImpl.class).endComponent()
-				.beginComponent(PersistenceManager.class, PersistenceManagerImpl.class)
-				.beginPlugin(HsqlDataStorePlugin.class)
-				.withParam("sequencePrefix", "SEQ_")
-				.endPlugin()
-				.endComponent()
-				.beginComponent(TaskManager.class, TaskManagerImpl.class).endComponent()
-				.beginComponent(FileManager.class, FileManagerImpl.class).endComponent()
-				//
-				.beginComponent(EnvironmentManager.class, EnvironmentManagerImpl.class)
-				.beginPlugin(AnnotationLoaderPlugin.class).endPlugin()
-				.beginPlugin(KprLoaderPlugin.class).endPlugin()
-				.beginPlugin(DomainDynamicRegistryPlugin.class).endPlugin()
-				.endComponent()
+					.beginComponent(ResourceManager.class, ResourceManagerImpl.class)
+						.beginPlugin(ClassPathResourceResolverPlugin.class).endPlugin()
+					.endComponent()
+					.beginComponent(SchedulerManager.class, SchedulerManagerImpl.class)
+						.beginPlugin(BasicSchedulerPlugin.class).endPlugin()
+					.endComponent()
+					.beginComponent(JobManager.class, JobManagerImpl.class).endComponent()
+					.beginComponent(CollectionsManager.class, CollectionsManagerImpl.class).endComponent()
+					.beginComponent(CodecManager.class, CodecManagerImpl.class).endComponent()
+					.beginComponent(CacheManager.class, CacheManagerImpl.class)
+						.beginPlugin(MemoryCachePlugin.class).endPlugin()
+					.endComponent()
+					.beginComponent(AnalyticsManager.class, AnalyticsManagerImpl.class).endComponent()
+					.beginComponent(PersistenceManager.class, PersistenceManagerImpl.class)
+						.beginPlugin(HsqlDataStorePlugin.class)
+							.withParam("sequencePrefix", "SEQ_")
+						.endPlugin()
+					.endComponent()
+					.beginComponent(TaskManager.class, TaskManagerImpl.class).endComponent()
+					.beginComponent(FileManager.class, FileManagerImpl.class).endComponent()
+					//-----
+					.beginComponent(EnvironmentManager.class, EnvironmentManagerImpl.class)
+						.beginPlugin(AnnotationLoaderPlugin.class).endPlugin()
+						.beginPlugin(KprLoaderPlugin.class).endPlugin()
+						.beginPlugin(DomainDynamicRegistryPlugin.class).endPlugin()
+					.endComponent()
 				.endModule()
 				.beginModule("Snowblood")
-				.withNoAPI()
-				.withInheritance(Object.class)
-				.beginComponent(JobdefinitionDAO.class).endComponent()
-				.beginComponent(JobexecutionDAO.class).endComponent()
-				.beginComponent(TourdecontrolePAO.class).endComponent()
-				//-----
-				.beginComponent(FileServices.class, FileServicesImpl.class).endComponent()
-				.beginComponent(JobServices.class, JobServicesImpl.class).endComponent()
-				.beginComponent(TourDeControleServices.class, TourDeControleServicesImpl.class).endComponent()
+					.withNoAPI()
+					.withInheritance(Object.class)
+					.beginComponent(JobdefinitionDAO.class).endComponent()
+					.beginComponent(JobexecutionDAO.class).endComponent()
+					.beginComponent(TourdecontrolePAO.class).endComponent()
+					//-----
+					.beginComponent(FileServices.class, FileServicesImpl.class).endComponent()
+					.beginComponent(JobServices.class, JobServicesImpl.class).endComponent()
+					.beginComponent(TourDeControleServices.class, TourDeControleServicesImpl.class).endComponent()
 
-				.withResource("kpr", "snowblood/boot/application.kpr")
-				.withResource("classes", DtDefinitions.class.getName())
+					.withResource("kpr", "snowblood/boot/application.kpr")
+					.withResource("classes", DtDefinitions.class.getName())
 				.endModule()
 				.build();
+		// @formatter:on
 
 		try (final App app = new App(appConfig)) {
 			//			final JobServices jobServices = Home.getComponentSpace().resolve(JobServices.class);
 			final TourDeControleServices tourDeControleServices = Home.getComponentSpace().resolve(TourDeControleServices.class);
 
+			//xxx
+			//xxx
+			//xxx
+			//xxx
 			final Jobdefinition jobdefinition = new Jobdefinition();
+			//xxx
+			//xxx
+			//xxx
+			//xxx
 			//xxx
 			tourDeControleServices.saveJobdefinition(jobdefinition);
 		}
 	}
+
 }
