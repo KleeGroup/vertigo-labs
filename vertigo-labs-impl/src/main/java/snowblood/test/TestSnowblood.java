@@ -8,10 +8,14 @@ import io.vertigo.commons.impl.cache.CacheManagerImpl;
 import io.vertigo.commons.impl.codec.CodecManagerImpl;
 import io.vertigo.commons.impl.locale.LocaleManagerImpl;
 import io.vertigo.commons.impl.resource.ResourceManagerImpl;
+import io.vertigo.commons.impl.script.ScriptManagerImpl;
 import io.vertigo.commons.locale.LocaleManager;
 import io.vertigo.commons.plugins.cache.memory.MemoryCachePlugin;
 import io.vertigo.commons.plugins.resource.java.ClassPathResourceResolverPlugin;
+import io.vertigo.commons.plugins.script.janino.JaninoExpressionEvaluatorPlugin;
 import io.vertigo.commons.resource.ResourceManager;
+import io.vertigo.commons.script.ScriptManager;
+import io.vertigo.core.Home;
 import io.vertigo.core.Home.App;
 import io.vertigo.core.config.AppConfig;
 import io.vertigo.core.config.AppConfigBuilder;
@@ -25,6 +29,7 @@ import io.vertigo.dynamo.impl.environment.EnvironmentManagerImpl;
 import io.vertigo.dynamo.impl.file.FileManagerImpl;
 import io.vertigo.dynamo.impl.persistence.PersistenceManagerImpl;
 import io.vertigo.dynamo.impl.task.TaskManagerImpl;
+import io.vertigo.dynamo.impl.transaction.VTransactionAspect;
 import io.vertigo.dynamo.impl.transaction.VTransactionManagerImpl;
 import io.vertigo.dynamo.persistence.PersistenceManager;
 import io.vertigo.dynamo.plugins.database.connection.mock.MockConnectionProviderPlugin;
@@ -33,6 +38,7 @@ import io.vertigo.dynamo.plugins.environment.loaders.kpr.KprLoaderPlugin;
 import io.vertigo.dynamo.plugins.environment.registries.domain.DomainDynamicRegistryPlugin;
 import io.vertigo.dynamo.plugins.persistence.datastore.postgresql.PostgreSqlDataStorePlugin;
 import io.vertigo.dynamo.task.TaskManager;
+import io.vertigo.dynamo.transaction.Transactional;
 import io.vertigo.dynamo.transaction.VTransactionManager;
 import io.vertigo.tempo.impl.job.JobManagerImpl;
 import io.vertigo.tempo.impl.scheduler.SchedulerManagerImpl;
@@ -46,6 +52,7 @@ import org.junit.Test;
 import snowblood.boot.DtDefinitions;
 import snowblood.gen.dao.JobdefinitionDAO;
 import snowblood.gen.dao.JobexecutionDAO;
+import snowblood.gen.domain.Jobdefinition;
 import snowblood.gen.services.TourdecontrolePAO;
 import snowblood.services.file.FileServices;
 import snowblood.services.file.FileServicesImpl;
@@ -69,6 +76,9 @@ public class TestSnowblood {
 						.beginPlugin(BasicSchedulerPlugin.class).endPlugin()
 					.endComponent()
 					.beginComponent(JobManager.class, JobManagerImpl.class).endComponent()
+					.beginComponent(ScriptManager.class, ScriptManagerImpl.class)
+						.beginPlugin(JaninoExpressionEvaluatorPlugin.class).endPlugin()
+					.endComponent()
 					.beginComponent(CollectionsManager.class, CollectionsManagerImpl.class).endComponent()
 					.beginComponent(CodecManager.class, CodecManagerImpl.class).endComponent()
 					.beginComponent(CacheManager.class, CacheManagerImpl.class)
@@ -88,11 +98,14 @@ public class TestSnowblood {
 						.beginPlugin(MockConnectionProviderPlugin.class)
 							.withParam("dataBaseClass", "io.vertigo.dynamo.impl.database.vendor.postgresql.PostgreSqlDataBase")
 							.withParam("jdbcDriver", org.postgresql.Driver.class.getName())
-							.withParam("jdbcUrl", "jdbc:postgresql://miura.part.klee.lan.net:5432/rodolphedev?user=rodolphedev&#38;password=rodolphedev")
+							.withParam("jdbcUrl", "jdbc:postgresql://172.20.109.69:5432/tdc?user=snowblood&password=snowblood")
+							//.withParam("user", "snowblood")
+							//.withParam("password", "snowblood")
 						.endPlugin()
 					.endComponent()
 					.beginComponent(TaskManager.class, TaskManagerImpl.class).endComponent()
 					.beginComponent(FileManager.class, FileManagerImpl.class).endComponent()
+					.withAspect(VTransactionAspect.class)
 					//-----
 					.beginComponent(EnvironmentManager.class, EnvironmentManagerImpl.class)
 						.beginPlugin(AnnotationLoaderPlugin.class).endPlugin()
@@ -116,7 +129,6 @@ public class TestSnowblood {
 				.endModule()
 				.build();
 		// @formatter:on
-		System.out.println("initCCCC");
 	}
 
 	//
@@ -132,19 +144,27 @@ public class TestSnowblood {
 
 		try (final App app = new App(appConfig)) {
 			//			final JobServices jobServices = Home.getComponentSpace().resolve(JobServices.class);
-			//final TourDeControleServices tourDeControleServices = Home.getComponentSpace().resolve(TourDeControleServices.class);
+			final TourDeControleServices tourDeControleServices = Home.getComponentSpace().resolve(TourDeControleServices.class);
 
 			//xxx
 			//xxx
 			//xxx
 			//xxx
-			//final Jobdefinition jobdefinition = new Jobdefinition();
+			final Jobdefinition jobdefinition = new Jobdefinition();
+			jobdefinition.setCode("TU01");
+			// Champs obligatoires
+			jobdefinition.setMultiExecutions(false);
+			jobdefinition.setManuelAutorise(true);
+			jobdefinition.setActivation(false);
+			jobdefinition.setInterruptible(true);
+			jobdefinition.setTestable(true);
+			jobdefinition.setCompletPossible(true);
 			//xxx
 			//xxx
 			//xxx
 			//xxx
 			//xxx
-			//tourDeControleServices.saveJobdefinition(jobdefinition);
+			tourDeControleServices.saveJobdefinition(jobdefinition);
 			System.out.println("test");
 
 		}

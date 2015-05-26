@@ -59,7 +59,7 @@ public class TourDeControleServicesImpl implements TourDeControleServices {
 		//Fixme
 		//Fixme
 
-		schedulerManager.scheduleEverySecondInterval(Home.getDefinitionSpace().resolve(jobdef.getCode(), JobDefinition.class), 10);
+		//schedulerManager.scheduleEverySecondInterval(Home.getDefinitionSpace().resolve(jobdef.getCode(), JobDefinition.class), 10);
 
 		// } else {
 		//	jobManager.stopSchedule(jobdef.getCode());
