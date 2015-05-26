@@ -25,7 +25,7 @@ public abstract class JobCalculBase implements JobExecutor {
 	protected abstract void launchBatch();
 
 	@Override
-	public void run(final Map<String, String> params) {
+	public final void run(final Map<String, String> params) {
 		final TourDeControleServices tdcServices = Home.getComponentSpace().resolve(TourDeControleServices.class);
 		final Jobexecution jobex = tdcServices.getJobexecution(Long.parseLong(params.get(JobExecution.PARAM_JOB_EXECUTION_ID)));
 		try {

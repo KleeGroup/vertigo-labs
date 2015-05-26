@@ -29,9 +29,9 @@ public class JobExecution extends Thread {
 	/** Identifiant du JobExecution. */
 	public static final String PARAM_JOB_EXECUTION_ID = "ID_EXECUTION";
 
-	public static final String PARAM_FORCE_COMPLET = "FORCE_COMPLET";
+	//	public static final String PARAM_FORCE_COMPLET = "FORCE_COMPLET";
 
-	public static final String PARAM_A_BLANC = "A_BLANC";
+	//	public static final String PARAM_A_BLANC = "A_BLANC";
 
 	private final JobServices services;
 

@@ -1,11 +1,8 @@
 package snowblood.services.tourdecontrole;
 
-import io.vertigo.core.Home;
 import io.vertigo.dynamo.domain.model.DtList;
 import io.vertigo.dynamo.transaction.Transactional;
 import io.vertigo.lang.Option;
-import io.vertigo.tempo.job.metamodel.JobDefinition;
-import io.vertigo.tempo.scheduler.SchedulerManager;
 
 import javax.inject.Inject;
 
@@ -34,8 +31,8 @@ public class TourDeControleServicesImpl implements TourDeControleServices {
 	//@Inject
 	//private DossierPfeDAO dossierPfeDAO;
 
-	@Inject
-	private SchedulerManager schedulerManager;
+	//	@Inject
+	//	private SchedulerManager schedulerManager;
 
 	@Inject
 	private FileServices fileServices;
