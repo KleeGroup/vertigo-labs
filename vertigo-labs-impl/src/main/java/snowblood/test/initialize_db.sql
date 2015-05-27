@@ -12,20 +12,20 @@ set @base_name = 'tdc';
 /*
 Drop sequence seq_jobdefinition;
 Drop sequence seq_jobdexecution;
-DROP TABLE job_delta_complet;
-DROP TABLE job_etat;
-DROP TABLE job_mode;
-DROP TABLE job_rejet;
-DROP TABLE job_sens;
+-- DROP TABLE job_delta_complet cascade;
+-- DROP TABLE job_etat cascade;
+DROP TABLE job_mode cascade;
+DROP TABLE job_rejet cascade;
+DROP TABLE job_sens cascade;
 DROP INDEX idx_jod_code;
-DROP INDEX jobdefinition_jdc_cd_fk;
+-- DROP INDEX jobdefinition_jdc_cd_fk;
 DROP INDEX jobdefinition_jre_cd_fk;
 DROP INDEX jobdefinition_jse_cd_fk;
-DROP TABLE jobdefinition;
-DROP INDEX jobexecution_jet_cd_fk;
+DROP TABLE jobdefinition cascade;
+-- DROP INDEX jobexecution_jet_cd_fk;
 DROP INDEX jobexecution_jmo_cd_fk;
 DROP INDEX jobexecution_jod_id_fk;
-DROP TABLE jobexecution;
+DROP TABLE jobexecution  cascade;
 */
 
 -- ************************
@@ -33,6 +33,7 @@ DROP TABLE jobexecution;
 -- ************************
 
 -- Table: job_delta_complet
+/*
 CREATE TABLE job_delta_complet (
   jdc_cd  character varying(20) NOT NULL, -- JDC_CD
   libelle character varying(50),          -- Libellé
@@ -91,7 +92,7 @@ CREATE TABLE job_sens (
 ALTER TABLE job_sens OWNER TO @user_role;
 GRANT ALL ON TABLE job_sens TO @user_role;
 GRANT SELECT, UPDATE, INSERT ON TABLE job_sens TO @user_role;
-
+*/
 -- Table: jobdefinition
 CREATE TABLE jobdefinition (
   jod_id bigint NOT NULL,                              -- JOD_ID
@@ -115,13 +116,16 @@ CREATE TABLE jobdefinition (
   implementation character varying(150),               -- Implémentation
   complet_possible boolean NOT NULL,                   -- Complet possible
   repertoire_distant_d_echange character varying(300), -- Répertoire distant d'échange
-  jse_cd character varying(20),                        -- Sens
-  jre_cd character varying(20),                        -- Rejet
-  jdc_cd character varying(20),                        -- Job delta complet
-  CONSTRAINT pk_jobdefinition PRIMARY KEY (jod_id) USING INDEX TABLESPACE @tbs_index,
-  CONSTRAINT fk_association_8 FOREIGN KEY (jdc_cd) REFERENCES job_delta_complet (jdc_cd) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT fk_jod_jre FOREIGN KEY (jre_cd) REFERENCES job_rejet (jre_cd) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT fk_jod_jse FOREIGN KEY (jse_cd) REFERENCES job_sens (jse_cd) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION
+--  jse_cd character varying(20),                        -- Sens
+  --jre_cd character varying(20),                        -- Rejet
+  -- jdc_cd character varying(20),                        -- Job delta complet
+  data_mode_cd character varying(20),                        -- Job delta complet
+  reject_rule_cd character varying(20),                        -- Reject rule
+  direction_cd character varying(20),                        -- direction
+  CONSTRAINT pk_jobdefinition PRIMARY KEY (jod_id) USING INDEX TABLESPACE @tbs_index
+--  CONSTRAINT fk_association_8 FOREIGN KEY (jdc_cd) REFERENCES job_delta_complet (jdc_cd) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION,
+--  CONSTRAINT fk_jod_jre FOREIGN KEY (jre_cd) REFERENCES job_rejet (jre_cd) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION,
+--  CONSTRAINT fk_jod_jse FOREIGN KEY (jse_cd) REFERENCES job_sens (jse_cd) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION
 ) TABLESPACE @tbs_data;
 
 ALTER TABLE jobdefinition OWNER TO @user_role;
@@ -129,9 +133,9 @@ GRANT ALL ON TABLE jobdefinition TO @user_role;
 GRANT SELECT, UPDATE, INSERT ON TABLE jobdefinition TO @user_role;
 
 CREATE UNIQUE INDEX idx_jod_code ON jobdefinition USING btree (code COLLATE pg_catalog."default");
-CREATE INDEX jobdefinition_jdc_cd_fk ON jobdefinition USING btree (jdc_cd COLLATE pg_catalog."default");
-CREATE INDEX jobdefinition_jre_cd_fk ON jobdefinition USING btree (jre_cd COLLATE pg_catalog."default");
-CREATE INDEX jobdefinition_jse_cd_fk ON jobdefinition USING btree (jse_cd COLLATE pg_catalog."default");
+-- CREATE INDEX jobdefinition_jdc_cd_fk ON jobdefinition USING btree (jdc_cd COLLATE pg_catalog."default");
+--CREATE INDEX jobdefinition_jre_cd_fk ON jobdefinition USING btree (jre_cd COLLATE pg_catalog."default");
+--CREATE INDEX jobdefinition_jse_cd_fk ON jobdefinition USING btree (jse_cd COLLATE pg_catalog."default");
 
 Create sequence seq_jobdefinition minvalue 1000 increment 1;
 
@@ -147,11 +151,13 @@ CREATE TABLE jobexecution
   logs character varying(150),        -- Logs
   data character varying(150),        -- Data
   jod_id bigint NOT NULL,             -- Définition
-  jmo_cd character varying(20),       -- Mode
-  jet_cd character varying(20),       -- Etat
+--  jmo_cd character varying(20),       -- Mode
+--  jet_cd character varying(20),     -- Etat
+  status_cd character varying(20),    -- Status
+  trigger_cd character varying(20),   -- Triggering event nature
   CONSTRAINT pk_jobexecution PRIMARY KEY (joe_id) USING INDEX TABLESPACE @tbs_index,
-  CONSTRAINT fk_joe_jet FOREIGN KEY (jet_cd) REFERENCES job_etat (jet_cd) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT fk_joe_jmo FOREIGN KEY (jmo_cd) REFERENCES job_mode (jmo_cd) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION,
+--  CONSTRAINT fk_joe_jet FOREIGN KEY (jet_cd) REFERENCES job_etat (jet_cd) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION,
+--  CONSTRAINT fk_joe_jmo FOREIGN KEY (jmo_cd) REFERENCES job_mode (jmo_cd) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT fk_joe_jod FOREIGN KEY (jod_id) REFERENCES jobdefinition (jod_id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION
 ) TABLESPACE @tbs_data;
 
@@ -159,8 +165,8 @@ ALTER TABLE jobexecution OWNER TO @user_role;
 GRANT ALL ON TABLE jobexecution TO @user_role;
 GRANT SELECT, UPDATE, INSERT ON TABLE jobexecution TO @user_role;
 
-CREATE INDEX jobexecution_jet_cd_fk ON jobexecution USING btree (jet_cd COLLATE pg_catalog."default");
-CREATE INDEX jobexecution_jmo_cd_fk ON jobexecution USING btree (jmo_cd COLLATE pg_catalog."default");
+-- CREATE INDEX jobexecution_jet_cd_fk ON jobexecution USING btree (jet_cd COLLATE pg_catalog."default");
+-- CREATE INDEX jobexecution_jmo_cd_fk ON jobexecution USING btree (jmo_cd COLLATE pg_catalog."default");
 CREATE INDEX jobexecution_jod_id_fk ON jobexecution USING btree (jod_id);
 
 Create sequence seq_jobexecution minvalue 1000 increment 1;
@@ -169,6 +175,7 @@ Create sequence seq_jobexecution minvalue 1000 increment 1;
 -- Données initiales
 -- ************************
 
+/*
 insert into job_delta_complet (jdc_cd, libelle) values('C', 'Complet');
 insert into job_delta_complet (jdc_cd, libelle) values('D', 'Delta');
 
@@ -189,5 +196,6 @@ insert into job_sens (jse_cd, libelle) values ('ENT', 'Entrant (import)');
 insert into job_sens (jse_cd, libelle) values ('INT', 'Interne');
 insert into job_sens (jse_cd, libelle) values ('SER', 'Service');
 insert into job_sens (jse_cd, libelle) values ('SOR', 'Sortant (export)');
+*/
 
-commit;
+delete from jobdefinition;

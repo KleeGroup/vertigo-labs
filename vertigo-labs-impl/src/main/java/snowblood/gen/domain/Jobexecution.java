@@ -26,11 +26,10 @@ public final class Jobexecution implements DtObject {
 	private String logs;
 	private String data;
 	private Long jodId;
-	private String jmoCd;
-	private String jetCd;
 	private snowblood.gen.domain.Jobdefinition definition;
-	private snowblood.gen.domain.JobMode mode;
-	private snowblood.gen.domain.JobEtat etat;
+	// Enumerations
+	private String triggerCd;
+	private String statusCd;
 
 	/**
 	 * Champ : PRIMARY_KEY.
@@ -215,53 +214,6 @@ public final class Jobexecution implements DtObject {
 		this.jodId = jodId;
 	}
 
-	/**
-	 * Champ : FOREIGN_KEY.
-	 * Récupère la valeur de la propriété 'Mode'. 
-	 * @return String jmoCd 
-	 */
-	@javax.persistence.Column(name = "JMO_CD")
-	@Field(domain = "DO_CODE", type = "FOREIGN_KEY", label = "Mode")
-	public String getJmoCd() {
-		return jmoCd;
-	}
-
-	/**
-	 * Champ : FOREIGN_KEY.
-	 * Définit la valeur de la propriété 'Mode'.
-	 * @param jmoCd String 
-	 */
-	public void setJmoCd(final String jmoCd) {
-		this.jmoCd = jmoCd;
-	}
-
-	/**
-	 * Champ : FOREIGN_KEY.
-	 * Récupère la valeur de la propriété 'Etat'. 
-	 * @return String jetCd 
-	 */
-	@javax.persistence.Column(name = "JET_CD")
-	@Field(domain = "DO_CODE", type = "FOREIGN_KEY", label = "Etat")
-	public String getJetCd() {
-		return jetCd;
-	}
-
-	/**
-	 * Champ : FOREIGN_KEY.
-	 * Définit la valeur de la propriété 'Etat'.
-	 * @param jetCd String 
-	 */
-	public void setJetCd(final String jetCd) {
-		this.jetCd = jetCd;
-	}
-
-
-	// Association : Tmp import srj element non navigable
-
-	// Association : Tmp import srj bureau non navigable
-
-	// Association : Tmp import srj commune non navigable
-
 	// Association : Tmp import srj rapport non navigable
 	/**
 	 * Association : Définition.
@@ -324,129 +276,93 @@ public final class Jobexecution implements DtObject {
 	public io.vertigo.dynamo.domain.model.URI<snowblood.gen.domain.Jobdefinition> getDefinitionURI() {
 		return DtObjectUtil.createURI(this, "A_JOE_JOD", snowblood.gen.domain.Jobdefinition.class);
 	}
-	/**
-	 * Association : Mode.
-	 * @return fr.justice.isis.domain.tourdecontrole.JobMode
+    
+    // ************************************************************************
+    // Trigerring event : [S]cheduled, [E]xternal, [M]anual or [R]ule-based.
+    // Checked against ActivityStatus enumeration. 
+
+    /**
+	 * Champ : triggerCd
+	 * Returns triggering event code. 
+	 * @return String triggerCd
 	 */
-    @javax.persistence.Transient
-    @io.vertigo.dynamo.domain.stereotype.Association (
-    	name = "A_JOE_JMO",
-    	fkFieldName = "JMO_CD",
-    	primaryDtDefinitionName = "DT_JOB_MODE",
-    	primaryIsNavigable = true,
-    	primaryRole = "Mode",
-    	primaryLabel = "Mode",
-    	primaryMultiplicity = "0..1",
-    	foreignDtDefinitionName = "DT_JOBEXECUTION",
-    	foreignIsNavigable = false,
-    	foreignRole = "Jobexecution",
-    	foreignLabel = "Jobexecution",
-    	foreignMultiplicity = "0..*"
-    )
-	public snowblood.gen.domain.JobMode getMode() {
-		final io.vertigo.dynamo.domain.model.URI<snowblood.gen.domain.JobMode> fkURI = getModeURI();
-		if (fkURI == null) {
-			return null;
-		}
-		//On est toujours dans un mode lazy. On s'assure cependant que l'objet associé n'a pas changé
-		if (mode != null) {
-			// On s'assure que l'objet correspond à la bonne clé
-			final io.vertigo.dynamo.domain.model.URI<snowblood.gen.domain.JobMode> uri;
-			uri = new io.vertigo.dynamo.domain.model.URI<>(io.vertigo.dynamo.domain.util.DtObjectUtil.findDtDefinition(mode), io.vertigo.dynamo.domain.util.DtObjectUtil.getId(mode));
-			if (!fkURI.toURN().equals(uri.toURN())) {
-				mode = null;
-			}
-		}		
-		if (mode == null) {
-			mode = io.vertigo.core.Home.getComponentSpace().resolve(io.vertigo.dynamo.persistence.PersistenceManager.class).getBroker().get(fkURI);
-		}
-		return mode;
+	@javax.persistence.Column(name = "TRIGGER_CD")
+	@Field(domain = "DO_CODE", label = "Triggering event")
+	public String getTriggerCd() {
+		return triggerCd;
+	}
+    
+    /**
+	 * Champ : triggerCd
+	 * Returns triggering event (from enumeration). 
+	 * @return ActivityTrigger
+	 */
+	public ActivityTrigger getTrigger() {
+		return ActivityTrigger.valueOf(triggerCd);
+	}
+	
+	/**
+	 * Champ : triggerCd
+	 * Sets triggering event.
+	 * @param mode ActivityTrigger
+	 */
+	public void setTrigger(final ActivityTrigger triggerEvent) {
+		triggerCd = triggerEvent.getCode();
 	}
 
 	/**
-	 * Retourne l'URI: Mode.
-	 * @return URI de l'association
+	 * Champ : triggerCd
+	 * Sets triggering event.
+	 * @param trigegrCd String
 	 */
-    @javax.persistence.Transient
-    @io.vertigo.dynamo.domain.stereotype.Association (
-    	name = "A_JOE_JMO",
-    	fkFieldName = "JMO_CD",
-    	primaryDtDefinitionName = "DT_JOB_MODE",
-    	primaryIsNavigable = true,
-    	primaryRole = "Mode",
-    	primaryLabel = "Mode",
-    	primaryMultiplicity = "0..1",
-    	foreignDtDefinitionName = "DT_JOBEXECUTION",
-    	foreignIsNavigable = false,
-    	foreignRole = "Jobexecution",
-    	foreignLabel = "Jobexecution",
-    	foreignMultiplicity = "0..*"
-    )
-	public io.vertigo.dynamo.domain.model.URI<snowblood.gen.domain.JobMode> getModeURI() {
-		return DtObjectUtil.createURI(this, "A_JOE_JMO", snowblood.gen.domain.JobMode.class);
+	public void setTriggerCd(final String triggerCode) {
+		triggerCd = triggerCode;
 	}
-	/**
-	 * Association : Etat.
-	 * @return fr.justice.isis.domain.tourdecontrole.JobEtat
+
+    // ************************************************************************
+    // Status : [SUC]cess, [PAR]tial success, [RUN]ning or [FAI]lure
+    // Checked against ActivityStatus enumeration. 
+
+    /**
+	 * Champ : statusCd
+	 * Returns data mode code. 
+	 * @return String jdcCd 
 	 */
-    @javax.persistence.Transient
-    @io.vertigo.dynamo.domain.stereotype.Association (
-    	name = "A_JOE_JET",
-    	fkFieldName = "JET_CD",
-    	primaryDtDefinitionName = "DT_JOB_ETAT",
-    	primaryIsNavigable = true,
-    	primaryRole = "Etat",
-    	primaryLabel = "Etat",
-    	primaryMultiplicity = "0..1",
-    	foreignDtDefinitionName = "DT_JOBEXECUTION",
-    	foreignIsNavigable = false,
-    	foreignRole = "Jobexecution",
-    	foreignLabel = "Jobexecution",
-    	foreignMultiplicity = "0..*"
-    )
-	public snowblood.gen.domain.JobEtat getEtat() {
-		final io.vertigo.dynamo.domain.model.URI<snowblood.gen.domain.JobEtat> fkURI = getEtatURI();
-		if (fkURI == null) {
-			return null;
-		}
-		//On est toujours dans un mode lazy. On s'assure cependant que l'objet associé n'a pas changé
-		if (etat != null) {
-			// On s'assure que l'objet correspond à la bonne clé
-			final io.vertigo.dynamo.domain.model.URI<snowblood.gen.domain.JobEtat> uri;
-			uri = new io.vertigo.dynamo.domain.model.URI<>(io.vertigo.dynamo.domain.util.DtObjectUtil.findDtDefinition(etat), io.vertigo.dynamo.domain.util.DtObjectUtil.getId(etat));
-			if (!fkURI.toURN().equals(uri.toURN())) {
-				etat = null;
-			}
-		}		
-		if (etat == null) {
-			etat = io.vertigo.core.Home.getComponentSpace().resolve(io.vertigo.dynamo.persistence.PersistenceManager.class).getBroker().get(fkURI);
-		}
-		return etat;
+	@javax.persistence.Column(name = "STATUS_CD")
+	@Field(domain = "DO_CODE", label = "Status")
+	public String getStatusCd() {
+		return statusCd;
+	}
+    
+    /**
+	 * Champ : statusCd
+	 * Returns status (from enumeration). 
+	 * @return ActivityDataMode
+	 */
+	public ActivityStatus getStatus() {
+		return ActivityStatus.valueOf(statusCd);
+	}
+	
+	/**
+	 * Champ : statusCd
+	 * Sets status.
+	 * @param mode ActivityStatus
+	 */
+	public void setDataMode(final ActivityStatus status) {
+		statusCd = status.getCode();
 	}
 
 	/**
-	 * Retourne l'URI: Etat.
-	 * @return URI de l'association
+	 * Champ : statusCd
+	 * Sets status.
+	 * @param statusCd String
 	 */
-    @javax.persistence.Transient
-    @io.vertigo.dynamo.domain.stereotype.Association (
-    	name = "A_JOE_JET",
-    	fkFieldName = "JET_CD",
-    	primaryDtDefinitionName = "DT_JOB_ETAT",
-    	primaryIsNavigable = true,
-    	primaryRole = "Etat",
-    	primaryLabel = "Etat",
-    	primaryMultiplicity = "0..1",
-    	foreignDtDefinitionName = "DT_JOBEXECUTION",
-    	foreignIsNavigable = false,
-    	foreignRole = "Jobexecution",
-    	foreignLabel = "Jobexecution",
-    	foreignMultiplicity = "0..*"
-    )
-	public io.vertigo.dynamo.domain.model.URI<snowblood.gen.domain.JobEtat> getEtatURI() {
-		return DtObjectUtil.createURI(this, "A_JOE_JET", snowblood.gen.domain.JobEtat.class);
+	public void setDataModeCd(final String statusCode) {
+		statusCd = statusCode;
 	}
 
+	// ************************************************************************
+	
 	/** {@inheritDoc} */
 	@Override
 	public String toString() {

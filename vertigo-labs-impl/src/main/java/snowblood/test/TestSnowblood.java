@@ -52,6 +52,7 @@ import org.junit.Test;
 import snowblood.boot.DtDefinitions;
 import snowblood.gen.dao.JobdefinitionDAO;
 import snowblood.gen.dao.JobexecutionDAO;
+import snowblood.gen.domain.ActivityDataMode;
 import snowblood.gen.domain.Jobdefinition;
 import snowblood.gen.services.TourdecontrolePAO;
 import snowblood.services.file.FileServices;
@@ -99,8 +100,6 @@ public class TestSnowblood {
 							.withParam("dataBaseClass", "io.vertigo.dynamo.impl.database.vendor.postgresql.PostgreSqlDataBase")
 							.withParam("jdbcDriver", org.postgresql.Driver.class.getName())
 							.withParam("jdbcUrl", "jdbc:postgresql://172.20.109.69:5432/tdc?user=snowblood&password=snowblood")
-							//.withParam("user", "snowblood")
-							//.withParam("password", "snowblood")
 						.endPlugin()
 					.endComponent()
 					.beginComponent(TaskManager.class, TaskManagerImpl.class).endComponent()
@@ -143,28 +142,33 @@ public class TestSnowblood {
 		//	Home.getComponentSpace().resolve(VTransactionManager.class);
 
 		try (final App app = new App(appConfig)) {
-			//			final JobServices jobServices = Home.getComponentSpace().resolve(JobServices.class);
 			final TourDeControleServices tourDeControleServices = Home.getComponentSpace().resolve(TourDeControleServices.class);
 
-			//xxx
-			//xxx
-			//xxx
-			//xxx
+			// Create a definition
 			final Jobdefinition jobdefinition = new Jobdefinition();
-			jobdefinition.setCode("TU01");
-			// Champs obligatoires
+			// Mandatory fields
 			jobdefinition.setMultiExecutions(false);
 			jobdefinition.setManuelAutorise(true);
 			jobdefinition.setActivation(false);
 			jobdefinition.setInterruptible(true);
 			jobdefinition.setTestable(true);
 			jobdefinition.setCompletPossible(true);
-			//xxx
-			//xxx
-			//xxx
-			//xxx
-			//xxx
+			// Optional fields
+			jobdefinition.setCode("TU03");
+			jobdefinition.setDataMode(ActivityDataMode.DELTA);
+			// Save
 			tourDeControleServices.saveJobdefinition(jobdefinition);
+			Long jobId = jobdefinition.getJodId();
+			System.out.println("saved with id " + jobId);
+			
+			// Load
+			final Jobdefinition jobdefinition2 = tourDeControleServices.getJobdefinition(jobId);
+			// Print
+			System.out.println(jobdefinition2.toString());
+			
+			// Delete
+			// tourDeControleServices.????(jodId);
+			
 			System.out.println("test");
 
 		}

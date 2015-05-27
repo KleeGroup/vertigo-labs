@@ -4,6 +4,7 @@ import io.vertigo.dynamo.domain.model.DtObject;
 import io.vertigo.dynamo.domain.stereotype.DtDefinition;
 import io.vertigo.dynamo.domain.stereotype.Field;
 import io.vertigo.dynamo.domain.util.DtObjectUtil;
+import io.vertigo.dynamox.domain.formatter.FormatterString.Mode;
 
 /**
  * Attention cette classe est générée automatiquement !
@@ -38,12 +39,10 @@ public final class Jobdefinition implements DtObject {
 	private String implementation;
 	private Boolean completPossible;
 	private String repertoireDistantDEchange;
-	private String jseCd;
-	private String jreCd;
-	private String jdcCd;
-	private snowblood.gen.domain.JobSens sens;
-	private snowblood.gen.domain.JobRejet rejet;
-	private snowblood.gen.domain.JobDeltaComplet jobDeltaComplet;
+	// Enumerations
+	private String directionCd;
+	private String rejectRuleCd;
+	private String dataModeCd;
 
 	/**
 	 * Champ : PRIMARY_KEY.
@@ -468,254 +467,95 @@ public final class Jobdefinition implements DtObject {
 		this.repertoireDistantDEchange = repertoireDistantDEchange;
 	}
 
-	/**
-	 * Champ : FOREIGN_KEY.
-	 * Récupère la valeur de la propriété 'Sens'. 
-	 * @return String jseCd 
-	 */
-	@javax.persistence.Column(name = "JSE_CD")
-	@Field(domain = "DO_CODE", type = "FOREIGN_KEY", label = "Sens")
-	public String getJseCd() {
-		return jseCd;
-	}
 
-	/**
-	 * Champ : FOREIGN_KEY.
-	 * Définit la valeur de la propriété 'Sens'.
-	 * @param jseCd String 
-	 */
-	public void setJseCd(final String jseCd) {
-		this.jseCd = jseCd;
-	}
+    // ************************************************************************
+    // Direction : neutral, import or export.
+    // Checked against ActivityDirection enumeration. 
 
-	/**
-	 * Champ : FOREIGN_KEY.
-	 * Récupère la valeur de la propriété 'Rejet'. 
-	 * @return String jreCd 
-	 */
-	@javax.persistence.Column(name = "JRE_CD")
-	@Field(domain = "DO_CODE", type = "FOREIGN_KEY", label = "Rejet")
-	public String getJreCd() {
-		return jreCd;
-	}
-
-	/**
-	 * Champ : FOREIGN_KEY.
-	 * Définit la valeur de la propriété 'Rejet'.
-	 * @param jreCd String 
-	 */
-	public void setJreCd(final String jreCd) {
-		this.jreCd = jreCd;
-	}
-
-	/**
-	 * Champ : FOREIGN_KEY.
-	 * Récupère la valeur de la propriété 'Job delta complet'. 
+    /**
+	 * Champ : directionCd
+	 * Returns direction code. 
 	 * @return String jdcCd 
 	 */
-	@javax.persistence.Column(name = "JDC_CD")
-	@Field(domain = "DO_CODE", type = "FOREIGN_KEY", label = "Job delta complet")
-	public String getJdcCd() {
-		return jdcCd;
+	@javax.persistence.Column(name = "DIRECTION_CD")
+	@Field(domain = "DO_CODE", label = "Data direction")
+	public String getDirectionCd() {
+		return directionCd;
+	}
+    
+    /**
+	 * Champ : directionCd
+	 * Returns direction (from enumeration). 
+	 * @return ActivityDirection
+	 */
+	public ActivityDirection getDirection() {
+		return ActivityDirection.valueOf(directionCd);
+	}
+	
+	/**
+	 * Champ : directionCd
+	 * Sets data mode (complete or delta).
+	 * @param mode ActivityDirection
+	 */
+	public void setDirection(final ActivityDirection direction) {
+		directionCd = direction.getCode();
 	}
 
 	/**
-	 * Champ : FOREIGN_KEY.
-	 * Définit la valeur de la propriété 'Job delta complet'.
-	 * @param jdcCd String 
+	 * Champ : directionCd
+	 * Sets direction.
+	 * @param direction String
 	 */
-	public void setJdcCd(final String jdcCd) {
-		this.jdcCd = jdcCd;
+	public void setDirectionCd(final String directionCode) {
+		directionCd = directionCode;
 	}
 
 
-	// Association : Exécution non navigable
-	/**
-	 * Association : Sens.
-	 * @return fr.justice.isis.domain.tourdecontrole.JobSens
+
+    // ************************************************************************
+    // Data mode : complete or delta.
+    // Checked against ActivityDataMode enumeration. 
+
+    /**
+	 * Champ : DataModeCd
+	 * Returns data mode code. 
+	 * @return String jdcCd 
 	 */
-    @javax.persistence.Transient
-    @io.vertigo.dynamo.domain.stereotype.Association (
-    	name = "A_JOD_JSE",
-    	fkFieldName = "JSE_CD",
-    	primaryDtDefinitionName = "DT_JOB_SENS",
-    	primaryIsNavigable = true,
-    	primaryRole = "Sens",
-    	primaryLabel = "Sens",
-    	primaryMultiplicity = "0..1",
-    	foreignDtDefinitionName = "DT_JOBDEFINITION",
-    	foreignIsNavigable = false,
-    	foreignRole = "Jobdefinition",
-    	foreignLabel = "Jobdefinition",
-    	foreignMultiplicity = "0..*"
-    )
-	public snowblood.gen.domain.JobSens getSens() {
-		final io.vertigo.dynamo.domain.model.URI<snowblood.gen.domain.JobSens> fkURI = getSensURI();
-		if (fkURI == null) {
-			return null;
-		}
-		//On est toujours dans un mode lazy. On s'assure cependant que l'objet associé n'a pas changé
-		if (sens != null) {
-			// On s'assure que l'objet correspond à la bonne clé
-			final io.vertigo.dynamo.domain.model.URI<snowblood.gen.domain.JobSens> uri;
-			uri = new io.vertigo.dynamo.domain.model.URI<>(io.vertigo.dynamo.domain.util.DtObjectUtil.findDtDefinition(sens), io.vertigo.dynamo.domain.util.DtObjectUtil.getId(sens));
-			if (!fkURI.toURN().equals(uri.toURN())) {
-				sens = null;
-			}
-		}		
-		if (sens == null) {
-			sens = io.vertigo.core.Home.getComponentSpace().resolve(io.vertigo.dynamo.persistence.PersistenceManager.class).getBroker().get(fkURI);
-		}
-		return sens;
+	@javax.persistence.Column(name = "DATA_MODE_CD")
+	@Field(domain = "DO_CODE", label = "Are data complete or delta")
+	public String getDataModeCd() {
+		return dataModeCd;
+	}
+    
+    /**
+	 * Champ : DataModeCd
+	 * Returns data mode (from enumeration). 
+	 * @return ActivityDataMode
+	 */
+	public ActivityDataMode getDataMode() {
+		return ActivityDataMode.valueOf(dataModeCd);
+	}
+	
+	/**
+	 * Champ : DataModeCd
+	 * Sets data mode (complete or delta).
+	 * @param mode ActivityDataMode
+	 */
+	public void setDataMode(final ActivityDataMode mode) {
+		dataModeCd = mode.getCode();
 	}
 
 	/**
-	 * Retourne l'URI: Sens.
-	 * @return URI de l'association
+	 * Champ : DataModeCd
+	 * Sets data mode (complete or delta).
+	 * @param modeCd String
 	 */
-    @javax.persistence.Transient
-    @io.vertigo.dynamo.domain.stereotype.Association (
-    	name = "A_JOD_JSE",
-    	fkFieldName = "JSE_CD",
-    	primaryDtDefinitionName = "DT_JOB_SENS",
-    	primaryIsNavigable = true,
-    	primaryRole = "Sens",
-    	primaryLabel = "Sens",
-    	primaryMultiplicity = "0..1",
-    	foreignDtDefinitionName = "DT_JOBDEFINITION",
-    	foreignIsNavigable = false,
-    	foreignRole = "Jobdefinition",
-    	foreignLabel = "Jobdefinition",
-    	foreignMultiplicity = "0..*"
-    )
-	public io.vertigo.dynamo.domain.model.URI<snowblood.gen.domain.JobSens> getSensURI() {
-		return DtObjectUtil.createURI(this, "A_JOD_JSE", snowblood.gen.domain.JobSens.class);
-	}
-	/**
-	 * Association : Rejet.
-	 * @return fr.justice.isis.domain.tourdecontrole.JobRejet
-	 */
-    @javax.persistence.Transient
-    @io.vertigo.dynamo.domain.stereotype.Association (
-    	name = "A_JOD_JRE",
-    	fkFieldName = "JRE_CD",
-    	primaryDtDefinitionName = "DT_JOB_REJET",
-    	primaryIsNavigable = true,
-    	primaryRole = "Rejet",
-    	primaryLabel = "Rejet",
-    	primaryMultiplicity = "0..1",
-    	foreignDtDefinitionName = "DT_JOBDEFINITION",
-    	foreignIsNavigable = false,
-    	foreignRole = "Jobdefinition",
-    	foreignLabel = "Jobdefinition",
-    	foreignMultiplicity = "0..*"
-    )
-	public snowblood.gen.domain.JobRejet getRejet() {
-		final io.vertigo.dynamo.domain.model.URI<snowblood.gen.domain.JobRejet> fkURI = getRejetURI();
-		if (fkURI == null) {
-			return null;
-		}
-		//On est toujours dans un mode lazy. On s'assure cependant que l'objet associé n'a pas changé
-		if (rejet != null) {
-			// On s'assure que l'objet correspond à la bonne clé
-			final io.vertigo.dynamo.domain.model.URI<snowblood.gen.domain.JobRejet> uri;
-			uri = new io.vertigo.dynamo.domain.model.URI<>(io.vertigo.dynamo.domain.util.DtObjectUtil.findDtDefinition(rejet), io.vertigo.dynamo.domain.util.DtObjectUtil.getId(rejet));
-			if (!fkURI.toURN().equals(uri.toURN())) {
-				rejet = null;
-			}
-		}		
-		if (rejet == null) {
-			rejet = io.vertigo.core.Home.getComponentSpace().resolve(io.vertigo.dynamo.persistence.PersistenceManager.class).getBroker().get(fkURI);
-		}
-		return rejet;
+	public void setDataModeCd(final String modeCd) {
+		dataModeCd = modeCd;
 	}
 
-	/**
-	 * Retourne l'URI: Rejet.
-	 * @return URI de l'association
-	 */
-    @javax.persistence.Transient
-    @io.vertigo.dynamo.domain.stereotype.Association (
-    	name = "A_JOD_JRE",
-    	fkFieldName = "JRE_CD",
-    	primaryDtDefinitionName = "DT_JOB_REJET",
-    	primaryIsNavigable = true,
-    	primaryRole = "Rejet",
-    	primaryLabel = "Rejet",
-    	primaryMultiplicity = "0..1",
-    	foreignDtDefinitionName = "DT_JOBDEFINITION",
-    	foreignIsNavigable = false,
-    	foreignRole = "Jobdefinition",
-    	foreignLabel = "Jobdefinition",
-    	foreignMultiplicity = "0..*"
-    )
-	public io.vertigo.dynamo.domain.model.URI<snowblood.gen.domain.JobRejet> getRejetURI() {
-		return DtObjectUtil.createURI(this, "A_JOD_JRE", snowblood.gen.domain.JobRejet.class);
-	}
-
-	// Association : Dossier pfe non navigable
-	/**
-	 * Association : Job delta complet.
-	 * @return fr.justice.isis.domain.tourdecontrole.JobDeltaComplet
-	 */
-    @javax.persistence.Transient
-    @io.vertigo.dynamo.domain.stereotype.Association (
-    	name = "A_ASSOCIATION_8",
-    	fkFieldName = "JDC_CD",
-    	primaryDtDefinitionName = "DT_JOB_DELTA_COMPLET",
-    	primaryIsNavigable = true,
-    	primaryRole = "JobDeltaComplet",
-    	primaryLabel = "Job delta complet",
-    	primaryMultiplicity = "0..1",
-    	foreignDtDefinitionName = "DT_JOBDEFINITION",
-    	foreignIsNavigable = false,
-    	foreignRole = "Jobdefinition",
-    	foreignLabel = "Jobdefinition",
-    	foreignMultiplicity = "0..*"
-    )
-	public snowblood.gen.domain.JobDeltaComplet getJobDeltaComplet() {
-		final io.vertigo.dynamo.domain.model.URI<snowblood.gen.domain.JobDeltaComplet> fkURI = getJobDeltaCompletURI();
-		if (fkURI == null) {
-			return null;
-		}
-		//On est toujours dans un mode lazy. On s'assure cependant que l'objet associé n'a pas changé
-		if (jobDeltaComplet != null) {
-			// On s'assure que l'objet correspond à la bonne clé
-			final io.vertigo.dynamo.domain.model.URI<snowblood.gen.domain.JobDeltaComplet> uri;
-			uri = new io.vertigo.dynamo.domain.model.URI<>(io.vertigo.dynamo.domain.util.DtObjectUtil.findDtDefinition(jobDeltaComplet), io.vertigo.dynamo.domain.util.DtObjectUtil.getId(jobDeltaComplet));
-			if (!fkURI.toURN().equals(uri.toURN())) {
-				jobDeltaComplet = null;
-			}
-		}		
-		if (jobDeltaComplet == null) {
-			jobDeltaComplet = io.vertigo.core.Home.getComponentSpace().resolve(io.vertigo.dynamo.persistence.PersistenceManager.class).getBroker().get(fkURI);
-		}
-		return jobDeltaComplet;
-	}
-
-	/**
-	 * Retourne l'URI: Job delta complet.
-	 * @return URI de l'association
-	 */
-    @javax.persistence.Transient
-    @io.vertigo.dynamo.domain.stereotype.Association (
-    	name = "A_ASSOCIATION_8",
-    	fkFieldName = "JDC_CD",
-    	primaryDtDefinitionName = "DT_JOB_DELTA_COMPLET",
-    	primaryIsNavigable = true,
-    	primaryRole = "JobDeltaComplet",
-    	primaryLabel = "Job delta complet",
-    	primaryMultiplicity = "0..1",
-    	foreignDtDefinitionName = "DT_JOBDEFINITION",
-    	foreignIsNavigable = false,
-    	foreignRole = "Jobdefinition",
-    	foreignLabel = "Jobdefinition",
-    	foreignMultiplicity = "0..*"
-    )
-	public io.vertigo.dynamo.domain.model.URI<snowblood.gen.domain.JobDeltaComplet> getJobDeltaCompletURI() {
-		return DtObjectUtil.createURI(this, "A_ASSOCIATION_8", snowblood.gen.domain.JobDeltaComplet.class);
-	}
-
+	// ************************************************************************
+    
 	/** {@inheritDoc} */
 	@Override
 	public String toString() {
