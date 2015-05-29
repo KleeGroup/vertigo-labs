@@ -38,7 +38,6 @@ import io.vertigo.dynamo.plugins.environment.loaders.kpr.KprLoaderPlugin;
 import io.vertigo.dynamo.plugins.environment.registries.domain.DomainDynamicRegistryPlugin;
 import io.vertigo.dynamo.plugins.persistence.datastore.postgresql.PostgreSqlDataStorePlugin;
 import io.vertigo.dynamo.task.TaskManager;
-import io.vertigo.dynamo.transaction.Transactional;
 import io.vertigo.dynamo.transaction.VTransactionManager;
 import io.vertigo.tempo.impl.job.JobManagerImpl;
 import io.vertigo.tempo.impl.scheduler.SchedulerManagerImpl;
@@ -158,17 +157,17 @@ public class TestSnowblood {
 			jobdefinition.setDataMode(ActivityDataMode.DELTA);
 			// Save
 			tourDeControleServices.saveJobdefinition(jobdefinition);
-			Long jobId = jobdefinition.getJodId();
+			final Long jobId = jobdefinition.getJodId();
 			System.out.println("saved with id " + jobId);
-			
+
 			// Load
 			final Jobdefinition jobdefinition2 = tourDeControleServices.getJobdefinition(jobId);
 			// Print
 			System.out.println(jobdefinition2.toString());
-			
+
 			// Delete
 			// tourDeControleServices.????(jodId);
-			
+
 			System.out.println("test");
 
 		}

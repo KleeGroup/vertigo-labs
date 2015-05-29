@@ -1,4 +1,4 @@
-package snowblood.task;
+package snowblood.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -55,7 +55,7 @@ public final class DateHelper {
 	 * @param toTimeZoneLibelle le fuseau d'arrivée
 	 * @return la date convertie
 	 */
-	public static Date convertDateToAutreFuseau(final Date dateInit, final String fromTimeZoneLibelle, final String toTimeZoneLibelle) {
+	private  static Date convertDateToAutreFuseau(final Date dateInit, final String fromTimeZoneLibelle, final String toTimeZoneLibelle) {
 
 		final SimpleDateFormat sdfFrom = new SimpleDateFormat(FORMAT_PATTERN, Locale.FRANCE);
 		final SimpleDateFormat sdfTo = new SimpleDateFormat(FORMAT_PATTERN, Locale.FRANCE);

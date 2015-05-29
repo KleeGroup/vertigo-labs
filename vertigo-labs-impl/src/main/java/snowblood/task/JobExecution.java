@@ -16,6 +16,8 @@ import snowblood.gen.domain.ActivityStatus;
 import snowblood.gen.domain.Jobdefinition;
 import snowblood.gen.domain.Jobexecution;
 import snowblood.services.job.JobServices;
+import snowblood.util.DateHelper;
+import snowblood.util.IsisUtil;
 
 /**
  * L'état d'une exécution d'un job en cours ou terminée.

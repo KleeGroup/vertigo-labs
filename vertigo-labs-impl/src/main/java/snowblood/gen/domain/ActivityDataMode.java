@@ -46,15 +46,4 @@ public enum ActivityDataMode {
 	public String getLabel() {
 		return label;
 	}
-
-	/* DEADCODE : kept for reference, could be replaced by a hashmap
-	public static ActivityDataMode getByCode(String lookupCode) {
-		for (ActivityDataMode adm : ActivityDataMode.values()) {
-			if (adm.getCode().equals(lookupCode)) {
-				return adm;
-			}
-		}
-		return null;
-	}
-	*/
 }
