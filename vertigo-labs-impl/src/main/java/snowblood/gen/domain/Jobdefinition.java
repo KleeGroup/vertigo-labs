@@ -10,7 +10,7 @@ import io.vertigo.dynamo.domain.util.DtObjectUtil;
  * Objet de données Jobdefinition
  */
 @javax.persistence.Entity
-@javax.persistence.Table (name = "JOBDEFINITION")
+@javax.persistence.Table(name = "JOBDEFINITION")
 @DtDefinition
 public final class Jobdefinition implements DtObject {
 
@@ -45,7 +45,7 @@ public final class Jobdefinition implements DtObject {
 
 	/**
 	 * Champ : PRIMARY_KEY.
-	 * Récupère la valeur de la propriété 'JOD_ID'. 
+	 * Récupère la valeur de la propriété 'JOD_ID'.
 	 * @return Long jodId <b>Obligatoire</b>
 	 */
 	@javax.persistence.Id
@@ -68,8 +68,8 @@ public final class Jobdefinition implements DtObject {
 
 	/**
 	 * Champ : DATA.
-	 * Récupère la valeur de la propriété 'Code'. 
-	 * @return String code 
+	 * Récupère la valeur de la propriété 'Code'.
+	 * @return String code
 	 */
 	@javax.persistence.Column(name = "CODE")
 	@Field(domain = "DO_CODE", label = "Code")
@@ -80,7 +80,7 @@ public final class Jobdefinition implements DtObject {
 	/**
 	 * Champ : DATA.
 	 * Définit la valeur de la propriété 'Code'.
-	 * @param code String 
+	 * @param code String
 	 */
 	public void setCode(final String code) {
 		this.code = code;
@@ -88,8 +88,8 @@ public final class Jobdefinition implements DtObject {
 
 	/**
 	 * Champ : DATA.
-	 * Récupère la valeur de la propriété 'Libellé'. 
-	 * @return String libelle 
+	 * Récupère la valeur de la propriété 'Libellé'.
+	 * @return String libelle
 	 */
 	@javax.persistence.Column(name = "LIBELLE")
 	@Field(domain = "DO_LIBELLE_LONG", label = "Libellé")
@@ -100,7 +100,7 @@ public final class Jobdefinition implements DtObject {
 	/**
 	 * Champ : DATA.
 	 * Définit la valeur de la propriété 'Libellé'.
-	 * @param libelle String 
+	 * @param libelle String
 	 */
 	public void setLibelle(final String libelle) {
 		this.libelle = libelle;
@@ -108,8 +108,8 @@ public final class Jobdefinition implements DtObject {
 
 	/**
 	 * Champ : DATA.
-	 * Récupère la valeur de la propriété 'Description'. 
-	 * @return String description 
+	 * Récupère la valeur de la propriété 'Description'.
+	 * @return String description
 	 */
 	@javax.persistence.Column(name = "DESCRIPTION")
 	@Field(domain = "DO_COMMENTAIRE", label = "Description")
@@ -120,7 +120,7 @@ public final class Jobdefinition implements DtObject {
 	/**
 	 * Champ : DATA.
 	 * Définit la valeur de la propriété 'Description'.
-	 * @param description String 
+	 * @param description String
 	 */
 	public void setDescription(final String description) {
 		this.description = description;
@@ -128,8 +128,8 @@ public final class Jobdefinition implements DtObject {
 
 	/**
 	 * Champ : DATA.
-	 * Récupère la valeur de la propriété 'Rétention journaux'. 
-	 * @return Integer retentionJournaux 
+	 * Récupère la valeur de la propriété 'Rétention journaux'.
+	 * @return Integer retentionJournaux
 	 */
 	@javax.persistence.Column(name = "RETENTION_JOURNAUX")
 	@Field(domain = "DO_NOMBRE_ENTIER", label = "Rétention journaux")
@@ -140,7 +140,7 @@ public final class Jobdefinition implements DtObject {
 	/**
 	 * Champ : DATA.
 	 * Définit la valeur de la propriété 'Rétention journaux'.
-	 * @param retentionJournaux Integer 
+	 * @param retentionJournaux Integer
 	 */
 	public void setRetentionJournaux(final Integer retentionJournaux) {
 		this.retentionJournaux = retentionJournaux;
@@ -148,8 +148,8 @@ public final class Jobdefinition implements DtObject {
 
 	/**
 	 * Champ : DATA.
-	 * Récupère la valeur de la propriété 'Fenêtre supervision'. 
-	 * @return Integer fenetreSupervision 
+	 * Récupère la valeur de la propriété 'Fenêtre supervision'.
+	 * @return Integer fenetreSupervision
 	 */
 	@javax.persistence.Column(name = "FENETRE_SUPERVISION")
 	@Field(domain = "DO_NOMBRE_ENTIER", label = "Fenêtre supervision")
@@ -160,7 +160,7 @@ public final class Jobdefinition implements DtObject {
 	/**
 	 * Champ : DATA.
 	 * Définit la valeur de la propriété 'Fenêtre supervision'.
-	 * @param fenetreSupervision Integer 
+	 * @param fenetreSupervision Integer
 	 */
 	public void setFenetreSupervision(final Integer fenetreSupervision) {
 		this.fenetreSupervision = fenetreSupervision;
@@ -168,8 +168,8 @@ public final class Jobdefinition implements DtObject {
 
 	/**
 	 * Champ : DATA.
-	 * Récupère la valeur de la propriété 'Attente interruption'. 
-	 * @return Integer attenteInterruption 
+	 * Récupère la valeur de la propriété 'Attente interruption'.
+	 * @return Integer attenteInterruption
 	 */
 	@javax.persistence.Column(name = "ATTENTE_INTERRUPTION")
 	@Field(domain = "DO_NOMBRE_ENTIER", label = "Attente interruption")
@@ -180,7 +180,7 @@ public final class Jobdefinition implements DtObject {
 	/**
 	 * Champ : DATA.
 	 * Définit la valeur de la propriété 'Attente interruption'.
-	 * @param attenteInterruption Integer 
+	 * @param attenteInterruption Integer
 	 */
 	public void setAttenteInterruption(final Integer attenteInterruption) {
 		this.attenteInterruption = attenteInterruption;
@@ -188,8 +188,8 @@ public final class Jobdefinition implements DtObject {
 
 	/**
 	 * Champ : DATA.
-	 * Récupère la valeur de la propriété 'Source'. 
-	 * @return String source 
+	 * Récupère la valeur de la propriété 'Source'.
+	 * @return String source
 	 */
 	@javax.persistence.Column(name = "SOURCE")
 	@Field(domain = "DO_CODE", label = "Source")
@@ -200,7 +200,7 @@ public final class Jobdefinition implements DtObject {
 	/**
 	 * Champ : DATA.
 	 * Définit la valeur de la propriété 'Source'.
-	 * @param source String 
+	 * @param source String
 	 */
 	public void setSource(final String source) {
 		this.source = source;
@@ -208,8 +208,8 @@ public final class Jobdefinition implements DtObject {
 
 	/**
 	 * Champ : DATA.
-	 * Récupère la valeur de la propriété 'Cible'. 
-	 * @return String cible 
+	 * Récupère la valeur de la propriété 'Cible'.
+	 * @return String cible
 	 */
 	@javax.persistence.Column(name = "CIBLE")
 	@Field(domain = "DO_CODE", label = "Cible")
@@ -220,7 +220,7 @@ public final class Jobdefinition implements DtObject {
 	/**
 	 * Champ : DATA.
 	 * Définit la valeur de la propriété 'Cible'.
-	 * @param cible String 
+	 * @param cible String
 	 */
 	public void setCible(final String cible) {
 		this.cible = cible;
@@ -228,8 +228,8 @@ public final class Jobdefinition implements DtObject {
 
 	/**
 	 * Champ : DATA.
-	 * Récupère la valeur de la propriété 'Encodage'. 
-	 * @return String encodage 
+	 * Récupère la valeur de la propriété 'Encodage'.
+	 * @return String encodage
 	 */
 	@javax.persistence.Column(name = "ENCODAGE")
 	@Field(domain = "DO_LIBELLE_COURT", label = "Encodage")
@@ -240,7 +240,7 @@ public final class Jobdefinition implements DtObject {
 	/**
 	 * Champ : DATA.
 	 * Définit la valeur de la propriété 'Encodage'.
-	 * @param encodage String 
+	 * @param encodage String
 	 */
 	public void setEncodage(final String encodage) {
 		this.encodage = encodage;
@@ -248,7 +248,7 @@ public final class Jobdefinition implements DtObject {
 
 	/**
 	 * Champ : DATA.
-	 * Récupère la valeur de la propriété 'Multi-exécutions'. 
+	 * Récupère la valeur de la propriété 'Multi-exécutions'.
 	 * @return Boolean multiExecutions <b>Obligatoire</b>
 	 */
 	@javax.persistence.Column(name = "MULTI_EXECUTIONS")
@@ -268,7 +268,7 @@ public final class Jobdefinition implements DtObject {
 
 	/**
 	 * Champ : DATA.
-	 * Récupère la valeur de la propriété 'Manuel autorisé'. 
+	 * Récupère la valeur de la propriété 'Manuel autorisé'.
 	 * @return Boolean manuelAutorise <b>Obligatoire</b>
 	 */
 	@javax.persistence.Column(name = "MANUEL_AUTORISE")
@@ -288,7 +288,7 @@ public final class Jobdefinition implements DtObject {
 
 	/**
 	 * Champ : DATA.
-	 * Récupère la valeur de la propriété 'Activation'. 
+	 * Récupère la valeur de la propriété 'Activation'.
 	 * @return Boolean activation <b>Obligatoire</b>
 	 */
 	@javax.persistence.Column(name = "ACTIVATION")
@@ -308,7 +308,7 @@ public final class Jobdefinition implements DtObject {
 
 	/**
 	 * Champ : DATA.
-	 * Récupère la valeur de la propriété 'Interruptible'. 
+	 * Récupère la valeur de la propriété 'Interruptible'.
 	 * @return Boolean interruptible <b>Obligatoire</b>
 	 */
 	@javax.persistence.Column(name = "INTERRUPTIBLE")
@@ -328,7 +328,7 @@ public final class Jobdefinition implements DtObject {
 
 	/**
 	 * Champ : DATA.
-	 * Récupère la valeur de la propriété 'Testable'. 
+	 * Récupère la valeur de la propriété 'Testable'.
 	 * @return Boolean testable <b>Obligatoire</b>
 	 */
 	@javax.persistence.Column(name = "TESTABLE")
@@ -348,8 +348,8 @@ public final class Jobdefinition implements DtObject {
 
 	/**
 	 * Champ : DATA.
-	 * Récupère la valeur de la propriété 'Fréquence'. 
-	 * @return String frequence 
+	 * Récupère la valeur de la propriété 'Fréquence'.
+	 * @return String frequence
 	 */
 	@javax.persistence.Column(name = "FREQUENCE")
 	@Field(domain = "DO_LIBELLE_COURT", label = "Fréquence")
@@ -360,7 +360,7 @@ public final class Jobdefinition implements DtObject {
 	/**
 	 * Champ : DATA.
 	 * Définit la valeur de la propriété 'Fréquence'.
-	 * @param frequence String 
+	 * @param frequence String
 	 */
 	public void setFrequence(final String frequence) {
 		this.frequence = frequence;
@@ -368,8 +368,8 @@ public final class Jobdefinition implements DtObject {
 
 	/**
 	 * Champ : DATA.
-	 * Récupère la valeur de la propriété 'Affinité'. 
-	 * @return String affinite 
+	 * Récupère la valeur de la propriété 'Affinité'.
+	 * @return String affinite
 	 */
 	@javax.persistence.Column(name = "AFFINITE")
 	@Field(domain = "DO_LIBELLE_LONG", label = "Affinité")
@@ -380,7 +380,7 @@ public final class Jobdefinition implements DtObject {
 	/**
 	 * Champ : DATA.
 	 * Définit la valeur de la propriété 'Affinité'.
-	 * @param affinite String 
+	 * @param affinite String
 	 */
 	public void setAffinite(final String affinite) {
 		this.affinite = affinite;
@@ -388,8 +388,8 @@ public final class Jobdefinition implements DtObject {
 
 	/**
 	 * Champ : DATA.
-	 * Récupère la valeur de la propriété 'Paramètres étendus'. 
-	 * @return String parametresEtendus 
+	 * Récupère la valeur de la propriété 'Paramètres étendus'.
+	 * @return String parametresEtendus
 	 */
 	@javax.persistence.Column(name = "PARAMETRES_ETENDUS")
 	@Field(domain = "DO_COMMENTAIRE", label = "Paramètres étendus")
@@ -400,7 +400,7 @@ public final class Jobdefinition implements DtObject {
 	/**
 	 * Champ : DATA.
 	 * Définit la valeur de la propriété 'Paramètres étendus'.
-	 * @param parametresEtendus String 
+	 * @param parametresEtendus String
 	 */
 	public void setParametresEtendus(final String parametresEtendus) {
 		this.parametresEtendus = parametresEtendus;
@@ -408,8 +408,8 @@ public final class Jobdefinition implements DtObject {
 
 	/**
 	 * Champ : DATA.
-	 * Récupère la valeur de la propriété 'Implémentation'. 
-	 * @return String implementation 
+	 * Récupère la valeur de la propriété 'Implémentation'.
+	 * @return String implementation
 	 */
 	@javax.persistence.Column(name = "IMPLEMENTATION")
 	@Field(domain = "DO_LIBELLE_LONG", label = "Implémentation")
@@ -420,7 +420,7 @@ public final class Jobdefinition implements DtObject {
 	/**
 	 * Champ : DATA.
 	 * Définit la valeur de la propriété 'Implémentation'.
-	 * @param implementation String 
+	 * @param implementation String
 	 */
 	public void setImplementation(final String implementation) {
 		this.implementation = implementation;
@@ -428,7 +428,7 @@ public final class Jobdefinition implements DtObject {
 
 	/**
 	 * Champ : DATA.
-	 * Récupère la valeur de la propriété 'Complet possible'. 
+	 * Récupère la valeur de la propriété 'Complet possible'.
 	 * @return Boolean completPossible <b>Obligatoire</b>
 	 */
 	@javax.persistence.Column(name = "COMPLET_POSSIBLE")
@@ -448,8 +448,8 @@ public final class Jobdefinition implements DtObject {
 
 	/**
 	 * Champ : DATA.
-	 * Récupère la valeur de la propriété 'Répertoire distant d'échange'. 
-	 * @return String repertoireDistantDEchange 
+	 * Récupère la valeur de la propriété 'Répertoire distant d'échange'.
+	 * @return String repertoireDistantDEchange
 	 */
 	@javax.persistence.Column(name = "REPERTOIRE_DISTANT_D_ECHANGE")
 	@Field(domain = "DO_FICHIER", label = "Répertoire distant d'échange")
@@ -460,41 +460,40 @@ public final class Jobdefinition implements DtObject {
 	/**
 	 * Champ : DATA.
 	 * Définit la valeur de la propriété 'Répertoire distant d'échange'.
-	 * @param repertoireDistantDEchange String 
+	 * @param repertoireDistantDEchange String
 	 */
 	public void setRepertoireDistantDEchange(final String repertoireDistantDEchange) {
 		this.repertoireDistantDEchange = repertoireDistantDEchange;
 	}
 
+	// ************************************************************************
+	// Direction : neutral, import or export.
+	// Checked against ActivityDirection enumeration.
 
-    // ************************************************************************
-    // Direction : neutral, import or export.
-    // Checked against ActivityDirection enumeration. 
-
-    /**
+	/**
 	 * Champ : directionCd
-	 * Returns direction code. 
-	 * @return String jdcCd 
+	 * Returns direction code.
+	 * @return String jdcCd
 	 */
 	@javax.persistence.Column(name = "DIRECTION_CD")
 	@Field(domain = "DO_CODE", label = "Data direction")
 	public String getDirectionCd() {
 		return directionCd;
 	}
-    
-    /**
+
+	/**
 	 * Champ : directionCd
-	 * Returns direction (from enumeration). 
+	 * Returns direction (from enumeration).
 	 * @return ActivityDirection
 	 */
 	public ActivityDirection getDirection() {
 		return ActivityDirection.valueOf(directionCd);
 	}
-	
+
 	/**
 	 * Champ : directionCd
 	 * Sets data mode (complete or delta).
-	 * @param mode ActivityDirection
+	 * @param direction ActivityDirection
 	 */
 	public void setDirection(final ActivityDirection direction) {
 		directionCd = direction.getCode();
@@ -503,36 +502,36 @@ public final class Jobdefinition implements DtObject {
 	/**
 	 * Champ : directionCd
 	 * Sets direction.
-	 * @param direction String
+	 * @param directionCode String
 	 */
 	public void setDirectionCd(final String directionCode) {
 		directionCd = directionCode;
 	}
 
-    // ************************************************************************
-    // Data mode : complete or delta.
-    // Checked against ActivityDataMode enumeration. 
+	// ************************************************************************
+	// Data mode : complete or delta.
+	// Checked against ActivityDataMode enumeration.
 
-    /**
+	/**
 	 * Champ : DataModeCd
-	 * Returns data mode code. 
-	 * @return String jdcCd 
+	 * Returns data mode code.
+	 * @return String jdcCd
 	 */
 	@javax.persistence.Column(name = "DATA_MODE_CD")
 	@Field(domain = "DO_CODE", label = "Are data complete or delta")
 	public String getDataModeCd() {
 		return dataModeCd;
 	}
-    
-    /**
+
+	/**
 	 * Champ : DataModeCd
-	 * Returns data mode (from enumeration). 
+	 * Returns data mode (from enumeration).
 	 * @return ActivityDataMode
 	 */
 	public ActivityDataMode getDataMode() {
 		return ActivityDataMode.valueOf(dataModeCd);
 	}
-	
+
 	/**
 	 * Champ : DataModeCd
 	 * Sets data mode (complete or delta).
@@ -551,13 +550,13 @@ public final class Jobdefinition implements DtObject {
 		dataModeCd = modeCd;
 	}
 
-    // ************************************************************************
-    // Reject rule : not applicable, global, line by line
-    // Checked against ActivityRejectRule enumeration. 
+	// ************************************************************************
+	// Reject rule : not applicable, global, line by line
+	// Checked against ActivityRejectRule enumeration.
 
-    /**
+	/**
 	 * Champ : RejectRule
-	 * Returns reject rule code 
+	 * Returns reject rule code
 	 * @return String rejectRuleCd
 	 */
 	@javax.persistence.Column(name = "REJECT_RULE_CD")
@@ -565,20 +564,20 @@ public final class Jobdefinition implements DtObject {
 	public String getRejectRuleCd() {
 		return rejectRuleCd;
 	}
-    
-    /**
+
+	/**
 	 * Champ : RejectRule
-	 * Returns reject rule (from enumeration) 
+	 * Returns reject rule (from enumeration)
 	 * @return ActivityRejectRule
 	 */
 	public ActivityRejectRule getRejectRule() {
 		return ActivityRejectRule.valueOf(rejectRuleCd);
 	}
-	
+
 	/**
 	 * Champ : RejectRule
-	 * Sets reject rule. 
-	 * @param mode ActivityRejectRule
+	 * Sets reject rule.
+	 * @param rule ActivityRejectRule
 	 */
 	public void setRejectRule(final ActivityRejectRule rule) {
 		rejectRuleCd = rule.getCode();
@@ -586,7 +585,7 @@ public final class Jobdefinition implements DtObject {
 
 	/**
 	 * Champ : RejectRule
-	 * Sets reject rule. 
+	 * Sets reject rule.
 	 * @param ruleCd String
 	 */
 	public void setRejectRuleCd(final String ruleCd) {
@@ -594,7 +593,7 @@ public final class Jobdefinition implements DtObject {
 	}
 
 	// ************************************************************************
-    
+
 	/** {@inheritDoc} */
 	@Override
 	public String toString() {
