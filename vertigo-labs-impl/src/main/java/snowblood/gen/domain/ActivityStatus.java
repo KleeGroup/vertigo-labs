@@ -2,7 +2,7 @@ package snowblood.gen.domain;
 
 /**
  * Task execution status.
- * 
+ *
  * Defined status are :
  * <ul>
  * <li>[SUC]cess : the task successfully completed. Even in the event some
@@ -17,7 +17,7 @@ package snowblood.gen.domain;
  *     technical failure.
  * </li>
  * </ul>
- * 
+ *
  * A business rule <b>must</b> define severity of each fail case. For example
  * an import task encountering a missing data file may end with :
  * <ul>
@@ -32,33 +32,33 @@ package snowblood.gen.domain;
  * <li>Failure : the file is mandatory and the task crashed or wasn't able to
  * do anything. Hopefully no data were modified.
  * </li>
- * </ul>  
- * 
+ * </ul>
+ *
  * Of course, one could argue that a task must always be resilient, robust.
- * This can't be expected every time.  
- * 
+ * This can't be expected every time.
+ *
  */
 
 public enum ActivityStatus {
-	SUCCESS ("SUC", "Success"),
-	PARTIAL ("PAR", "Partial success"),
-	RUNNING ("RUN", "Running"),
-	FAILURE ("FAI", "Failure");
-	
-    private String code;
+	SUCCESS("SUC", "Success"),
+	PARTIAL("PAR", "Partial success"),
+	RUNNING("RUN", "Running"),
+	FAILURE("FAI", "Failure");
+
+	private String code;
 	private String label;
-	
-	ActivityStatus(String code, String label){
+
+	private ActivityStatus(final String code, final String label) {
 		this.code = code;
 		this.label = label;
 	}
-	
+
 	public String getCode() {
 		return code;
 	}
-	
+
 	public String getLabel() {
 		return label;
 	}
-	
+
 }
