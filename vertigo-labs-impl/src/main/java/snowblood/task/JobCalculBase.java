@@ -11,6 +11,7 @@ import org.apache.log4j.FileAppender;
 import org.apache.log4j.Logger;
 import org.apache.log4j.SimpleLayout;
 
+import snowblood.gen.domain.ActivityStatus;
 import snowblood.gen.domain.Jobexecution;
 import snowblood.services.job.JobServices;
 import snowblood.services.tourdecontrole.TourDeControleServices;
@@ -37,13 +38,13 @@ public abstract class JobCalculBase implements JobExecutor {
 			try {
 				Home.getComponentSpace().resolve(JobServices.class).initJobSession();
 				launchBatch();
-				jobex.setJetCd(JobEtatEnum.SUCCES.getCode());
+				jobex.setStatus(ActivityStatus.SUCCESS);
 			} catch (final VUserException e) {
 				logger.error(e.getMessage(), e);
-				jobex.setJetCd(JobEtatEnum.SUCCES_PARTIEL.getCode());
+				jobex.setStatus(ActivityStatus.PARTIAL);
 			} catch (final Exception e) {
 				logger.fatal(e.getMessage(), e);
-				jobex.setJetCd(JobEtatEnum.ECHEC.getCode());
+				jobex.setStatus(ActivityStatus.FAILURE);
 			} finally {
 				Home.getComponentSpace().resolve(JobServices.class).stopJobSession();
 				Home.getComponentSpace().resolve(JobServices.class).sauvegarderLogs(jobex, logFile.getAbsolutePath());
@@ -51,7 +52,7 @@ public abstract class JobCalculBase implements JobExecutor {
 			}
 		} catch (final IOException e) {
 			// Echec de création du fichier log
-			jobex.setJetCd(JobEtatEnum.ECHEC.getCode());
+			jobex.setStatus(ActivityStatus.FAILURE);
 			tdcServices.saveJobexecution(jobex);
 		}
 	}

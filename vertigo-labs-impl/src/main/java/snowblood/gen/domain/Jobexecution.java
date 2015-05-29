@@ -348,7 +348,7 @@ public final class Jobexecution implements DtObject {
 	 * Sets status.
 	 * @param mode ActivityStatus
 	 */
-	public void setDataMode(final ActivityStatus status) {
+	public void setStatus(final ActivityStatus status) {
 		statusCd = status.getCode();
 	}
 
@@ -357,7 +357,7 @@ public final class Jobexecution implements DtObject {
 	 * Sets status.
 	 * @param statusCd String
 	 */
-	public void setDataModeCd(final String statusCode) {
+	public void setStatusCd(final String statusCode) {
 		statusCd = statusCode;
 	}
 

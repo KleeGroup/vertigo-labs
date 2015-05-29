@@ -12,6 +12,7 @@ import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
 
+import snowblood.gen.domain.ActivityStatus;
 import snowblood.gen.domain.Jobdefinition;
 import snowblood.gen.domain.Jobexecution;
 import snowblood.services.job.JobServices;
@@ -99,7 +100,7 @@ public class JobExecution extends Thread {
 		final Calendar cal = Calendar.getInstance();
 		execution.setDebut(DateHelper.convertDateToGMT(cal.getTime(), cal.getTimeZone().getID()));
 
-		execution.setJetCd(JobEtatEnum.EN_COURS.getCode());
+		execution.setStatus(ActivityStatus.RUNNING);
 		services.saveJobexecution(execution);
 
 		JobExecutor executor = null;
@@ -108,7 +109,7 @@ public class JobExecution extends Thread {
 			final Class<? extends JobExecutor> classeImple = (Class<? extends JobExecutor>) Class.forName(definition.getImplementation());
 			executor = classeImple.newInstance();
 		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-			execution.setJetCd(JobEtatEnum.ECHEC.getCode());
+			execution.setStatus(ActivityStatus.FAILURE);
 			rapport.put("ERROR", "Erreur à l'instanciation du JobExecutor :" + e.getStackTrace().toString());
 		}
 
@@ -120,7 +121,7 @@ public class JobExecution extends Thread {
 
 		} catch (final Exception e) {
 			execution = services.refreshJobexecution(execution);
-			execution.setJetCd(JobEtatEnum.ECHEC.getCode());
+			execution.setStatus(ActivityStatus.FAILURE);
 			LOG.warn("Erreur d'execution du job", e);
 			throw e;
 		} finally {
