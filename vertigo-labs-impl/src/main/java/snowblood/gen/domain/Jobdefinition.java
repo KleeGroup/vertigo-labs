@@ -4,10 +4,9 @@ import io.vertigo.dynamo.domain.model.DtObject;
 import io.vertigo.dynamo.domain.stereotype.DtDefinition;
 import io.vertigo.dynamo.domain.stereotype.Field;
 import io.vertigo.dynamo.domain.util.DtObjectUtil;
-import io.vertigo.dynamox.domain.formatter.FormatterString.Mode;
 
 /**
- * Attention cette classe est générée automatiquement !
+ * Attention cette classe est gérée manuellement.
  * Objet de données Jobdefinition
  */
 @javax.persistence.Entity
@@ -510,8 +509,6 @@ public final class Jobdefinition implements DtObject {
 		directionCd = directionCode;
 	}
 
-
-
     // ************************************************************************
     // Data mode : complete or delta.
     // Checked against ActivityDataMode enumeration. 
@@ -552,6 +549,48 @@ public final class Jobdefinition implements DtObject {
 	 */
 	public void setDataModeCd(final String modeCd) {
 		dataModeCd = modeCd;
+	}
+
+    // ************************************************************************
+    // Reject rule : not applicable, global, line by line
+    // Checked against ActivityRejectRule enumeration. 
+
+    /**
+	 * Champ : RejectRule
+	 * Returns reject rule code 
+	 * @return String rejectRuleCd
+	 */
+	@javax.persistence.Column(name = "REJECT_RULE_CD")
+	@Field(domain = "DO_CODE", label = "Are data rejected globally or line by line")
+	public String getRejectRuleCd() {
+		return rejectRuleCd;
+	}
+    
+    /**
+	 * Champ : RejectRule
+	 * Returns reject rule (from enumeration) 
+	 * @return ActivityRejectRule
+	 */
+	public ActivityRejectRule getRejectRule() {
+		return ActivityRejectRule.valueOf(rejectRuleCd);
+	}
+	
+	/**
+	 * Champ : RejectRule
+	 * Sets reject rule. 
+	 * @param mode ActivityRejectRule
+	 */
+	public void setRejectRule(final ActivityRejectRule rule) {
+		rejectRuleCd = rule.getCode();
+	}
+
+	/**
+	 * Champ : RejectRule
+	 * Sets reject rule. 
+	 * @param ruleCd String
+	 */
+	public void setRejectRuleCd(final String ruleCd) {
+		rejectRuleCd = ruleCd;
 	}
 
 	// ************************************************************************
