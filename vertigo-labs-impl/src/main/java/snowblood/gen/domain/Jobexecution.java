@@ -10,7 +10,7 @@ import io.vertigo.dynamo.domain.util.DtObjectUtil;
  * Objet de données Jobexecution
  */
 @javax.persistence.Entity
-@javax.persistence.Table (name = "JOBEXECUTION")
+@javax.persistence.Table(name = "JOBEXECUTION")
 @DtDefinition
 public final class Jobexecution implements DtObject {
 
@@ -33,7 +33,7 @@ public final class Jobexecution implements DtObject {
 
 	/**
 	 * Champ : PRIMARY_KEY.
-	 * Récupère la valeur de la propriété 'JOE_ID'. 
+	 * Récupère la valeur de la propriété 'JOE_ID'.
 	 * @return Long joeId <b>Obligatoire</b>
 	 */
 	@javax.persistence.Id
@@ -56,8 +56,8 @@ public final class Jobexecution implements DtObject {
 
 	/**
 	 * Champ : DATA.
-	 * Récupère la valeur de la propriété 'Paramètres'. 
-	 * @return String parametres 
+	 * Récupère la valeur de la propriété 'Paramètres'.
+	 * @return String parametres
 	 */
 	@javax.persistence.Column(name = "PARAMETRES")
 	@Field(domain = "DO_COMMENTAIRE", label = "Paramètres")
@@ -68,7 +68,7 @@ public final class Jobexecution implements DtObject {
 	/**
 	 * Champ : DATA.
 	 * Définit la valeur de la propriété 'Paramètres'.
-	 * @param parametres String 
+	 * @param parametres String
 	 */
 	public void setParametres(final String parametres) {
 		this.parametres = parametres;
@@ -76,8 +76,8 @@ public final class Jobexecution implements DtObject {
 
 	/**
 	 * Champ : DATA.
-	 * Récupère la valeur de la propriété 'Début'. 
-	 * @return java.util.Date debut 
+	 * Récupère la valeur de la propriété 'Début'.
+	 * @return java.util.Date debut
 	 */
 	@javax.persistence.Column(name = "DEBUT")
 	@Field(domain = "DO_DATE_HEURE", label = "Début")
@@ -88,7 +88,7 @@ public final class Jobexecution implements DtObject {
 	/**
 	 * Champ : DATA.
 	 * Définit la valeur de la propriété 'Début'.
-	 * @param debut java.util.Date 
+	 * @param debut java.util.Date
 	 */
 	public void setDebut(final java.util.Date debut) {
 		this.debut = debut;
@@ -96,8 +96,8 @@ public final class Jobexecution implements DtObject {
 
 	/**
 	 * Champ : DATA.
-	 * Récupère la valeur de la propriété 'Fin'. 
-	 * @return java.util.Date fin 
+	 * Récupère la valeur de la propriété 'Fin'.
+	 * @return java.util.Date fin
 	 */
 	@javax.persistence.Column(name = "FIN")
 	@Field(domain = "DO_DATE_HEURE", label = "Fin")
@@ -108,7 +108,7 @@ public final class Jobexecution implements DtObject {
 	/**
 	 * Champ : DATA.
 	 * Définit la valeur de la propriété 'Fin'.
-	 * @param fin java.util.Date 
+	 * @param fin java.util.Date
 	 */
 	public void setFin(final java.util.Date fin) {
 		this.fin = fin;
@@ -116,8 +116,8 @@ public final class Jobexecution implements DtObject {
 
 	/**
 	 * Champ : DATA.
-	 * Récupère la valeur de la propriété 'Serveur'. 
-	 * @return String serveur 
+	 * Récupère la valeur de la propriété 'Serveur'.
+	 * @return String serveur
 	 */
 	@javax.persistence.Column(name = "SERVEUR")
 	@Field(domain = "DO_LIBELLE_COURT", label = "Serveur")
@@ -128,7 +128,7 @@ public final class Jobexecution implements DtObject {
 	/**
 	 * Champ : DATA.
 	 * Définit la valeur de la propriété 'Serveur'.
-	 * @param serveur String 
+	 * @param serveur String
 	 */
 	public void setServeur(final String serveur) {
 		this.serveur = serveur;
@@ -136,8 +136,8 @@ public final class Jobexecution implements DtObject {
 
 	/**
 	 * Champ : DATA.
-	 * Récupère la valeur de la propriété 'Rapport'. 
-	 * @return String rapport 
+	 * Récupère la valeur de la propriété 'Rapport'.
+	 * @return String rapport
 	 */
 	@javax.persistence.Column(name = "RAPPORT")
 	@Field(domain = "DO_COMMENTAIRE", label = "Rapport")
@@ -148,7 +148,7 @@ public final class Jobexecution implements DtObject {
 	/**
 	 * Champ : DATA.
 	 * Définit la valeur de la propriété 'Rapport'.
-	 * @param rapport String 
+	 * @param rapport String
 	 */
 	public void setRapport(final String rapport) {
 		this.rapport = rapport;
@@ -156,8 +156,8 @@ public final class Jobexecution implements DtObject {
 
 	/**
 	 * Champ : DATA.
-	 * Récupère la valeur de la propriété 'Logs'. 
-	 * @return String logs 
+	 * Récupère la valeur de la propriété 'Logs'.
+	 * @return String logs
 	 */
 	@javax.persistence.Column(name = "LOGS")
 	@Field(domain = "DO_LIBELLE_LONG", label = "Logs")
@@ -168,7 +168,7 @@ public final class Jobexecution implements DtObject {
 	/**
 	 * Champ : DATA.
 	 * Définit la valeur de la propriété 'Logs'.
-	 * @param logs String 
+	 * @param logs String
 	 */
 	public void setLogs(final String logs) {
 		this.logs = logs;
@@ -176,8 +176,8 @@ public final class Jobexecution implements DtObject {
 
 	/**
 	 * Champ : DATA.
-	 * Récupère la valeur de la propriété 'Data'. 
-	 * @return String data 
+	 * Récupère la valeur de la propriété 'Data'.
+	 * @return String data
 	 */
 	@javax.persistence.Column(name = "DATA")
 	@Field(domain = "DO_LIBELLE_LONG", label = "Data")
@@ -188,7 +188,7 @@ public final class Jobexecution implements DtObject {
 	/**
 	 * Champ : DATA.
 	 * Définit la valeur de la propriété 'Data'.
-	 * @param data String 
+	 * @param data String
 	 */
 	public void setData(final String data) {
 		this.data = data;
@@ -196,7 +196,7 @@ public final class Jobexecution implements DtObject {
 
 	/**
 	 * Champ : FOREIGN_KEY.
-	 * Récupère la valeur de la propriété 'Définition'. 
+	 * Récupère la valeur de la propriété 'Définition'.
 	 * @return Long jodId <b>Obligatoire</b>
 	 */
 	@javax.persistence.Column(name = "JOD_ID")
@@ -219,22 +219,22 @@ public final class Jobexecution implements DtObject {
 	 * Association : Définition.
 	 * @return fr.justice.isis.domain.tourdecontrole.Jobdefinition
 	 */
-    @javax.persistence.Transient
-    @io.vertigo.dynamo.domain.stereotype.Association (
-    	name = "A_JOE_JOD",
-    	fkFieldName = "JOD_ID",
-    	primaryDtDefinitionName = "DT_JOBDEFINITION",
-    	primaryIsNavigable = true,
-    	primaryRole = "Definition",
-    	primaryLabel = "Définition",
-    	primaryMultiplicity = "1..1",
-    	foreignDtDefinitionName = "DT_JOBEXECUTION",
-    	foreignIsNavigable = false,
-    	foreignRole = "Execution",
-    	foreignLabel = "Exécution",
-    	foreignMultiplicity = "0..*"
-    )
-	public snowblood.gen.domain.Jobdefinition getDefinition() {
+	@javax.persistence.Transient
+	@io.vertigo.dynamo.domain.stereotype.Association(
+			name = "A_JOE_JOD",
+			fkFieldName = "JOD_ID",
+			primaryDtDefinitionName = "DT_JOBDEFINITION",
+			primaryIsNavigable = true,
+			primaryRole = "Definition",
+			primaryLabel = "Définition",
+			primaryMultiplicity = "1..1",
+			foreignDtDefinitionName = "DT_JOBEXECUTION",
+			foreignIsNavigable = false,
+			foreignRole = "Execution",
+			foreignLabel = "Exécution",
+			foreignMultiplicity = "0..*"
+			)
+			public snowblood.gen.domain.Jobdefinition getDefinition() {
 		final io.vertigo.dynamo.domain.model.URI<snowblood.gen.domain.Jobdefinition> fkURI = getDefinitionURI();
 		if (fkURI == null) {
 			return null;
@@ -247,7 +247,7 @@ public final class Jobexecution implements DtObject {
 			if (!fkURI.toURN().equals(uri.toURN())) {
 				definition = null;
 			}
-		}		
+		}
 		if (definition == null) {
 			definition = io.vertigo.core.Home.getComponentSpace().resolve(io.vertigo.dynamo.persistence.PersistenceManager.class).getBroker().get(fkURI);
 		}
@@ -258,32 +258,32 @@ public final class Jobexecution implements DtObject {
 	 * Retourne l'URI: Définition.
 	 * @return URI de l'association
 	 */
-    @javax.persistence.Transient
-    @io.vertigo.dynamo.domain.stereotype.Association (
-    	name = "A_JOE_JOD",
-    	fkFieldName = "JOD_ID",
-    	primaryDtDefinitionName = "DT_JOBDEFINITION",
-    	primaryIsNavigable = true,
-    	primaryRole = "Definition",
-    	primaryLabel = "Définition",
-    	primaryMultiplicity = "1..1",
-    	foreignDtDefinitionName = "DT_JOBEXECUTION",
-    	foreignIsNavigable = false,
-    	foreignRole = "Execution",
-    	foreignLabel = "Exécution",
-    	foreignMultiplicity = "0..*"
-    )
-	public io.vertigo.dynamo.domain.model.URI<snowblood.gen.domain.Jobdefinition> getDefinitionURI() {
+	@javax.persistence.Transient
+	@io.vertigo.dynamo.domain.stereotype.Association(
+			name = "A_JOE_JOD",
+			fkFieldName = "JOD_ID",
+			primaryDtDefinitionName = "DT_JOBDEFINITION",
+			primaryIsNavigable = true,
+			primaryRole = "Definition",
+			primaryLabel = "Définition",
+			primaryMultiplicity = "1..1",
+			foreignDtDefinitionName = "DT_JOBEXECUTION",
+			foreignIsNavigable = false,
+			foreignRole = "Execution",
+			foreignLabel = "Exécution",
+			foreignMultiplicity = "0..*"
+			)
+			public io.vertigo.dynamo.domain.model.URI<snowblood.gen.domain.Jobdefinition> getDefinitionURI() {
 		return DtObjectUtil.createURI(this, "A_JOE_JOD", snowblood.gen.domain.Jobdefinition.class);
 	}
-    
-    // ************************************************************************
-    // Trigerring event : [S]cheduled, [E]xternal, [M]anual or [R]ule-based.
-    // Checked against ActivityStatus enumeration. 
 
-    /**
+	// ************************************************************************
+	// Trigerring event : [S]cheduled, [E]xternal, [M]anual or [R]ule-based.
+	// Checked against ActivityStatus enumeration.
+
+	/**
 	 * Champ : triggerCd
-	 * Returns triggering event code. 
+	 * Returns triggering event code.
 	 * @return String triggerCd
 	 */
 	@javax.persistence.Column(name = "TRIGGER_CD")
@@ -291,20 +291,20 @@ public final class Jobexecution implements DtObject {
 	public String getTriggerCd() {
 		return triggerCd;
 	}
-    
-    /**
+
+	/**
 	 * Champ : triggerCd
-	 * Returns triggering event (from enumeration). 
+	 * Returns triggering event (from enumeration).
 	 * @return ActivityTrigger
 	 */
 	public ActivityTrigger getTrigger() {
 		return ActivityTrigger.valueOf(triggerCd);
 	}
-	
+
 	/**
 	 * Champ : triggerCd
 	 * Sets triggering event.
-	 * @param mode ActivityTrigger
+	 * @param triggerEvent ActivityTrigger
 	 */
 	public void setTrigger(final ActivityTrigger triggerEvent) {
 		triggerCd = triggerEvent.getCode();
@@ -313,40 +313,40 @@ public final class Jobexecution implements DtObject {
 	/**
 	 * Champ : triggerCd
 	 * Sets triggering event.
-	 * @param trigegrCd String
+	 * @param triggerCode String
 	 */
 	public void setTriggerCd(final String triggerCode) {
 		triggerCd = triggerCode;
 	}
 
-    // ************************************************************************
-    // Status : [SUC]cess, [PAR]tial success, [RUN]ning or [FAI]lure
-    // Checked against ActivityStatus enumeration. 
+	// ************************************************************************
+	// Status : [SUC]cess, [PAR]tial success, [RUN]ning or [FAI]lure
+	// Checked against ActivityStatus enumeration.
 
-    /**
+	/**
 	 * Champ : statusCd
-	 * Returns data mode code. 
-	 * @return String jdcCd 
+	 * Returns data mode code.
+	 * @return String jdcCd
 	 */
 	@javax.persistence.Column(name = "STATUS_CD")
 	@Field(domain = "DO_CODE", label = "Status")
 	public String getStatusCd() {
 		return statusCd;
 	}
-    
-    /**
+
+	/**
 	 * Champ : statusCd
-	 * Returns status (from enumeration). 
+	 * Returns status (from enumeration).
 	 * @return ActivityDataMode
 	 */
 	public ActivityStatus getStatus() {
 		return ActivityStatus.valueOf(statusCd);
 	}
-	
+
 	/**
 	 * Champ : statusCd
 	 * Sets status.
-	 * @param mode ActivityStatus
+	 * @param status ActivityStatus
 	 */
 	public void setStatus(final ActivityStatus status) {
 		statusCd = status.getCode();
@@ -355,14 +355,14 @@ public final class Jobexecution implements DtObject {
 	/**
 	 * Champ : statusCd
 	 * Sets status.
-	 * @param statusCd String
+	 * @param statusCode String
 	 */
 	public void setStatusCd(final String statusCode) {
 		statusCd = statusCode;
 	}
 
 	// ************************************************************************
-	
+
 	/** {@inheritDoc} */
 	@Override
 	public String toString() {
