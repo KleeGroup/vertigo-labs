@@ -4,9 +4,11 @@ import snowblood.services.tourdecontrole.TourDeControleServices;
 import io.vertigo.core.Home;
 
 /**
- * Job de maintenance de la tour de controle.
+ * Control tower maintenance task :
+ *     - log and data files purge
+ *     - execution entry purge
  *
- * @author bgenevaux
+ * @author flimont
  */
 public class JobMaintenanceTdc extends JobCalculBase {
 
