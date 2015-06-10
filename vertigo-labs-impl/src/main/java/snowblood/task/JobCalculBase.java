@@ -37,7 +37,9 @@ public abstract class JobCalculBase implements JobExecutor {
 			logger.addAppender(appender);
 			try {
 				Home.getComponentSpace().resolve(JobServices.class).initJobSession();
+				
 				launchBatch();
+				
 				jobex.setStatus(ActivityStatus.SUCCESS);
 			} catch (final VUserException e) {
 				logger.error(e.getMessage(), e);
@@ -48,6 +50,7 @@ public abstract class JobCalculBase implements JobExecutor {
 			} finally {
 				Home.getComponentSpace().resolve(JobServices.class).stopJobSession();
 				Home.getComponentSpace().resolve(JobServices.class).sauvegarderLogs(jobex, logFile.getAbsolutePath());
+				// FIXME : et sauvegarder Data
 				tdcServices.saveJobexecution(jobex);
 			}
 		} catch (final IOException e) {

@@ -57,8 +57,7 @@ public class JobExecution extends Thread {
 		services = Home.getComponentSpace().resolve(JobServices.class);
 		this.definition = definition;
 		execution = new Jobexecution();
-		parametres = StringUtil.isEmpty(definition.getParametresEtendus()) ? new HashMap<String, String>() : IsisUtil.deserializeJson(definition
-				.getParametresEtendus());
+		parametres = StringUtil.isEmpty(definition.getParametresEtendus()) ? new HashMap<String, String>() : IsisUtil.deserializeJson(definition.getParametresEtendus());
 		rapport = new HashMap<>();
 		execution.setJodId(definition.getJodId());
 		// FIXME : Node name, IP/Hostname is not reliable (many NIC, many dns aliases)
@@ -66,7 +65,7 @@ public class JobExecution extends Thread {
 		try {
 			execution.setServeur(InetAddress.getLocalHost().getHostName());
 		} catch (final Exception e) {
-			//
+			// LOL : FIXME
 		}
 		services.saveJobexecution(execution);
 		final Long id = execution.getJoeId();

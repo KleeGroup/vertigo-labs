@@ -3,23 +3,23 @@ package snowblood.task;
 import java.util.Map;
 
 /**
- * Interface générique pour les différents jobs exécutables.
+ * General interface to be implemented by tasks.
  *
  * @author bgenevaux
  */
 public interface JobExecutor {
 
 	/**
-	 * Exécute un job.
+	 * Task execution method
 	 *
-	 * @param params paramètres étendus du job.
+	 * @param params extended parameters.
 	 */
 	void run(final Map<String, String> params);
 
 	/**
-	 * Retourne le rapport d'exécution du job.
-	 *
-	 * @return le rapport d'exécution du job.
+	 * Access to execution report.
+	 * 	 *
+	 * @return execution report.
 	 */
 	Map<String, String> getRapport();
 }

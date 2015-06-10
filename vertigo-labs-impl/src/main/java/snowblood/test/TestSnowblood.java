@@ -22,10 +22,12 @@ import io.vertigo.core.config.AppConfigBuilder;
 import io.vertigo.dynamo.collections.CollectionsManager;
 import io.vertigo.dynamo.database.SqlDataBaseManager;
 import io.vertigo.dynamo.environment.EnvironmentManager;
+import io.vertigo.dynamo.events.EventsManager;
 import io.vertigo.dynamo.file.FileManager;
 import io.vertigo.dynamo.impl.collections.CollectionsManagerImpl;
 import io.vertigo.dynamo.impl.database.SqlDataBaseManagerImpl;
 import io.vertigo.dynamo.impl.environment.EnvironmentManagerImpl;
+import io.vertigo.dynamo.impl.events.EventsManagerImpl;
 import io.vertigo.dynamo.impl.file.FileManagerImpl;
 import io.vertigo.dynamo.impl.persistence.PersistenceManagerImpl;
 import io.vertigo.dynamo.impl.task.TaskManagerImpl;
@@ -36,9 +38,16 @@ import io.vertigo.dynamo.plugins.database.connection.mock.MockConnectionProvider
 import io.vertigo.dynamo.plugins.environment.loaders.java.AnnotationLoaderPlugin;
 import io.vertigo.dynamo.plugins.environment.loaders.kpr.KprLoaderPlugin;
 import io.vertigo.dynamo.plugins.environment.registries.domain.DomainDynamicRegistryPlugin;
+import io.vertigo.dynamo.plugins.environment.registries.file.FileDynamicRegistryPlugin;
+import io.vertigo.dynamo.plugins.events.local.LocalEventsPlugin;
 import io.vertigo.dynamo.plugins.persistence.datastore.postgresql.PostgreSqlDataStorePlugin;
 import io.vertigo.dynamo.task.TaskManager;
 import io.vertigo.dynamo.transaction.VTransactionManager;
+import io.vertigo.persona.impl.security.VSecurityManagerImpl;
+import io.vertigo.persona.plugins.security.loaders.SecurityResourceLoaderPlugin;
+import io.vertigo.persona.security.UserSession;
+import io.vertigo.persona.security.VSecurityManager;
+import io.vertigo.persona.security.VSecurityManagerTest;
 import io.vertigo.tempo.impl.job.JobManagerImpl;
 import io.vertigo.tempo.impl.scheduler.SchedulerManagerImpl;
 import io.vertigo.tempo.job.JobManager;
@@ -53,6 +62,7 @@ import snowblood.gen.dao.JobdefinitionDAO;
 import snowblood.gen.dao.JobexecutionDAO;
 import snowblood.gen.domain.ActivityDataMode;
 import snowblood.gen.domain.Jobdefinition;
+import snowblood.gen.fileinfo.SnowbloodFileInfo;
 import snowblood.gen.services.TourdecontrolePAO;
 import snowblood.services.file.FileServices;
 import snowblood.services.file.FileServicesImpl;
@@ -60,6 +70,8 @@ import snowblood.services.job.JobServices;
 import snowblood.services.job.JobServicesImpl;
 import snowblood.services.tourdecontrole.TourDeControleServices;
 import snowblood.services.tourdecontrole.TourDeControleServicesImpl;
+import snowblood.task.JobExecution;
+import snowblood.task.JobMaintenanceTdc;
 
 public class TestSnowblood {
 	private AppConfig appConfig;
@@ -72,6 +84,10 @@ public class TestSnowblood {
 					.beginComponent(ResourceManager.class, ResourceManagerImpl.class)
 						.beginPlugin(ClassPathResourceResolverPlugin.class).endPlugin()
 					.endComponent()
+					.beginComponent(VSecurityManager.class, VSecurityManagerImpl.class)
+						.withParam("userSessionClassName", UserSession.class.getName())
+						.beginPlugin(SecurityResourceLoaderPlugin.class).endPlugin()
+					.endComponent()					
 					.beginComponent(SchedulerManager.class, SchedulerManagerImpl.class)
 						.beginPlugin(BasicSchedulerPlugin.class).endPlugin()
 					.endComponent()
@@ -93,6 +109,9 @@ public class TestSnowblood {
 							.withParam("sequencePrefix", "SEQ_")
 						.endPlugin()
 					.endComponent()
+					.beginComponent(EventsManager.class, EventsManagerImpl.class)
+						.beginPlugin(LocalEventsPlugin.class).endPlugin()
+					.endComponent()					
 					.beginComponent(VTransactionManager.class, VTransactionManagerImpl.class).endComponent()
 					.beginComponent(SqlDataBaseManager.class, SqlDataBaseManagerImpl.class)
 						.beginPlugin(MockConnectionProviderPlugin.class)
@@ -109,6 +128,7 @@ public class TestSnowblood {
 						.beginPlugin(AnnotationLoaderPlugin.class).endPlugin()
 						.beginPlugin(KprLoaderPlugin.class).endPlugin()
 						.beginPlugin(DomainDynamicRegistryPlugin.class).endPlugin()
+						.beginPlugin(FileDynamicRegistryPlugin.class).endPlugin()
 					.endComponent()
 				.endModule()
 				.beginModule("Snowblood")
@@ -143,7 +163,8 @@ public class TestSnowblood {
 		try (final App app = new App(appConfig)) {
 			final TourDeControleServices tourDeControleServices = Home.getComponentSpace().resolve(TourDeControleServices.class);
 
-			// Create a definition
+			// ****************************************************************
+			// 1 - Create a definition
 			final Jobdefinition jobdefinition = new Jobdefinition();
 			// Mandatory fields
 			jobdefinition.setMultiExecutions(false);
@@ -152,9 +173,10 @@ public class TestSnowblood {
 			jobdefinition.setInterruptible(true);
 			jobdefinition.setTestable(true);
 			jobdefinition.setCompletPossible(true);
-			// Optional fields
+			// Optional fields : many should be mandatory (FIXME)
 			jobdefinition.setCode("TU03");
 			jobdefinition.setDataMode(ActivityDataMode.DELTA);
+			jobdefinition.setImplementation(JobMaintenanceTdc.class.getName());
 			// Save
 			tourDeControleServices.saveJobdefinition(jobdefinition);
 			final Long jobId = jobdefinition.getJodId();
@@ -164,9 +186,24 @@ public class TestSnowblood {
 			final Jobdefinition jobdefinition2 = tourDeControleServices.getJobdefinition(jobId);
 			// Print
 			System.out.println(jobdefinition2.toString());
+			
+			// ****************************************************************
+			// 2 - Execute job
+			final JobExecution jobExecution = new JobExecution(jobdefinition2, null);
+			jobExecution.run();
 
-			// Delete
-			// tourDeControleServices.????(jodId);
+			// ****************************************************************
+			// 3 - Status control
+			System.out.println(jobExecution.getState());
+			
+			// ****************************************************************
+			// 4 - Remove
+
+			// remove execution traces
+			// tourDeControleServices.????(executionId);
+
+			// remove definition
+			// tourDeControleServices.????(executionId);
 
 			System.out.println("test");
 

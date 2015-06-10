@@ -7,6 +7,7 @@ import io.vertigo.dynamo.file.model.FileInfo;
 import io.vertigo.dynamo.file.model.VFile;
 import io.vertigo.dynamo.persistence.PersistenceManager;
 import io.vertigo.dynamo.transaction.Transactional;
+import io.vertigo.dynamock.fileinfo.FileInfoStd;
 
 import java.io.File;
 
@@ -30,10 +31,9 @@ public class FileServicesImpl implements FileServices {
 
 	@Override
 	public Long createFile(final VFile fichier) {
-		final SnowbloodFileInfo fileInfo = new SnowbloodFileInfo(fichier);
-		persistenceManager.getFileInfoBroker().create(fileInfo);
-
-		return (Long) fileInfo.getURI().getKey();
+		  final SnowbloodFileInfo fileInfo = new SnowbloodFileInfo(fichier);
+		  persistenceManager.getFileInfoBroker().create(fileInfo);
+		  return (Long) fileInfo.getURI().getKey();
 	}
 
 	@Override
@@ -47,7 +47,7 @@ public class FileServicesImpl implements FileServices {
 		final FileInfoURI uri = createUri(filId);
 		final FileInfo fileInfo = persistenceManager.getFileInfoBroker().getFileInfo(uri);
 
-		final FileInfo newFileInfo = new SnowbloodFileInfo(fichier);
+		final FileInfoStd newFileInfo = new FileInfoStd(fichier);
 		newFileInfo.setURIStored(fileInfo.getURI());
 		persistenceManager.getFileInfoBroker().update(newFileInfo);
 	}
@@ -66,7 +66,7 @@ public class FileServicesImpl implements FileServices {
 	}
 
 	private static FileInfoURI createUri(final Long filId) {
-		return new FileInfoURI(FileInfoDefinition.findFileInfoDefinition(SnowbloodFileInfo.class), filId);
+		return new FileInfoURI(FileInfoDefinition.findFileInfoDefinition(FileInfoStd.class), filId);
 	}
 
 }

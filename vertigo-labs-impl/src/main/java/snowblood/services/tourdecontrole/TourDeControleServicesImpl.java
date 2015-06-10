@@ -99,6 +99,7 @@ public class TourDeControleServicesImpl implements TourDeControleServices {
 	@Override
 	public void batchMaintenance() {
 		final Logger logger = Logger.getLogger(JobMaintenanceTdc.class);
+		/* CODE métier
 		final DtList<Jobexecution> listJobexeJournauxDelete = jobexecutionDAO.getListJobexecutionJournauxASupprimer();
 		for (final Jobexecution jobexe : listJobexeJournauxDelete) {
 			if (jobexe.getLogs() != null) {
@@ -122,5 +123,7 @@ public class TourDeControleServicesImpl implements TourDeControleServices {
 				}
 			}
 		}
+		*/
+		System.out.println("Job execution");
 	}
 }
