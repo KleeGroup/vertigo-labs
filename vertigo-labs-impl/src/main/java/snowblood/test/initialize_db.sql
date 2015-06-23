@@ -10,11 +10,13 @@ set @base_name = 'tdc';
 -- Rejeu
 -- ************************
 /*
-Drop sequence seq_jobdefinition;
-Drop sequence seq_jobdexecution;
+DROP SEQUENCE seq_jobdefinition;
+DROP SEQUENCE seq_jobdexecution;
+DROP sEQUENCE seq_job_file_info;
 DROP INDEX idx_jod_code;
 DROP TABLE jobdefinition cascade;
 DROP TABLE jobexecution  cascade;
+DROP TABLE job_file_info cascade;
 */
 
 -- ************************
@@ -83,6 +85,23 @@ GRANT SELECT, UPDATE, INSERT ON TABLE jobexecution TO @user_role;
 CREATE INDEX jobexecution_jod_id_fk ON jobexecution USING btree (jod_id);
 
 Create sequence seq_jobexecution minvalue 1000 increment 1;
+
+-- Table: job_file_info
+CREATE TABLE job_file_info (
+  fil_id bigint                             NOT NULL, -- FIL_ID
+  file_name character varying(150)          NOT NULL, -- FILE_NAME
+  mime_type character varying(150)          NOT NULL, -- MIME_TYPE
+  last_modified timestamp without time zone NOT NULL, -- LAST_MODIFIED
+  length bigint,                                      -- LENGTH
+  file_path character varying(300),         NOT NULL  -- FILE_PATH
+  CONSTRAINT pk_job_file_info PRIMARY KEY (fil_id) USING INDEX TABLESPACE @tbs_index
+) TABLESPACE @tbs_data;
+
+ALTER TABLE job_file_info OWNER TO @user_role;
+GRANT ALL ON TABLE job_file_info TO @user_role;
+GRANT SELECT, UPDATE, INSERT ON TABLE job_file_info TO @user_role;
+
+Create sequence seq_job_file_info minvalue 1000 increment 1;
 
 -- ************************
 -- Données initiales

@@ -39,11 +39,16 @@ create Domain DO_IDENTIFIANT {
 	formatter : FMT_DEFAULT
 }
 
+create Domain DO_FILE_SIZE {
+	dataType : Long
+	formatter : FMT_DEFAULT
+}
+	
 create Domain DO_NOMBRE_ENTIER {
 	dataType : Integer
 	formatter : FMT_DEFAULT
 }
-	
+
 create Domain DO_BOOLEEN {
 	dataType : Boolean
 	formatter : FMT_DEFAULT

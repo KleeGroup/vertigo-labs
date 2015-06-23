@@ -8,6 +8,7 @@ import snowblood.gen.domain.ActivityStatus;
 import snowblood.gen.domain.ActivityTrigger;
 import snowblood.gen.domain.ActivityRejectRule;
 import snowblood.gen.domain.ActivityDirection;
+import snowblood.gen.domain.JobFileInfo;
 import snowblood.gen.domain.Jobdefinition;
 import snowblood.gen.domain.Jobexecution;
 
@@ -22,6 +23,7 @@ public final class DtDefinitions implements Iterable<Class<?>> {
 				ActivityTrigger.class,
 				ActivityRejectRule.class,
 				ActivityDirection.class,
+				JobFileInfo.class,
 		}).iterator();
 	}
 }

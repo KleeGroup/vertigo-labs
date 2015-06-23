@@ -24,6 +24,7 @@ import io.vertigo.dynamo.database.SqlDataBaseManager;
 import io.vertigo.dynamo.environment.EnvironmentManager;
 import io.vertigo.dynamo.events.EventsManager;
 import io.vertigo.dynamo.file.FileManager;
+import io.vertigo.dynamo.file.metamodel.FileInfoDefinition;
 import io.vertigo.dynamo.impl.collections.CollectionsManagerImpl;
 import io.vertigo.dynamo.impl.database.SqlDataBaseManagerImpl;
 import io.vertigo.dynamo.impl.environment.EnvironmentManagerImpl;
@@ -41,6 +42,7 @@ import io.vertigo.dynamo.plugins.environment.registries.domain.DomainDynamicRegi
 import io.vertigo.dynamo.plugins.environment.registries.file.FileDynamicRegistryPlugin;
 import io.vertigo.dynamo.plugins.events.local.LocalEventsPlugin;
 import io.vertigo.dynamo.plugins.persistence.datastore.postgresql.PostgreSqlDataStorePlugin;
+import io.vertigo.dynamo.plugins.persistence.filestore.fs.FsFileStorePlugin;
 import io.vertigo.dynamo.task.TaskManager;
 import io.vertigo.dynamo.transaction.VTransactionManager;
 import io.vertigo.persona.impl.security.VSecurityManagerImpl;
@@ -62,7 +64,6 @@ import snowblood.gen.dao.JobdefinitionDAO;
 import snowblood.gen.dao.JobexecutionDAO;
 import snowblood.gen.domain.ActivityDataMode;
 import snowblood.gen.domain.Jobdefinition;
-import snowblood.gen.fileinfo.SnowbloodFileInfo;
 import snowblood.gen.services.TourdecontrolePAO;
 import snowblood.services.file.FileServices;
 import snowblood.services.file.FileServicesImpl;
@@ -107,6 +108,11 @@ public class TestSnowblood {
 					.beginComponent(PersistenceManager.class, PersistenceManagerImpl.class)
 						.beginPlugin(PostgreSqlDataStorePlugin.class)
 							.withParam("sequencePrefix", "SEQ_")
+						.endPlugin()
+						.beginPlugin(FsFileStorePlugin.class)
+							// FIXME : path should be platform-independent
+							// Trailing "/" is important
+							.withParam("path", "c:/temp/")
 						.endPlugin()
 					.endComponent()
 					.beginComponent(EventsManager.class, EventsManagerImpl.class)
@@ -159,8 +165,8 @@ public class TestSnowblood {
 	public void test() {
 
 		//	Home.getComponentSpace().resolve(VTransactionManager.class);
-
 		try (final App app = new App(appConfig)) {
+			
 			final TourDeControleServices tourDeControleServices = Home.getComponentSpace().resolve(TourDeControleServices.class);
 
 			// ****************************************************************
