@@ -2,7 +2,7 @@ package io.vertigo.addons.impl.comments;
 
 import io.vertigo.addons.comments.Comment;
 import io.vertigo.addons.comments.CommentsManager;
-import io.vertigo.dynamo.domain.model.DtSubject;
+import io.vertigo.dynamo.domain.model.KeyConcept;
 import io.vertigo.dynamo.domain.model.URI;
 import io.vertigo.lang.Assertion;
 
@@ -24,13 +24,13 @@ public final class CommentsManagerImpl implements CommentsManager {
 	}
 
 	@Override
-	public void publish(final Comment comment, final URI<? extends DtSubject> subjectURI) {
+	public void publish(final Comment comment, final URI<? extends KeyConcept> subjectURI) {
 		final CommentEvent notificationEvent = new CommentEvent(comment, subjectURI);
 		commentsPlugin.emit(notificationEvent);
 	}
 
 	@Override
-	public List<Comment> getComments(final URI<? extends DtSubject> subjectURI) {
+	public List<Comment> getComments(final URI<? extends KeyConcept> subjectURI) {
 		Assertion.checkNotNull(subjectURI);
 		//-----
 		return commentsPlugin.getComments(subjectURI);

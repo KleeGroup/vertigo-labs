@@ -1,6 +1,6 @@
 package io.vertigo.addons;
 
-import io.vertigo.dynamo.domain.model.DtSubject;
+import io.vertigo.dynamo.domain.model.KeyConcept;
 import io.vertigo.dynamo.domain.stereotype.DtDefinition;
 import io.vertigo.dynamo.domain.stereotype.Field;
 
@@ -8,7 +8,7 @@ import io.vertigo.dynamo.domain.stereotype.Field;
  * @author pchretien
  */
 @DtDefinition
-public final class Movie implements DtSubject {
+public final class Movie implements KeyConcept {
 	private static final long serialVersionUID = -3629724099843015770L;
 
 	@Field(domain = "DO_ID", type = "PRIMARY_KEY", notNull = true, label = "id")

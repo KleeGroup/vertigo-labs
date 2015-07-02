@@ -1,14 +1,14 @@
 package io.vertigo.addons.impl.comments;
 
 import io.vertigo.addons.comments.Comment;
-import io.vertigo.dynamo.domain.model.DtSubject;
+import io.vertigo.dynamo.domain.model.KeyConcept;
 import io.vertigo.dynamo.domain.model.URI;
 import io.vertigo.lang.Assertion;
 
 /**
  * @author pchretien
  */
-public final class CommentEvent<S extends DtSubject> {
+public final class CommentEvent<S extends KeyConcept> {
 	private final Comment comment;
 	public final URI<S> subjectURI;
 

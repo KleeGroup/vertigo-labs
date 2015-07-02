@@ -7,7 +7,7 @@ import io.vertigo.addons.impl.comments.CommentEvent;
 import io.vertigo.addons.impl.comments.CommentsPlugin;
 import io.vertigo.addons.users.VUserProfile;
 import io.vertigo.dynamo.domain.metamodel.DtDefinition;
-import io.vertigo.dynamo.domain.model.DtSubject;
+import io.vertigo.dynamo.domain.model.KeyConcept;
 import io.vertigo.dynamo.domain.model.URI;
 import io.vertigo.dynamo.domain.util.DtObjectUtil;
 import io.vertigo.lang.Assertion;
@@ -69,7 +69,7 @@ public final class RedisCommentsPlugin implements CommentsPlugin {
 	}
 
 	@Override
-	public <S extends DtSubject> List<Comment> getComments(final URI<S> subjectURI) {
+	public <S extends KeyConcept> List<Comment> getComments(final URI<S> subjectURI) {
 		final List<Response<Map<String, String>>> responses = new ArrayList<>();
 		try (final Jedis jedis = redisConnector.getResource()) {
 			final List<String> uuids = jedis.lrange("comments:" + subjectURI.getId(), 0, -1);
