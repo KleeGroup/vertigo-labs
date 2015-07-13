@@ -1,7 +1,7 @@
 package io.vertigo.addons.impl.notifications;
 
+import io.vertigo.addons.account.Account;
 import io.vertigo.addons.notifications.Notification;
-import io.vertigo.addons.users.VUserProfile;
 import io.vertigo.dynamo.domain.model.URI;
 import io.vertigo.lang.Assertion;
 
@@ -14,11 +14,11 @@ import java.util.List;
  */
 public final class NotificationEvent {
 	private final Notification notification;
-	public final List<URI<VUserProfile>> toUserProfileURIs;
+	public final List<URI<Account>> toUserProfileURIs;
 
 	//private final List<VUserGroup> toUserGroups;
 
-	NotificationEvent(final Notification notification, final List<URI<VUserProfile>> toUserProfileURIs) {
+	NotificationEvent(final Notification notification, final List<URI<Account>> toUserProfileURIs) {
 		Assertion.checkNotNull(notification);
 		Assertion.checkNotNull(toUserProfileURIs);
 		//-----
@@ -30,7 +30,7 @@ public final class NotificationEvent {
 		return notification;
 	}
 
-	public List<URI<VUserProfile>> getToUserProfileURIs() {
+	public List<URI<Account>> getToUserProfileURIs() {
 		return toUserProfileURIs;
 	}
 }

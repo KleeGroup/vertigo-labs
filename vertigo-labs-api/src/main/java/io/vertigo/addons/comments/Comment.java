@@ -1,6 +1,6 @@
 package io.vertigo.addons.comments;
 
-import io.vertigo.addons.users.VUserProfile;
+import io.vertigo.addons.account.Account;
 import io.vertigo.dynamo.domain.model.URI;
 import io.vertigo.lang.Assertion;
 
@@ -11,12 +11,12 @@ import java.util.UUID;
  */
 public final class Comment {
 	private final UUID uuid;
-	private final URI<VUserProfile> author;
+	private final URI<Account> author;
 	private final String msg;
 
 	//	private final Date creationDate;
 
-	Comment(final UUID uuid, final URI<VUserProfile> author, final String msg) {
+	Comment(final UUID uuid, final URI<Account> author, final String msg) {
 		Assertion.checkNotNull(uuid);
 		Assertion.checkNotNull(author);
 		Assertion.checkArgNotEmpty(msg);
@@ -27,7 +27,7 @@ public final class Comment {
 		//	this.creationDate = DateUtil.newDateTime();
 	}
 
-	public URI<VUserProfile> getAuthor() {
+	public URI<Account> getAuthor() {
 		return author;
 	}
 

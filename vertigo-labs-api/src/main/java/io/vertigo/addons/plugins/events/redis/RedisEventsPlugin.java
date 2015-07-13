@@ -1,14 +1,12 @@
-package io.vertigo.dynamo.plugins.events.redis;
+package io.vertigo.addons.plugins.events.redis;
 
-import io.vertigo.commons.codec.CodecManager;
-import io.vertigo.commons.event.Event;
-import io.vertigo.commons.event.EventBuilder;
-import io.vertigo.commons.event.EventChannel;
-import io.vertigo.commons.event.EventListener;
-import io.vertigo.dynamo.addons.connectors.redis.RedisConnector;
+import io.vertigo.addons.connectors.redis.RedisConnector;
+import io.vertigo.addons.events.Event;
+import io.vertigo.addons.events.EventBuilder;
+import io.vertigo.addons.events.EventListener;
+import io.vertigo.addons.impl.events.EventsPlugin;
 import io.vertigo.lang.Assertion;
 
-import java.io.Serializable;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -19,86 +17,62 @@ import redis.clients.jedis.Transaction;
 /**
  * @author pchretien
  */
-public final class RedisEventsPlugin implements EventPlugin {
-
+public final class RedisEventsPlugin implements EventsPlugin {
 	private final RedisConnector redisConnector;
-	private final CodecManager codecManager;
 
 	@Inject
-	public RedisEventsPlugin(final RedisConnector redisConnector, final CodecManager codecManager) {
+	public RedisEventsPlugin(final RedisConnector redisConnector) {
 		Assertion.checkNotNull(redisConnector);
-		Assertion.checkNotNull(codecManager);
 		//-----
 		this.redisConnector = redisConnector;
-		this.codecManager = codecManager;
 	}
 
-	/** {@inheritDoc} */
 	@Override
-	public <P extends Serializable> void emit(final EventChannel<P> channel, final Event<P> event) {
-		Assertion.checkNotNull(channel);
+	public void emit(final String channel, final Event event) {
+		Assertion.checkArgNotEmpty(channel);
 		Assertion.checkNotNull(event);
 		//----
 		try (final Jedis jedis = redisConnector.getResource()) {
 			final Transaction tx = jedis.multi();
-			final String base64Payload = encodeToBase64(event.getPayload());
-			tx.hset("event:" + event.getUuid(), "payload", base64Payload);
+			tx.hset("event:" + event.getUuid(), "payload", event.getPayload());
 			tx.lpush("events:" + channel + ":pending", "event:" + event.getUuid());
 			tx.exec();
 		}
+
 	}
 
-	private <P extends Serializable> String encodeToBase64(final P payload) {
-		final byte[] binaryPayload = codecManager.getCompressedSerializationCodec().encode(payload);
-		final String base64Payload = codecManager.getBase64Codec().encode(binaryPayload);
-		return base64Payload;
-	}
-
-	/** {@inheritDoc} */
 	@Override
-	public <P extends Serializable> void register(final EventChannel<P> channel, final EventListener<P> eventsListener) {
-		Assertion.checkNotNull(channel);
-		Assertion.checkNotNull(eventsListener);
+	public void register(final String channel, final EventListener eventListener) {
+		Assertion.checkArgNotEmpty(channel);
+		Assertion.checkNotNull(eventListener);
 		//----
-		new MyListener<>(channel, eventsListener, redisConnector, codecManager).start();
+		new MyListener(channel, eventListener, redisConnector).start();
 	}
 
-	private static class MyListener<P extends Serializable> extends Thread {
-
-		private final CodecManager codecManager;
-		private final EventChannel<P> channel;
+	private static class MyListener extends Thread {
+		private final String channel;
 		private final RedisConnector redisConnector;
-		private final EventListener<P> eventsListener;
+		private final EventListener eventListener;
 
-		MyListener(final EventChannel<P> channel, final EventListener<P> eventsListener, final RedisConnector redisConnector, final CodecManager codecManager) {
+		MyListener(final String channel, final EventListener eventListener, final RedisConnector redisConnector) {
 			this.channel = channel;
 			this.redisConnector = redisConnector;
-			this.eventsListener = eventsListener;
-			this.codecManager = codecManager;
+			this.eventListener = eventListener;
 		}
 
-		/** {@inheritDoc} */
 		@Override
 		public void run() {
 			while (!isInterrupted()) {
 				try (final Jedis jedis = redisConnector.getResource()) {
 					final String eventUUID = jedis.brpoplpush("events:" + channel + ":pending", "events:done", 10);
 					final UUID uuid = UUID.fromString(eventUUID.substring("event:".length()));
-
-					final P payload = decodeFromBase64(jedis.hget(eventUUID, "payload"));
 					final Event event = new EventBuilder()
 							.withUUID(uuid)
-							.withPayload(payload)
+							.withPayload(jedis.hget(eventUUID, "payload"))
 							.build();
-					eventsListener.onEvent(event);
+					eventListener.onEvent(event);
 				}
 			}
-		}
-
-		private P decodeFromBase64(final String base64Payload) {
-			final byte[] binaryPayload = codecManager.getBase64Codec().decode(base64Payload);
-			final P payload = (P) codecManager.getCompressedSerializationCodec().decode(binaryPayload);
-			return payload;
 		}
 	}
 }

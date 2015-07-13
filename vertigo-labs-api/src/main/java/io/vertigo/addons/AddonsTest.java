@@ -1,6 +1,9 @@
 package io.vertigo.addons;
 
 import io.vertigo.AbstractTestCaseJU4;
+import io.vertigo.addons.account.Account;
+import io.vertigo.addons.account.AccountBuilder;
+import io.vertigo.addons.account.AccountManager;
 import io.vertigo.addons.comments.Comment;
 import io.vertigo.addons.comments.CommentBuilder;
 import io.vertigo.addons.comments.CommentsManager;
@@ -11,9 +14,6 @@ import io.vertigo.addons.events.EventsManager;
 import io.vertigo.addons.notifications.Notification;
 import io.vertigo.addons.notifications.NotificationBuilder;
 import io.vertigo.addons.notifications.NotificationsManager;
-import io.vertigo.addons.users.VUserProfile;
-import io.vertigo.addons.users.VUserProfileBuilder;
-import io.vertigo.addons.users.VUsersManager;
 import io.vertigo.dynamo.domain.metamodel.DtDefinition;
 import io.vertigo.dynamo.domain.model.URI;
 import io.vertigo.dynamo.domain.util.DtObjectUtil;
@@ -30,7 +30,7 @@ public class AddonsTest extends AbstractTestCaseJU4 {
 	private NotificationsManager notificationsManager;
 
 	@Inject
-	private VUsersManager usersManager;
+	private AccountManager usersManager;
 
 	@Inject
 	private CommentsManager commentsManager;
@@ -40,19 +40,19 @@ public class AddonsTest extends AbstractTestCaseJU4 {
 
 	@Test
 	public void testUsers() {
-		final VUserProfile userProfile0 = new VUserProfileBuilder()
+		final Account userProfile0 = new AccountBuilder()
 				.withId("0")
 				.withDisplayName("zeus")
 				.build();
 		usersManager.saveUserProfile(userProfile0);
 
-		final VUserProfile userProfile1 = new VUserProfileBuilder()
+		final Account userProfile1 = new AccountBuilder()
 				.withId("1")
 				.withDisplayName("hector")
 				.build();
 		usersManager.saveUserProfile(userProfile1);
 
-		final VUserProfile userProfile2 = new VUserProfileBuilder()
+		final Account userProfile2 = new AccountBuilder()
 				.withId("2")
 				.withDisplayName("Priam")
 				.build();
@@ -61,10 +61,10 @@ public class AddonsTest extends AbstractTestCaseJU4 {
 
 	@Test
 	public void testNotifications() throws InterruptedException {
-		final DtDefinition dtDefinition = DtObjectUtil.findDtDefinition(VUserProfile.class);
-		final URI<VUserProfile> user0 = new URI<>(dtDefinition, "0");
-		final URI<VUserProfile> user1 = new URI<>(dtDefinition, "1");
-		final URI<VUserProfile> user2 = new URI<>(dtDefinition, "2");
+		final DtDefinition dtDefinition = DtObjectUtil.findDtDefinition(Account.class);
+		final URI<Account> user0 = new URI<>(dtDefinition, "0");
+		final URI<Account> user1 = new URI<>(dtDefinition, "1");
+		final URI<Account> user2 = new URI<>(dtDefinition, "2");
 		//-----
 		final Notification notification = new NotificationBuilder()
 				.withSender(user0)
@@ -86,9 +86,9 @@ public class AddonsTest extends AbstractTestCaseJU4 {
 
 	@Test
 	public void testComments() {
-		final DtDefinition dtDefinition = DtObjectUtil.findDtDefinition(VUserProfile.class);
+		final DtDefinition dtDefinition = DtObjectUtil.findDtDefinition(Account.class);
 		final DtDefinition movieDefinition = DtObjectUtil.findDtDefinition(Movie.class);
-		final URI<VUserProfile> user0 = new URI<>(dtDefinition, "0");
+		final URI<Account> user0 = new URI<>(dtDefinition, "0");
 		final URI<Movie> movieURI = new URI<>(movieDefinition, "1");
 		//-----
 		final Comment comment = new CommentBuilder()

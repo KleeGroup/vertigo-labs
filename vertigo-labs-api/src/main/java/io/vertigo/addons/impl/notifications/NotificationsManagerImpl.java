@@ -1,8 +1,8 @@
 package io.vertigo.addons.impl.notifications;
 
+import io.vertigo.addons.account.Account;
 import io.vertigo.addons.notifications.Notification;
 import io.vertigo.addons.notifications.NotificationsManager;
-import io.vertigo.addons.users.VUserProfile;
 import io.vertigo.dynamo.domain.model.URI;
 import io.vertigo.lang.Assertion;
 
@@ -25,13 +25,13 @@ public final class NotificationsManagerImpl implements NotificationsManager {
 	}
 
 	@Override
-	public void send(final Notification notification, final URI<VUserProfile> userProfileURI) {
+	public void send(final Notification notification, final URI<Account> userProfileURI) {
 		final NotificationEvent notificationEvent = new NotificationEvent(notification, Collections.singletonList(userProfileURI));
 		notificationsPlugin.emit(notificationEvent);
 	}
 
 	@Override
-	public List<Notification> getCurrentNotifications(final URI<VUserProfile> userProfileURI) {
+	public List<Notification> getCurrentNotifications(final URI<Account> userProfileURI) {
 		Assertion.checkNotNull(userProfileURI);
 		//-----
 		return notificationsPlugin.getCurrentNotifications(userProfileURI);

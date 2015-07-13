@@ -1,11 +1,11 @@
 package io.vertigo.addons.plugins.comments.redis;
 
+import io.vertigo.addons.account.Account;
 import io.vertigo.addons.comments.Comment;
 import io.vertigo.addons.comments.CommentBuilder;
 import io.vertigo.addons.connectors.redis.RedisConnector;
 import io.vertigo.addons.impl.comments.CommentEvent;
 import io.vertigo.addons.impl.comments.CommentsPlugin;
-import io.vertigo.addons.users.VUserProfile;
 import io.vertigo.dynamo.domain.metamodel.DtDefinition;
 import io.vertigo.dynamo.domain.model.KeyConcept;
 import io.vertigo.dynamo.domain.model.URI;
@@ -59,10 +59,10 @@ public final class RedisCommentsPlugin implements CommentsPlugin {
 	}
 
 	private static Comment fromMap(final Map<String, String> data) {
-		final DtDefinition dtDefinition = DtObjectUtil.findDtDefinition(VUserProfile.class);
+		final DtDefinition dtDefinition = DtObjectUtil.findDtDefinition(Account.class);
 
 		return new CommentBuilder()
-				.withAuthor(new URI<VUserProfile>(dtDefinition, data.get("author")))
+				.withAuthor(new URI<Account>(dtDefinition, data.get("author")))
 				.withUUID(UUID.fromString(data.get("uuid")))
 				.withMsg(data.get("msg"))
 				.build();

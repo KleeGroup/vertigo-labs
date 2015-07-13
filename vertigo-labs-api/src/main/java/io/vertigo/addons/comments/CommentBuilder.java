@@ -1,6 +1,6 @@
 package io.vertigo.addons.comments;
 
-import io.vertigo.addons.users.VUserProfile;
+import io.vertigo.addons.account.Account;
 import io.vertigo.dynamo.domain.model.URI;
 import io.vertigo.lang.Assertion;
 import io.vertigo.lang.Builder;
@@ -15,7 +15,7 @@ public final class CommentBuilder implements Builder<Comment> {
 	//	private Comment myParent;
 	private UUID myUuid;
 	private String myMsg;
-	private URI<VUserProfile> myAuthor;
+	private URI<Account> myAuthor;
 
 	//	public <S extends DtSubject> CommentBuilder withSubject(final URI<S> subjectURI) {
 	//		Assertion.checkArgument(mySubjectURI == null, "subject already set");
@@ -33,7 +33,7 @@ public final class CommentBuilder implements Builder<Comment> {
 	//		return this;
 	//	}
 
-	public CommentBuilder withAuthor(final URI<VUserProfile> author) {
+	public CommentBuilder withAuthor(final URI<Account> author) {
 		Assertion.checkArgument(myAuthor == null, "author already set");
 		Assertion.checkNotNull(author);
 		//-----

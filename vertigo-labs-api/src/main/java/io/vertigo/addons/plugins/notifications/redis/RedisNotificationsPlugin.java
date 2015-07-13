@@ -1,11 +1,11 @@
 package io.vertigo.addons.plugins.notifications.redis;
 
+import io.vertigo.addons.account.Account;
 import io.vertigo.addons.connectors.redis.RedisConnector;
 import io.vertigo.addons.impl.notifications.NotificationEvent;
 import io.vertigo.addons.impl.notifications.NotificationsPlugin;
 import io.vertigo.addons.notifications.Notification;
 import io.vertigo.addons.notifications.NotificationBuilder;
-import io.vertigo.addons.users.VUserProfile;
 import io.vertigo.dynamo.domain.metamodel.DtDefinition;
 import io.vertigo.dynamo.domain.model.URI;
 import io.vertigo.dynamo.domain.util.DtObjectUtil;
@@ -47,7 +47,7 @@ public final class RedisNotificationsPlugin implements NotificationsPlugin {
 			if (notification.getTTLInSeconds() > 0) {
 				tx.expire("notif:" + uuid, notification.getTTLInSeconds());
 			}
-			for (final URI<VUserProfile> userProfileURI : notificationEvent.getToUserProfileURIs()) {
+			for (final URI<Account> userProfileURI : notificationEvent.getToUserProfileURIs()) {
 				//On publie la notif
 				tx.lpush("notifs:" + userProfileURI.getId(), uuid);
 			}
@@ -64,16 +64,16 @@ public final class RedisNotificationsPlugin implements NotificationsPlugin {
 	}
 
 	private static Notification fromMap(final Map<String, String> data) {
-		final DtDefinition dtDefinition = DtObjectUtil.findDtDefinition(VUserProfile.class);
+		final DtDefinition dtDefinition = DtObjectUtil.findDtDefinition(Account.class);
 		return new NotificationBuilder()
 				.withMsg(data.get("msg"))
 				.withTitle(data.get("title"))
-				.withSender(new URI<VUserProfile>(dtDefinition, data.get("sender")))
+				.withSender(new URI<Account>(dtDefinition, data.get("sender")))
 				.build();
 	}
 
 	@Override
-	public List<Notification> getCurrentNotifications(final URI<VUserProfile> userProfileURI) {
+	public List<Notification> getCurrentNotifications(final URI<Account> userProfileURI) {
 		final List<Response<Map<String, String>>> responses = new ArrayList<>();
 		try (final Jedis jedis = redisConnector.getResource()) {
 			final List<String> uuids = jedis.lrange("notifs:" + userProfileURI.getId(), 0, -1);

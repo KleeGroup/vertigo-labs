@@ -1,9 +1,9 @@
 package io.vertigo.addons.plugins.notifications.memory;
 
+import io.vertigo.addons.account.Account;
 import io.vertigo.addons.impl.notifications.NotificationEvent;
 import io.vertigo.addons.impl.notifications.NotificationsPlugin;
 import io.vertigo.addons.notifications.Notification;
-import io.vertigo.addons.users.VUserProfile;
 import io.vertigo.dynamo.domain.model.URI;
 import io.vertigo.lang.Assertion;
 
@@ -17,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author pchretien
  */
 public final class MemoryNotificationsPlugin implements NotificationsPlugin {
-	private final Map<URI<VUserProfile>, List<Notification>> notificationsByUserId = new ConcurrentHashMap<>();
+	private final Map<URI<Account>, List<Notification>> notificationsByUserId = new ConcurrentHashMap<>();
 
 	@Override
 	public void emit(final NotificationEvent notificationEvent) {
@@ -26,7 +26,7 @@ public final class MemoryNotificationsPlugin implements NotificationsPlugin {
 		//0 - Remplir la pile des événements
 
 		//1 - Dépiler les événemnts en asynchrone FIFO
-		for (final URI<VUserProfile> userProfileURI : notificationEvent.getToUserProfileURIs()) {
+		for (final URI<Account> userProfileURI : notificationEvent.getToUserProfileURIs()) {
 			obtainNotifications(userProfileURI).add(notificationEvent.getNotification());
 		}
 
@@ -34,7 +34,7 @@ public final class MemoryNotificationsPlugin implements NotificationsPlugin {
 	}
 
 	@Override
-	public List<Notification> getCurrentNotifications(final URI<VUserProfile> userProfileURI) {
+	public List<Notification> getCurrentNotifications(final URI<Account> userProfileURI) {
 		Assertion.checkNotNull(userProfileURI);
 		//-----
 		final List<Notification> notifications = notificationsByUserId.get(userProfileURI);
@@ -44,7 +44,7 @@ public final class MemoryNotificationsPlugin implements NotificationsPlugin {
 		return notifications;
 	}
 
-	private List<Notification> obtainNotifications(final URI<VUserProfile> userPofileURI) {
+	private List<Notification> obtainNotifications(final URI<Account> userPofileURI) {
 		Assertion.checkNotNull(userPofileURI);
 		//-----
 		List<Notification> notifications = notificationsByUserId.get(userPofileURI);

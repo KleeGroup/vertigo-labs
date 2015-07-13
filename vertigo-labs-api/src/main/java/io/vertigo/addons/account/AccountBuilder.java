@@ -1,4 +1,4 @@
-package io.vertigo.addons.users;
+package io.vertigo.addons.account;
 
 import io.vertigo.lang.Assertion;
 import io.vertigo.lang.Builder;
@@ -6,11 +6,11 @@ import io.vertigo.lang.Builder;
 /**
  * @author pchretien
  */
-public final class VUserProfileBuilder implements Builder<VUserProfile> {
+public final class AccountBuilder implements Builder<Account> {
 	private String myId;
 	private String myDisplayName;
 
-	public VUserProfileBuilder withId(final String id) {
+	public AccountBuilder withId(final String id) {
 		Assertion.checkArgument(myId == null, "id already set");
 		Assertion.checkArgNotEmpty(id);
 		//-----
@@ -18,7 +18,7 @@ public final class VUserProfileBuilder implements Builder<VUserProfile> {
 		return this;
 	}
 
-	public VUserProfileBuilder withDisplayName(final String displayName) {
+	public AccountBuilder withDisplayName(final String displayName) {
 		Assertion.checkArgument(myDisplayName == null, "displayName already set");
 		Assertion.checkArgNotEmpty(displayName);
 		//-----
@@ -27,7 +27,7 @@ public final class VUserProfileBuilder implements Builder<VUserProfile> {
 	}
 
 	@Override
-	public VUserProfile build() {
-		return new VUserProfile(myId, myDisplayName);
+	public Account build() {
+		return new Account(myId, myDisplayName);
 	}
 }

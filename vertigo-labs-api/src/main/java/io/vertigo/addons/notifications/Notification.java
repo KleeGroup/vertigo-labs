@@ -1,6 +1,6 @@
 package io.vertigo.addons.notifications;
 
-import io.vertigo.addons.users.VUserProfile;
+import io.vertigo.addons.account.Account;
 import io.vertigo.dynamo.domain.model.URI;
 import io.vertigo.lang.Assertion;
 
@@ -8,14 +8,14 @@ import io.vertigo.lang.Assertion;
  * @author pchretien
  */
 public final class Notification {
-	private final URI<VUserProfile> sender;
+	private final URI<Account> sender;
 	private final String title;
 	private final String msg;
 	private final int ttlInSeconds;
 
 	//	private final Date creationDate;
 
-	public Notification(final URI<VUserProfile> sender, final String title, final String msg, final int ttlInSeconds) {
+	public Notification(final URI<Account> sender, final String title, final String msg, final int ttlInSeconds) {
 		Assertion.checkNotNull(sender);
 		Assertion.checkArgNotEmpty(title);
 		Assertion.checkArgNotEmpty(msg);
@@ -27,7 +27,7 @@ public final class Notification {
 		this.ttlInSeconds = ttlInSeconds;
 	}
 
-	public URI<VUserProfile> getSender() {
+	public URI<Account> getSender() {
 		return sender;
 	}
 

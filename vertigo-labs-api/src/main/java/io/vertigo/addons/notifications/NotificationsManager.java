@@ -1,6 +1,6 @@
 package io.vertigo.addons.notifications;
 
-import io.vertigo.addons.users.VUserProfile;
+import io.vertigo.addons.account.Account;
 import io.vertigo.dynamo.domain.model.URI;
 import io.vertigo.lang.Component;
 
@@ -18,11 +18,11 @@ public interface NotificationsManager extends Component {
 
 	//
 	//-----
-	void send(Notification notification, URI<VUserProfile> userPofileURI);
+	void send(Notification notification, URI<Account> userPofileURI);
 
 	//	void emit(NotificationEvent notificationEvent);
 
-	List<Notification> getCurrentNotifications(URI<VUserProfile> userProfileURI);
+	List<Notification> getCurrentNotifications(URI<Account> userProfileURI);
 
 	//	void acquit (VUserProfile userProfile, Notification)
 

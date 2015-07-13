@@ -1,35 +1,36 @@
 <?xml version =	'1.0' encoding = 'ISO-8859-1'?>
 <config>
-	<module name = "vertigo-notifications-required">
+	<boot>
 		<component api="ResourceManager" class="io.vertigo.commons.impl.resource.ResourceManagerImpl">
 			<plugin class="io.vertigo.commons.plugins.resource.java.ClassPathResourceResolverPlugin" />
 		</component>
-	</module>
-	
-		
-	<module name="addons">
 		<component api="EnvironmentManager" class="io.vertigo.dynamo.impl.environment.EnvironmentManagerImpl">
 			<plugin class="io.vertigo.dynamo.plugins.environment.loaders.kpr.KprLoaderPlugin" />
 			<plugin class="io.vertigo.dynamo.plugins.environment.loaders.java.AnnotationLoaderPlugin" />
 			<plugin class="io.vertigo.dynamo.plugins.environment.registries.domain.DomainDynamicRegistryPlugin" />
 		</component>
-	</module>	
-	
+	</boot>	
 
 	<module name="vertigo-addons" api="false">
+		<resource type="kpr" path="io/vertigo/addons/application.kpr" />
+		<resource type="classes" path="io.vertigo.addons.DtDefinitions" />
+		
+		<component api="CodecManager" class="io.vertigo.commons.impl.codec.CodecManagerImpl" />
+		
+		
 		<component class="io.vertigo.addons.connectors.redis.RedisConnector">
-  			<param name="host" value="localhost"/>
+  			<param name="host" value="pchretien"/>
   			<param name="port" value="6379"/>
  
- <!--  			<param name="host" value="pub-redis-12999.us-east-1-3.2.ec2.garantiadata.com"/>
+ <!--  		<param name="host" value="pub-redis-12999.us-east-1-3.2.ec2.garantiadata.com"/>
  			<param name="port" value="12999"/>
  			<param name="password" value="kleegroup"/> 
   -->
   		</component>
 	
 	
-	   <component api="VUsersManager" class="io.vertigo.addons.impl.users.VUsersManagerImpl" >
-  			<plugin class="io.vertigo.addons.plugins.users.memory.MemoryVUsersPlugin" />
+	   <component api="AccountManager" class="io.vertigo.addons.impl.account.AccountManagerImpl" >
+  			<plugin class="io.vertigo.addons.plugins.account.memory.MemoryAccountPlugin" />
   		</component>	
 
 	   <component api="NotificationsManager" class="io.vertigo.addons.impl.notifications.NotificationsManagerImpl" >
@@ -42,14 +43,9 @@
  			<plugin class="io.vertigo.addons.plugins.comments.redis.RedisCommentsPlugin"/>
 	   </component>
 	   
-     <component api="EventsManager" class="io.vertigo.addons.impl.events.EventsManagerImpl" >
+     	<component api="EventsManager" class="io.vertigo.addons.impl.events.EventsManagerImpl" >
  			<plugin class="io.vertigo.addons.plugins.events.redis.RedisEventsPlugin"/>
-	   </component>
-	</module>
+	  	</component>
 
-	<module name="vertigo-addons-def">
-		<resource type="kpr" path="io/vertigo/addons/application.kpr" />
-		<resource type="classes" path="io.vertigo.addons.DtDefinitions" />
 	</module>
-
 </config>

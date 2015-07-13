@@ -1,6 +1,6 @@
 package io.vertigo.addons.notifications;
 
-import io.vertigo.addons.users.VUserProfile;
+import io.vertigo.addons.account.Account;
 import io.vertigo.dynamo.domain.model.URI;
 import io.vertigo.lang.Assertion;
 import io.vertigo.lang.Builder;
@@ -11,10 +11,10 @@ import io.vertigo.lang.Builder;
 public final class NotificationBuilder implements Builder<Notification> {
 	private String myTitle;
 	private String myMsg;
-	private URI<VUserProfile> mySender;
+	private URI<Account> mySender;
 	private int myTtlInSeconds = -1;
 
-	public NotificationBuilder withSender(final URI<VUserProfile> sender) {
+	public NotificationBuilder withSender(final URI<Account> sender) {
 		Assertion.checkArgument(mySender == null, "sender already set");
 		Assertion.checkNotNull(sender);
 		//-----
