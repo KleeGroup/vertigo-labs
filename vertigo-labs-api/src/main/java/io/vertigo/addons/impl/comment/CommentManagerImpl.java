@@ -1,7 +1,7 @@
-package io.vertigo.addons.impl.comments;
+package io.vertigo.addons.impl.comment;
 
-import io.vertigo.addons.comments.Comment;
-import io.vertigo.addons.comments.CommentsManager;
+import io.vertigo.addons.comment.Comment;
+import io.vertigo.addons.comment.CommentManager;
 import io.vertigo.dynamo.domain.model.KeyConcept;
 import io.vertigo.dynamo.domain.model.URI;
 import io.vertigo.lang.Assertion;
@@ -13,11 +13,11 @@ import javax.inject.Inject;
 /**
  * @author pchretien
  */
-public final class CommentsManagerImpl implements CommentsManager {
-	private final CommentsPlugin commentsPlugin;
+public final class CommentManagerImpl implements CommentManager {
+	private final CommentPlugin commentsPlugin;
 
 	@Inject
-	public CommentsManagerImpl(final CommentsPlugin commentsPlugin) {
+	public CommentManagerImpl(final CommentPlugin commentsPlugin) {
 		Assertion.checkNotNull(commentsPlugin);
 		//-----
 		this.commentsPlugin = commentsPlugin;

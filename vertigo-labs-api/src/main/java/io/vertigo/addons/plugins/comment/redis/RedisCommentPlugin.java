@@ -1,19 +1,19 @@
-package io.vertigo.addons.plugins.comments.redis;
+package io.vertigo.addons.plugins.comment.redis;
 
 import io.vertigo.addons.account.Account;
-import io.vertigo.addons.comments.Comment;
-import io.vertigo.addons.comments.CommentBuilder;
+import io.vertigo.addons.comment.Comment;
+import io.vertigo.addons.comment.CommentBuilder;
 import io.vertigo.addons.connectors.redis.RedisConnector;
-import io.vertigo.addons.impl.comments.CommentEvent;
-import io.vertigo.addons.impl.comments.CommentsPlugin;
+import io.vertigo.addons.impl.comment.CommentEvent;
+import io.vertigo.addons.impl.comment.CommentPlugin;
 import io.vertigo.dynamo.domain.metamodel.DtDefinition;
 import io.vertigo.dynamo.domain.model.KeyConcept;
 import io.vertigo.dynamo.domain.model.URI;
 import io.vertigo.dynamo.domain.util.DtObjectUtil;
 import io.vertigo.lang.Assertion;
+import io.vertigo.util.MapBuilder;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -27,11 +27,11 @@ import redis.clients.jedis.Transaction;
 /**
  * @author pchretien
  */
-public final class RedisCommentsPlugin implements CommentsPlugin {
+public final class RedisCommentPlugin implements CommentPlugin {
 	private final RedisConnector redisConnector;
 
 	@Inject
-	public RedisCommentsPlugin(final RedisConnector redisConnector) {
+	public RedisCommentPlugin(final RedisConnector redisConnector) {
 		Assertion.checkNotNull(redisConnector);
 		//-----
 		this.redisConnector = redisConnector;
@@ -50,12 +50,12 @@ public final class RedisCommentsPlugin implements CommentsPlugin {
 	}
 
 	private static Map<String, String> toMap(final Comment comment) {
-		final Map<String, String> data = new HashMap<>();
-		data.put("author", comment.getAuthor().getId().toString());
-		data.put("msg", comment.getMsg());
-		data.put("uuid", comment.getUuid().toString());
+		return new MapBuilder<String, String>()
+				.put("author", comment.getAuthor().getId().toString())
+				.put("msg", comment.getMsg())
+				.put("uuid", comment.getUuid().toString())
+				.build();
 		//			data.put("creationDate", comment.getCreationDate());
-		return data;
 	}
 
 	private static Comment fromMap(final Map<String, String> data) {

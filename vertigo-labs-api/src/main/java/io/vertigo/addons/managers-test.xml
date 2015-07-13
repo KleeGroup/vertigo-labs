@@ -33,14 +33,14 @@
   			<plugin class="io.vertigo.addons.plugins.account.memory.MemoryAccountPlugin" />
   		</component>	
 
-	   <component api="NotificationsManager" class="io.vertigo.addons.impl.notifications.NotificationsManagerImpl" >
+	   <component api="NotificationManager" class="io.vertigo.addons.impl.notification.NotificationManagerImpl" >
 <!-- 		<plugin class="io.vertigo.notifications.plugins.notifications.memory.MemoryNotificationsPlugin" />
 -->
- 			<plugin class="io.vertigo.addons.plugins.notifications.redis.RedisNotificationsPlugin"/>
+ 			<plugin class="io.vertigo.addons.plugins.notification.redis.RedisNotificationPlugin"/>
 	   </component>
 
-	   <component api="CommentsManager" class="io.vertigo.addons.impl.comments.CommentsManagerImpl" >
- 			<plugin class="io.vertigo.addons.plugins.comments.redis.RedisCommentsPlugin"/>
+	   <component api="CommentManager" class="io.vertigo.addons.impl.comment.CommentManagerImpl" >
+ 			<plugin class="io.vertigo.addons.plugins.comment.redis.RedisCommentPlugin"/>
 	   </component>
 	   
      	<component api="EventsManager" class="io.vertigo.addons.impl.events.EventsManagerImpl" >

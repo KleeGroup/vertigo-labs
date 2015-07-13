@@ -1,9 +1,9 @@
-package io.vertigo.addons.plugins.notifications.memory;
+package io.vertigo.addons.plugins.notification.memory;
 
 import io.vertigo.addons.account.Account;
-import io.vertigo.addons.impl.notifications.NotificationEvent;
-import io.vertigo.addons.impl.notifications.NotificationsPlugin;
-import io.vertigo.addons.notifications.Notification;
+import io.vertigo.addons.impl.notification.NotificationEvent;
+import io.vertigo.addons.impl.notification.NotificationPlugin;
+import io.vertigo.addons.notification.Notification;
 import io.vertigo.dynamo.domain.model.URI;
 import io.vertigo.lang.Assertion;
 
@@ -16,7 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * @author pchretien
  */
-public final class MemoryNotificationsPlugin implements NotificationsPlugin {
+public final class MemoryNotificationPlugin implements NotificationPlugin {
 	private final Map<URI<Account>, List<Notification>> notificationsByUserId = new ConcurrentHashMap<>();
 
 	@Override

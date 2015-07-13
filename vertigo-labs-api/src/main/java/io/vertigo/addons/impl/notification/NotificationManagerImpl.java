@@ -1,8 +1,8 @@
-package io.vertigo.addons.impl.notifications;
+package io.vertigo.addons.impl.notification;
 
 import io.vertigo.addons.account.Account;
-import io.vertigo.addons.notifications.Notification;
-import io.vertigo.addons.notifications.NotificationsManager;
+import io.vertigo.addons.notification.Notification;
+import io.vertigo.addons.notification.NotificationManager;
 import io.vertigo.dynamo.domain.model.URI;
 import io.vertigo.lang.Assertion;
 
@@ -14,11 +14,11 @@ import javax.inject.Inject;
 /**
  * @author pchretien
  */
-public final class NotificationsManagerImpl implements NotificationsManager {
-	private final NotificationsPlugin notificationsPlugin;
+public final class NotificationManagerImpl implements NotificationManager {
+	private final NotificationPlugin notificationsPlugin;
 
 	@Inject
-	public NotificationsManagerImpl(final NotificationsPlugin notificationsPlugin) {
+	public NotificationManagerImpl(final NotificationPlugin notificationsPlugin) {
 		Assertion.checkNotNull(notificationsPlugin);
 		//-----
 		this.notificationsPlugin = notificationsPlugin;

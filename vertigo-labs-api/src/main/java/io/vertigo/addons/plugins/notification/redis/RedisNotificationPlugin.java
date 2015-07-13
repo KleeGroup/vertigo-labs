@@ -1,11 +1,11 @@
-package io.vertigo.addons.plugins.notifications.redis;
+package io.vertigo.addons.plugins.notification.redis;
 
 import io.vertigo.addons.account.Account;
 import io.vertigo.addons.connectors.redis.RedisConnector;
-import io.vertigo.addons.impl.notifications.NotificationEvent;
-import io.vertigo.addons.impl.notifications.NotificationsPlugin;
-import io.vertigo.addons.notifications.Notification;
-import io.vertigo.addons.notifications.NotificationBuilder;
+import io.vertigo.addons.impl.notification.NotificationEvent;
+import io.vertigo.addons.impl.notification.NotificationPlugin;
+import io.vertigo.addons.notification.Notification;
+import io.vertigo.addons.notification.NotificationBuilder;
 import io.vertigo.dynamo.domain.metamodel.DtDefinition;
 import io.vertigo.dynamo.domain.model.URI;
 import io.vertigo.dynamo.domain.util.DtObjectUtil;
@@ -26,11 +26,11 @@ import redis.clients.jedis.Transaction;
 /**
  * @author pchretien
  */
-public final class RedisNotificationsPlugin implements NotificationsPlugin {
+public final class RedisNotificationPlugin implements NotificationPlugin {
 	private final RedisConnector redisConnector;
 
 	@Inject
-	public RedisNotificationsPlugin(final RedisConnector redisConnector) {
+	public RedisNotificationPlugin(final RedisConnector redisConnector) {
 		Assertion.checkNotNull(redisConnector);
 		//-----
 		this.redisConnector = redisConnector;

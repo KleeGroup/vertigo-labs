@@ -4,16 +4,16 @@ import io.vertigo.AbstractTestCaseJU4;
 import io.vertigo.addons.account.Account;
 import io.vertigo.addons.account.AccountBuilder;
 import io.vertigo.addons.account.AccountManager;
-import io.vertigo.addons.comments.Comment;
-import io.vertigo.addons.comments.CommentBuilder;
-import io.vertigo.addons.comments.CommentsManager;
+import io.vertigo.addons.comment.Comment;
+import io.vertigo.addons.comment.CommentBuilder;
+import io.vertigo.addons.comment.CommentManager;
 import io.vertigo.addons.events.Event;
 import io.vertigo.addons.events.EventBuilder;
 import io.vertigo.addons.events.EventListener;
 import io.vertigo.addons.events.EventsManager;
-import io.vertigo.addons.notifications.Notification;
-import io.vertigo.addons.notifications.NotificationBuilder;
-import io.vertigo.addons.notifications.NotificationsManager;
+import io.vertigo.addons.notification.Notification;
+import io.vertigo.addons.notification.NotificationBuilder;
+import io.vertigo.addons.notification.NotificationManager;
 import io.vertigo.dynamo.domain.metamodel.DtDefinition;
 import io.vertigo.dynamo.domain.model.URI;
 import io.vertigo.dynamo.domain.util.DtObjectUtil;
@@ -27,13 +27,13 @@ import org.junit.Test;
 
 public class AddonsTest extends AbstractTestCaseJU4 {
 	@Inject
-	private NotificationsManager notificationsManager;
+	private NotificationManager notificationsManager;
 
 	@Inject
 	private AccountManager usersManager;
 
 	@Inject
-	private CommentsManager commentsManager;
+	private CommentManager commentsManager;
 
 	@Inject
 	private EventsManager eventsManager;

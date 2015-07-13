@@ -1,7 +1,7 @@
-package io.vertigo.addons.impl.notifications;
+package io.vertigo.addons.impl.notification;
 
 import io.vertigo.addons.account.Account;
-import io.vertigo.addons.notifications.Notification;
+import io.vertigo.addons.notification.Notification;
 import io.vertigo.dynamo.domain.model.URI;
 import io.vertigo.lang.Plugin;
 
@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * @author pchretien
  */
-public interface NotificationsPlugin extends Plugin {
+public interface NotificationPlugin extends Plugin {
 	void emit(NotificationEvent notificationEvent);
 
 	List<Notification> getCurrentNotifications(URI<Account> userProfileURI);

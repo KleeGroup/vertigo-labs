@@ -1,4 +1,4 @@
-package io.vertigo.addons.comments;
+package io.vertigo.addons.comment;
 
 import io.vertigo.addons.account.Account;
 import io.vertigo.dynamo.domain.model.URI;

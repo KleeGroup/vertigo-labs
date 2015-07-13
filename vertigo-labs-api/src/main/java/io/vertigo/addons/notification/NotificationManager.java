@@ -1,4 +1,4 @@
-package io.vertigo.addons.notifications;
+package io.vertigo.addons.notification;
 
 import io.vertigo.addons.account.Account;
 import io.vertigo.dynamo.domain.model.URI;
@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @author pchretien
  */
-public interface NotificationsManager extends Component {
+public interface NotificationManager extends Component {
 	//	void attach(URI<VUserProfile> userPofileURI, URI<VUserGroup> userGroupURI);
 	//
 	//	void detach(URI<VUserProfile> userPofileURI, URI<VUserGroup> userGroupURI);
