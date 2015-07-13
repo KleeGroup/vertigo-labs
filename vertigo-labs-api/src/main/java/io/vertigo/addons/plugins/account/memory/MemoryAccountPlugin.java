@@ -17,10 +17,10 @@ public final class MemoryAccountPlugin implements AccountPlugin {
 	private final Map<URI<Account>, Account> userProfiles = new ConcurrentHashMap<>();
 
 	@Override
-	public boolean exists(final URI<Account> userPofileURI) {
-		Assertion.checkNotNull(userPofileURI);
+	public boolean exists(final URI<Account> accountURI) {
+		Assertion.checkNotNull(accountURI);
 		//-----
-		return userProfiles.containsKey(userPofileURI);
+		return userProfiles.containsKey(accountURI);
 	}
 
 	@Override
@@ -33,9 +33,9 @@ public final class MemoryAccountPlugin implements AccountPlugin {
 	}
 
 	@Override
-	public Account getAccount(final URI<Account> userPofileURI) {
-		Assertion.checkNotNull(userPofileURI);
+	public Account getAccount(final URI<Account> accountURI) {
+		Assertion.checkNotNull(accountURI);
 		//-----
-		return userProfiles.get(userPofileURI);
+		return userProfiles.get(accountURI);
 	}
 }

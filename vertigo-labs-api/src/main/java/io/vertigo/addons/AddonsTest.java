@@ -39,24 +39,24 @@ public class AddonsTest extends AbstractTestCaseJU4 {
 	private EventsManager eventsManager;
 
 	@Test
-	public void testUsers() {
+	public void testAccounts() {
 		final Account userProfile0 = new AccountBuilder()
 				.withId("0")
 				.withDisplayName("zeus")
 				.build();
-		usersManager.saveUserProfile(userProfile0);
+		usersManager.saveAccount(userProfile0);
 
 		final Account userProfile1 = new AccountBuilder()
 				.withId("1")
 				.withDisplayName("hector")
 				.build();
-		usersManager.saveUserProfile(userProfile1);
+		usersManager.saveAccount(userProfile1);
 
 		final Account userProfile2 = new AccountBuilder()
 				.withId("2")
 				.withDisplayName("Priam")
 				.build();
-		usersManager.saveUserProfile(userProfile2);
+		usersManager.saveAccount(userProfile2);
 	}
 
 	@Test

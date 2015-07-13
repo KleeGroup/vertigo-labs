@@ -28,14 +28,14 @@ public final class AccountManagerImpl implements AccountManager {
 	}
 
 	@Override
-	public void saveUserProfile(final Account account) {
+	public void saveAccount(final Account account) {
 		Assertion.checkNotNull(account);
 		//-----
 		accountPlugin.saveAccount(account);
 	}
 
 	@Override
-	public Account getUserProfile(final URI<Account> accountURI) {
+	public Account getAccount(final URI<Account> accountURI) {
 		Assertion.checkNotNull(accountURI);
 		//-----
 		return accountPlugin.getAccount(accountURI);

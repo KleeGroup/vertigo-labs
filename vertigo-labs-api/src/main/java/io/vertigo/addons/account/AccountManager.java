@@ -7,9 +7,9 @@ import io.vertigo.lang.Component;
  * @author pchretien
  */
 public interface AccountManager extends Component {
-	boolean exists(URI<Account> userPofileURI);
+	boolean exists(URI<Account> accountURI);
 
-	Account getUserProfile(URI<Account> userPofileURI);
+	Account getAccount(URI<Account> accountURI);
 
-	void saveUserProfile(Account userPofile);
+	void saveAccount(Account account);
 }
