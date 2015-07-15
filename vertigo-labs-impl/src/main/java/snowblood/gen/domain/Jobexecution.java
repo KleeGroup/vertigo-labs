@@ -249,7 +249,7 @@ public final class Jobexecution implements DtObject {
 			}
 		}
 		if (definition == null) {
-			definition = io.vertigo.core.Home.getComponentSpace().resolve(io.vertigo.dynamo.persistence.PersistenceManager.class).getBroker().get(fkURI);
+			definition = io.vertigo.core.Home.getComponentSpace().resolve(io.vertigo.dynamo.store.StoreManager.class).getDataStore().get(fkURI);
 		}
 		return definition;
 	}

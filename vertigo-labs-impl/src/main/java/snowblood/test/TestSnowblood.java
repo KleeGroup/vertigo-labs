@@ -1,5 +1,7 @@
 package snowblood.test;
 
+import io.vertigo.addons.events.EventsManager;
+import io.vertigo.addons.impl.events.EventsManagerImpl;
 import io.vertigo.commons.analytics.AnalyticsManager;
 import io.vertigo.commons.cache.CacheManager;
 import io.vertigo.commons.codec.CodecManager;
@@ -11,45 +13,41 @@ import io.vertigo.commons.impl.resource.ResourceManagerImpl;
 import io.vertigo.commons.impl.script.ScriptManagerImpl;
 import io.vertigo.commons.locale.LocaleManager;
 import io.vertigo.commons.plugins.cache.memory.MemoryCachePlugin;
+import io.vertigo.commons.plugins.event.local.LocalEventsPlugin;
 import io.vertigo.commons.plugins.resource.java.ClassPathResourceResolverPlugin;
 import io.vertigo.commons.plugins.script.janino.JaninoExpressionEvaluatorPlugin;
 import io.vertigo.commons.resource.ResourceManager;
 import io.vertigo.commons.script.ScriptManager;
+import io.vertigo.core.App;
 import io.vertigo.core.Home;
-import io.vertigo.core.Home.App;
 import io.vertigo.core.config.AppConfig;
 import io.vertigo.core.config.AppConfigBuilder;
 import io.vertigo.dynamo.collections.CollectionsManager;
 import io.vertigo.dynamo.database.SqlDataBaseManager;
 import io.vertigo.dynamo.environment.EnvironmentManager;
-import io.vertigo.dynamo.events.EventsManager;
 import io.vertigo.dynamo.file.FileManager;
-import io.vertigo.dynamo.file.metamodel.FileInfoDefinition;
 import io.vertigo.dynamo.impl.collections.CollectionsManagerImpl;
 import io.vertigo.dynamo.impl.database.SqlDataBaseManagerImpl;
 import io.vertigo.dynamo.impl.environment.EnvironmentManagerImpl;
-import io.vertigo.dynamo.impl.events.EventsManagerImpl;
 import io.vertigo.dynamo.impl.file.FileManagerImpl;
-import io.vertigo.dynamo.impl.persistence.PersistenceManagerImpl;
+import io.vertigo.dynamo.impl.store.StoreManagerImpl;
 import io.vertigo.dynamo.impl.task.TaskManagerImpl;
 import io.vertigo.dynamo.impl.transaction.VTransactionAspect;
 import io.vertigo.dynamo.impl.transaction.VTransactionManagerImpl;
-import io.vertigo.dynamo.persistence.PersistenceManager;
 import io.vertigo.dynamo.plugins.database.connection.mock.MockConnectionProviderPlugin;
 import io.vertigo.dynamo.plugins.environment.loaders.java.AnnotationLoaderPlugin;
 import io.vertigo.dynamo.plugins.environment.loaders.kpr.KprLoaderPlugin;
 import io.vertigo.dynamo.plugins.environment.registries.domain.DomainDynamicRegistryPlugin;
 import io.vertigo.dynamo.plugins.environment.registries.file.FileDynamicRegistryPlugin;
-import io.vertigo.dynamo.plugins.events.local.LocalEventsPlugin;
-import io.vertigo.dynamo.plugins.persistence.datastore.postgresql.PostgreSqlDataStorePlugin;
-import io.vertigo.dynamo.plugins.persistence.filestore.fs.FsFileStorePlugin;
+import io.vertigo.dynamo.plugins.store.datastore.postgresql.PostgreSqlDataStorePlugin;
+import io.vertigo.dynamo.plugins.store.filestore.fs.FsFileStorePlugin;
+import io.vertigo.dynamo.store.StoreManager;
 import io.vertigo.dynamo.task.TaskManager;
 import io.vertigo.dynamo.transaction.VTransactionManager;
 import io.vertigo.persona.impl.security.VSecurityManagerImpl;
 import io.vertigo.persona.plugins.security.loaders.SecurityResourceLoaderPlugin;
 import io.vertigo.persona.security.UserSession;
 import io.vertigo.persona.security.VSecurityManager;
-import io.vertigo.persona.security.VSecurityManagerTest;
 import io.vertigo.tempo.impl.job.JobManagerImpl;
 import io.vertigo.tempo.impl.scheduler.SchedulerManagerImpl;
 import io.vertigo.tempo.job.JobManager;
@@ -86,7 +84,7 @@ public class TestSnowblood {
 						.beginPlugin(ClassPathResourceResolverPlugin.class).endPlugin()
 					.endComponent()
 					.beginComponent(VSecurityManager.class, VSecurityManagerImpl.class)
-						.withParam("userSessionClassName", UserSession.class.getName())
+						.addParam("userSessionClassName", UserSession.class.getName())
 						.beginPlugin(SecurityResourceLoaderPlugin.class).endPlugin()
 					.endComponent()					
 					.beginComponent(SchedulerManager.class, SchedulerManagerImpl.class)
@@ -102,17 +100,17 @@ public class TestSnowblood {
 						.beginPlugin(MemoryCachePlugin.class).endPlugin()
 					.endComponent()
 					.beginComponent(LocaleManager.class, LocaleManagerImpl.class)
-					   .withParam("locales", "fr_FR")
+					   .addParam("locales", "fr_FR")
 					.endComponent()
 					.beginComponent(AnalyticsManager.class, AnalyticsManagerImpl.class).endComponent()
-					.beginComponent(PersistenceManager.class, PersistenceManagerImpl.class)
+					.beginComponent(StoreManager.class, StoreManagerImpl.class)
 						.beginPlugin(PostgreSqlDataStorePlugin.class)
-							.withParam("sequencePrefix", "SEQ_")
+							.addParam("sequencePrefix", "SEQ_")
 						.endPlugin()
 						.beginPlugin(FsFileStorePlugin.class)
 							// FIXME : path should be platform-independent
 							// Trailing "/" is important
-							.withParam("path", "c:/temp/")
+							.addParam("path", "c:/temp/")
 						.endPlugin()
 					.endComponent()
 					.beginComponent(EventsManager.class, EventsManagerImpl.class)
@@ -121,14 +119,14 @@ public class TestSnowblood {
 					.beginComponent(VTransactionManager.class, VTransactionManagerImpl.class).endComponent()
 					.beginComponent(SqlDataBaseManager.class, SqlDataBaseManagerImpl.class)
 						.beginPlugin(MockConnectionProviderPlugin.class)
-							.withParam("dataBaseClass", "io.vertigo.dynamo.impl.database.vendor.postgresql.PostgreSqlDataBase")
-							.withParam("jdbcDriver", org.postgresql.Driver.class.getName())
-							.withParam("jdbcUrl", "jdbc:postgresql://172.20.109.69:5432/tdc?user=snowblood&password=snowblood")
+							.addParam("dataBaseClass", "io.vertigo.dynamo.impl.database.vendor.postgresql.PostgreSqlDataBase")
+							.addParam("jdbcDriver", org.postgresql.Driver.class.getName())
+							.addParam("jdbcUrl", "jdbc:postgresql://172.20.109.69:5432/tdc?user=snowblood&password=snowblood")
 						.endPlugin()
 					.endComponent()
 					.beginComponent(TaskManager.class, TaskManagerImpl.class).endComponent()
 					.beginComponent(FileManager.class, FileManagerImpl.class).endComponent()
-					.withAspect(VTransactionAspect.class)
+					.addAspect(VTransactionAspect.class)
 					//-----
 					.beginComponent(EnvironmentManager.class, EnvironmentManagerImpl.class)
 						.beginPlugin(AnnotationLoaderPlugin.class).endPlugin()
@@ -148,8 +146,8 @@ public class TestSnowblood {
 					.beginComponent(JobServices.class, JobServicesImpl.class).endComponent()
 					.beginComponent(TourDeControleServices.class, TourDeControleServicesImpl.class).endComponent()
 					//-----
-					.withResource("kpr", "snowblood/boot/application.kpr")
-					.withResource("classes", DtDefinitions.class.getName())
+					.addResource("kpr", "snowblood/boot/application.kpr")
+					.addResource("classes", DtDefinitions.class.getName())
 				.endModule()
 				.build();
 		// @formatter:on
@@ -166,7 +164,7 @@ public class TestSnowblood {
 
 		//	Home.getComponentSpace().resolve(VTransactionManager.class);
 		try (final App app = new App(appConfig)) {
-			
+
 			final TourDeControleServices tourDeControleServices = Home.getComponentSpace().resolve(TourDeControleServices.class);
 
 			// ****************************************************************
@@ -192,7 +190,7 @@ public class TestSnowblood {
 			final Jobdefinition jobdefinition2 = tourDeControleServices.getJobdefinition(jobId);
 			// Print
 			System.out.println(jobdefinition2.toString());
-			
+
 			// ****************************************************************
 			// 2 - Execute job
 			final JobExecution jobExecution = new JobExecution(jobdefinition2, null);
@@ -201,7 +199,7 @@ public class TestSnowblood {
 			// ****************************************************************
 			// 3 - Status control
 			System.out.println(jobExecution.getState());
-			
+
 			// ****************************************************************
 			// 4 - Remove
 

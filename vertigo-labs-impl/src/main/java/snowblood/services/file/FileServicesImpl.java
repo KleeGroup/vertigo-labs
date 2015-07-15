@@ -5,7 +5,7 @@ import io.vertigo.dynamo.file.FileManager;
 import io.vertigo.dynamo.file.metamodel.FileInfoDefinition;
 import io.vertigo.dynamo.file.model.FileInfo;
 import io.vertigo.dynamo.file.model.VFile;
-import io.vertigo.dynamo.persistence.PersistenceManager;
+import io.vertigo.dynamo.store.StoreManager;
 import io.vertigo.dynamo.transaction.Transactional;
 import io.vertigo.dynamock.fileinfo.FileInfoStd;
 
@@ -24,16 +24,16 @@ import snowblood.gen.fileinfo.SnowbloodFileInfo;
 public class FileServicesImpl implements FileServices {
 
 	@Inject
-	private PersistenceManager persistenceManager;
+	private StoreManager storeManager;
 
 	@Inject
 	private FileManager fileManager;
 
 	@Override
 	public Long createFile(final VFile fichier) {
-		  final SnowbloodFileInfo fileInfo = new SnowbloodFileInfo(fichier);
-		  persistenceManager.getFileInfoBroker().create(fileInfo);
-		  return (Long) fileInfo.getURI().getKey();
+		final SnowbloodFileInfo fileInfo = new SnowbloodFileInfo(fichier);
+		storeManager.getFileStore().create(fileInfo);
+		return (Long) fileInfo.getURI().getKey();
 	}
 
 	@Override
@@ -45,23 +45,23 @@ public class FileServicesImpl implements FileServices {
 	@Override
 	public void updateFile(final Long filId, final VFile fichier) {
 		final FileInfoURI uri = createUri(filId);
-		final FileInfo fileInfo = persistenceManager.getFileInfoBroker().getFileInfo(uri);
+		final FileInfo fileInfo = storeManager.getFileStore().getFileInfo(uri);
 
 		final FileInfoStd newFileInfo = new FileInfoStd(fichier);
 		newFileInfo.setURIStored(fileInfo.getURI());
-		persistenceManager.getFileInfoBroker().update(newFileInfo);
+		storeManager.getFileStore().update(newFileInfo);
 	}
 
 	@Override
 	public void deleteFile(final Long filId) {
 		final FileInfoURI uri = createUri(filId);
-		persistenceManager.getFileInfoBroker().deleteFileInfo(uri);
+		storeManager.getFileStore().deleteFileInfo(uri);
 	}
 
 	@Override
 	public VFile getFileContent(final Long filId) {
 		final FileInfoURI uri = createUri(filId);
-		final FileInfo fileInfo = persistenceManager.getFileInfoBroker().getFileInfo(uri);
+		final FileInfo fileInfo = storeManager.getFileStore().getFileInfo(uri);
 		return fileInfo.getVFile();
 	}
 

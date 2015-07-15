@@ -25,7 +25,7 @@ public interface ActivityServices {
 	/**
 	 * Save (create or update) an Activity execution instance.
 	 *
-	 * @param execution ActivityExecution (mutated, ID is set if created).
+	 * @param definition ActivityExecution (mutated, ID is set if created).
 	 */
 	void saveActivityDefinition(Jobdefinition definition);
 
@@ -49,7 +49,7 @@ public interface ActivityServices {
 	 * Delete an Activity definition instance.
 	 * Cannot delete if referenced by execution.
 	 *
-	 * @param executionId ActivityExecution ID.
+	 * @param definitionId ActivityExecution ID.
 	 */
 	void removeActivityDefinition(Long definitionId);
 
@@ -75,7 +75,6 @@ public interface ActivityServices {
 	/**
 	 * List Activity execution instance matching criteria.
 	 *
-	 * @param executionId ActivityExecution ID.
 	 * @return execution instance list.
 	 */
 	DtList<Jobexecution> listActivityExecution(TdcDetailCritere criteria);
@@ -90,7 +89,7 @@ public interface ActivityServices {
 	// ************************************************************************
 	// EXECUTION control
 	// ************************************************************************
-	
+
 	/**
 	 * Activity launch.
 	 * 
@@ -101,12 +100,11 @@ public interface ActivityServices {
 	 * data object (table, file...) and sends only the reference through this
 	 * parameter.
 	 *
-	 * @param activityDefinitionID 
 	 * @param contextJson activity launch context in a JSON formated string
 	 * @return Jobexecution instance.
 	 */
 	Jobexecution run(Long activityDefinitionId, String contextJson);
-	
+
 	/**
 	 * Sends a notification to a job.
 	 * 
@@ -119,7 +117,7 @@ public interface ActivityServices {
 	 * @return le jobexecution mis à jour.
 	 */
 	Jobexecution notify(Jobexecution jobex, String action);
-	
+
 	/**
 	 * Attach a log file to an execution.
 	 *

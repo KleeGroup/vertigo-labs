@@ -1,7 +1,7 @@
 package snowblood.gen.dao;
 
 import io.vertigo.dynamo.impl.store.util.DAOBroker;
-import io.vertigo.dynamo.persistence.StoreManager;
+import io.vertigo.dynamo.store.StoreManager;
 import io.vertigo.dynamo.task.TaskManager;
 
 import javax.inject.Inject;
@@ -11,7 +11,7 @@ import javax.inject.Inject;
  * JobdefinitionDAO
  */
 public final class JobdefinitionDAO extends DAOBroker<snowblood.gen.domain.Jobdefinition, java.lang.Long> {
-	 
+
 	/**
 	 * Contructeur.
 	 * @param storeManager Manager de persistance
@@ -21,5 +21,5 @@ public final class JobdefinitionDAO extends DAOBroker<snowblood.gen.domain.Jobde
 	public JobdefinitionDAO(final StoreManager storeManager, final TaskManager taskManager) {
 		super(snowblood.gen.domain.Jobdefinition.class, storeManager, taskManager);
 	}
-	
+
 }

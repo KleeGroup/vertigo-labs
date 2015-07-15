@@ -13,7 +13,6 @@ import snowblood.gen.dao.JobexecutionDAO;
 import snowblood.gen.domain.Jobdefinition;
 import snowblood.gen.domain.Jobexecution;
 import snowblood.gen.services.TdcDetailCritere;
-import snowblood.services.file.FileServices;
 import snowblood.task.JobMaintenanceTdc;
 
 /**
@@ -34,8 +33,8 @@ public class TourDeControleServicesImpl implements TourDeControleServices {
 	//	@Inject
 	//	private SchedulerManager schedulerManager;
 
-	@Inject
-	private FileServices fileServices;
+	//	@Inject
+	//	private FileServices fileServices;
 
 	@Override
 	public DtList<Jobexecution> getJobexecutionParJobdefinition(final Long jodId) {

@@ -61,7 +61,6 @@ public final class JobexecutionDAO extends DAOBroker<snowblood.gen.domain.Jobexe
 	/** Constante de paramètre de la tache DTC_JOBEXECUTION. */
 	private static final String ATTR_OUT_TK_GET_JOBEXECUTION_EN_COURS_DTC_JOBEXECUTION = "DTC_JOBEXECUTION";
 
-	 
 	/**
 	 * Contructeur.
 	 * @param storeManager Manager de persistance
@@ -100,7 +99,7 @@ public final class JobexecutionDAO extends DAOBroker<snowblood.gen.domain.Jobexe
 	*/
 	public io.vertigo.dynamo.domain.model.DtList<snowblood.gen.domain.Jobexecution> getJobexecutionParJobdefinitionSupervision(final Long jodId) {
 		final Task task = createTaskBuilder(Tasks.TK_GET_JOBEXECUTION_PAR_JOBDEFINITION_SUPERVISION)
-				.withValue(ATTR_IN_TK_GET_JOBEXECUTION_PAR_JOBDEFINITION_SUPERVISION_JOD_ID, jodId)
+				.addValue(ATTR_IN_TK_GET_JOBEXECUTION_PAR_JOBDEFINITION_SUPERVISION_JOD_ID, jodId)
 				.build();
 		final TaskResult taskResult = getTaskManager().execute(task);
 		return taskResult.getValue(ATTR_OUT_TK_GET_JOBEXECUTION_PAR_JOBDEFINITION_SUPERVISION_DTC_JOBEXECUTION);
@@ -113,7 +112,7 @@ public final class JobexecutionDAO extends DAOBroker<snowblood.gen.domain.Jobexe
 	*/
 	public Option<snowblood.gen.domain.Jobexecution> getLastJobExecution(final Long jodId) {
 		final Task task = createTaskBuilder(Tasks.TK_GET_LAST_JOB_EXECUTION)
-				.withValue(ATTR_IN_TK_GET_LAST_JOB_EXECUTION_JOD_ID, jodId)
+				.addValue(ATTR_IN_TK_GET_LAST_JOB_EXECUTION_JOD_ID, jodId)
 				.build();
 		final TaskResult taskResult = getTaskManager().execute(task);
 		return Option.option(taskResult.<snowblood.gen.domain.Jobexecution> getValue(ATTR_OUT_TK_GET_LAST_JOB_EXECUTION_DT_JOBEXECUTION));
@@ -127,8 +126,8 @@ public final class JobexecutionDAO extends DAOBroker<snowblood.gen.domain.Jobexe
 	*/
 	public Option<io.vertigo.dynamo.domain.model.DtList<snowblood.gen.domain.Jobexecution>> getListeJobexecutionFiltree(final Long jodId, final snowblood.gen.services.TdcDetailCritere critere) {
 		final Task task = createTaskBuilder(Tasks.TK_GET_LISTE_JOBEXECUTION_FILTREE)
-				.withValue(ATTR_IN_TK_GET_LISTE_JOBEXECUTION_FILTREE_JOD_ID, jodId)
-				.withValue(ATTR_IN_TK_GET_LISTE_JOBEXECUTION_FILTREE_CRITERE, critere)
+				.addValue(ATTR_IN_TK_GET_LISTE_JOBEXECUTION_FILTREE_JOD_ID, jodId)
+				.addValue(ATTR_IN_TK_GET_LISTE_JOBEXECUTION_FILTREE_CRITERE, critere)
 				.build();
 		final TaskResult taskResult = getTaskManager().execute(task);
 		return Option.option(taskResult.<io.vertigo.dynamo.domain.model.DtList<snowblood.gen.domain.Jobexecution>> getValue(ATTR_OUT_TK_GET_LISTE_JOBEXECUTION_FILTREE_DTC_JOBEXECUTION));
@@ -141,7 +140,7 @@ public final class JobexecutionDAO extends DAOBroker<snowblood.gen.domain.Jobexe
 	*/
 	public Option<io.vertigo.dynamo.domain.model.DtList<snowblood.gen.domain.Jobexecution>> getJobexecutionEnCours(final Long jodId) {
 		final Task task = createTaskBuilder(Tasks.TK_GET_JOBEXECUTION_EN_COURS)
-				.withValue(ATTR_IN_TK_GET_JOBEXECUTION_EN_COURS_JOD_ID, jodId)
+				.addValue(ATTR_IN_TK_GET_JOBEXECUTION_EN_COURS_JOD_ID, jodId)
 				.build();
 		final TaskResult taskResult = getTaskManager().execute(task);
 		return Option.option(taskResult.<io.vertigo.dynamo.domain.model.DtList<snowblood.gen.domain.Jobexecution>> getValue(ATTR_OUT_TK_GET_JOBEXECUTION_EN_COURS_DTC_JOBEXECUTION));
