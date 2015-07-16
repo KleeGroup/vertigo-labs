@@ -1,7 +1,9 @@
-package io.vertigo.addons.account;
+package io.vertigo.addons.impl.account;
 
+import io.vertigo.addons.account.Account;
+import io.vertigo.addons.account.AccountGroup;
 import io.vertigo.dynamo.domain.model.URI;
-import io.vertigo.lang.Component;
+import io.vertigo.lang.Plugin;
 
 import java.util.Collection;
 import java.util.Set;
@@ -9,7 +11,7 @@ import java.util.Set;
 /**
  * @author pchretien
  */
-public interface AccountManager extends Component {
+public interface AccountStorePlugin extends Plugin {
 	boolean exists(URI<Account> accountURI);
 
 	Account getAccount(URI<Account> accountURI);

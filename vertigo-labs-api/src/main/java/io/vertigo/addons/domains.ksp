@@ -1,5 +1,14 @@
 package io.vertigo.notifications
 
+create Domain DO_FOCUS_ID{
+	dataType : String
+}
+
+create Domain DO_FOCUS_NAME {
+	dataType : String
+}
+
+
 create Domain DO_ID{
 	dataType : String
 }

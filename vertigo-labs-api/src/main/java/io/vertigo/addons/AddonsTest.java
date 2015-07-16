@@ -3,6 +3,7 @@ package io.vertigo.addons;
 import io.vertigo.AbstractTestCaseJU4;
 import io.vertigo.addons.account.Account;
 import io.vertigo.addons.account.AccountBuilder;
+import io.vertigo.addons.account.AccountGroup;
 import io.vertigo.addons.account.AccountManager;
 import io.vertigo.addons.comment.Comment;
 import io.vertigo.addons.comment.CommentBuilder;
@@ -40,48 +41,61 @@ public class AddonsTest extends AbstractTestCaseJU4 {
 
 	@Test
 	public void testAccounts() {
-		final Account userProfile0 = new AccountBuilder()
+		final Account account0 = new AccountBuilder()
 				.withId("0")
 				.withDisplayName("zeus")
 				.build();
-		usersManager.saveAccount(userProfile0);
+		usersManager.createAccount(account0);
 
-		final Account userProfile1 = new AccountBuilder()
+		final Account account1 = new AccountBuilder()
 				.withId("1")
 				.withDisplayName("hector")
 				.build();
-		usersManager.saveAccount(userProfile1);
+		usersManager.createAccount(account1);
 
-		final Account userProfile2 = new AccountBuilder()
+		final Account account2 = new AccountBuilder()
 				.withId("2")
 				.withDisplayName("Priam")
 				.build();
-		usersManager.saveAccount(userProfile2);
+		usersManager.createAccount(account2);
+
 	}
 
 	@Test
 	public void testNotifications() throws InterruptedException {
+		testAccounts();
+
 		final DtDefinition dtDefinition = DtObjectUtil.findDtDefinition(Account.class);
-		final URI<Account> user0 = new URI<>(dtDefinition, "0");
-		final URI<Account> user1 = new URI<>(dtDefinition, "1");
-		final URI<Account> user2 = new URI<>(dtDefinition, "2");
+		final URI<Account> account0 = new URI<>(dtDefinition, "0");
+		final URI<Account> account1 = new URI<>(dtDefinition, "1");
+		final URI<Account> account2 = new URI<>(dtDefinition, "2");
+
+		final URI<AccountGroup> groupURI = new URI<>(DtObjectUtil.findDtDefinition(AccountGroup.class), "all");
+
+		final AccountGroup group = new AccountGroup("all", "all groups");
+		usersManager.createGroup(group);
+		usersManager.attach(account0, groupURI);
+		usersManager.attach(account2, groupURI);
+
+		Assert.assertEquals(2, usersManager.getAccountURIs(groupURI));
+
 		//-----
 		final Notification notification = new NotificationBuilder()
-				.withSender(user0)
+				.withSender(account0)
 				.withTitle("news")
 				.withMsg("discover this amazing app !!")
 				.withTTLinSeconds(2)
 				.build();
 
 		for (int i = 0; i < 10; i++) {
-			notificationsManager.send(notification, user1);
+			notificationsManager.send(notification, groupURI);
 		}
 
-		Assert.assertEquals(0, notificationsManager.getCurrentNotifications(user0).size());
-		Assert.assertEquals(10, notificationsManager.getCurrentNotifications(user1).size());
-		Assert.assertEquals(0, notificationsManager.getCurrentNotifications(user2).size());
+		Assert.assertEquals(10, notificationsManager.getCurrentNotifications(account0).size());
+		Assert.assertEquals(10, notificationsManager.getCurrentNotifications(account1).size());
+		Assert.assertEquals(10, notificationsManager.getCurrentNotifications(account2).size());
 		Thread.sleep(3000);
-		Assert.assertEquals(0, notificationsManager.getCurrentNotifications(user1).size());
+		Assert.assertEquals(0, notificationsManager.getCurrentNotifications(account1).size());
 	}
 
 	@Test

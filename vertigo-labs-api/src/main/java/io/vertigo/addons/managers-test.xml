@@ -12,8 +12,10 @@
 	</boot>	
 
 	<module name="vertigo-addons" api="false">
-		<resource type="kpr" path="io/vertigo/addons/application.kpr" />
-		<resource type="classes" path="io.vertigo.addons.DtDefinitions" />
+		<definitions>
+			<resource type="kpr" path="io/vertigo/addons/application.kpr" />
+			<resource type="classes" path="io.vertigo.addons.DtDefinitions" />
+		</definitions>	
 		
 		<component api="CodecManager" class="io.vertigo.commons.impl.codec.CodecManagerImpl" />
 		
@@ -30,7 +32,7 @@
 	
 	
 	   <component api="AccountManager" class="io.vertigo.addons.impl.account.AccountManagerImpl" >
-  			<plugin class="io.vertigo.addons.plugins.account.memory.MemoryAccountPlugin" />
+  			<plugin class="io.vertigo.addons.plugins.account.memory.MemoryAccountStorePlugin" />
   		</component>	
 
 	   <component api="NotificationManager" class="io.vertigo.addons.impl.notification.NotificationManagerImpl" >

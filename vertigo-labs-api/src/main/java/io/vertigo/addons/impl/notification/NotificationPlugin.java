@@ -13,6 +13,6 @@ import java.util.List;
 public interface NotificationPlugin extends Plugin {
 	void emit(NotificationEvent notificationEvent);
 
-	List<Notification> getCurrentNotifications(URI<Account> userProfileURI);
+	List<Notification> getCurrentNotifications(URI<Account> account);
 
 }

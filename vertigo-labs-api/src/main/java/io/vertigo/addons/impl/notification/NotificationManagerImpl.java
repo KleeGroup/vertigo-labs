@@ -1,12 +1,13 @@
 package io.vertigo.addons.impl.notification;
 
 import io.vertigo.addons.account.Account;
+import io.vertigo.addons.account.AccountGroup;
+import io.vertigo.addons.account.AccountManager;
 import io.vertigo.addons.notification.Notification;
 import io.vertigo.addons.notification.NotificationManager;
 import io.vertigo.dynamo.domain.model.URI;
 import io.vertigo.lang.Assertion;
 
-import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -15,18 +16,21 @@ import javax.inject.Inject;
  * @author pchretien
  */
 public final class NotificationManagerImpl implements NotificationManager {
+	private final AccountManager accountManager;
 	private final NotificationPlugin notificationsPlugin;
 
 	@Inject
-	public NotificationManagerImpl(final NotificationPlugin notificationsPlugin) {
+	public NotificationManagerImpl(final AccountManager accountManager, final NotificationPlugin notificationsPlugin) {
+		Assertion.checkNotNull(accountManager);
 		Assertion.checkNotNull(notificationsPlugin);
 		//-----
 		this.notificationsPlugin = notificationsPlugin;
+		this.accountManager = accountManager;
 	}
 
 	@Override
-	public void send(final Notification notification, final URI<Account> userProfileURI) {
-		final NotificationEvent notificationEvent = new NotificationEvent(notification, Collections.singletonList(userProfileURI));
+	public void send(final Notification notification, final URI<AccountGroup> groupURI) {
+		final NotificationEvent notificationEvent = new NotificationEvent(notification, accountManager.getAccountURIs(groupURI));
 		notificationsPlugin.emit(notificationEvent);
 	}
 

@@ -47,9 +47,9 @@ public final class RedisNotificationPlugin implements NotificationPlugin {
 			if (notification.getTTLInSeconds() > 0) {
 				tx.expire("notif:" + uuid, notification.getTTLInSeconds());
 			}
-			for (final URI<Account> userProfileURI : notificationEvent.getToUserProfileURIs()) {
+			for (final URI<Account> accountURI : notificationEvent.getToAccountURIs()) {
 				//On publie la notif
-				tx.lpush("notifs:" + userProfileURI.getId(), uuid);
+				tx.lpush("notifs:" + accountURI.getId(), uuid);
 			}
 			tx.exec();
 		}
