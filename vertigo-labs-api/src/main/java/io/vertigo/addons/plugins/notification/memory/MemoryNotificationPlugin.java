@@ -9,8 +9,10 @@ import io.vertigo.lang.Assertion;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -55,4 +57,16 @@ public final class MemoryNotificationPlugin implements NotificationPlugin {
 		return notifications;
 	}
 
+	@Override
+	public void remove(URI<Account> accountURI, UUID notificationUUID) {
+		List<Notification> notifications = notificationsByAccountURI.get(accountURI);
+		if (notifications != null) {
+			for (Iterator<Notification> it = notifications.iterator(); it.hasNext();) {
+				Notification notification = it.next();
+				if (notification.getUuid().equals(notificationUUID)) {
+					it.remove();
+				}
+			}
+		}
+	}
 }

@@ -39,6 +39,24 @@ public class AddonsTest extends AbstractTestCaseJU4 {
 	@Inject
 	private EventsManager eventManager;
 
+	private URI<Account> accountURI0;
+	private URI<Account> accountURI1;
+	private URI<Account> accountURI2;
+	private URI<AccountGroup> groupURI;
+
+	private static URI<Account> createAccountURI(String id) {
+		final DtDefinition dtDefinition = DtObjectUtil.findDtDefinition(Account.class);
+		return new URI<>(dtDefinition, id);
+	}
+
+	@Override
+	protected void doSetUp() throws Exception {
+		accountURI0 = createAccountURI("0");
+		accountURI1 = createAccountURI("1");
+		accountURI2 = createAccountURI("2");
+		groupURI = new URI<>(DtObjectUtil.findDtDefinition(AccountGroup.class), "all");
+	}
+
 	@Test
 	public void testAccounts() {
 		final Account account0 = new AccountBuilder()
@@ -59,37 +77,29 @@ public class AddonsTest extends AbstractTestCaseJU4 {
 				.build();
 		accountManager.getStore().createAccount(account2);
 
+		final AccountGroup group = new AccountGroup("all", "all groups");
+		accountManager.getStore().createGroup(group);
+		accountManager.getStore().attach(accountURI0, groupURI);
+		accountManager.getStore().attach(accountURI2, groupURI);
+
+		Assert.assertEquals(1, accountManager.getStore().getGroups(accountURI0).size());
+		Assert.assertEquals(0, accountManager.getStore().getGroups(accountURI1).size());
+		Assert.assertEquals(2, accountManager.getStore().getAccountURIs(groupURI).size());
+		accountManager.getStore().detach(accountURI0, groupURI);
+		Assert.assertEquals(0, accountManager.getStore().getGroups(accountURI0).size());
+		Assert.assertEquals(1, accountManager.getStore().getAccountURIs(groupURI).size());
+		accountManager.getStore().attach(accountURI0, groupURI);
+		Assert.assertEquals(1, accountManager.getStore().getGroups(accountURI0).size());
+		Assert.assertEquals(2, accountManager.getStore().getAccountURIs(groupURI).size());
+
 	}
 
 	@Test
 	public void testNotifications() throws InterruptedException {
 		testAccounts();
-
-		final DtDefinition dtDefinition = DtObjectUtil.findDtDefinition(Account.class);
-		final URI<Account> account0 = new URI<>(dtDefinition, "0");
-		final URI<Account> account1 = new URI<>(dtDefinition, "1");
-		final URI<Account> account2 = new URI<>(dtDefinition, "2");
-
-		final URI<AccountGroup> groupURI = new URI<>(DtObjectUtil.findDtDefinition(AccountGroup.class), "all");
-
-		final AccountGroup group = new AccountGroup("all", "all groups");
-		accountManager.getStore().createGroup(group);
-		accountManager.getStore().attach(account0, groupURI);
-		accountManager.getStore().attach(account2, groupURI);
-
-		Assert.assertEquals(1, accountManager.getStore().getGroups(account0).size());
-		Assert.assertEquals(0, accountManager.getStore().getGroups(account1).size());
-		Assert.assertEquals(2, accountManager.getStore().getAccountURIs(groupURI).size());
-		accountManager.getStore().detach(account0, groupURI);
-		Assert.assertEquals(0, accountManager.getStore().getGroups(account0).size());
-		Assert.assertEquals(1, accountManager.getStore().getAccountURIs(groupURI).size());
-		accountManager.getStore().attach(account0, groupURI);
-		Assert.assertEquals(1, accountManager.getStore().getGroups(account0).size());
-		Assert.assertEquals(2, accountManager.getStore().getAccountURIs(groupURI).size());
-
 		//-----
 		final Notification notification = new NotificationBuilder()
-				.withSender(account0)
+				.withSender(accountURI0)
 				.withTitle("news")
 				.withMsg("discover this amazing app !!")
 				.withTTLinSeconds(2)
@@ -99,11 +109,39 @@ public class AddonsTest extends AbstractTestCaseJU4 {
 			notificationManager.send(notification, groupURI);
 		}
 
-		Assert.assertEquals(10, notificationManager.getCurrentNotifications(account0).size());
-		Assert.assertEquals(0, notificationManager.getCurrentNotifications(account1).size());
-		Assert.assertEquals(10, notificationManager.getCurrentNotifications(account2).size());
+		Assert.assertEquals(10, notificationManager.getCurrentNotifications(accountURI0).size());
+		Assert.assertEquals(0, notificationManager.getCurrentNotifications(accountURI1).size());
+		Assert.assertEquals(10, notificationManager.getCurrentNotifications(accountURI2).size());
 		Thread.sleep(3000);
-		Assert.assertEquals(0, notificationManager.getCurrentNotifications(account1).size());
+		Assert.assertEquals(0, notificationManager.getCurrentNotifications(accountURI1).size());
+	}
+
+	@Test
+	public void testNotificationsWithRemove() {
+		testAccounts();
+		//-----
+		final Notification notification = new NotificationBuilder()
+				.withSender(accountURI0)
+				.withTitle("news")
+				.withMsg("discover this amazing app !!")
+				.build();
+
+		Assert.assertEquals(0, notificationManager.getCurrentNotifications(accountURI0).size());
+		Assert.assertEquals(0, notificationManager.getCurrentNotifications(accountURI1).size());
+		Assert.assertEquals(0, notificationManager.getCurrentNotifications(accountURI2).size());
+
+		notificationManager.send(notification, groupURI);
+
+		Assert.assertEquals(1, notificationManager.getCurrentNotifications(accountURI0).size());
+		Assert.assertEquals(0, notificationManager.getCurrentNotifications(accountURI1).size());
+		Assert.assertEquals(1, notificationManager.getCurrentNotifications(accountURI2).size());
+
+		notificationManager.remove(accountURI0, notificationManager.getCurrentNotifications(accountURI0).get(0).getUuid());
+
+		Assert.assertEquals(0, notificationManager.getCurrentNotifications(accountURI0).size());
+		Assert.assertEquals(0, notificationManager.getCurrentNotifications(accountURI1).size());
+		Assert.assertEquals(1, notificationManager.getCurrentNotifications(accountURI2).size());
+
 	}
 
 	@Test

@@ -16,5 +16,5 @@ public interface NotificationPlugin extends Plugin {
 
 	List<Notification> getCurrentNotifications(URI<Account> account);
 
-	void acquit(URI<Account> accountURI, UUID notificationUUID);
+	void remove(URI<Account> accountURI, UUID notificationUUID);
 }

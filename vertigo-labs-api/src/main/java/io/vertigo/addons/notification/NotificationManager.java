@@ -21,5 +21,5 @@ public interface NotificationManager extends Component {
 
 	List<Notification> getCurrentNotifications(URI<Account> accountURI);
 
-	void acquit(URI<Account> accountURI, UUID notificationUUID);
+	void remove(URI<Account> accountURI, UUID notificationUUID);
 }

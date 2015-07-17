@@ -96,7 +96,7 @@ public final class RedisNotificationPlugin implements NotificationPlugin {
 	}
 
 	@Override
-	public void acquit(URI<Account> accountURI, UUID notificationUUID) {
+	public void remove(URI<Account> accountURI, UUID notificationUUID) {
 		try (final Jedis jedis = redisConnector.getResource()) {
 			jedis.lrem("notifs:" + accountURI.getId(), -1, notificationUUID.toString());
 		}

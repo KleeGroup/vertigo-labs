@@ -43,7 +43,7 @@ public final class NotificationManagerImpl implements NotificationManager {
 	}
 
 	@Override
-	public void acquit(URI<Account> accountURI, UUID notificationUUID) {
-		notificationsPlugin.acquit(accountURI, notificationUUID);
+	public void remove(URI<Account> accountURI, UUID notificationUUID) {
+		notificationsPlugin.remove(accountURI, notificationUUID);
 	}
 }
