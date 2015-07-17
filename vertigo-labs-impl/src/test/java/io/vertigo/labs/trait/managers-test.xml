@@ -1,32 +1,31 @@
 <?xml version =	'1.0' encoding = 'ISO-8859-1'?>
 <config>
-	<module name="gedcom">
-	
-	   <component api="VTransactionManager" class="io.vertigo.dynamo.impl.transaction.VTransactionManagerImpl"/>
-		    
-		<component api="ResourceManager" class="io.vertigo.commons.impl.resource.ResourceManagerImpl" >
+	<boot>
+		<component api="ResourceManager" class="io.vertigo.core.impl.resource.ResourceManagerImpl" >
 			<plugin	 class="io.vertigo.commons.plugins.resource.java.ClassPathResourceResolverPlugin"/>
 		</component>
-		
-		<component api="KVDataStoreManager" class="io.vertigo.dynamo.impl.kvdatastore.KVDataStoreManagerImpl" >
+		<component api="EnvironmentManager" class="io.vertigo.core.impl.environment.EnvironmentManagerImpl">
+	        <plugin class="io.vertigo.dynamo.plugins.environment.loaders.kpr.KprLoaderPlugin" />
+	        <plugin class="io.vertigo.dynamo.plugins.environment.registries.domain.DomainDynamicRegistryPlugin" />
+	    </component>
+	</boot>
+
+	<module name="gedcom">
+	   <component api="VTransactionManager" class="io.vertigo.dynamo.impl.transaction.VTransactionManagerImpl"/>
+		<component api="StoreManager" class="io.vertigo.dynamo.impl.store.StoreManagerImpl" >
 	        <plugin class="io.vertigo.dynamo.plugins.kvdatastore.berkeley.BerkeleyKVDataStorePlugin">
       			<param name="dataStoreName" value="traits" />            
       			<param name="inMemory" value="false" />            
       			<param name="fileName" value="d:/berkeleyDB-gedcom" />            
 	        </plugin>
 		</component>
-		
-		<component api="EnvironmentManager" class="io.vertigo.dynamo.impl.environment.EnvironmentManagerImpl">
-	        <plugin class="io.vertigo.dynamo.plugins.environment.loaders.kpr.KprLoaderPlugin" />
-	        <plugin class="io.vertigo.dynamo.plugins.environment.registries.domain.DomainDynamicRegistryPlugin" />
-	    </component>
-	    
 		<component api="GeoCoderManager" class="io.vertigo.labs.impl.geocoder.GeoCoderManagerImpl">
 			<plugin class="io.vertigo.labs.plugins.geocoder.google.GoogleGeoCoderPlugin">
 				<param name="proxyHost" value="172.20.0.9" />
 				<param name="proxyPort" value="3128" />
 			</plugin>
 		</component>
+		<component api="TaskManager" class="io.vertigo.dynamo.impl.task.TaskManagerImpl" />
 		<component api="GedcomManager" class="io.vertigo.labs.impl.gedcom.GedcomManagerImpl">
       		<param name="dataStoreName" value="gedcom" />            
 			<param name="gedcom" value="io/vertigo/labs/gedcom/louis14.ged" />
@@ -38,6 +37,8 @@
 	</module>
 	
 	<module name="test">
-		<resource type="kpr" path="demo.kpr" />
+		<definitions>
+			<resource type="kpr" path="demo.kpr" />
+		</definitions>
 	</module>
 </config>
