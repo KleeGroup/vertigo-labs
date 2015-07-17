@@ -10,9 +10,9 @@ import io.vertigo.dynamo.domain.metamodel.DtDefinition;
 import io.vertigo.dynamo.domain.model.URI;
 import io.vertigo.dynamo.domain.util.DtObjectUtil;
 import io.vertigo.lang.Assertion;
+import io.vertigo.util.MapBuilder;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -42,7 +42,6 @@ public final class RedisNotificationPlugin implements NotificationPlugin {
 			final Notification notification = notificationEvent.getNotification();
 			final String uuid = UUID.randomUUID().toString();
 			final Transaction tx = jedis.multi();
-
 			tx.hmset("notif:" + uuid, toMap(notification));
 			if (notification.getTTLInSeconds() > 0) {
 				tx.expire("notif:" + uuid, notification.getTTLInSeconds());
@@ -56,11 +55,11 @@ public final class RedisNotificationPlugin implements NotificationPlugin {
 	}
 
 	private static Map<String, String> toMap(final Notification notification) {
-		final Map<String, String> data = new HashMap<>();
-		data.put("sender", notification.getSender().getId().toString());
-		data.put("title", notification.getTitle());
-		data.put("msg", notification.getMsg());
-		return data;
+		return new MapBuilder<String, String>()
+				.put("sender", notification.getSender().getId().toString())
+				.put("title", notification.getTitle())
+				.put("msg", notification.getMsg())
+				.build();
 	}
 
 	private static Notification fromMap(final Map<String, String> data) {

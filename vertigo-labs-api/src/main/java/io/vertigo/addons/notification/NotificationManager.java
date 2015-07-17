@@ -11,6 +11,9 @@ import java.util.List;
  * @author pchretien
  */
 public interface NotificationManager extends Component {
+	/**
+	 * Send a notification to a group
+	 */
 	void send(Notification notification, URI<AccountGroup> groupURI);
 
 	//	void emit(NotificationEvent notificationEvent);
