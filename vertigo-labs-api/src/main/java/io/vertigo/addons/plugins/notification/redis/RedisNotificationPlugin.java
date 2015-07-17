@@ -40,7 +40,7 @@ public final class RedisNotificationPlugin implements NotificationPlugin {
 	public void emit(final NotificationEvent notificationEvent) {
 		try (final Jedis jedis = redisConnector.getResource()) {
 			final Notification notification = notificationEvent.getNotification();
-			final String uuid = UUID.randomUUID().toString();
+			final String uuid = notification.getUuid().toString();
 			final Transaction tx = jedis.multi();
 			tx.hmset("notif:" + uuid, toMap(notification));
 			if (notification.getTTLInSeconds() > 0) {
@@ -57,6 +57,7 @@ public final class RedisNotificationPlugin implements NotificationPlugin {
 	private static Map<String, String> toMap(final Notification notification) {
 		return new MapBuilder<String, String>()
 				.put("sender", notification.getSender().getId().toString())
+				.put("uuid", notification.getUuid().toString())
 				.put("title", notification.getTitle())
 				.put("msg", notification.getMsg())
 				.build();
@@ -64,7 +65,7 @@ public final class RedisNotificationPlugin implements NotificationPlugin {
 
 	private static Notification fromMap(final Map<String, String> data) {
 		final DtDefinition dtDefinition = DtObjectUtil.findDtDefinition(Account.class);
-		return new NotificationBuilder()
+		return new NotificationBuilder(UUID.fromString(data.get("uuid")))
 				.withMsg(data.get("msg"))
 				.withTitle(data.get("title"))
 				.withSender(new URI<Account>(dtDefinition, data.get("sender")))
@@ -72,10 +73,10 @@ public final class RedisNotificationPlugin implements NotificationPlugin {
 	}
 
 	@Override
-	public List<Notification> getCurrentNotifications(final URI<Account> userProfileURI) {
+	public List<Notification> getCurrentNotifications(final URI<Account> accountURI) {
 		final List<Response<Map<String, String>>> responses = new ArrayList<>();
 		try (final Jedis jedis = redisConnector.getResource()) {
-			final List<String> uuids = jedis.lrange("notifs:" + userProfileURI.getId(), 0, -1);
+			final List<String> uuids = jedis.lrange("notifs:" + accountURI.getId(), 0, -1);
 			final Transaction tx = jedis.multi();
 			for (final String uuid : uuids) {
 				responses.add(tx.hgetAll("notif:" + uuid));
@@ -92,5 +93,12 @@ public final class RedisNotificationPlugin implements NotificationPlugin {
 		}
 		return notifications;
 
+	}
+
+	@Override
+	public void acquit(URI<Account> accountURI, UUID notificationUUID) {
+		try (final Jedis jedis = redisConnector.getResource()) {
+			jedis.lrem("notifs:" + accountURI.getId(), -1, notificationUUID.toString());
+		}
 	}
 }

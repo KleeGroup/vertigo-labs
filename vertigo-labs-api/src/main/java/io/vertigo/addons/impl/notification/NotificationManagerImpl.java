@@ -9,6 +9,7 @@ import io.vertigo.dynamo.domain.model.URI;
 import io.vertigo.lang.Assertion;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.inject.Inject;
 
@@ -39,5 +40,10 @@ public final class NotificationManagerImpl implements NotificationManager {
 		Assertion.checkNotNull(userProfileURI);
 		//-----
 		return notificationsPlugin.getCurrentNotifications(userProfileURI);
+	}
+
+	@Override
+	public void acquit(URI<Account> accountURI, UUID notificationUUID) {
+		notificationsPlugin.acquit(accountURI, notificationUUID);
 	}
 }

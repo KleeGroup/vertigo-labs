@@ -5,6 +5,8 @@ import io.vertigo.dynamo.domain.model.URI;
 import io.vertigo.lang.Assertion;
 import io.vertigo.lang.Builder;
 
+import java.util.UUID;
+
 /**
  * @author pchretien
  */
@@ -13,6 +15,17 @@ public final class NotificationBuilder implements Builder<Notification> {
 	private String myMsg;
 	private URI<Account> mySender;
 	private int myTtlInSeconds = -1;
+	private final UUID uuid;
+
+	public NotificationBuilder() {
+		this.uuid = UUID.randomUUID();
+	}
+
+	public NotificationBuilder(final UUID uuid) {
+		Assertion.checkNotNull(uuid);
+		//-----
+		this.uuid = uuid;
+	}
 
 	public NotificationBuilder withSender(final URI<Account> sender) {
 		Assertion.checkArgument(mySender == null, "sender already set");
@@ -47,6 +60,6 @@ public final class NotificationBuilder implements Builder<Notification> {
 
 	@Override
 	public Notification build() {
-		return new Notification(mySender, myTitle, myMsg, myTtlInSeconds);
+		return new Notification(uuid, mySender, myTitle, myMsg, myTtlInSeconds);
 	}
 }

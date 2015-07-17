@@ -6,6 +6,7 @@ import io.vertigo.dynamo.domain.model.URI;
 import io.vertigo.lang.Plugin;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author pchretien
@@ -15,4 +16,5 @@ public interface NotificationPlugin extends Plugin {
 
 	List<Notification> getCurrentNotifications(URI<Account> account);
 
+	void acquit(URI<Account> accountURI, UUID notificationUUID);
 }

@@ -6,6 +6,7 @@ import io.vertigo.dynamo.domain.model.URI;
 import io.vertigo.lang.Component;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author pchretien
@@ -20,6 +21,5 @@ public interface NotificationManager extends Component {
 
 	List<Notification> getCurrentNotifications(URI<Account> accountURI);
 
-	//	void acquit (VUserProfile userProfile, Notification)
-
+	void acquit(URI<Account> accountURI, UUID notificationUUID);
 }
