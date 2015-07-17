@@ -77,7 +77,15 @@ public class AddonsTest extends AbstractTestCaseJU4 {
 		accountManager.getStore().attach(account0, groupURI);
 		accountManager.getStore().attach(account2, groupURI);
 
-		Assert.assertEquals(2, accountManager.getStore().getAccountURIs(groupURI));
+		Assert.assertEquals(1, accountManager.getStore().getGroups(account0).size());
+		Assert.assertEquals(0, accountManager.getStore().getGroups(account1).size());
+		Assert.assertEquals(2, accountManager.getStore().getAccountURIs(groupURI).size());
+		accountManager.getStore().detach(account0, groupURI);
+		Assert.assertEquals(0, accountManager.getStore().getGroups(account0).size());
+		Assert.assertEquals(1, accountManager.getStore().getAccountURIs(groupURI).size());
+		accountManager.getStore().attach(account0, groupURI);
+		Assert.assertEquals(1, accountManager.getStore().getGroups(account0).size());
+		Assert.assertEquals(2, accountManager.getStore().getAccountURIs(groupURI).size());
 
 		//-----
 		final Notification notification = new NotificationBuilder()
@@ -92,7 +100,7 @@ public class AddonsTest extends AbstractTestCaseJU4 {
 		}
 
 		Assert.assertEquals(10, notificationManager.getCurrentNotifications(account0).size());
-		Assert.assertEquals(10, notificationManager.getCurrentNotifications(account1).size());
+		Assert.assertEquals(0, notificationManager.getCurrentNotifications(account1).size());
 		Assert.assertEquals(10, notificationManager.getCurrentNotifications(account2).size());
 		Thread.sleep(3000);
 		Assert.assertEquals(0, notificationManager.getCurrentNotifications(account1).size());

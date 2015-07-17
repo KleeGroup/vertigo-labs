@@ -106,6 +106,10 @@ public final class MemoryAccountStorePlugin implements AccountStorePlugin {
 		Set<URI<AccountGroup>> groupURIs = groupByAccountURI.get(accountURI);
 		Assertion.checkNotNull(groupURIs, "account must be create before this operation");
 		groupURIs.add(groupURI);
+		//-----
+		Set<URI<Account>> accountURIs = accountBygroupURI.get(groupURI);
+		Assertion.checkNotNull(accountURIs, "group must be create before this operation");
+		accountURIs.add(accountURI);
 	}
 
 	@Override
@@ -116,6 +120,11 @@ public final class MemoryAccountStorePlugin implements AccountStorePlugin {
 		Set<URI<AccountGroup>> groupURIs = groupByAccountURI.get(accountURI);
 		Assertion.checkNotNull(groupURIs, "account does not long exist");
 		groupURIs.remove(groupURI);
+
+		//-----
+		Set<URI<Account>> accountURIs = accountBygroupURI.get(groupURI);
+		Assertion.checkNotNull(accountURIs, "group does not long exist");
+		accountURIs.remove(accountURI);
 	}
 
 	@Override
