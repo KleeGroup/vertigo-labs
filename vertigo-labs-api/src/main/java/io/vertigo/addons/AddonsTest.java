@@ -28,16 +28,16 @@ import org.junit.Test;
 
 public class AddonsTest extends AbstractTestCaseJU4 {
 	@Inject
-	private NotificationManager notificationsManager;
+	private NotificationManager notificationManager;
 
 	@Inject
-	private AccountManager usersManager;
+	private AccountManager accountManager;
 
 	@Inject
-	private CommentManager commentsManager;
+	private CommentManager commentManager;
 
 	@Inject
-	private EventsManager eventsManager;
+	private EventsManager eventManager;
 
 	@Test
 	public void testAccounts() {
@@ -45,19 +45,19 @@ public class AddonsTest extends AbstractTestCaseJU4 {
 				.withId("0")
 				.withDisplayName("zeus")
 				.build();
-		usersManager.createAccount(account0);
+		accountManager.getStore().createAccount(account0);
 
 		final Account account1 = new AccountBuilder()
 				.withId("1")
 				.withDisplayName("hector")
 				.build();
-		usersManager.createAccount(account1);
+		accountManager.getStore().createAccount(account1);
 
 		final Account account2 = new AccountBuilder()
 				.withId("2")
 				.withDisplayName("Priam")
 				.build();
-		usersManager.createAccount(account2);
+		accountManager.getStore().createAccount(account2);
 
 	}
 
@@ -73,11 +73,11 @@ public class AddonsTest extends AbstractTestCaseJU4 {
 		final URI<AccountGroup> groupURI = new URI<>(DtObjectUtil.findDtDefinition(AccountGroup.class), "all");
 
 		final AccountGroup group = new AccountGroup("all", "all groups");
-		usersManager.createGroup(group);
-		usersManager.attach(account0, groupURI);
-		usersManager.attach(account2, groupURI);
+		accountManager.getStore().createGroup(group);
+		accountManager.getStore().attach(account0, groupURI);
+		accountManager.getStore().attach(account2, groupURI);
 
-		Assert.assertEquals(2, usersManager.getAccountURIs(groupURI));
+		Assert.assertEquals(2, accountManager.getStore().getAccountURIs(groupURI));
 
 		//-----
 		final Notification notification = new NotificationBuilder()
@@ -88,14 +88,14 @@ public class AddonsTest extends AbstractTestCaseJU4 {
 				.build();
 
 		for (int i = 0; i < 10; i++) {
-			notificationsManager.send(notification, groupURI);
+			notificationManager.send(notification, groupURI);
 		}
 
-		Assert.assertEquals(10, notificationsManager.getCurrentNotifications(account0).size());
-		Assert.assertEquals(10, notificationsManager.getCurrentNotifications(account1).size());
-		Assert.assertEquals(10, notificationsManager.getCurrentNotifications(account2).size());
+		Assert.assertEquals(10, notificationManager.getCurrentNotifications(account0).size());
+		Assert.assertEquals(10, notificationManager.getCurrentNotifications(account1).size());
+		Assert.assertEquals(10, notificationManager.getCurrentNotifications(account2).size());
 		Thread.sleep(3000);
-		Assert.assertEquals(0, notificationsManager.getCurrentNotifications(account1).size());
+		Assert.assertEquals(0, notificationManager.getCurrentNotifications(account1).size());
 	}
 
 	@Test
@@ -110,16 +110,16 @@ public class AddonsTest extends AbstractTestCaseJU4 {
 				.withMsg("Tu as bien fait de partir, Arthur Rimbaud! Tes dix-huit ans réfractaires à l'amitié, à la malveillance, à la sottise des poètes de Paris ainsi qu'au ronronnement d'abeille stérile de ta famille ardennaise un peu folle, tu as bien fait de les éparpiller aux vents du large..")
 				.build();
 		for (int i = 0; i < 10; i++) {
-			commentsManager.publish(comment, movieURI);
+			commentManager.publish(comment, movieURI);
 		}
 
-		Assert.assertEquals(10, commentsManager.getComments(movieURI).size());
+		Assert.assertEquals(10, commentManager.getComments(movieURI).size());
 	}
 
 	@Test
 	public void testEvents() throws InterruptedException {
 		final AtomicBoolean flag = new AtomicBoolean(false);
-		eventsManager.register("news", new EventListener() {
+		eventManager.register("news", new EventListener() {
 			@Override
 			public void onEvent(final Event event) {
 				System.out.println("OK");
@@ -131,7 +131,7 @@ public class AddonsTest extends AbstractTestCaseJU4 {
 		final Event event = new EventBuilder()
 				.withPayload("ping")
 				.build();
-		eventsManager.fire("news", event);
+		eventManager.fire("news", event);
 		Thread.sleep(1000);
 		Assert.assertTrue(flag.get());
 

@@ -30,7 +30,7 @@ public final class NotificationManagerImpl implements NotificationManager {
 
 	@Override
 	public void send(final Notification notification, final URI<AccountGroup> groupURI) {
-		final NotificationEvent notificationEvent = new NotificationEvent(notification, accountManager.getAccountURIs(groupURI));
+		final NotificationEvent notificationEvent = new NotificationEvent(notification, accountManager.getStore().getAccountURIs(groupURI));
 		notificationsPlugin.emit(notificationEvent);
 	}
 
