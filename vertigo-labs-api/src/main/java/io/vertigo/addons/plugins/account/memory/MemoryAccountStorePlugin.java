@@ -8,12 +8,10 @@ import io.vertigo.dynamo.domain.model.URI;
 import io.vertigo.dynamo.domain.util.DtObjectUtil;
 import io.vertigo.lang.Assertion;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -47,28 +45,16 @@ public final class MemoryAccountStorePlugin implements AccountStorePlugin {
 	}
 
 	@Override
-	public synchronized void createAccount(final Account account) {
-		saveAccount(account, false);
-	}
-
-	@Override
-	public synchronized void updateAccount(final Account account) {
-		saveAccount(account, true);
-	}
-
-	private synchronized void saveAccount(final Account account, final boolean update) {
+	public synchronized void saveAccount(final Account account) {
 		Assertion.checkNotNull(account);
 		//-----
 		final DtDefinition dtDefinition = DtObjectUtil.findDtDefinition(account);
 		final URI<Account> uri = new URI<>(dtDefinition, account.getId());
 		//----
-		if (update) {
-			Assertion.checkArgument(accountByURI.containsKey(uri), "this account {0} is not registered, you can't update it", uri);
-		} else {
-			Assertion.checkArgument(!accountByURI.containsKey(uri), "this account {0} is already registered, you can't create it", uri);
+		Object old = accountByURI.put(uri, account);
+		if (old == null) {
 			groupByAccountURI.put(uri, new HashSet<URI<AccountGroup>>());
 		}
-		accountByURI.put(uri, account);
 	}
 
 	//-----
@@ -85,7 +71,7 @@ public final class MemoryAccountStorePlugin implements AccountStorePlugin {
 	}
 
 	@Override
-	public synchronized void createGroup(AccountGroup group) {
+	public synchronized void saveGroup(AccountGroup group) {
 		Assertion.checkNotNull(group);
 		//-----
 		final DtDefinition dtDefinition = DtObjectUtil.findDtDefinition(group);
@@ -128,16 +114,19 @@ public final class MemoryAccountStorePlugin implements AccountStorePlugin {
 	}
 
 	@Override
-	public synchronized Collection<AccountGroup> getGroups(URI<Account> accountURI) {
+	public synchronized Set<URI<AccountGroup>> getGroupURIs(URI<Account> accountURI) {
 		Assertion.checkNotNull(accountURI);
 		//-----
 		Set<URI<AccountGroup>> groupURIs = groupByAccountURI.get(accountURI);
-		Assertion.checkNotNull(groupURIs, "account must be create before this operation");
-		List<AccountGroup> groups = new ArrayList<>();
-		for (URI<AccountGroup> groupURI : groupURIs) {
-			groups.add(groupByURI.get(groupURI));
-		}
-		return Collections.unmodifiableList(groups);
+		Assertion.checkNotNull(accountURI, "account {0} must be create before this operation", accountURI);
+		return Collections.unmodifiableSet(groupURIs);
+		//
+		//		Assertion.checkNotNull(groupURIs, "account must be create before this operation");
+		//		List<AccountGroup> groups = new ArrayList<>();
+		//		for (URI<AccountGroup> groupURI : groupURIs) {
+		//			groups.add(groupByURI.get(groupURI));
+		//		}
+		//		return Collections.unmodifiableList(groups);
 	}
 
 	@Override

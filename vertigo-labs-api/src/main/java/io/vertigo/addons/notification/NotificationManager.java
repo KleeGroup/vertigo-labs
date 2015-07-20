@@ -21,5 +21,6 @@ public interface NotificationManager extends Component {
 
 	List<Notification> getCurrentNotifications(URI<Account> accountURI);
 
+	//A terme envisager d'avoir un état sur les notifs par exemple : (active, read, archived)
 	void remove(URI<Account> accountURI, UUID notificationUUID);
 }

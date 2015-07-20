@@ -92,7 +92,6 @@ public final class RedisNotificationPlugin implements NotificationPlugin {
 			}
 		}
 		return notifications;
-
 	}
 
 	@Override

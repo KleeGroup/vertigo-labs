@@ -21,17 +21,17 @@
 		
 		
 		<component class="io.vertigo.addons.connectors.redis.RedisConnector">
-  			<param name="host" value="kasper-redis"/>
+   			<param name="host" value="kasper-redis"/>
   			<param name="port" value="6379"/>
- <!--  		<param name="host" value="pub-redis-12999.us-east-1-3.2.ec2.garantiadata.com"/>
- 			<param name="port" value="12999"/>
- 			<param name="password" value="kleegroup"/> 
-  -->
+    		<!-- <param name="host" value="pub-redis-10382.us-east-1-3.2.ec2.garantiadata.com"/>
+ 			<param name="port" value="10382"/>
+ 			<param name="password" value="kleegroup"/>  -->
   		</component>
 	
 	
 	   <component api="AccountManager" class="io.vertigo.addons.impl.account.AccountManagerImpl" >
-  			<plugin class="io.vertigo.addons.plugins.account.memory.MemoryAccountStorePlugin" />
+<!--   			<plugin class="io.vertigo.addons.plugins.account.memory.MemoryAccountStorePlugin" />
+ -->  			<plugin class="io.vertigo.addons.plugins.account.redis.RedisAccountStorePlugin" />
   		</component>	
 
 	   <component api="NotificationManager" class="io.vertigo.addons.impl.notification.NotificationManagerImpl" >

@@ -10,12 +10,10 @@ public final class AccountBuilder implements Builder<Account> {
 	private String myId;
 	private String myDisplayName;
 
-	public AccountBuilder withId(final String id) {
-		Assertion.checkArgument(myId == null, "id already set");
+	public AccountBuilder(final String id) {
 		Assertion.checkArgNotEmpty(id);
 		//-----
 		this.myId = id;
-		return this;
 	}
 
 	public AccountBuilder withDisplayName(final String displayName) {
