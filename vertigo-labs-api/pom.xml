@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>io.vertigo</groupId>
 		<artifactId>vertigo-parent</artifactId>
-		<version>0.8.1-SNAPSHOT</version>
+		<version>0.8.2-SNAPSHOT</version>
 	</parent>
 	
 	<artifactId>vertigo-labs-api</artifactId>
@@ -15,6 +15,11 @@
 		<dependency>
 			<groupId>io.vertigo</groupId>
 			<artifactId>vertigo-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.vertigo</groupId>
+			<artifactId>vertigo-commons-impl</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
@@ -38,7 +43,6 @@
 			<artifactId>api-ldap-model</artifactId>
 			<version>1.0.0-M31</version>
 		</dependency>
-		
 		
 		<dependency>
 		    <groupId>redis.clients</groupId>

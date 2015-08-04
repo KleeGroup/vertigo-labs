@@ -20,6 +20,10 @@ import redis.clients.jedis.Transaction;
 public final class RedisEventsPlugin implements EventsPlugin {
 	private final RedisConnector redisConnector;
 
+	/**
+	 * @param redisConnector Redis connector
+	 * @param codecManager Codec manager
+	 */
 	@Inject
 	public RedisEventsPlugin(final RedisConnector redisConnector) {
 		Assertion.checkNotNull(redisConnector);

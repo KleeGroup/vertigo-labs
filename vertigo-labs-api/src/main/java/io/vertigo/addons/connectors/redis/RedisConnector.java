@@ -19,6 +19,12 @@ public final class RedisConnector implements Component, Activeable {
 	private static final int CONNECT_TIMEOUT = 2000;
 	private final JedisPool jedisPool;
 
+	/**
+	 * Constructor.
+	 * @param redisHost REDIS server host name
+	 * @param redisPort REDIS server port
+	 * @param passwordOption password (optional)
+	 */
 	@Inject
 	public RedisConnector(
 			final @Named("host") String redisHost,
@@ -27,9 +33,7 @@ public final class RedisConnector implements Component, Activeable {
 		Assertion.checkArgNotEmpty(redisHost);
 		Assertion.checkNotNull(passwordOption);
 		//-----
-		//this.readTimeout = timeoutSeconds;
 		final JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
-		//jedisPoolConfig.setMaxActive(10);
 		if (passwordOption.isDefined()) {
 			jedisPool = new JedisPool(jedisPoolConfig, redisHost, redisPort, CONNECT_TIMEOUT, passwordOption.get());
 		} else {
@@ -42,15 +46,20 @@ public final class RedisConnector implements Component, Activeable {
 		}
 	}
 
+	/**
+	 * @return Redis resource
+	 */
 	public Jedis getResource() {
 		return jedisPool.getResource();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void start() {
 		//
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void stop() {
 		jedisPool.destroy();
