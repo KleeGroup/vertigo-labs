@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class RespProtocol {
-	static enum RespType {
+	enum RespType {
 		RESP_STRING('+'), //
 		RESP_ARRAY('*'), //
 		RESP_BULK('$'), //
