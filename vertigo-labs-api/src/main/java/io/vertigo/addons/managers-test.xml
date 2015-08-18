@@ -27,22 +27,6 @@
  			<param name="port" value="10382"/>
  			<param name="password" value="kleegroup"/>  -->
   		</component>
-	
-	
-	   <component api="AccountManager" class="io.vertigo.addons.impl.account.AccountManagerImpl" >
-<!--   			<plugin class="io.vertigo.addons.plugins.account.memory.MemoryAccountStorePlugin" />
- -->  			<plugin class="io.vertigo.addons.plugins.account.redis.RedisAccountStorePlugin" />
-  		</component>	
-
-	   <component api="NotificationManager" class="io.vertigo.addons.impl.notification.NotificationManagerImpl" >
-<!-- 		<plugin class="io.vertigo.notifications.plugins.notifications.memory.MemoryNotificationsPlugin" />
--->
- 			<plugin class="io.vertigo.addons.plugins.notification.redis.RedisNotificationPlugin"/>
-	   </component>
-
-	   <component api="CommentManager" class="io.vertigo.addons.impl.comment.CommentManagerImpl" >
- 			<plugin class="io.vertigo.addons.plugins.comment.redis.RedisCommentPlugin"/>
-	   </component>
 	   
      	<component api="EventsManager" class="io.vertigo.addons.impl.events.EventsManagerImpl" >
  			<plugin class="io.vertigo.addons.plugins.events.redis.RedisEventsPlugin"/>
