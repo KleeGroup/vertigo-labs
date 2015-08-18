@@ -10,6 +10,8 @@ import io.vertigo.lang.Assertion;
  */
 @DtDefinition
 public final class AccountGroup implements DtObject {
+	private static final long serialVersionUID = -4463291583101516140L;
+
 	@Field(domain = "DO_FOCUS_ID", type = "PRIMARY_KEY", notNull = true, label = "id")
 	private final String id;
 
