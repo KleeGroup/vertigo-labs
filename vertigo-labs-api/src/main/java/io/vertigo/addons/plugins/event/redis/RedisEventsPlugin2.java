@@ -1,12 +1,12 @@
 package io.vertigo.addons.plugins.event.redis;
 
+import io.vertigo.addons.connectors.redis.RedisConnector;
 import io.vertigo.commons.codec.CodecManager;
 import io.vertigo.commons.event.Event;
 import io.vertigo.commons.event.EventBuilder;
 import io.vertigo.commons.event.EventChannel;
 import io.vertigo.commons.event.EventListener;
 import io.vertigo.commons.impl.event.EventPlugin;
-import io.vertigo.dynamo.addons.connectors.redis.RedisConnector;
 import io.vertigo.lang.Assertion;
 
 import java.io.Serializable;

@@ -22,7 +22,6 @@ public final class RedisEventsPlugin implements EventsPlugin {
 
 	/**
 	 * @param redisConnector Redis connector
-	 * @param codecManager Codec manager
 	 */
 	@Inject
 	public RedisEventsPlugin(final RedisConnector redisConnector) {
