@@ -25,7 +25,7 @@ import io.vertigo.dynamo.domain.stereotype.Field;
 @DtDefinition(persistent = false)
 public final class Rating implements Trait {
 	private static final long serialVersionUID = -1369516323733642838L;
-	@Field(domain = "DO_RATING", notNull = true, label = "Rating")
+	@Field(domain = "DO_RATING", required = true, label = "Rating")
 	private Integer rate;
 
 	public void setRate(final Integer rate) {

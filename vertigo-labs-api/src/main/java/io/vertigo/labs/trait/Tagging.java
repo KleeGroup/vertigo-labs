@@ -25,7 +25,7 @@ import io.vertigo.dynamo.domain.stereotype.Field;
 @DtDefinition(persistent = false)
 public final class Tagging implements Trait {
 	private static final long serialVersionUID = -1369516323733642838L;
-	@Field(domain = "DO_TAGGING", notNull = true, label = "Tagging")
+	@Field(domain = "DO_TAGGING", required = true, label = "Tagging")
 	private String tags;
 
 	public void setTags(final String tags) {

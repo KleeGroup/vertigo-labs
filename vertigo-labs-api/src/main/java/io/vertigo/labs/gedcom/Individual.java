@@ -28,25 +28,25 @@ public final class Individual implements DtObject {
 	/** SerialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	@Field(domain = "DO_CODE", type = "PRIMARY_KEY", notNull = true, label = "identifiant")
+	@Field(domain = "DO_CODE", type = "PRIMARY_KEY", required = true, label = "identifiant")
 	private String id;
-	@Field(domain = "DO_LIBELLE", notNull = true, label = "Name")
+	@Field(domain = "DO_LIBELLE", required = true, label = "Name")
 	private String name;
-	@Field(domain = "DO_LIBELLE", notNull = true, label = "Prénoms")
+	@Field(domain = "DO_LIBELLE", required = true, label = "Prénoms")
 	private String givenName;
-	@Field(domain = "DO_LIBELLE", notNull = true, label = "Nom de famille")
+	@Field(domain = "DO_LIBELLE", required = true, label = "Nom de famille")
 	private String surName;
-	@Field(domain = "DO_LIBELLE", notNull = true, label = "Date de naissance")
+	@Field(domain = "DO_LIBELLE", required = true, label = "Date de naissance")
 	private String birthDate;
-	@Field(domain = "DO_LIBELLE", notNull = true, label = "Lieu de Naissance")
+	@Field(domain = "DO_LIBELLE", required = true, label = "Lieu de Naissance")
 	private String birthPlace;
 
-	@Field(domain = "DO_LIBELLE", notNull = true, label = "Date de décès")
+	@Field(domain = "DO_LIBELLE", required = true, label = "Date de décès")
 	private String deathDate;
-	@Field(domain = "DO_LIBELLE", notNull = true, label = "Lieu de décès")
+	@Field(domain = "DO_LIBELLE", required = true, label = "Lieu de décès")
 	private String deathPlace;
 
-	@Field(domain = "DO_CODE", notNull = true, label = "Sexe")
+	@Field(domain = "DO_CODE", required = true, label = "Sexe")
 	private String sex;
 
 	//	Option<Individual> getFather(Individual individual);
@@ -95,7 +95,7 @@ public final class Individual implements DtObject {
 		return birthDate;
 	}
 
-	@Field(domain = "DO_INTEGER", type = "COMPUTED", notNull = true, label = "Annee")
+	@Field(domain = "DO_INTEGER", type = "COMPUTED", required = true, label = "Annee")
 	public Integer getBirth() {
 		return GedcomUtil.findYear(getBirthDate());
 	}
@@ -116,7 +116,7 @@ public final class Individual implements DtObject {
 		return location;
 	}
 
-	@Field(domain = "DO_CODE", type = "COMPUTED", notNull = true, label = "Département")
+	@Field(domain = "DO_CODE", type = "COMPUTED", required = true, label = "Département")
 	public String getDepartement() {
 		return location == null ? null : location.getLevel2();
 	}
