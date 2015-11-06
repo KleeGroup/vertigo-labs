@@ -18,7 +18,7 @@
  */
 package io.vertigo.labs.impl.trait;
 
-import io.vertigo.dynamo.store.StoreManager;
+import io.vertigo.dynamo.kvdatabase.KVDataBaseManager;
 import io.vertigo.dynamo.transaction.VTransactionManager;
 import io.vertigo.dynamo.transaction.VTransactionWritable;
 import io.vertigo.labs.trait.Trait;
@@ -31,17 +31,17 @@ import javax.inject.Named;
 
 public final class TraitManagerImpl implements TraitManager {
 	private final String dataStoreName;
-	private final StoreManager storeManager;
+	private final KVDataBaseManager kvDataBaseManager;
 	private final VTransactionManager transactionManager;
 
 	@Inject
-	public TraitManagerImpl(final @Named("dataStoreName") String dataStoreName, final StoreManager storeManager, final VTransactionManager transactionManager) {
+	public TraitManagerImpl(final @Named("dataStoreName") String dataStoreName, final KVDataBaseManager kvDataBaseManager, final VTransactionManager transactionManager) {
 		Assertion.checkArgNotEmpty(dataStoreName);
-		Assertion.checkNotNull(storeManager);
+		Assertion.checkNotNull(kvDataBaseManager);
 		Assertion.checkNotNull(transactionManager);
 		//-----
 		this.dataStoreName = dataStoreName;
-		this.storeManager = storeManager;
+		this.kvDataBaseManager = kvDataBaseManager;
 		this.transactionManager = transactionManager;
 	}
 
@@ -76,7 +76,7 @@ public final class TraitManagerImpl implements TraitManager {
 		Assertion.checkArgNotEmpty(traitType);
 		//-----
 		try (VTransactionWritable transaction = transactionManager.createCurrentTransaction()) {
-			storeManager.getKVStore().put(dataStoreName, traitType + ":" + subjectId, trait);
+			kvDataBaseManager.getKVStore().put(dataStoreName, traitType + ":" + subjectId, trait);
 			transaction.commit();
 		}
 	}
@@ -86,7 +86,7 @@ public final class TraitManagerImpl implements TraitManager {
 		Assertion.checkArgNotEmpty(traitType);
 		//-----
 		try (VTransactionWritable transaction = transactionManager.createCurrentTransaction()) {
-			return storeManager.getKVStore().find(dataStoreName, traitType + ":" + subjectId, clazz);
+			return kvDataBaseManager.getKVStore().find(dataStoreName, traitType + ":" + subjectId, clazz);
 		}
 	}
 
@@ -95,7 +95,7 @@ public final class TraitManagerImpl implements TraitManager {
 		Assertion.checkArgNotEmpty(traitType);
 		//-----
 		try (VTransactionWritable transaction = transactionManager.createCurrentTransaction()) {
-			storeManager.getKVStore().remove(dataStoreName, traitType + ":" + subjectId);
+			kvDataBaseManager.getKVStore().remove(dataStoreName, traitType + ":" + subjectId);
 			transaction.commit();
 		}
 	}
