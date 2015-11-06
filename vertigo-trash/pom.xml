@@ -8,7 +8,6 @@
 	</parent>
 	
   	<modelVersion>4.0.0</modelVersion>
-  	<groupId>io.vertigo</groupId>
 	<artifactId>vertigo-labs-trash</artifactId>
 	<version>0.8.4-SNAPSHOT</version>
 	<packaging>jar</packaging>
