@@ -21,7 +21,9 @@ public enum MetaDataType {
 	LONG(Long.class),
 
 	/** M�tadonn�e repr�sentant une date et heure simple. */
-	DATE(Date.class);
+	DATE(Date.class),
+
+	BOOLEAN(Boolean.class);
 
 	/** Date ou masque de date; */
 	//CALENDAR(Calendar.class);
