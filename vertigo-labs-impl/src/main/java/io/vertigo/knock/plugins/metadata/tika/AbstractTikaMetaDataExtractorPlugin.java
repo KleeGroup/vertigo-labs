@@ -172,6 +172,8 @@ public abstract class AbstractTikaMetaDataExtractorPlugin<M extends TikaMetaData
 				return stringValue;
 			case LONG:
 				return Long.parseLong(stringValue);
+			case BOOLEAN:
+				return Boolean.parseBoolean(stringValue);
 			default:
 				throw new IllegalStateException("Type non reconu" + metaDataType.name());
 		}
@@ -188,17 +190,15 @@ public abstract class AbstractTikaMetaDataExtractorPlugin<M extends TikaMetaData
 		// On obtient le d�tecteur par d�faut de Tika
 		final org.apache.tika.detect.Detector detector = TikaConfig.getDefaultConfig().getMimeRepository();
 
-		try {
-			// On ouvre un flux sur la resource
-			try (final InputStream inputStream = file.createInputStream()) {
-				// On renvoit le r�sultat de la d�tection du type MIME.
-				if (inputStream.markSupported()) {
-					detector.detect(inputStream, metadata);
-					return true;
-				}
-				detector.detect(new BufferedInputStream(inputStream), metadata).toString();
+		// On ouvre un flux sur la resource
+		try (final InputStream inputStream = file.createInputStream()) {
+			// On renvoit le r�sultat de la d�tection du type MIME.
+			if (inputStream.markSupported()) {
+				detector.detect(inputStream, metadata);
 				return true;
 			}
+			detector.detect(new BufferedInputStream(inputStream), metadata).toString();
+			return true;
 		} catch (final IOException e) {
 			//en cas d'erreur, une exception stop le Work d'extraction
 			//throw new KRuntimeException("Erreur lors de la recherche du Type Mime", e);

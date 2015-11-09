@@ -6,14 +6,20 @@ import io.vertigo.knock.impl.metadata.MetaDataExtractorPlugin;
 import io.vertigo.knock.metadata.MetaDataContainer;
 import io.vertigo.knock.metadata.MetaDataContainerBuilder;
 import io.vertigo.lang.Assertion;
+import io.vertigo.util.ListBuilder;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import javax.activation.DataSource;
+import javax.imageio.ImageIO;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentInformation;
+import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.preflight.PreflightDocument;
 import org.apache.pdfbox.preflight.ValidationResult;
 import org.apache.pdfbox.preflight.ValidationResult.ValidationError;
@@ -22,26 +28,15 @@ import org.apache.pdfbox.preflight.parser.PreflightParser;
 import org.apache.pdfbox.preflight.utils.ByteArrayDataSource;
 import org.apache.pdfbox.util.PDFTextStripper;
 
+import sun.misc.BASE64Encoder;
+
 /**
  * @author  pchretien
  * @version $Id: PDFMetaDataExtractorPlugin.java,v 1.5 2014/02/27 10:22:04 pchretien Exp $
  */
 public final class PDFMetaDataExtractorPlugin implements MetaDataExtractorPlugin {
-
 	private static final String PDFA_VALID = "VALID";
-
 	private static final String PDFA_INVALID = "INVALID";
-
-	//	private final MetaDataNameSpace metaDataNameSpace;
-	//
-	//	/**
-	//	 * Constructeur.
-	//	 */
-	//	public PDFMetaDataExtractorPlugin(final MetaDataManager metaDataManager) {
-	//		Assertion.notNull(metaDataManager);
-	//-----
-	//		this.metaDataNameSpace = metaDataManager.getNameSpace();
-	//	}
 
 	private static PDDocument createPDDocument(final VFile file) throws IOException {
 		try (final InputStream inputStream = file.createInputStream()) {
@@ -55,36 +50,36 @@ public final class PDFMetaDataExtractorPlugin implements MetaDataExtractorPlugin
 		Assertion.checkNotNull(file);
 		//-----
 		//Extraction de TOUT le contenu d'un pdf
-		final PDDocument pdd = createPDDocument(file);
-		try {
+		try (final PDDocument pdd = createPDDocument(file)) {
 			final PDFTextStripper stripper = new PDFTextStripper();
 			final String content = stripper.getText(pdd);
 			final String pdfaValidationMsg = getPdfA1bValidation(file);
+			final List<String> thumbnails = extractBase64Thumbnails(pdd);
 			//------------------------------------------------------------------
 			//Metadata
 			final PDDocumentInformation documentInformation = pdd.getDocumentInformation();
-			return new MetaDataContainerBuilder()//
-					.withMetaData(PDFMetaData.AUTHOR, documentInformation.getAuthor())//
-					.withMetaData(PDFMetaData.KEYWORDS, documentInformation.getKeywords())//
-					.withMetaData(PDFMetaData.SUBJECT, documentInformation.getSubject())//
-					.withMetaData(PDFMetaData.TITLE, documentInformation.getTitle())//
-					.withMetaData(PDFMetaData.CONTENT, content)//
-					.withMetaData(PDFMetaData.PRODUCER, documentInformation.getProducer())//
-					.withMetaData(PDFMetaData.PDFA, String.valueOf(PDFA_VALID.equals(pdfaValidationMsg)))//
-					.withMetaData(PDFMetaData.PDFA_VALIDATION_MSG, pdfaValidationMsg)//
-					.build();
-			//metaDataContainer.setValue(PDFMetaData.SUMMARY, content.length() > 1000 ? content.substring(0, 1000) : content);
-			//metaDataContainer.setValue(PDFMetaData.PRODUCER, documentInformation.getCreationDate().tProducer());
-			//Autres m�ta donn�es non trait�es pour l'instant
-			//documentInformation.getAuthor();
-			//documentInformation.getProducer();
-			//documentInformation.getCreationDate();
-			//documentInformation.getModificationDate();
-			//documentInformation.getProducer();
-		} finally {
-			if (pdd != null) {
-				pdd.close();
+			final MetaDataContainerBuilder metaDataContainerBuilder = new MetaDataContainerBuilder()
+					.withMetaData(PDFMetaData.AUTHOR, documentInformation.getAuthor())
+					.withMetaData(PDFMetaData.KEYWORDS, documentInformation.getKeywords())
+					.withMetaData(PDFMetaData.SUBJECT, documentInformation.getSubject())
+					.withMetaData(PDFMetaData.TITLE, documentInformation.getTitle())
+					.withMetaData(PDFMetaData.CONTENT, content)
+					.withMetaData(PDFMetaData.PRODUCER, documentInformation.getProducer())
+					.withMetaData(PDFMetaData.PDFA, String.valueOf(PDFA_VALID.equals(pdfaValidationMsg)))
+					.withMetaData(PDFMetaData.PDFA_VALIDATION_MSG, pdfaValidationMsg);
+			if (thumbnails.size() > 0) {
+				metaDataContainerBuilder.withMetaData(PDFMetaData.THUMBNAIL_PAGE_1, thumbnails.get(0));
+				if (thumbnails.size() > 1) {
+					metaDataContainerBuilder.withMetaData(PDFMetaData.THUMBNAIL_PAGE_2, thumbnails.get(1));
+					if (thumbnails.size() > 2) {
+						metaDataContainerBuilder.withMetaData(PDFMetaData.THUMBNAIL_PAGE_3, thumbnails.get(2));
+						if (thumbnails.size() > 3) {
+							metaDataContainerBuilder.withMetaData(PDFMetaData.THUMBNAIL_PAGE_4, thumbnails.get(3));
+						}
+					}
+				}
 			}
+			return metaDataContainerBuilder.build();
 		}
 	}
 
@@ -104,12 +99,12 @@ public final class PDFMetaDataExtractorPlugin implements MetaDataExtractorPlugin
 				 * (that inherits from PDDocument)
 				 * This document process the end of PDF/A validation.
 				 */
-				final PreflightDocument document = parser.getPreflightDocument();
-				document.validate();
+				try (final PreflightDocument document = parser.getPreflightDocument()) {
+					document.validate();
 
-				// Get validation result
-				result = document.getResult();
-				document.close();
+					// Get validation result
+					result = document.getResult();
+				}
 			} catch (final SyntaxValidationException e) {
 				/* the parse method can throw a SyntaxValidationException
 				 * if the PDF file can't be parsed.
@@ -121,12 +116,33 @@ public final class PDFMetaDataExtractorPlugin implements MetaDataExtractorPlugin
 			if (result.isValid()) {
 				return PDFA_VALID;
 			}
-			final StringBuilder sb = new StringBuilder(PDFA_INVALID);
-			sb.append(" : ");
+			final StringBuilder sb = new StringBuilder(PDFA_INVALID).append(" : ");
 			for (final ValidationError error : result.getErrorsList()) {
 				sb.append("\n").append(error.getErrorCode()).append(" : ").append(error.getDetails()).append(",");
 			}
 			return sb.toString();
+		}
+	}
+
+	private static List<String> extractBase64Thumbnails(final PDDocument pdd) throws IOException {
+		final List<PDPage> pages = pdd.getDocumentCatalog().getAllPages();
+		final ListBuilder<String> stringListBuilder = new ListBuilder<>();
+		// Get the pages one by one, testing if it exists for each one
+		for (int pageIndex = 1; pageIndex < 5; pageIndex++) {
+			if (pages.size() < pageIndex) {
+				break;
+			}
+			stringListBuilder.add(encodeToString(pages.get(pageIndex).convertToImage(BufferedImage.TYPE_INT_RGB, 48), "png"));
+		}
+		return stringListBuilder.build();
+	}
+
+	public static String encodeToString(final BufferedImage image, final String type) throws IOException {
+		try (final ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
+			ImageIO.write(image, type, bos);
+			final byte[] imageBytes = bos.toByteArray();
+			final BASE64Encoder encoder = new BASE64Encoder();
+			return encoder.encode(imageBytes);
 		}
 	}
 
