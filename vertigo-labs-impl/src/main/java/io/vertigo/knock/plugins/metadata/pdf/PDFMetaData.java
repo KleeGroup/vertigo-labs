@@ -33,7 +33,12 @@ public enum PDFMetaData implements MetaData {
 	PDFA(MetaDataType.STRING),
 
 	/** Compatibilit� PDF/A-1b. ("VALID" ou "INVALID : ${causes}") */
-	PDFA_VALIDATION_MSG(MetaDataType.STRING);
+	PDFA_VALIDATION_MSG(MetaDataType.STRING),
+
+	THUMBNAIL_PAGE_1(MetaDataType.STRING),
+	THUMBNAIL_PAGE_2(MetaDataType.STRING),
+	THUMBNAIL_PAGE_3(MetaDataType.STRING),
+	THUMBNAIL_PAGE_4(MetaDataType.STRING);
 
 	//-----
 	private final MetaDataType metaDataType;

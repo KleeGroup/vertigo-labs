@@ -37,8 +37,7 @@ public final class TxtMetaDataExtractorPlugin implements MetaDataExtractorPlugin
 
 	private static String getContent(final VFile file) throws Exception {
 
-		final InputStream inputStream = file.createInputStream();
-		try {
+		try (final InputStream inputStream = file.createInputStream()) {
 			try (final BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
 				final int length = file.getLength().intValue();
 				final StringBuilder content = new StringBuilder("");
@@ -50,8 +49,6 @@ public final class TxtMetaDataExtractorPlugin implements MetaDataExtractorPlugin
 				}
 				return content.toString();
 			}
-		} finally {
-			inputStream.close();
 		}
 	}
 
@@ -60,9 +57,13 @@ public final class TxtMetaDataExtractorPlugin implements MetaDataExtractorPlugin
 	public MetaDataContainer extractMetaData(final VFile file) throws Exception {
 		Assertion.checkNotNull(file);
 		//-----
-		return new MetaDataContainerBuilder()
-				.withMetaData(TxtMetaData.CONTENT, getContent(file))
-				.build();
+		final String content = getContent(file);
+		final MetaDataContainerBuilder metaDataContainerBuilder = new MetaDataContainerBuilder()
+				.withMetaData(TxtMetaData.CONTENT, content);
+		if ("MD".equalsIgnoreCase(getExtension(file))) {
+			metaDataContainerBuilder.withMetaData(TxtMetaData.MARKDOWN_CONTENT, content);
+		}
+		return metaDataContainerBuilder.build();
 	}
 
 	/** {@inheritDoc} */
@@ -71,11 +72,15 @@ public final class TxtMetaDataExtractorPlugin implements MetaDataExtractorPlugin
 		Assertion.checkNotNull(file);
 		//-----
 		for (final String _extension : extensions) {
-			final String fileExtension = FileUtil.getFileExtension(file.getFileName());
-			if (_extension.trim().equalsIgnoreCase(fileExtension)) {
+			if (_extension.trim().equalsIgnoreCase(getExtension(file))) {
 				return true;
 			}
 		}
 		return false;
+	}
+
+	private String getExtension(final VFile file) {
+		final String fileExtension = FileUtil.getFileExtension(file.getFileName());
+		return fileExtension.trim();
 	}
 }

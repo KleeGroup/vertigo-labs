@@ -12,7 +12,8 @@ import io.vertigo.lang.Assertion;
  */
 public enum TxtMetaData implements MetaData {
 	/** Contenu textuel. */
-	CONTENT(MetaDataType.STRING);
+	CONTENT(MetaDataType.STRING),
+	MARKDOWN_CONTENT(MetaDataType.STRING);
 
 	//-----
 	private final MetaDataType metaDataType;
