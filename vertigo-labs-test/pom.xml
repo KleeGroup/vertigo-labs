@@ -51,7 +51,28 @@
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
+	
+	
+		<dependency>
+			<groupId>io.vertigo</groupId>
+			<artifactId>vertigo-shell</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 
+		<!-- Redis  -->
+		<dependency>
+		    <groupId>redis.clients</groupId>
+		    <artifactId>jedis</artifactId>
+   			 <version>2.7.3</version>
+		    <optional>true</optional>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.4</version>
+		</dependency>
+		<!-- /Distributed -->
 	<!-- 	<dependency>
 			<groupId>io.vertigo</groupId>
 			<artifactId>vertigo-tempo-api</artifactId>
