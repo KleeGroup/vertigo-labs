@@ -65,8 +65,8 @@ public class GoogleGeoCoderManagerTest extends AbstractTestCaseJU4 {
 		final GeoLocation geoLocation = geoCoderManager.findLocation(address);
 		AssertNear(geoLocation, 49.213506, 5.63623222988, 2);
 		Assert.assertEquals("étain", geoLocation.getLocality().toLowerCase());
-		Assert.assertEquals("55", geoLocation.getLevel2());
-		Assert.assertEquals("LORRAINE", geoLocation.getLevel1().toUpperCase());
+		Assert.assertEquals("meuse", geoLocation.getLevel2().toLowerCase());
+		Assert.assertEquals("lorraine", geoLocation.getLevel1().toLowerCase());
 		Assert.assertEquals("FR", geoLocation.getCountryCode());
 	}
 
@@ -87,7 +87,7 @@ public class GoogleGeoCoderManagerTest extends AbstractTestCaseJU4 {
 	public final void testOneResult2() {
 		final GeoLocation geoLocation = geoCoderManager.findLocation("4 rue du VIEux lavoir, 91190 Saint-aubin, france");
 		AssertNear(geoLocation, 48.713709, 2.138841, 0.1);
-		Assert.assertEquals("91", geoLocation.getLevel2());
+		Assert.assertEquals("essonne", geoLocation.getLevel2().toLowerCase());
 	}
 
 	/**

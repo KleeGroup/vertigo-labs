@@ -279,8 +279,8 @@ public class CommonOOXMLMetaDataExtractorPlugin implements MetaDataExtractorPlug
 		Assertion.checkNotNull(file);
 		//-----
 		final String fileExtension = FileUtil.getFileExtension(file.getFileName());
-		return "pptx".equalsIgnoreCase(fileExtension)//
-				|| "docx".equalsIgnoreCase(fileExtension)//
+		return "pptx".equalsIgnoreCase(fileExtension)
+				|| "docx".equalsIgnoreCase(fileExtension)
 				|| "xlsx".equalsIgnoreCase(fileExtension);
 
 	}

@@ -22,11 +22,11 @@ final class POIFSReaderListenerImpl implements POIFSReaderListener {
 	public void processPOIFSReaderEvent(final POIFSReaderEvent event) {
 		try {
 			final SummaryInformation si = (SummaryInformation) PropertySetFactory.create(event.getStream());
-			metaDataContainerBuilder//
-					.withMetaData(MSMetaData.TITLE, si.getTitle())//
-					.withMetaData(MSMetaData.AUTHOR, si.getAuthor())//
-					.withMetaData(MSMetaData.SUBJECT, si.getSubject())//
-					.withMetaData(MSMetaData.COMMENTS, si.getComments())//
+			metaDataContainerBuilder
+					.withMetaData(MSMetaData.TITLE, si.getTitle())
+					.withMetaData(MSMetaData.AUTHOR, si.getAuthor())
+					.withMetaData(MSMetaData.SUBJECT, si.getSubject())
+					.withMetaData(MSMetaData.COMMENTS, si.getComments())
 					.withMetaData(MSMetaData.KEYWORDS, si.getKeywords());
 		} catch (final Exception ex) {
 			throw new RuntimeException("processPOIFSReaderEvent", ex);

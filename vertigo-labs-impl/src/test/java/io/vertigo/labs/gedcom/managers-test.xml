@@ -9,11 +9,11 @@
 	
 	<module name="gedcom">
 	   <component api="VTransactionManager" class="io.vertigo.dynamo.impl.transaction.VTransactionManagerImpl"/>
-		<component api="KVDataStoreManager" class="io.vertigo.dynamo.impl.kvdatastore.KVDataStoreManagerImpl" >
-	        <plugin class="io.vertigo.dynamo.plugins.kvdatastore.berkeley.BerkeleyKVDataStorePlugin">
+		<component api="KVDataBaseManager" class="io.vertigo.dynamo.impl.kvdatabase.KVDataBaseManagerImpl" >
+	        <plugin class="io.vertigo.dynamo.plugins.kvdatabase.berkeley.BerkeleyKVDataStorePlugin">
       			<param name="dataStoreName" value="gedcom" />
       			<param name="inMemory" value="false" />            
-      			<param name="fileName" value="d:/berkeleyDB-gedcom" />            
+      			<param name="fileName" value="d:/DB-gedcom" />            
 	        </plugin>
 		</component>
 		<component api="GeoCoderManager" class="io.vertigo.labs.impl.geocoder.GeoCoderManagerImpl">

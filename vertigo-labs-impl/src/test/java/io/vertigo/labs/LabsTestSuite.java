@@ -33,11 +33,11 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author pchretien
  */
 @RunWith(Suite.class)
-@SuiteClasses({ //
-	FranceManagerTest.class,//
-	GedcomManagerTest.class,//
-	GoogleGeoCoderManagerTest.class,//
-	TraitManagerTest.class,//
+@SuiteClasses({
+		FranceManagerTest.class,
+		GedcomManagerTest.class,
+		GoogleGeoCoderManagerTest.class,
+		TraitManagerTest.class
 })
 public final class LabsTestSuite {
 	//
