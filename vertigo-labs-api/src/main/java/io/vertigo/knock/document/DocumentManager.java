@@ -20,7 +20,7 @@ public interface DocumentManager extends Component {
 	//Extraction des m�tadonn�es internes,
 	//Normalement seul le crawler est d�pendant du type de donn�es : File
 	//Ceci devrait-�tre dans le Crawler
-	Document createDocumentFromFile(DocumentVersion documentVersion, File sourceFile);
+	Document createDocument(DocumentVersion documentVersion, File sourceFile);
 
 	//Enrichissement des documents avec des m�tadonn�es externes
 	//Voir ChannelManager

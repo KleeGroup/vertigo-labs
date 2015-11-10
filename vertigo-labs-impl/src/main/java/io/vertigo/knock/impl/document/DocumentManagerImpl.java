@@ -58,7 +58,7 @@ public final class DocumentManagerImpl implements DocumentManager {
 
 	/** {@inheritDoc} */
 	@Override
-	public Document createDocumentFromFile(final DocumentVersion documentVersion, final File file) {
+	public Document createDocument(final DocumentVersion documentVersion, final File file) {
 		Assertion.checkNotNull(documentVersion);
 		Assertion.checkNotNull(file);
 		//-----

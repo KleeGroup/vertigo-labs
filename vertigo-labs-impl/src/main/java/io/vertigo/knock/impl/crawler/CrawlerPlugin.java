@@ -1,6 +1,6 @@
 package io.vertigo.knock.impl.crawler;
 
-import io.vertigo.knock.crawling.Crawler;
+import io.vertigo.knock.crawler.Crawler;
 import io.vertigo.knock.document.model.Document;
 import io.vertigo.knock.document.model.DocumentVersion;
 import io.vertigo.lang.Plugin;

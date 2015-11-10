@@ -1,4 +1,4 @@
-package io.vertigo.knock.crawling;
+package io.vertigo.knock.crawler;
 
 import io.vertigo.knock.document.model.Document;
 import io.vertigo.knock.document.model.DocumentVersion;

@@ -1,8 +1,9 @@
 package io.vertigo.knock.impl.crawler;
 
-import io.vertigo.knock.crawling.CrawlerManager;
+import io.vertigo.knock.crawler.CrawlerManager;
 import io.vertigo.knock.document.model.Document;
 import io.vertigo.knock.document.model.DocumentVersion;
+import io.vertigo.lang.Assertion;
 
 import java.util.List;
 
@@ -15,8 +16,14 @@ import javax.inject.Inject;
  * @version $Id: CrawlerManagerImpl.java,v 1.11 2014/02/17 17:55:57 npiedeloup Exp $
  */
 public final class CrawlerManagerImpl implements CrawlerManager {
+	private final List<CrawlerPlugin> crawlerPlugins;
+
 	@Inject
-	private List<CrawlerPlugin> crawlerPlugins;
+	public CrawlerManagerImpl(final List<CrawlerPlugin> crawlerPlugins) {
+		Assertion.checkNotNull(crawlerPlugins);
+		//-----
+		this.crawlerPlugins = crawlerPlugins;
+	}
 
 	/** {@inheritDoc} */
 	@Override
