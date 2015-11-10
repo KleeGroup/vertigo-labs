@@ -1,5 +1,21 @@
 package io.vertigo.knock.plugins.metadata.ooxml;
 
+import static io.vertigo.knock.plugins.metadata.ooxml.OOXMLCoreMetaData.CATEGORY;
+import static io.vertigo.knock.plugins.metadata.ooxml.OOXMLCoreMetaData.CONTENT_STATUS;
+import static io.vertigo.knock.plugins.metadata.ooxml.OOXMLCoreMetaData.CONTENT_TYPE;
+import static io.vertigo.knock.plugins.metadata.ooxml.OOXMLCoreMetaData.CREATED;
+import static io.vertigo.knock.plugins.metadata.ooxml.OOXMLCoreMetaData.CREATOR;
+import static io.vertigo.knock.plugins.metadata.ooxml.OOXMLCoreMetaData.DESCRIPTION;
+import static io.vertigo.knock.plugins.metadata.ooxml.OOXMLCoreMetaData.IDENTIFIER;
+import static io.vertigo.knock.plugins.metadata.ooxml.OOXMLCoreMetaData.KEYWORDS;
+import static io.vertigo.knock.plugins.metadata.ooxml.OOXMLCoreMetaData.LANGUAGE;
+import static io.vertigo.knock.plugins.metadata.ooxml.OOXMLCoreMetaData.LAST_MODIFIED_BY;
+import static io.vertigo.knock.plugins.metadata.ooxml.OOXMLCoreMetaData.LAST_PRINTED;
+import static io.vertigo.knock.plugins.metadata.ooxml.OOXMLCoreMetaData.MODIFIED;
+import static io.vertigo.knock.plugins.metadata.ooxml.OOXMLCoreMetaData.REVISION_NUMBER;
+import static io.vertigo.knock.plugins.metadata.ooxml.OOXMLCoreMetaData.SUBJECT;
+import static io.vertigo.knock.plugins.metadata.ooxml.OOXMLCoreMetaData.TITLE;
+import static io.vertigo.knock.plugins.metadata.ooxml.OOXMLCoreMetaData.VERSION;
 import io.vertigo.dynamo.file.model.VFile;
 import io.vertigo.dynamo.file.util.FileUtil;
 import io.vertigo.knock.impl.metadata.MetaDataExtractorPlugin;
@@ -60,22 +76,22 @@ public class CommonOOXMLMetaDataExtractorPlugin implements MetaDataExtractorPlug
 
 		// Core Metadatas
 		final PackagePropertiesPart cp = extractor.getCoreProperties().getUnderlyingProperties();
-		addProperty(metaDataContainerBuilder, OOXMLCoreMetaData.CATEGORY, cp.getCategoryProperty());
-		addProperty(metaDataContainerBuilder, OOXMLCoreMetaData.CONTENT_TYPE, cp.getContentTypeProperty());
-		addProperty(metaDataContainerBuilder, OOXMLCoreMetaData.CONTENT_STATUS, cp.getContentStatusProperty());
-		addDateProperty(metaDataContainerBuilder, OOXMLCoreMetaData.CREATED, cp.getCreatedProperty());
-		addProperty(metaDataContainerBuilder, OOXMLCoreMetaData.CREATOR, cp.getCreatorProperty());
-		addProperty(metaDataContainerBuilder, OOXMLCoreMetaData.DESCRIPTION, cp.getDescriptionProperty());
-		addProperty(metaDataContainerBuilder, OOXMLCoreMetaData.IDENTIFIER, cp.getIdentifierProperty());
-		addProperty(metaDataContainerBuilder, OOXMLCoreMetaData.KEYWORDS, cp.getKeywordsProperty());
-		addProperty(metaDataContainerBuilder, OOXMLCoreMetaData.LANGUAGE, cp.getLanguageProperty());
-		addProperty(metaDataContainerBuilder, OOXMLCoreMetaData.LAST_MODIFIED_BY, cp.getLastModifiedByProperty());
-		addDateProperty(metaDataContainerBuilder, OOXMLCoreMetaData.LAST_PRINTED, cp.getLastPrintedProperty());
-		addDateProperty(metaDataContainerBuilder, OOXMLCoreMetaData.MODIFIED, cp.getModifiedProperty());
-		addProperty(metaDataContainerBuilder, OOXMLCoreMetaData.REVISION_NUMBER, cp.getRevisionProperty());
-		addProperty(metaDataContainerBuilder, OOXMLCoreMetaData.SUBJECT, cp.getSubjectProperty());
-		addProperty(metaDataContainerBuilder, OOXMLCoreMetaData.TITLE, cp.getTitleProperty());
-		addProperty(metaDataContainerBuilder, OOXMLCoreMetaData.VERSION, cp.getVersionProperty());
+		addProperty(metaDataContainerBuilder, CATEGORY, cp.getCategoryProperty());
+		addProperty(metaDataContainerBuilder, CONTENT_TYPE, cp.getContentTypeProperty());
+		addProperty(metaDataContainerBuilder, CONTENT_STATUS, cp.getContentStatusProperty());
+		addDateProperty(metaDataContainerBuilder, CREATED, cp.getCreatedProperty());
+		addProperty(metaDataContainerBuilder, CREATOR, cp.getCreatorProperty());
+		addProperty(metaDataContainerBuilder, DESCRIPTION, cp.getDescriptionProperty());
+		addProperty(metaDataContainerBuilder, IDENTIFIER, cp.getIdentifierProperty());
+		addProperty(metaDataContainerBuilder, KEYWORDS, cp.getKeywordsProperty());
+		addProperty(metaDataContainerBuilder, LANGUAGE, cp.getLanguageProperty());
+		addProperty(metaDataContainerBuilder, LAST_MODIFIED_BY, cp.getLastModifiedByProperty());
+		addDateProperty(metaDataContainerBuilder, LAST_PRINTED, cp.getLastPrintedProperty());
+		addDateProperty(metaDataContainerBuilder, MODIFIED, cp.getModifiedProperty());
+		addProperty(metaDataContainerBuilder, REVISION_NUMBER, cp.getRevisionProperty());
+		addProperty(metaDataContainerBuilder, SUBJECT, cp.getSubjectProperty());
+		addProperty(metaDataContainerBuilder, TITLE, cp.getTitleProperty());
+		addProperty(metaDataContainerBuilder, VERSION, cp.getVersionProperty());
 
 		// Extended Metadatas
 		final CTProperties extendedProperties = extractor.getExtendedProperties().getUnderlyingProperties();

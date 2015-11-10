@@ -1,5 +1,19 @@
 package io.vertigo.knock.plugins.metadata.tika;
 
+import static io.vertigo.knock.plugins.metadata.tika.AutoTikaMetaData.CHARACTER_COUNT;
+import static io.vertigo.knock.plugins.metadata.tika.AutoTikaMetaData.CREATION_DATE;
+import static io.vertigo.knock.plugins.metadata.tika.AutoTikaMetaData.CREATOR;
+import static io.vertigo.knock.plugins.metadata.tika.AutoTikaMetaData.DATE;
+import static io.vertigo.knock.plugins.metadata.tika.AutoTikaMetaData.DESCRIPTION;
+import static io.vertigo.knock.plugins.metadata.tika.AutoTikaMetaData.GENERATOR;
+import static io.vertigo.knock.plugins.metadata.tika.AutoTikaMetaData.INITIAL_CREATOR;
+import static io.vertigo.knock.plugins.metadata.tika.AutoTikaMetaData.KEYWORD;
+import static io.vertigo.knock.plugins.metadata.tika.AutoTikaMetaData.LANGUAGE;
+import static io.vertigo.knock.plugins.metadata.tika.AutoTikaMetaData.PAGE_COUNT;
+import static io.vertigo.knock.plugins.metadata.tika.AutoTikaMetaData.SUBJECT;
+import static io.vertigo.knock.plugins.metadata.tika.AutoTikaMetaData.TITLE;
+import static io.vertigo.knock.plugins.metadata.tika.AutoTikaMetaData.WORD_COUNT;
+
 import org.apache.tika.parser.AutoDetectParser;
 
 /**
@@ -17,22 +31,22 @@ public class AutoTikaMetaDataExtractorPlugin extends AbstractTikaMetaDataExtract
 	public AutoTikaMetaDataExtractorPlugin() {
 		super(new AutoDetectParser(), AutoTikaMetaData.CONTENT);
 
-		bindMetaData(AutoTikaMetaData.TITLE, "title");
-		bindMetaData(AutoTikaMetaData.DESCRIPTION, "description");
-		bindMetaData(AutoTikaMetaData.SUBJECT, "subject");
-		bindMetaData(AutoTikaMetaData.KEYWORD, "Keyword");
-		bindMetaData(AutoTikaMetaData.LANGUAGE, "language");
+		bindMetaData(TITLE, "title");
+		bindMetaData(DESCRIPTION, "description");
+		bindMetaData(SUBJECT, "subject");
+		bindMetaData(KEYWORD, "Keyword");
+		bindMetaData(LANGUAGE, "language");
 
-		bindMetaData(AutoTikaMetaData.INITIAL_CREATOR, "initial-creator");
-		bindMetaData(AutoTikaMetaData.CREATOR, "creator");
+		bindMetaData(INITIAL_CREATOR, "initial-creator");
+		bindMetaData(CREATOR, "creator");
 
-		bindMetaData(AutoTikaMetaData.CREATION_DATE, "Creation-Date");
-		bindMetaData(AutoTikaMetaData.DATE, "date");
+		bindMetaData(CREATION_DATE, "Creation-Date");
+		bindMetaData(DATE, "date");
 
-		bindMetaData(AutoTikaMetaData.GENERATOR, "generator");
-		bindMetaData(AutoTikaMetaData.PAGE_COUNT, "nbPage");
-		bindMetaData(AutoTikaMetaData.WORD_COUNT, "nbWord");
-		bindMetaData(AutoTikaMetaData.CHARACTER_COUNT, "nbCharacter");
+		bindMetaData(GENERATOR, "generator");
+		bindMetaData(PAGE_COUNT, "nbPage");
+		bindMetaData(WORD_COUNT, "nbWord");
+		bindMetaData(CHARACTER_COUNT, "nbCharacter");
 	}
 
 }

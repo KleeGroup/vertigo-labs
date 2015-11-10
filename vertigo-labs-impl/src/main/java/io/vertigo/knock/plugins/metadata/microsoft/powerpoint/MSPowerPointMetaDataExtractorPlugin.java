@@ -21,12 +21,11 @@ public final class MSPowerPointMetaDataExtractorPlugin extends AbstractMSMetaDat
 		//----------------------------------------------------------------------
 		//Extraction des donn�es d'un fichier word
 
-		final QuickButCruddyTextExtractor extractor;
 		try (final InputStream inputStream = file.createInputStream()) {
+			final QuickButCruddyTextExtractor extractor;
 			extractor = new QuickButCruddyTextExtractor(inputStream);
+			return extractor.getTextAsString();
 		}
-
-		return extractor.getTextAsString();
 	}
 
 	/** {@inheritDoc} */

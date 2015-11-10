@@ -6,8 +6,8 @@ import io.vertigo.knock.plugins.metadata.tika.AbstractTikaMetaDataExtractorPlugi
 import io.vertigo.lang.Assertion;
 
 import org.apache.tika.parser.odf.OpenDocumentParser;
-
-/**
+import static io.vertigo.knock.plugins.metadata.odf.ODFMetaData.*
+;/**
  * Extraction des m�tadonn�es ODF via Tika.
  * 
  * @author epaumier
@@ -22,29 +22,29 @@ public final class ODFMetaDataExtractorPlugin extends AbstractTikaMetaDataExtrac
 	public ODFMetaDataExtractorPlugin() {
 		super(new OpenDocumentParser(), ODFMetaData.CONTENT);
 
-		bindMetaData(ODFMetaData.TITLE, "title");
-		bindMetaData(ODFMetaData.DESCRIPTION, "description");
-		bindMetaData(ODFMetaData.SUBJECT, "subject");
-		bindMetaData(ODFMetaData.KEYWORD, "Keyword");
-		bindMetaData(ODFMetaData.LANGUAGE, "language");
+		bindMetaData(TITLE, "title");
+		bindMetaData(DESCRIPTION, "description");
+		bindMetaData(SUBJECT, "subject");
+		bindMetaData(KEYWORD, "Keyword");
+		bindMetaData(LANGUAGE, "language");
 
-		bindMetaData(ODFMetaData.INITIAL_CREATOR, "initial-creator");
-		bindMetaData(ODFMetaData.CREATOR, "creator");
+		bindMetaData(INITIAL_CREATOR, "initial-creator");
+		bindMetaData(CREATOR, "creator");
 
-		bindMetaData(ODFMetaData.CREATION_DATE, "Creation-Date");
-		bindMetaData(ODFMetaData.DATE, "date");
-		bindMetaData(ODFMetaData.EDITING_DURATION, "Edit-Time");
-		bindMetaData(ODFMetaData.EDITING_CYCLES, "editing-cycles");
+		bindMetaData(CREATION_DATE, "Creation-Date");
+		bindMetaData(DATE, "date");
+		bindMetaData(EDITING_DURATION, "Edit-Time");
+		bindMetaData(EDITING_CYCLES, "editing-cycles");
 
-		bindMetaData(ODFMetaData.GENERATOR, "generator");
+		bindMetaData(GENERATOR, "generator");
 
-		bindMetaData(ODFMetaData.TABLE_COUNT, "nbTab");
-		bindMetaData(ODFMetaData.OBJECT_COUNT, "nbObject");
-		bindMetaData(ODFMetaData.IMAGE_COUNT, "nbImg");
-		bindMetaData(ODFMetaData.PAGE_COUNT, "nbPage");
-		bindMetaData(ODFMetaData.PARAGRAPH_COUNT, "nbPara");
-		bindMetaData(ODFMetaData.WORD_COUNT, "nbWord");
-		bindMetaData(ODFMetaData.CHARACTER_COUNT, "nbCharacter");
+		bindMetaData(TABLE_COUNT, "nbTab");
+		bindMetaData(OBJECT_COUNT, "nbObject");
+		bindMetaData(IMAGE_COUNT, "nbImg");
+		bindMetaData(PAGE_COUNT, "nbPage");
+		bindMetaData(PARAGRAPH_COUNT, "nbPara");
+		bindMetaData(WORD_COUNT, "nbWord");
+		bindMetaData(CHARACTER_COUNT, "nbCharacter");
 	}
 
 	/** {@inheritDoc} */
