@@ -40,28 +40,19 @@ public final class DocumentVersion implements Serializable {
 		key = dataSourceId + ":" + sourceUrl;
 	}
 
-	//=========================================================================
-	// Key
-	//=========================================================================
 	public String getKey() {
 		return key;
 	}
 
-	//=========================================================================
-	// URL
-	//=========================================================================
 	public String getUrl() {
 		return sourceUrl;
 	}
 
-	//Identification de la donn�e source
+	//Identification de la donnee source
 	public String getDataSourceId() {
 		return dataSourceId;
 	}
 
-	//=========================================================================
-	// Version
-	//=========================================================================
 	public Date getLastModified() {
 		return lastModified;
 	}

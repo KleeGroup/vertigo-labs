@@ -15,17 +15,17 @@ public final class DocumentVersionBuilder implements Builder<DocumentVersion> {
 	private Date myLastModified;
 
 	public DocumentVersionBuilder withSourceUrl(final String sourceUrl) {
-		this.mySourceUrl = sourceUrl;
+		mySourceUrl = sourceUrl;
 		return this;
 	}
 
 	public DocumentVersionBuilder withDataSourceId(final String dataSourceId) {
-		this.myDataSourceId = dataSourceId;
+		myDataSourceId = dataSourceId;
 		return this;
 	}
 
 	public DocumentVersionBuilder withLastModified(final Date lastModified) {
-		this.myLastModified = lastModified;
+		myLastModified = lastModified;
 		return this;
 	}
 

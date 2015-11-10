@@ -1,5 +1,6 @@
 package io.vertigo.knock.document.model;
 
+import static io.vertigo.knock.metadata.MetaDataContainer.EMPTY_META_DATA_CONTAINER;
 import io.vertigo.knock.metadata.MetaDataContainer;
 import io.vertigo.lang.Assertion;
 import io.vertigo.lang.Builder;
@@ -47,38 +48,38 @@ public final class DocumentBuilder implements Builder<Document> {
 
 	//Version
 	public DocumentBuilder withSize(final long size) {
-		this.mySize = size;
+		mySize = size;
 		return this;
 	}
 
 	//ExtractedMetaContent
 	public DocumentBuilder withName(final String name) {
-		this.myName = name;
+		myName = name;
 		return this;
 	}
 
 	public DocumentBuilder withContent(final String content) {
-		this.myContent = content;
+		myContent = content;
 		return this;
 	}
 
 	public DocumentBuilder withType(final String type) {
-		this.myType = type;
+		myType = type;
 		return this;
 	}
 
 	public DocumentBuilder withExtractedMetaDataContainer(final MetaDataContainer extractedMetaDataContainer) {
-		this.myExtractedMetaDataContainer = extractedMetaDataContainer;
+		myExtractedMetaDataContainer = extractedMetaDataContainer;
 		return this;
 	}
 
 	public DocumentBuilder withEnhancedMetaDataContainer(final MetaDataContainer enhancedMetaDataContainer) {
-		this.myEnhancedMetaDataContainer = enhancedMetaDataContainer;
+		myEnhancedMetaDataContainer = enhancedMetaDataContainer;
 		return this;
 	}
 
 	public DocumentBuilder withUserDefinedMetaDataContainer(final MetaDataContainer userDefinedMetaDataContainer) {
-		this.myUserDefinedMetaDataContainer = userDefinedMetaDataContainer;
+		myUserDefinedMetaDataContainer = userDefinedMetaDataContainer;
 		return this;
 	}
 
@@ -87,9 +88,9 @@ public final class DocumentBuilder implements Builder<Document> {
 		if (document == null) {
 			//Pour le premier document on commence la r�vision � 0. (Pas de r�vision)
 			return new Document(documentVersion, mySize, nextRevision(), myName, myContent, myType,
-					get(MetaDataContainer.EMPTY_META_DATA_CONTAINER, myExtractedMetaDataContainer),
-					get(MetaDataContainer.EMPTY_META_DATA_CONTAINER, myEnhancedMetaDataContainer),
-					get(MetaDataContainer.EMPTY_META_DATA_CONTAINER, myUserDefinedMetaDataContainer));
+					get(EMPTY_META_DATA_CONTAINER, myExtractedMetaDataContainer),
+					get(EMPTY_META_DATA_CONTAINER, myEnhancedMetaDataContainer),
+					get(EMPTY_META_DATA_CONTAINER, myUserDefinedMetaDataContainer));
 		}
 
 		final MetaDataContainer overriddenExtractedMetaDataContainer = get(document.getExtractedMetaDataContainer(), myExtractedMetaDataContainer);
@@ -103,9 +104,9 @@ public final class DocumentBuilder implements Builder<Document> {
 				get(document.getName(), myName),
 				get(document.getContent(), myContent),
 				get(document.getType(), myType),
-				get(MetaDataContainer.EMPTY_META_DATA_CONTAINER, overriddenExtractedMetaDataContainer),
-				get(MetaDataContainer.EMPTY_META_DATA_CONTAINER, overriddenEnhancedMetaDataContainer),
-				get(MetaDataContainer.EMPTY_META_DATA_CONTAINER, overriddenUserDefinedMetaDataContainer));
+				get(EMPTY_META_DATA_CONTAINER, overriddenExtractedMetaDataContainer),
+				get(EMPTY_META_DATA_CONTAINER, overriddenEnhancedMetaDataContainer),
+				get(EMPTY_META_DATA_CONTAINER, overriddenUserDefinedMetaDataContainer));
 	}
 
 	private static UUID nextRevision() {
