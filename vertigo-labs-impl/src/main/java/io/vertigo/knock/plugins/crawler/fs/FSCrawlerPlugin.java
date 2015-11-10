@@ -2,7 +2,11 @@ package io.vertigo.knock.plugins.crawler.fs;
 
 import io.vertigo.dynamo.file.FileManager;
 import io.vertigo.dynamo.file.model.VFile;
-import io.vertigo.knock.document.model.*;
+import io.vertigo.knock.document.model.Document;
+import io.vertigo.knock.document.model.DocumentBuilder;
+import io.vertigo.knock.document.model.DocumentCategory;
+import io.vertigo.knock.document.model.DocumentVersion;
+import io.vertigo.knock.document.model.DocumentVersionBuilder;
 import io.vertigo.knock.impl.crawler.CrawlerPlugin;
 import io.vertigo.knock.impl.metadata.FileInfoMetaData;
 import io.vertigo.knock.metadata.MetaData;
@@ -12,12 +16,18 @@ import io.vertigo.knock.metadata.MetaDataManager;
 import io.vertigo.lang.Assertion;
 import io.vertigo.util.StringUtil;
 
-import javax.inject.Inject;
-import javax.inject.Named;
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  * Crawler de fichier synchrone.

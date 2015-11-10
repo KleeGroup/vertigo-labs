@@ -20,6 +20,9 @@ public final class Document implements Serializable {
 	//Cl� + Version
 	private final DocumentVersion documentVersion;
 
+	//Status
+	private final DocumentStatus documentStatus;
+
 	//Revision
 	private final UUID revision;
 	//ExtractedMetaContent
@@ -27,6 +30,7 @@ public final class Document implements Serializable {
 	private final String name;
 	private final String content;
 	private final String type;
+	private final DocumentCategory category;
 	private final MetaDataContainer extractedMetaDataContainer;
 
 	//ProcessedMetaData
@@ -46,17 +50,20 @@ public final class Document implements Serializable {
 	 * @param extractedMetaDataContainer Meta-donn�es extraitent du document (not null)
 	 * @param enhancedMetaDataContainer Meta-donn�es ajout�es (process) du document (not null)
 	 * @param userDefinedMetaDataContainer Meta-donn�es ajout�es (utilisateur) du document (not null)
+	 * @param category Category
 	 */
-	Document(final DocumentVersion documentVersion, final long size, final UUID revision, final String name, final String content, final String type, final MetaDataContainer extractedMetaDataContainer, final MetaDataContainer enhancedMetaDataContainer, final MetaDataContainer userDefinedMetaDataContainer) {
+	Document(final DocumentVersion documentVersion, final long size, final UUID revision, final String name, final String content, final String type, final DocumentCategory category, final MetaDataContainer extractedMetaDataContainer, final MetaDataContainer enhancedMetaDataContainer, final MetaDataContainer userDefinedMetaDataContainer, final DocumentStatus documentStatus) {
 		Assertion.checkNotNull(documentVersion);
 		Assertion.checkArgument(size >= 0, "size doit �tre >=0");
 		Assertion.checkNotNull(revision);
 		Assertion.checkArgNotEmpty(name);
 		Assertion.checkNotNull(content); //peut �tre vide
 		Assertion.checkNotNull(type); //peut �tre vide
+		Assertion.checkNotNull(category);
 		Assertion.checkNotNull(extractedMetaDataContainer);
 		Assertion.checkNotNull(enhancedMetaDataContainer);
 		Assertion.checkNotNull(userDefinedMetaDataContainer);
+		Assertion.checkNotNull(documentStatus);
 		//--------------------------------------------------------------------
 		this.documentVersion = documentVersion;
 		this.size = size;
@@ -64,10 +71,12 @@ public final class Document implements Serializable {
 		this.name = name;
 		this.content = content;
 		this.type = type;
+		this.category = category;
 		this.extractedMetaDataContainer = extractedMetaDataContainer;
 		//--------------------------------------------------------------------
 		this.enhancedMetaDataContainer = enhancedMetaDataContainer;
 		this.userDefinedMetaDataContainer = userDefinedMetaDataContainer;
+		this.documentStatus = documentStatus;
 	}
 
 	//-------------------------------------------------------------------------
@@ -101,6 +110,10 @@ public final class Document implements Serializable {
 		return type;
 	}
 
+	public DocumentCategory getCategory() {
+		return category;
+	}
+
 	public MetaDataContainer getExtractedMetaDataContainer() {
 		return extractedMetaDataContainer;
 	}
@@ -127,9 +140,14 @@ public final class Document implements Serializable {
 		//@TODO si beaucoup utilis� alors construire au d�marrage.
 		//L'ordre est important les MetaDonn�es utilisateurs peuvent donc surcharg�es des Metadonn�es "techniques"
 		return new MetaDataContainerBuilder()//
-		.withAllMetaDatas(extractedMetaDataContainer)//
-		.withAllMetaDatas(enhancedMetaDataContainer)//
-		.withAllMetaDatas(userDefinedMetaDataContainer)//
-		.build();
+				.withAllMetaDatas(extractedMetaDataContainer)//
+				.withAllMetaDatas(enhancedMetaDataContainer)//
+				.withAllMetaDatas(userDefinedMetaDataContainer)//
+				.build();
 	}
+
+	public DocumentStatus getDocumentStatus() {
+		return documentStatus;
+	}
+
 }
