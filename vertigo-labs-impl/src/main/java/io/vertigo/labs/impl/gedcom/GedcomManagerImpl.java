@@ -20,7 +20,7 @@ package io.vertigo.labs.impl.gedcom;
 
 import io.vertigo.core.resource.ResourceManager;
 import io.vertigo.dynamo.domain.model.DtList;
-import io.vertigo.dynamo.kvdatabase.KVDataBaseManager;
+import io.vertigo.dynamo.kvstore.KVStoreManager;
 import io.vertigo.dynamo.transaction.VTransactionManager;
 import io.vertigo.dynamo.transaction.VTransactionWritable;
 import io.vertigo.labs.gedcom.GedcomManager;
@@ -44,25 +44,25 @@ import org.gedcom4j.model.IndividualEvent;
 import org.gedcom4j.parser.GedcomParser;
 
 public final class GedcomManagerImpl implements GedcomManager {
-	private final String dataStoreName;
+	private final String collection;
 	private final GedcomParser gp;
 	private final GeoCoderManager geoCoderManager;
 	private final VTransactionManager transactionManager;
-	private final KVDataBaseManager kvDataBaseManager;
+	private final KVStoreManager kvStoreManager;
 	private final Map<String, GeoLocation> cache = Collections.synchronizedMap(new HashMap<String, GeoLocation>());
 	private final Map<String, DtList<Individual>> children = new HashMap<>();
 
 	@Inject
-	public GedcomManagerImpl(@Named("dataStoreName") final String storeName, final KVDataBaseManager kvDataBaseManager, final VTransactionManager transactionManager, final GeoCoderManager geoCoderManager, final ResourceManager resourceManager, @Named("gedcom") final String gedcomResource) {
-		Assertion.checkArgNotEmpty(storeName);
-		Assertion.checkNotNull(kvDataBaseManager);
+	public GedcomManagerImpl(@Named("collection") final String collection, final KVStoreManager kvStoreManager, final VTransactionManager transactionManager, final GeoCoderManager geoCoderManager, final ResourceManager resourceManager, @Named("gedcom") final String gedcomResource) {
+		Assertion.checkArgNotEmpty(collection);
+		Assertion.checkNotNull(kvStoreManager);
 		Assertion.checkNotNull(transactionManager);
 		Assertion.checkNotNull(geoCoderManager);
 		Assertion.checkNotNull(resourceManager);
 		Assertion.checkNotNull(gedcomResource);
 		//-----
-		dataStoreName = storeName;
-		this.kvDataBaseManager = kvDataBaseManager;
+		this.collection = collection;
+		this.kvStoreManager = kvStoreManager;
 		this.transactionManager = transactionManager;
 		this.geoCoderManager = geoCoderManager;
 
@@ -167,12 +167,12 @@ public final class GedcomManagerImpl implements GedcomManager {
 		try (VTransactionWritable transaction = transactionManager.createCurrentTransaction();) {
 			geoLocation = cache.get(key);
 			if (geoLocation == null) {
-				final Option<GeoLocation> storedLocation = kvDataBaseManager.getKVStore().find(dataStoreName, key, GeoLocation.class);
+				final Option<GeoLocation> storedLocation = kvStoreManager.find(collection, key, GeoLocation.class);
 				//System.out.println("    cache "+storedLocation.isDefined());
 				if (storedLocation.isEmpty()) {
 					geoLocation = geoCoderManager.findLocation(key);
 					//-----
-					kvDataBaseManager.getKVStore().put(dataStoreName, key, geoLocation);
+					kvStoreManager.put(collection, key, geoLocation);
 					transaction.commit();
 				} else {
 					geoLocation = storedLocation.get();

@@ -8,9 +8,10 @@
 
 	<module name="gedcom">
 	   <component api="VTransactionManager" class="io.vertigo.dynamo.impl.transaction.VTransactionManagerImpl"/>
-		<component api="KVDataBaseManager" class="io.vertigo.dynamo.impl.kvdatabase.KVDataBaseManagerImpl" >
-	        <plugin class="io.vertigo.dynamo.plugins.kvdatabase.berkeley.BerkeleyKVDataStorePlugin">
-      			<param name="dataStoreName" value="traits" />            
+		<component api="KVStoreManager" class="io.vertigo.dynamo.impl.kvstore.KVStoreManagerImpl" >
+	        <plugin class="io.vertigo.dynamo.plugins.kvstore.berkeley.BerkeleyKVStorePlugin">
+       			<param name="dataStoreName" value="meta" />            
+      			<param name="collections" value="traits" />            
       			<param name="inMemory" value="false" />            
       			<param name="fileName" value="d:/DB-gedcom" />            
 	        </plugin>
@@ -23,12 +24,12 @@
 		</component>
 		<component api="TaskManager" class="io.vertigo.dynamo.impl.task.TaskManagerImpl" />
 		<component api="GedcomManager" class="io.vertigo.labs.impl.gedcom.GedcomManagerImpl">
-      		<param name="dataStoreName" value="gedcom" />            
+      		<param name="collection" value="gedcom" />            
 			<param name="gedcom" value="io/vertigo/labs/gedcom/louis14.ged" />
 		</component>
 		
 		<component api="TraitManager" class="io.vertigo.labs.impl.trait.TraitManagerImpl" >
-      			<param name="dataStoreName" value="traits" />            
+      		<param name="collection" value="traits" />            
 		</component>
 	</module>
 	

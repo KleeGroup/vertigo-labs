@@ -23,8 +23,6 @@ import io.vertigo.app.Home;
 import io.vertigo.app.config.AppConfig;
 import io.vertigo.core.engines.VCommandEngine;
 import io.vertigo.core.spaces.definiton.DefinitionSpace;
-import io.vertigo.engines.command.samples.VPingCommandExecutor;
-import io.vertigo.engines.command.samples.VSystemCommandExecutor;
 import io.vertigo.engines.command.tcp.VServer;
 import io.vertigo.lang.Activeable;
 import io.vertigo.lang.Assertion;
@@ -32,6 +30,9 @@ import io.vertigo.lang.Component;
 import io.vertigo.shell.command.VCommand;
 import io.vertigo.shell.command.VCommandExecutor;
 import io.vertigo.shell.command.VResponse;
+import io.vertigo.shell.commands.CommandScannerUtil;
+import io.vertigo.shell.commands.VPingCommandExecutor;
+import io.vertigo.shell.commands.VSystemCommandExecutor;
 import io.vertigo.util.MapBuilder;
 
 import java.util.LinkedHashMap;

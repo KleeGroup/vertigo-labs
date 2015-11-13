@@ -1,7 +1,6 @@
 package io.vertigo.knock.channel;
 
 import io.vertigo.AbstractTestCaseJU4;
-import io.vertigo.core.Home;
 import io.vertigo.knock.channel.metadefinition.ChannelDefinition;
 import io.vertigo.knock.crawler.CrawlerManager;
 import io.vertigo.knock.document.DocumentStore;
@@ -62,8 +61,6 @@ public final class ChannelManagerTest extends AbstractTestCaseJU4 {
 				crawlerManager.getCrawler("testFS"),
 				Collections.singletonList(documentPostProcessor),
 				documentStore);
-		Home.getDefinitionSpace().put(channelDefinition, ChannelDefinition.class);
-
 		//-------
 
 		channelManager.crawlChannel(channelDefinition);
