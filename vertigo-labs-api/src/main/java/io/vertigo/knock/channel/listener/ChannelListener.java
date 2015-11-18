@@ -1,7 +1,7 @@
 package io.vertigo.knock.channel.listener;
 
-import io.vertigo.knock.document.model.Document;
-import io.vertigo.knock.document.model.DocumentVersion;
+import io.vertigo.folio.document.model.Document;
+import io.vertigo.folio.document.model.DocumentVersion;
 
 /**
  * Created by sbernard on 12/02/2015.

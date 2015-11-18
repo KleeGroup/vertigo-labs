@@ -1,8 +1,8 @@
 package io.vertigo.knock.impl.channel;
 
+import io.vertigo.folio.document.model.Document;
+import io.vertigo.folio.document.model.DocumentVersion;
 import io.vertigo.knock.channel.ChannelDefinition;
-import io.vertigo.knock.document.model.Document;
-import io.vertigo.knock.document.model.DocumentVersion;
 import io.vertigo.lang.Plugin;
 
 import java.util.List;

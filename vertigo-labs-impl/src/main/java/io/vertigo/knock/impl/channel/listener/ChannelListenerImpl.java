@@ -1,9 +1,10 @@
 package io.vertigo.knock.impl.channel.listener;
 
+import io.vertigo.folio.document.model.Document;
+import io.vertigo.folio.document.model.DocumentVersion;
 import io.vertigo.knock.channel.ChannelManager;
 import io.vertigo.knock.channel.listener.ChannelListener;
-import io.vertigo.knock.document.model.Document;
-import io.vertigo.knock.document.model.DocumentVersion;
+
 import org.apache.log4j.Logger;
 
 /**

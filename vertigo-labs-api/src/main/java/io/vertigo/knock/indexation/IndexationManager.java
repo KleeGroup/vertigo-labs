@@ -1,7 +1,7 @@
 package io.vertigo.knock.indexation;
 
+import io.vertigo.folio.document.model.Document;
 import io.vertigo.knock.channel.ChannelDefinition;
-import io.vertigo.knock.document.model.Document;
 import io.vertigo.lang.Component;
 
 /**

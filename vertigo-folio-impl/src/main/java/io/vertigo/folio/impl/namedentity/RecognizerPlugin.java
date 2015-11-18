@@ -1,6 +1,6 @@
 package io.vertigo.folio.impl.namedentity;
 
-import io.vertigo.knock.namedentity.NamedEntity;
+import io.vertigo.folio.namedentity.NamedEntity;
 import io.vertigo.lang.Plugin;
 
 import java.util.List;
