@@ -1,6 +1,6 @@
 package io.vertigo.knock.plugins.document.berkeley;
 
-import io.vertigo.knock.document.model.DocumentVersion;
+import io.vertigo.folio.document.model.DocumentVersion;
 
 import com.sleepycat.bind.tuple.TupleBinding;
 import com.sleepycat.bind.tuple.TupleInput;

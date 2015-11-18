@@ -1,7 +1,7 @@
 package io.vertigo.knock.processors;
 
-import io.vertigo.knock.document.model.Document;
-import io.vertigo.knock.metadata.MetaDataContainer;
+import io.vertigo.folio.document.model.Document;
+import io.vertigo.folio.metadata.MetaDataContainer;
 
 /**
 * @author npiedeloup

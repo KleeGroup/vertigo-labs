@@ -1,10 +1,10 @@
 package io.vertigo.knock.plugins.channel.processor;
 
-import io.vertigo.knock.document.model.Document;
+import io.vertigo.folio.document.model.Document;
+import io.vertigo.folio.metadata.MetaData;
+import io.vertigo.folio.metadata.MetaDataContainer;
+import io.vertigo.folio.metadata.MetaDataContainerBuilder;
 import io.vertigo.knock.impl.channel.DocumentPostProcessorPlugin;
-import io.vertigo.knock.metadata.MetaData;
-import io.vertigo.knock.metadata.MetaDataContainer;
-import io.vertigo.knock.metadata.MetaDataContainerBuilder;
 import io.vertigo.knock.plugins.metadata.microsoft.MSMetaData;
 import io.vertigo.knock.plugins.metadata.odf.ODFMetaData;
 import io.vertigo.knock.plugins.metadata.ooxml.OOXMLCoreMetaData;

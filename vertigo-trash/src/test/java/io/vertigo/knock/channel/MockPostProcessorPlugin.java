@@ -1,9 +1,9 @@
 package io.vertigo.knock.channel;
 
-import io.vertigo.knock.document.model.Document;
+import io.vertigo.folio.document.model.Document;
+import io.vertigo.folio.metadata.MetaData;
+import io.vertigo.folio.metadata.MetaDataContainer;
 import io.vertigo.knock.impl.channel.DocumentPostProcessorPlugin;
-import io.vertigo.knock.metadata.MetaData;
-import io.vertigo.knock.metadata.MetaDataContainer;
 
 import java.util.Iterator;
 

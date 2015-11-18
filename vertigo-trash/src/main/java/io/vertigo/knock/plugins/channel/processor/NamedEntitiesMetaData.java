@@ -1,7 +1,7 @@
 package io.vertigo.knock.plugins.channel.processor;
 
-import io.vertigo.knock.metadata.MetaData;
-import io.vertigo.knock.metadata.MetaDataType;
+import io.vertigo.folio.metadata.MetaData;
+import io.vertigo.folio.metadata.MetaDataType;
 import io.vertigo.lang.Assertion;
 
 /**

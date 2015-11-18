@@ -1,6 +1,6 @@
 package io.vertigo.knock.impl.channel.datapipe;
 
-import io.vertigo.knock.document.model.Document;
+import io.vertigo.folio.document.model.Document;
 import io.vertigo.lang.Assertion;
 
 import java.util.HashMap;

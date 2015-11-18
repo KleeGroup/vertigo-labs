@@ -1,9 +1,9 @@
 package io.vertigo.knock.processors;
 
-import io.vertigo.knock.document.model.Document;
-import io.vertigo.knock.document.model.DocumentBuilder;
-import io.vertigo.knock.metadata.MetaDataContainer;
-import io.vertigo.knock.metadata.MetaDataContainerBuilder;
+import io.vertigo.folio.document.model.Document;
+import io.vertigo.folio.document.model.DocumentBuilder;
+import io.vertigo.folio.metadata.MetaDataContainer;
+import io.vertigo.folio.metadata.MetaDataContainerBuilder;
 import io.vertigo.lang.Assertion;
 
 import java.util.List;

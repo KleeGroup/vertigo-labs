@@ -7,8 +7,8 @@ import io.vertigo.dynamo.domain.model.URI;
 import io.vertigo.dynamo.search.SearchManager;
 import io.vertigo.dynamo.search.metamodel.SearchIndexDefinition;
 import io.vertigo.dynamo.search.model.SearchIndex;
+import io.vertigo.folio.document.model.Document;
 import io.vertigo.knock.channel.ChannelDefinition;
-import io.vertigo.knock.document.model.Document;
 import io.vertigo.knock.indexation.IndexationManager;
 
 import java.util.Collection;

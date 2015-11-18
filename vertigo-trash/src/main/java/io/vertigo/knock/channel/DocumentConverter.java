@@ -1,7 +1,7 @@
 package io.vertigo.knock.channel;
 
 import io.vertigo.dynamo.domain.model.DtObject;
-import io.vertigo.knock.document.model.Document;
+import io.vertigo.folio.document.model.Document;
 
 /** 
  * @author npiedeloup

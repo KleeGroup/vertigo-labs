@@ -1,7 +1,7 @@
 package io.vertigo.knock.plugins.document.berkeley;
 
-import io.vertigo.knock.document.model.Document;
-import io.vertigo.knock.document.model.DocumentVersion;
+import io.vertigo.folio.document.model.Document;
+import io.vertigo.folio.document.model.DocumentVersion;
 import io.vertigo.knock.impl.document.DocumentStorePlugin;
 import io.vertigo.lang.Activeable;
 import io.vertigo.lang.Assertion;

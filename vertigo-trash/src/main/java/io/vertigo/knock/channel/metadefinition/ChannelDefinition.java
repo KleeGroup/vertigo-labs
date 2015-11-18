@@ -2,8 +2,8 @@ package io.vertigo.knock.channel.metadefinition;
 
 import io.vertigo.core.spaces.definiton.Definition;
 import io.vertigo.core.spaces.definiton.DefinitionPrefix;
-import io.vertigo.knock.crawler.Crawler;
-import io.vertigo.knock.document.DocumentStore;
+import io.vertigo.folio.crawler.Crawler;
+import io.vertigo.folio.document.DocumentStore;
 import io.vertigo.knock.processors.DocumentPostProcessor;
 import io.vertigo.lang.Assertion;
 

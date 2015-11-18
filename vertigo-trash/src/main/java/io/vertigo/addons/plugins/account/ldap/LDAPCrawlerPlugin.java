@@ -1,14 +1,15 @@
 package io.vertigo.addons.plugins.account.ldap;
 
-import io.vertigo.knock.document.model.Document;
-import io.vertigo.knock.document.model.DocumentBuilder;
-import io.vertigo.knock.document.model.DocumentVersion;
+import io.vertigo.folio.document.model.Document;
+import io.vertigo.folio.document.model.DocumentBuilder;
+import io.vertigo.folio.document.model.DocumentVersion;
+import io.vertigo.folio.metadata.MetaDataContainer;
+import io.vertigo.folio.metadata.MetaDataContainerBuilder;
 import io.vertigo.knock.impl.crawler.CrawlerPlugin;
-import io.vertigo.knock.metadata.MetaDataContainer;
-import io.vertigo.knock.metadata.MetaDataContainerBuilder;
 import io.vertigo.knock.plugins.metadata.ldap.LDAPMetaData;
 import io.vertigo.lang.Assertion;
 import io.vertigo.util.ListBuilder;
+
 import org.apache.directory.api.ldap.model.cursor.EntryCursor;
 import org.apache.directory.api.ldap.model.entry.Entry;
 import org.apache.directory.api.ldap.model.message.BindRequest;
@@ -18,10 +19,12 @@ import org.apache.directory.api.ldap.model.message.SearchScope;
 import org.apache.directory.api.ldap.model.name.Dn;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.apache.directory.ldap.client.api.LdapNetworkConnection;
+
 import sun.misc.BASE64Encoder;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+
 import java.util.Iterator;
 import java.util.List;
 

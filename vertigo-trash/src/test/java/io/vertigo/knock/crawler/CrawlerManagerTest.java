@@ -1,7 +1,9 @@
 package io.vertigo.knock.crawler;
 
 import io.vertigo.AbstractTestCaseJU4;
-import io.vertigo.knock.document.model.DocumentVersion;
+import io.vertigo.folio.crawler.CrawlerManager;
+import io.vertigo.folio.document.model.DocumentVersion;
+
 import org.junit.Test;
 
 import javax.inject.Inject;

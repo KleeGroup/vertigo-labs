@@ -1,9 +1,9 @@
 package io.vertigo.knock.plugins.crawler.fs;
 
-import io.vertigo.knock.document.DocumentManager;
-import io.vertigo.knock.document.model.Document;
-import io.vertigo.knock.document.model.DocumentVersion;
-import io.vertigo.knock.document.model.DocumentVersionBuilder;
+import io.vertigo.folio.document.DocumentManager;
+import io.vertigo.folio.document.model.Document;
+import io.vertigo.folio.document.model.DocumentVersion;
+import io.vertigo.folio.document.model.DocumentVersionBuilder;
 import io.vertigo.knock.impl.crawler.CrawlerPlugin;
 import io.vertigo.lang.Assertion;
 

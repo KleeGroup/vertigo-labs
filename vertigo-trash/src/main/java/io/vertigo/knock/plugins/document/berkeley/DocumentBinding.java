@@ -1,12 +1,12 @@
 package io.vertigo.knock.plugins.document.berkeley;
 
-import io.vertigo.knock.document.model.Document;
-import io.vertigo.knock.document.model.DocumentBuilder;
-import io.vertigo.knock.document.model.DocumentVersion;
-import io.vertigo.knock.document.model.DocumentVersionBuilder;
-import io.vertigo.knock.metadata.MetaData;
-import io.vertigo.knock.metadata.MetaDataContainer;
-import io.vertigo.knock.metadata.MetaDataContainerBuilder;
+import io.vertigo.folio.document.model.Document;
+import io.vertigo.folio.document.model.DocumentBuilder;
+import io.vertigo.folio.document.model.DocumentVersion;
+import io.vertigo.folio.document.model.DocumentVersionBuilder;
+import io.vertigo.folio.metadata.MetaData;
+import io.vertigo.folio.metadata.MetaDataContainer;
+import io.vertigo.folio.metadata.MetaDataContainerBuilder;
 import io.vertigo.lang.Assertion;
 import io.vertigo.util.ClassUtil;
 import io.vertigo.util.StringUtil;

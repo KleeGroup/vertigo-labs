@@ -1,9 +1,9 @@
 package io.vertigo.knock.plugins.channel.processor;
 
-import io.vertigo.knock.document.model.Document;
+import io.vertigo.folio.document.model.Document;
+import io.vertigo.folio.metadata.MetaDataContainer;
+import io.vertigo.folio.metadata.MetaDataContainerBuilder;
 import io.vertigo.knock.impl.channel.DocumentPostProcessorPlugin;
-import io.vertigo.knock.metadata.MetaDataContainer;
-import io.vertigo.knock.metadata.MetaDataContainerBuilder;
 
 import java.util.regex.Pattern;
 

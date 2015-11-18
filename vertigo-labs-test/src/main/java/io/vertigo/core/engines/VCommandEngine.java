@@ -18,7 +18,6 @@
  */
 package io.vertigo.core.engines;
 
-import io.vertigo.lang.Engine;
 import io.vertigo.shell.command.VCommandExecutor;
 import io.vertigo.shell.command.VCommandHandler;
 
@@ -27,7 +26,7 @@ import io.vertigo.shell.command.VCommandHandler;
  * 
  * @author pchretien
  */
-public interface VCommandEngine extends Engine, VCommandHandler {
+public interface VCommandEngine extends VCommandHandler {
 
 	void registerCommandExecutor(String name, VCommandExecutor commandExecutor);
 }

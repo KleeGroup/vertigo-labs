@@ -1,11 +1,11 @@
 package io.vertigo.knock.channel;
 
 import io.vertigo.AbstractTestCaseJU4;
+import io.vertigo.folio.crawler.CrawlerManager;
+import io.vertigo.folio.document.DocumentStore;
+import io.vertigo.folio.document.model.Document;
+import io.vertigo.folio.document.model.DocumentVersion;
 import io.vertigo.knock.channel.metadefinition.ChannelDefinition;
-import io.vertigo.knock.crawler.CrawlerManager;
-import io.vertigo.knock.document.DocumentStore;
-import io.vertigo.knock.document.model.Document;
-import io.vertigo.knock.document.model.DocumentVersion;
 import io.vertigo.knock.processors.DocumentPostProcessor;
 
 import java.util.Collections;

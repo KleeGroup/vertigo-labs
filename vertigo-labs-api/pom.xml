@@ -14,9 +14,16 @@
 	<dependencies>
 		<dependency>
 			<groupId>io.vertigo</groupId>
+			<artifactId>vertigo-folio-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>io.vertigo</groupId>
 			<artifactId>vertigo-core</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>io.vertigo</groupId>
 			<artifactId>vertigo-commons-impl</artifactId>

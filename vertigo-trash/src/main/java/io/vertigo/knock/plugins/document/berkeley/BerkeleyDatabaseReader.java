@@ -1,6 +1,6 @@
 package io.vertigo.knock.plugins.document.berkeley;
 
-import io.vertigo.knock.document.model.DocumentVersion;
+import io.vertigo.folio.document.model.DocumentVersion;
 import io.vertigo.lang.Assertion;
 
 import com.sleepycat.bind.EntryBinding;

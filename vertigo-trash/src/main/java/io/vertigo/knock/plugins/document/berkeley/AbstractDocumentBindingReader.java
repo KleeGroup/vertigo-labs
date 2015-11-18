@@ -1,9 +1,9 @@
 package io.vertigo.knock.plugins.document.berkeley;
 
+import io.vertigo.folio.metadata.MetaData;
+import io.vertigo.folio.metadata.MetaDataContainer;
+import io.vertigo.folio.metadata.MetaDataContainerBuilder;
 import io.vertigo.knock.impl.metadata.FileInfoMetaData;
-import io.vertigo.knock.metadata.MetaData;
-import io.vertigo.knock.metadata.MetaDataContainer;
-import io.vertigo.knock.metadata.MetaDataContainerBuilder;
 import io.vertigo.util.ClassUtil;
 import io.vertigo.util.StringUtil;
 
