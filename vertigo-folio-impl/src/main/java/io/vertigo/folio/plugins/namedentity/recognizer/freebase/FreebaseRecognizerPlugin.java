@@ -1,4 +1,4 @@
-package io.vertigo.knock.plugins.namedentity.recognizer.freebase;
+package io.vertigo.folio.plugins.namedentity.recognizer.freebase;
 
 import io.vertigo.folio.impl.namedentity.RecognizerPlugin;
 import io.vertigo.knock.namedentity.NamedEntity;

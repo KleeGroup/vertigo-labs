@@ -1,4 +1,4 @@
-package io.vertigo.knock.plugins.namedentity.tokenizer.stanfordNlp;
+package io.vertigo.folio.plugins.namedentity.tokenizer.stanfordNlp;
 
 import io.vertigo.commons.resource.ResourceManager;
 import io.vertigo.folio.impl.namedentity.TokenizerPlugin;

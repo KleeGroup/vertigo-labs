@@ -1,4 +1,4 @@
-package io.vertigo.knock.plugins.namedentity.tokenizer.regex;
+package io.vertigo.folio.plugins.namedentity.tokenizer.regex;
 
 import io.vertigo.folio.impl.namedentity.TokenizerPlugin;
 import io.vertigo.lang.Assertion;
