@@ -92,5 +92,11 @@
 			<version>3.4.1</version>
 		</dependency>
 		
+		        <dependency>
+            <groupId>org.apache.directory.api</groupId>
+            <artifactId>api-all</artifactId>
+            <version>1.0.0-M28</version>
+        </dependency>
+		
 	</dependencies>
 </project>

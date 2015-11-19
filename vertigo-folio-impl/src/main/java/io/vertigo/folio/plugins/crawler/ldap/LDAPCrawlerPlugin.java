@@ -10,6 +10,12 @@ import io.vertigo.folio.plugins.metadata.ldap.LDAPMetaData;
 import io.vertigo.lang.Assertion;
 import io.vertigo.util.ListBuilder;
 
+import java.util.Iterator;
+import java.util.List;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.apache.directory.api.ldap.model.cursor.EntryCursor;
 import org.apache.directory.api.ldap.model.entry.Entry;
 import org.apache.directory.api.ldap.model.message.BindRequest;
@@ -22,22 +28,16 @@ import org.apache.directory.ldap.client.api.LdapNetworkConnection;
 
 import sun.misc.BASE64Encoder;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import java.util.Iterator;
-import java.util.List;
-
 /**
  * Created by sbernard on 19/03/2015.
  */
 public class LDAPCrawlerPlugin implements CrawlerPlugin {
-	private final String dataSourceId;
+	private final String myDataSourceId;
 	private final String host;
 	private final int port;
 	private final String username;
 	private final String password;
-	private final String dn;
+	private final String myDn;
 
 	@Inject
 	public LDAPCrawlerPlugin(@Named("dataSourceId") final String dataSourceId, @Named("host") final String host, @Named("port") final int port, @Named("username") final String username, @Named("password") final String password, @Named("dn") final String dn) {
@@ -48,14 +48,13 @@ public class LDAPCrawlerPlugin implements CrawlerPlugin {
 		Assertion.checkNotNull(password);
 		Assertion.checkNotNull(dn);
 		//-------------
-		this.dataSourceId = dataSourceId;
+		myDataSourceId = dataSourceId;
 		this.host = host;
 		this.port = port;
 		this.username = username;
 		this.password = password;
-		this.dn = dn;
+		myDn = dn;
 	}
-
 
 	/**
 	 * Lit le document avec ses m�ta-donn�es.
@@ -66,14 +65,14 @@ public class LDAPCrawlerPlugin implements CrawlerPlugin {
 	@Override
 	public Document readDocument(final DocumentVersion documentVersion) {
 		try (final LdapConnection connection = new LdapNetworkConnection(host, port)) {
-			final BindRequest bindRequest = new BindRequestImpl();
-			bindRequest.setSimple(true);
-			bindRequest.setDn(new Dn(dn));
-			bindRequest.setName(username);
-			bindRequest.setCredentials(password);
+			final BindRequest bindRequest = new BindRequestImpl()
+					.setSimple(true)
+					.setDn(new Dn(myDn))
+					.setName(username)
+					.setCredentials(password);
 			final BindResponse bindResponse = connection.bind(bindRequest);
-			final Dn dn = new Dn( documentVersion.getUrl());
-			final EntryCursor cursor = connection.search(dn, "(&(objectclass=person)(objectclass=user))", SearchScope.SUBTREE);
+			final Dn ldn = new Dn(documentVersion.getUrl());
+			final EntryCursor cursor = connection.search(ldn, "(&(objectclass=person)(objectclass=user))", SearchScope.SUBTREE);
 			final Entry entry = cursor.iterator().next();
 			return createDocumentFromLdapEntry(entry, documentVersion);
 		} catch (final Exception e) {
@@ -87,7 +86,7 @@ public class LDAPCrawlerPlugin implements CrawlerPlugin {
 	 */
 	@Override
 	public boolean accept(final String dataSourceId) {
-		return this.dataSourceId.equals(dataSourceId);
+		return myDataSourceId.equals(dataSourceId);
 	}
 
 	/**
@@ -98,28 +97,29 @@ public class LDAPCrawlerPlugin implements CrawlerPlugin {
 	public Iterable<DocumentVersion> crawl(final String startAtUrl) {
 		final ListBuilder<Entry> listBuilder = new ListBuilder<>();
 		try (final LdapConnection connection = new LdapNetworkConnection(host, port)) {
-			final BindRequest bindRequest = new BindRequestImpl();
-			bindRequest.setSimple(true);
-			bindRequest.setDn(new Dn(dn));
-			bindRequest.setName(username);
-			bindRequest.setCredentials(password);
+			final BindRequest bindRequest = new BindRequestImpl()
+					.setSimple(true)
+					.setDn(new Dn(myDn))
+					.setName(username)
+					.setCredentials(password);
+
 			final BindResponse bindResponse = connection.bind(bindRequest);
 			final Dn dn = new Dn("ou=Utilisateurs,dc=klee,dc=lan,dc=net");
 			final EntryCursor cursor = connection.search(dn, "(&(objectclass=person)(objectclass=user))", SearchScope.SUBTREE);
 			for (final Entry entry : cursor) {
 				listBuilder.add(entry);
 			}
-		} catch (final Exception e) {
-			throw new RuntimeException(e);
-		} finally {
+
 			final List list = listBuilder.build();
 			return new Iterable<DocumentVersion>() {
-
 				@Override
 				public Iterator<DocumentVersion> iterator() {
-					return new LDAPEntryIterator(list.iterator(), dataSourceId);
+					return new LDAPEntryIterator(list.iterator(), myDataSourceId);
 				}
 			};
+
+		} catch (final Exception e) {
+			throw new RuntimeException(e);
 		}
 	}
 
@@ -160,17 +160,14 @@ public class LDAPCrawlerPlugin implements CrawlerPlugin {
 	private static final String getAttribute(final Entry entry, final String attribute) throws Exception {
 		if (entry.containsAttribute(attribute)) {
 			return entry.get(attribute).getString();
-		} else {
-			return "";
 		}
+		return "";
 	}
 
 	private static final String encodeImage(final Entry entry) throws Exception {
 		if (entry.containsAttribute("thumbnailPhoto")) {
 			return new BASE64Encoder().encode(entry.get("thumbnailPhoto").getBytes());
-		} else {
-			return "";
 		}
-
+		return "";
 	}
 }
