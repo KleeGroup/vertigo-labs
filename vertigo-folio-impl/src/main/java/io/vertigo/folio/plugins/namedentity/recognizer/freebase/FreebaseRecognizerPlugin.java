@@ -1,7 +1,7 @@
 package io.vertigo.folio.plugins.namedentity.recognizer.freebase;
 
 import io.vertigo.folio.impl.namedentity.RecognizerPlugin;
-import io.vertigo.knock.namedentity.NamedEntity;
+import io.vertigo.folio.namedentity.NamedEntity;
 import io.vertigo.lang.Assertion;
 import io.vertigo.lang.Option;
 
@@ -41,14 +41,14 @@ public class FreebaseRecognizerPlugin implements RecognizerPlugin {
 		Assertion.checkNotNull(apiKey);
 		Assertion.checkNotNull(proxyHost);
 		Assertion.checkNotNull(proxyPort);
-		Assertion.checkArgument((proxyHost.isDefined() && proxyPort.isDefined()) || (proxyHost.isEmpty() && proxyPort.isEmpty()), "les deux paramètres host et port doivent être tous les deux remplis ou vides");
+		Assertion.checkArgument(proxyHost.isDefined() && proxyPort.isDefined() || proxyHost.isEmpty() && proxyPort.isEmpty(), "les deux paramètres host et port doivent être tous les deux remplis ou vides");
 		//----
 		if (proxyHost.isDefined()) {
 			proxy = Option.some(new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyHost.get(), Integer.parseInt(proxyPort.get()))));
 		} else {
 			proxy = Option.none();
 		}
-		this.FREEBASE_API_KEY = apiKey;
+		FREEBASE_API_KEY = apiKey;
 	}
 
 	@Override

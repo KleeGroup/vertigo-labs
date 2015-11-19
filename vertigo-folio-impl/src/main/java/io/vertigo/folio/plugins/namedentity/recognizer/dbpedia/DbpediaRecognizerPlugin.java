@@ -1,7 +1,7 @@
 package io.vertigo.folio.plugins.namedentity.recognizer.dbpedia;
 
 import io.vertigo.folio.impl.namedentity.RecognizerPlugin;
-import io.vertigo.knock.namedentity.NamedEntity;
+import io.vertigo.folio.namedentity.NamedEntity;
 import io.vertigo.lang.Assertion;
 import io.vertigo.lang.Option;
 
