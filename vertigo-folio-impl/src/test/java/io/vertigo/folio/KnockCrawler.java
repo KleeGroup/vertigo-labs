@@ -1,4 +1,4 @@
-package app;
+package io.vertigo.folio;
 
 import io.vertigo.app.App;
 import io.vertigo.app.config.AppConfig;
@@ -8,10 +8,12 @@ import io.vertigo.dynamo.file.FileManager;
 import io.vertigo.dynamo.impl.file.FileManagerImpl;
 import io.vertigo.folio.crawler.CrawlerManager;
 import io.vertigo.folio.document.DocumentManager;
+import io.vertigo.folio.document.model.Document;
 import io.vertigo.folio.document.model.DocumentVersion;
 import io.vertigo.folio.impl.crawler.CrawlerManagerImpl;
 import io.vertigo.folio.impl.document.DocumentManagerImpl;
 import io.vertigo.folio.impl.metadata.MetaDataManagerImpl;
+import io.vertigo.folio.metadata.MetaData;
 import io.vertigo.folio.metadata.MetaDataManager;
 import io.vertigo.folio.plugins.crawler.fs.FSCrawlerPlugin;
 import io.vertigo.folio.plugins.metadata.microsoft.excel.MSExcelMetaDataExtractorPlugin;
@@ -25,21 +27,21 @@ import io.vertigo.folio.plugins.metadata.txt.TxtMetaDataExtractorPlugin;
 
 import javax.inject.Inject;
 
-public final class Spider {
+public final class KnockCrawler {
 	@Inject
 	private CrawlerManager crawlerManager;
 
 	//	@Inject
-	//	private DocumentManager documentManager;
+	//	private MetaDataManager metaDataManager;
 
-	private Spider(final App app) {
+	private KnockCrawler(final App app) {
 		Injector.injectMembers(this, app.getComponentSpace());
 	}
 
 	public static void main(final String[] args) throws Exception {
 		System.out.println(">>> start spider");
 		try (App app = new App(config())) {
-			new Spider(app).crawl();
+			new KnockCrawler(app).crawl();
 		} catch (final Exception e) {
 			e.printStackTrace();
 		}
@@ -49,7 +51,18 @@ public final class Spider {
 		int i = 0;
 		for (final DocumentVersion documentVersion : crawlerManager.getCrawler("myFS").crawl("")) {
 			System.out.println("doc[" + i + "]: " + documentVersion.getUrl());
-			System.out.println("   +---: " + crawlerManager.readDocument(documentVersion));
+			try {
+				final Document document = crawlerManager.readDocument(documentVersion);
+				System.out.println("   +--- name : " + document.getName());
+				System.out.println("   +--- extracted");
+				for (final MetaData metaData : document.getExtractedMetaDataContainer().getMetaDataSet()) {
+					System.out.println("   +------ " + metaData + " : " + document.getExtractedMetaDataContainer().getValue(metaData));
+				}
+			} catch (final Throwable e) {
+				System.out.println("   +---: failed to read");
+			}
+			//			System.out.println("   +---: " + document);
+			//			final Document document = metaDataManager.extractMetaData(new VFile(documentVersion.getUrl()));
 			i++;
 			if (i > 100) {
 				break;
@@ -70,7 +83,7 @@ public final class Spider {
 					.beginPlugin(FSCrawlerPlugin.class)
 						.addParam("dataSourceId", "myFS")
 						.addParam("directory" , "z:")
-						.addParam ("maxFiles" , "50")
+						.addParam ("maxFiles" , "250")
 						.addParam ("excludePatterns" , "")
 					.endPlugin()	
 					.addComponent(FileManager.class, FileManagerImpl.class)

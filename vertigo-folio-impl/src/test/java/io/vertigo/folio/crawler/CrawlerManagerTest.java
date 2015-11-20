@@ -1,4 +1,4 @@
-package io.vertigo.folio.crawling;
+package io.vertigo.folio.crawler;
 
 import io.vertigo.AbstractTestCaseJU4;
 import io.vertigo.folio.crawler.CrawlerManager;
