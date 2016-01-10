@@ -11,10 +11,10 @@ import java.util.List;
 
 public final class RespProtocol {
 	enum RespType {
-		RESP_STRING('+'), //
-		RESP_ARRAY('*'), //
-		RESP_BULK('$'), //
-		RESP_INTEGER(':'), //
+		RESP_STRING('+'),
+		RESP_ARRAY('*'),
+		RESP_BULK('$'),
+		RESP_INTEGER(':'),
 		RESP_EVAL('?');
 		private final char c;
 
@@ -164,7 +164,7 @@ public final class RespProtocol {
 				}
 				return list;
 			default:
-				throw new IllegalArgumentException("According resp protocol, a response must starts with - + : $ or *");
+				throw new IllegalArgumentException("According resp protocol, a response must start with - + : $ or *");
 		}
 
 	}

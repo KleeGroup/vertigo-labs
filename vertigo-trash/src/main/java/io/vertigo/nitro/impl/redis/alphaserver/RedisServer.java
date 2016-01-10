@@ -280,13 +280,14 @@ public final class RedisServer implements RespCommandHandler {
 				RespProtocol.writeError(out, "RESP Command unknown : " + command.getName());
 		}
 	}
-}
-//	public static void main(String[] args) throws Exception {
-//		System.out.println(">>redis server....");
-//		CopyOfRedisServer server = new CopyOfRedisServer(6380);
-//		System.out.println(">>redis server démarré");
-//		new GetSetBenchmark().playVedis();
-//		new GetSetBenchmark().playJedis();
-//		server.toString();
-//	}
 
+	//	public static void main(final String[] args) throws Exception {
+	//		System.out.println(">>redis server....");
+	//		new RedisServer(6379).start();
+	//	}
+	//		CopyOfRedisServer server = new CopyOfRedisServer(6380);
+	//		System.out.println(">>redis server démarré");
+	//		new GetSetBenchmark().playVedis();
+	//		new GetSetBenchmark().playJedis();
+	//		server.toString();
+}

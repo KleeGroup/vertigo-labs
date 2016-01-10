@@ -3,13 +3,13 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<parent>
 		<groupId>io.vertigo</groupId>
-   		<artifactId>vertigo-labs-reactor</artifactId>
-		<version>0.8.3</version>
+		<artifactId>vertigo-parent</artifactId>
+		<version>0.9.1-SNAPSHOT</version>
 	</parent>
 	
   	<modelVersion>4.0.0</modelVersion>
 	<artifactId>vertigo-labs-trash</artifactId>
-	<version>0.8.4-SNAPSHOT</version>
+		<version>0.9.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>vertigo-labs-trash</name>
 	<url>http://maven.apache.org</url>
@@ -85,12 +85,12 @@
 			<artifactId>vertigo-vega-impl</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		
+<!-- 		
 		<dependency>
 			<groupId>io.vertigo</groupId>
 			<artifactId>vertigo-labs-api</artifactId>
 			<version>${project.version}</version>
-		</dependency>
+		</dependency> -->
 		
 
 		<!-- Gedcom -->
@@ -105,7 +105,7 @@
 		<dependency>
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
-			<version>2.5.2</version>
+			<version>2.7.3</version>
 		</dependency>
 		<!-- /Jedis -->
 
