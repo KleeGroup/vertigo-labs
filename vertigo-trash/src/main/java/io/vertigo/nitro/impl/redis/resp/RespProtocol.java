@@ -2,10 +2,8 @@ package io.vertigo.nitro.impl.redis.resp;
 
 import io.vertigo.lang.Assertion;
 
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,21 +25,8 @@ public final class RespProtocol {
 		}
 	}
 
-	private static final String CHARSET = "UTF-8";
-	private static final String LN = "\r\n";
-
-	private static void writeCommand(final OutputStream out, final String command, final String args[]) throws IOException {
-		//--- *Nb d'infos
-		out.write("*".getBytes(CHARSET));
-		out.write(String.valueOf(args.length + 1).getBytes(CHARSET));
-		out.write(LN.getBytes(CHARSET));
-		//--- cas du nom de la commande
-		writeBulkString(out, command);
-		//--- cas des args
-		for (final String arg : args) {
-			writeBulkString(out, arg);
-		}
-	}
+	static final String CHARSET = "UTF-8";
+	static final String LN = "\r\n";
 
 	static RespCommand readCommand(final BufferedReader input) throws IOException {
 		String line = input.readLine();
@@ -78,54 +63,18 @@ public final class RespProtocol {
 		return new RespCommand(commandName, args);
 	}
 
-	public static void writeLong(final OutputStream out, final Long value) throws IOException {
-		out.write(":".getBytes(CHARSET));
-		out.write(String.valueOf(value).getBytes(CHARSET));
-		out.write(LN.getBytes(CHARSET));
-	}
-
-	public static void writeError(final OutputStream out, final String msg) throws IOException {
-		out.write("-".getBytes(CHARSET));
-		out.write(msg.getBytes(CHARSET));
-		out.write(LN.getBytes(CHARSET));
-	}
-
-	public static void writeSimpleString(final OutputStream out, final String value) throws IOException {
-		out.write("+".getBytes(CHARSET));
-		out.write(value.getBytes(CHARSET));
-		out.write(LN.getBytes(CHARSET));
-	}
-
-	public static void writeBulkString(final OutputStream out, final String bulk) throws IOException {
-		//System.out.println("bulk:" + bulk);
-		//--- cas du nom de la commande
-		if (bulk == null) {
-			out.write("$-1".getBytes(CHARSET));
-			out.write(LN.getBytes(CHARSET));
-			return;
-		}
-
-		final byte[] bytes = bulk.getBytes(CHARSET);
-		out.write("$".getBytes(CHARSET));
-		out.write(String.valueOf(bytes.length).getBytes(CHARSET));
-		out.write(LN.getBytes(CHARSET));
-		out.write(bytes);
-		out.write(LN.getBytes(CHARSET));
-	}
-
-	static Object pushPull(final RespType type, final BufferedReader in, final BufferedOutputStream out, final String command, final String[] args) {
+	static Object pushPull(final RespType type, final BufferedReader in, final RespWriter writer, final String command, final String[] args) {
 		try {
-			push(out, command, args);
+			push(writer, command, args);
 			return pull(in, type.getChar());
 		} catch (final IOException e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	private static void push(final BufferedOutputStream out, final String command, final String[] args) throws IOException {
+	private static void push(final RespWriter writer, final String command, final String[] args) throws IOException {
 		//System.out.println("exec command :" + command.getName());
-		writeCommand(out, command, args);
-		out.flush();
+		writer.writeCommand(writer, command, args);
 	}
 
 	private static Object pull(final BufferedReader in, final char expected) throws IOException {

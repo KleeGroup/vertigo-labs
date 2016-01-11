@@ -42,7 +42,7 @@ public final class RespServer implements Runnable {
 			//			try (PrintWriter out = new PrintWriter(socket.getOutputStream(), true)) {
 			try (BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 				for (RespCommand command = RespProtocol.readCommand(in); command != null; command = RespProtocol.readCommand(in)) {
-					respCommandHandler.onCommand(socket.getOutputStream(), command);
+					respCommandHandler.onCommand(new RespWriter(socket.getOutputStream()), command);
 				}
 			}
 			//			} catch (IOException e) {
