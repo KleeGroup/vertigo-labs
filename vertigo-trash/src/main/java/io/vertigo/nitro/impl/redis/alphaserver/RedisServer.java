@@ -6,20 +6,22 @@ import io.vertigo.nitro.impl.redis.resp.RespServer;
 import io.vertigo.nitro.impl.redis.resp.RespWriter;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.BlockingDeque;
-import java.util.concurrent.LinkedBlockingDeque;
-import java.util.concurrent.TimeUnit;
+import java.util.Map.Entry;
 
 public final class RedisServer implements RespCommandHandler {
 	private final RespServer respServer;
 	private final Map<String, Map<String, String>> hashes = new HashMap<>();
 
-	private final List<RespCommand> multi = null;
+	private boolean exec = false;
+	private List<RespCommand> multi = null;
 	private final Map<String, String> map = new HashMap<>();
-	private final Map<String, BlockingDeque<String>> lists = new HashMap<>();
+	private final Map<String, RedisQueue> lists = new HashMap<>();
 
 	public RedisServer(final int port) {
 		respServer = new RespServer(port, this);
@@ -31,15 +33,17 @@ public final class RedisServer implements RespCommandHandler {
 
 	@Override
 	public void onCommand(final RespWriter writer, final RespCommand command) throws IOException {
+		if (!exec && multi != null && !"exec".equals(command.getName())) {
+			multi.add(command);
+			writer.writeSimpleString("QUEUED");
+			//			System.out.println("     |--- command:" + command.getName());
+			return;
+		}
 		System.out.println("--- command:" + command.getName());
 		for (final String arg : command.args()) {
 			System.out.println("   |-arg :" + arg);
 		}
-		if (multi != null && !"exec".equals(command.getName())) {
-			multi.add(command);
-			return;
-		}
-		switch (command.getName().toLowerCase()) {
+		switch (command.getName()) {
 		//-------------------------Connection----------------------------------
 			case "ping":
 				writer.writeSimpleString("PONG");
@@ -67,7 +71,7 @@ public final class RedisServer implements RespCommandHandler {
 				} else {
 					hashes.put(key, newHash);
 				}
-				writer.writeSimpleString("OK");
+				writer.writeOK();
 			}
 				break;
 			case "hget": {
@@ -75,6 +79,16 @@ public final class RedisServer implements RespCommandHandler {
 				final String field = command.args()[1];
 				final Map<String, String> hash = hashes.get(key);
 				writer.writeBulkString(hash == null ? null : hash.get(field));
+			}
+				break;
+			case "hgetall": {
+				final String key = command.args()[0];
+				final Map<String, String> getAll = hashes.get(key);
+				writer.write("*").write(2 * getAll.size()).writeLN();
+				for (final Entry<String, String> entry : getAll.entrySet()) {
+					writer.writeSimpleString(entry.getKey());
+					writer.writeBulkString(entry.getValue());
+				}
 			}
 				break;
 			case "hexists": {
@@ -158,7 +172,7 @@ public final class RedisServer implements RespCommandHandler {
 			case "set": {
 				final String key = command.args()[0];
 				map.put(key, command.args()[1]);
-				writer.writeSimpleString("OK");
+				writer.writeOK();
 			}
 				break;
 			case "get": {
@@ -173,28 +187,53 @@ public final class RedisServer implements RespCommandHandler {
 				writer.writeLong(exists ? 1L : 0L);
 			}
 				break;
+			case "brpop": {
+				final String key = command.args()[0];
+
+				final RedisQueue list = lists.get(key);
+				if (list == null || list.size() == 0) {
+					writer.writeBulkString(null);
+				} else {
+					final String element = list.brpop();
+					writer
+							.write("*2").writeLN()
+							.writeSimpleString(key)
+							.writeBulkString(element);
+				}
+			}
+				break;
+			case "blpop": {
+				final String key = command.args()[0];
+
+				final RedisQueue list = lists.get(key);
+				if (list == null || list.size() == 0) {
+					writer.writeBulkString(null);
+				} else {
+					final String element = list.blpop();
+					writer
+							.write("*2").writeLN()
+							.writeSimpleString(key)
+							.writeBulkString(element);
+				}
+			}
+				break;
 			case "brpoplpush": {
 				final String key = command.args()[0];
 				final String key2 = command.args()[1];
 				// long key2 = command.args()[2]==;
 
-				final BlockingDeque<String> list = lists.get(key);
+				final RedisQueue list = lists.get(key);
 				if (list == null || list.size() == 0) {
 					writer.writeBulkString(null);
 				} else {
-					String element;
-					try {
-						element = list.pollFirst(1L, TimeUnit.SECONDS);
-					} catch (final InterruptedException e) {
-						element = null;
-					}
+					final String element = list.blpop();
 					if (element != null) {
-						BlockingDeque<String> list2 = lists.get(key2);
+						RedisQueue list2 = lists.get(key2);
 						if (list2 == null) {
-							list2 = new LinkedBlockingDeque<>();
+							list2 = new RedisQueue();
 							lists.put(key2, list2);
 						}
-						list2.addFirst(element);
+						list2.lpushx(element);
 					}
 					writer.writeBulkString(element);
 				}
@@ -202,7 +241,7 @@ public final class RedisServer implements RespCommandHandler {
 				break;
 			case "llen": {
 				final String key = command.args()[0];
-				final BlockingDeque<String> list = lists.get(key);
+				final RedisQueue list = lists.get(key);
 				writer.writeLong(list == null ? 0L : list.size());
 			}
 				//			{
@@ -211,58 +250,96 @@ public final class RedisServer implements RespCommandHandler {
 				//				RespProtocol.writeLong(out, list == null ? 0L : list.size());
 				//			}
 				break;
-			case "lpop": {
+			case "lrem": {
 				final String key = command.args()[0];
-				final BlockingDeque<String> list = lists.get(key);
+				final int count = Integer.valueOf(command.args()[1]);
+				final String value = command.args()[2];
+				final RedisQueue list = lists.get(key);
+
+				final int removed = list.lrem(count, value);
+				writer.writeLong(removed * 1L);
+			}
+				break;
+			case "lindex": {
+				final String key = command.args()[0];
+				final int idx = Integer.valueOf(command.args()[1]);
+				final RedisQueue list = lists.get(key);
 				if (list == null || list.size() == 0) {
 					writer.writeBulkString(null);
 				} else {
-					writer.writeBulkString(list.removeFirst());
+					writer.writeBulkString(list.lindex(idx));
+				}
+			}
+				break;
+			case "lpop": {
+				final String key = command.args()[0];
+				final RedisQueue list = lists.get(key);
+				if (list == null || list.size() == 0) {
+					writer.writeBulkString(null);
+				} else {
+					writer.writeBulkString(list.lpop());
 				}
 			}
 				break;
 			case "rpop": {
 				final String key = command.args()[0];
-				final BlockingDeque<String> list = lists.get(key);
+				final RedisQueue list = lists.get(key);
 				if (list == null || list.size() == 0) {
 					writer.writeBulkString(null);
 				} else {
-					writer.writeBulkString(list.removeLast());
+					writer.writeBulkString(list.rpop());
 				}
 			}
 				break;
 			case "lpush": {
 				final String key = command.args()[0];
-				BlockingDeque<String> list = lists.get(key);
+				RedisQueue list = lists.get(key);
 				if (list == null) {
-					list = new LinkedBlockingDeque<>();
+					list = new RedisQueue();
 					lists.put(key, list);
 				}
 				for (int i = 1; i < command.args().length; i++) {
-					list.addFirst(command.args()[i]);
+					list.lpushx(command.args()[i]);
 				}
 				writer.writeLong(1L * list.size());
 			}
 				break;
+			case "lrange": {
+				final String key = command.args()[0];
+				final int start = Integer.valueOf(command.args()[1]);
+				final int stop = Integer.valueOf(command.args()[2]);
+
+				final RedisQueue list = lists.get(key);
+				if (list == null) {
+					writer.write("*").write(0).writeLN();
+				} else {
+					final List<String> elements = list.lrange(start, stop);
+					writer.write("*").write(elements.size()).writeLN();
+					for (final String element : elements) {
+						writer.writeBulkString(element);
+					}
+				}
+			}
+				break;
 			case "rpush": {
 				final String key = command.args()[0];
-				BlockingDeque<String> list = lists.get(key);
+				RedisQueue list = lists.get(key);
 				if (list == null) {
-					list = new LinkedBlockingDeque<>();
+					list = new RedisQueue();
 					lists.put(key, list);
 				}
 				for (int i = 1; i < command.args().length; i++) {
-					list.add(command.args()[i]);
+					list.rpushx(command.args()[i]);
 				}
 				writer.writeLong(1L * list.size());
 			}
 				break;
 			case "lpushx": {
 				final String key = command.args()[0];
-				final BlockingDeque<String> list = lists.get(key);
+				final RedisQueue list = lists.get(key);
 				if (list != null) {
 					for (int i = 1; i < command.args().length; i++) {
-						list.addFirst(command.args()[i]);
+						list.lpushx(command.args()[i]);
 					}
 				}
 				writer.writeLong(list == null ? 0L : list.size());
@@ -270,10 +347,10 @@ public final class RedisServer implements RespCommandHandler {
 				break;
 			case "rpushx": {
 				final String key = command.args()[0];
-				final BlockingDeque<String> list = lists.get(key);
+				final RedisQueue list = lists.get(key);
 				if (list != null) {
 					for (int i = 1; i < command.args().length; i++) {
-						list.add(command.args()[i]);
+						list.rpushx(command.args()[i]);
 					}
 				}
 				System.out.println(">>rpushx key:" + key + " , list:" + list);
@@ -283,22 +360,157 @@ public final class RedisServer implements RespCommandHandler {
 			case "flushall":
 				map.clear();
 				lists.clear();
-				writer.writeSimpleString("OK");
+				writer.writeOK();
 				break;
-			//			case "multi":
-			//				multi = new ArrayList<>();
-			//				RespProtocol.writeSimpleString(writer, "OK");
-			//				break;
-			//			case "exec":
-			//				RespProtocol.writeBulkString(writer, bulk);
-			//				for (final RespCommand multiCommand : multi) {
-			//					onCommand(writer, multiCommand);
-			//				}
-			//				multi = null;
-			//				RespProtocol.writeSimpleString(writer, "OK");
-			//				break;
+			case "multi":
+				exec = false;
+				multi = new ArrayList<>();
+				writer.writeOK();
+				break;
+			case "exec":
+				//exec
+				exec = true;
+				writer.write("*").write(multi.size()).writeLN();
+				for (final RespCommand multiCommand : multi) {
+					onCommand(writer, multiCommand);
+				}
+				exec = true;
+				break;
 			default:
 				writer.writeError("RESP Command unknown : " + command.getName());
+		}
+		writer.flush();
+	}
+
+	private static class RedisQueue {
+		private final List<String> values = new ArrayList<>();
+
+		//	private final BlockingDeque<String> blockingDeque = new LinkedBlockingDeque<>();
+
+		//		element = list.pollFirst(1L, TimeUnit.SECONDS);
+		void lpushx(final String value) {
+			//		blockingDeque.addFirst(value);
+			values.add(0, value);
+		}
+
+		void rpushx(final String value) {
+			//		blockingDeque.add(value);
+			values.add(value);
+		}
+
+		int lrem(final int count, final String value) {
+			//count > 0: Remove elements equal to value moving from head to tail.
+			//count < 0: Remove elements equal to value moving from tail to head.
+			//count = 0: Remove all elements equal to value.
+			int removed = 0;
+			if (count == 0) {
+				for (final Iterator<String> it = values.iterator(); it.hasNext();) {
+					final String current = it.next();
+					if (value == null) {
+						if (current == null) {
+							it.remove();
+							removed++;
+						}
+					} else {
+						if (value.equals(current)) {
+							it.remove();
+							removed++;
+						}
+					}
+				}
+			}
+			return removed;
+		}
+
+		List<String> lrange(final int start, final int stop) {
+
+			final int maxIdx;
+			if (stop < 0) {
+				maxIdx = values.size() - 1;
+			} else {
+				maxIdx = stop;
+			}
+
+			int index;
+			if (start < 0) {
+				//-1=> n
+				//-2 => n-1
+				//-100 => 0
+				index = values.size() + start;
+				if (index < 0) {
+					index = 0;
+				}
+			} else {
+				index = start;
+			}
+			if (index >= 0 && index < values.size()) {
+				//				System.out.println(">>>>>>>>>>>>> index: " + index);
+				//				System.out.println(">>>>>>>>>>>>> stop: " + stop);
+				//				System.out.println(">>>>>>>>>>>>> size: " + values.size());
+				final List<String> elements = new ArrayList<>();
+				for (int i = index; i <= maxIdx; i++) {
+					elements.add(values.get(i));
+				}
+				return elements;
+			}
+			return Collections.<String> emptyList();
+		}
+
+		public String lindex(final int idx) {
+			int index;
+			if (idx < 0) {
+				index = values.size() + idx;
+				if (index < 0) {
+					index = 0;
+				}
+				//-1=> n
+				//-2 => n-1
+			} else {
+				index = idx;
+			}
+			if (index >= 0 && index < values.size()) {
+				return values.get(index);
+			}
+			return null;
+		}
+
+		int size() {
+			return values.size();
+			//			return blockingDeque.size();
+		}
+
+		String lpop() {
+			if (values.isEmpty()) {
+				return null;
+			}
+			return values.remove(0);
+			//return blockingDeque.removeFirst();
+		}
+
+		String rpop() {
+			if (values.isEmpty()) {
+				return null;
+			}
+			return values.remove(values.size() - 1);
+			//return blockingDeque.removeLast();
+		}
+
+		String blpop() {
+			throw new UnsupportedOperationException();
+			//			try {
+			//			return blockingDeque.pollFirst(1L, TimeUnit.SECONDS);
+			//			} catch (final InterruptedException e) {
+			//				return  null;
+			//			}
+		}
+
+		String brpop() {
+			throw new UnsupportedOperationException();
+			//			try {
+			//			return blockingDeque.pollLast(1L, TimeUnit.SECONDS);
+			//			} catch (final InterruptedException e) {
+			//				return  null;
+			//			}
 		}
 	}
 

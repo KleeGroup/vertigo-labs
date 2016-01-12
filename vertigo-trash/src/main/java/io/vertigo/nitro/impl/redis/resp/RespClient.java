@@ -63,23 +63,23 @@ public final class RespClient implements AutoCloseable {
 	}
 
 	public Object execEval(final String command, final String... args) {
-		return RespProtocol.pushPull(RespProtocol.RespType.RESP_EVAL, in, writer, command, args);
+		return RespProtocol.pushPull(RespType.RESP_EVAL, in, writer, new RespCommand(command, args));
 	}
 
 	public List<String> execArray(final String command, final String... args) {
-		return (List<String>) RespProtocol.pushPull(RespProtocol.RespType.RESP_ARRAY, in, writer, command, args);
+		return (List<String>) RespProtocol.pushPull(RespType.RESP_ARRAY, in, writer, new RespCommand(command, args));
 	}
 
 	public long execLong(final String command, final String... args) {
-		return (Long) RespProtocol.pushPull(RespProtocol.RespType.RESP_INTEGER, in, writer, command, args);
+		return (Long) RespProtocol.pushPull(RespType.RESP_INTEGER, in, writer, new RespCommand(command, args));
 	}
 
 	public String execString(final String command, final String... args) {
-		return (String) RespProtocol.pushPull(RespProtocol.RespType.RESP_STRING, in, writer, command, args);
+		return (String) RespProtocol.pushPull(RespType.RESP_STRING, in, writer, new RespCommand(command, args));
 	}
 
 	public String execBulk(final String command, final String... args) {
-		return (String) RespProtocol.pushPull(RespProtocol.RespType.RESP_BULK, in, writer, command, args);
+		return (String) RespProtocol.pushPull(RespType.RESP_BULK, in, writer, new RespCommand(command, args));
 	}
 
 	@Override

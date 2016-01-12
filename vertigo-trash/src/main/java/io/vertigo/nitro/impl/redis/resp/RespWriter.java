@@ -14,6 +14,10 @@ public final class RespWriter {
 		this.out = out;
 	}
 
+	public RespWriter writeOK() throws IOException {
+		return writeSimpleString("OK");
+	}
+
 	public RespWriter writeError(final String msg) throws IOException {
 		return write("-").writeLN(msg);
 	}
@@ -25,11 +29,6 @@ public final class RespWriter {
 	public RespWriter writeLong(final Long value) throws IOException {
 		return write(":").writeLN(String.valueOf(value));
 	}
-
-	//	public static void writeArray(final OutputStream out, final List<String> array) throws IOException {
-	//		out.write("*".getBytes(CHARSET));
-	//		out.write(String.valueOf(array.size()).getBytes("CHARSET"));
-	//	}
 
 	public RespWriter writeBulkString(final String bulk) throws IOException {
 		//System.out.println("bulk:" + bulk);
@@ -43,28 +42,41 @@ public final class RespWriter {
 				.writeLN(bulk);
 	}
 
-	public void writeCommand(final RespWriter writer, final String command, final String args[]) throws IOException {
+	public void writeCommand(final RespCommand command) throws IOException {
 		//--- *Nb d'infos
-		write("*").write(args.length + 1).writeLN()
-				//--- cas du nom de la commande
-				.writeBulkString(command);
+		write("*").write(command.args().length + 1).writeLN()
+				//				//--- cas du nom de la commande
+				.writeBulkString(command.getName());
 		//--- cas des args
-		for (final String arg : args) {
-			writer.writeBulkString(arg);
+		for (final String arg : command.args()) {
+			writeBulkString(arg);
 		}
 		flush();
 	}
 
-	private RespWriter write(final String s) throws IOException {
+	//	//exec
+	//	public void writeCommands(final List<RespCommand> commands) throws IOException {
+	//		write("*").write(commands.size()).writeLN()
+	//				//--- cas du nom de la commande
+	//				.writeBulkString("exec");
+	//		for (final RespCommand command : commands) {
+	//			doWriteCommand(command);
+	//		}
+	//		writeOK();
+	//		flush();
+	//	}
+
+	public RespWriter write(final String s) throws IOException {
+		System.out.print(s);
 		out.write(s.getBytes(RespProtocol.CHARSET));
 		return this;
 	}
 
-	private RespWriter write(final int i) throws IOException {
+	public RespWriter write(final int i) throws IOException {
 		return write(String.valueOf(i));
 	}
 
-	private RespWriter writeLN() throws IOException {
+	public RespWriter writeLN() throws IOException {
 		return write(RespProtocol.LN);
 	}
 
@@ -72,11 +84,12 @@ public final class RespWriter {
 		return write(s).writeLN();
 	}
 
-	private void flush() throws IOException {
+	public void flush() throws IOException {
 		out.flush();
 	}
 
 	void close() throws IOException {
 		out.close();
 	}
+
 }

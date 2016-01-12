@@ -8,23 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class RespProtocol {
-	enum RespType {
-		RESP_STRING('+'),
-		RESP_ARRAY('*'),
-		RESP_BULK('$'),
-		RESP_INTEGER(':'),
-		RESP_EVAL('?');
-		private final char c;
-
-		private RespType(final char c) {
-			this.c = c;
-		}
-
-		char getChar() {
-			return c;
-		}
-	}
-
 	static final String CHARSET = "UTF-8";
 	static final String LN = "\r\n";
 
@@ -63,18 +46,18 @@ public final class RespProtocol {
 		return new RespCommand(commandName, args);
 	}
 
-	static Object pushPull(final RespType type, final BufferedReader in, final RespWriter writer, final String command, final String[] args) {
+	static Object pushPull(final RespType type, final BufferedReader in, final RespWriter writer, final RespCommand command) {
 		try {
-			push(writer, command, args);
+			push(writer, command);
 			return pull(in, type.getChar());
 		} catch (final IOException e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	private static void push(final RespWriter writer, final String command, final String[] args) throws IOException {
+	private static void push(final RespWriter writer, final RespCommand command) throws IOException {
 		//System.out.println("exec command :" + command.getName());
-		writer.writeCommand(writer, command, args);
+		writer.writeCommand(command);
 	}
 
 	private static Object pull(final BufferedReader in, final char expected) throws IOException {
