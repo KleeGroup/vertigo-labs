@@ -45,8 +45,8 @@ public class LDAPEntryIterator implements Iterator<DocumentVersion> {
 		try {
 			documentVersionBuilder
 					.withDataSourceId(dataSourceId)
-					.withLastModified(DateUtils.getDate(entry.get("whenChanged").getString()))
-					.withSourceUrl(entry.get("distinguishedName").getString());
+					.withLastModified(DateUtils.getDate(entry.read("whenChanged").getString()))
+					.withSourceUrl(entry.read("distinguishedName").getString());
 		} catch (LdapInvalidAttributeValueException e) {
 			throw new RuntimeException(e);
 		}

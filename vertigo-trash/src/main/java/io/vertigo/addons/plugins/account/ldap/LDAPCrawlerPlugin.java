@@ -159,7 +159,7 @@ public class LDAPCrawlerPlugin implements CrawlerPlugin {
 
 	private static final String getAttribute(final Entry entry, final String attribute) throws Exception {
 		if (entry.containsAttribute(attribute)) {
-			return entry.get(attribute).getString();
+			return entry.read(attribute).getString();
 		} else {
 			return "";
 		}
@@ -167,7 +167,7 @@ public class LDAPCrawlerPlugin implements CrawlerPlugin {
 
 	private static final String encodeImage(final Entry entry) throws Exception {
 		if (entry.containsAttribute("thumbnailPhoto")) {
-			return new BASE64Encoder().encode(entry.get("thumbnailPhoto").getBytes());
+			return new BASE64Encoder().encode(entry.read("thumbnailPhoto").getBytes());
 		} else {
 			return "";
 		}

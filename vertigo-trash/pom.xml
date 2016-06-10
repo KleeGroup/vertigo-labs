@@ -94,11 +94,6 @@
 		
 
 		<!-- Gedcom -->
-		<dependency>
-			<groupId>org.gedcom4j</groupId>
-			<artifactId>gedcom4j</artifactId>
-			<version>2.1.0</version><!-- 2.1.5 has some issues -->
-		</dependency>
 		<!-- /Gedcom -->
 
 		<!-- Jedis benchmark -->
