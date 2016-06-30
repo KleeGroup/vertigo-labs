@@ -18,13 +18,13 @@
  */
 package io.vertigo.labs.trait;
 
-import io.vertigo.AbstractTestCaseJU4;
-import io.vertigo.lang.Option;
-
 import javax.inject.Inject;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import io.vertigo.AbstractTestCaseJU4;
+import io.vertigo.lang.Option;
 
 /**
  * @author pchretien
@@ -37,7 +37,7 @@ public class TraitManagerTest extends AbstractTestCaseJU4 {
 	public void loadEmptyData() {
 		traitManager.deleteTrait(Commenting.class, "45");
 		final Option<Commenting> commenting = traitManager.findTrait(Commenting.class, "45");
-		Assert.assertTrue(commenting.isEmpty());
+		Assert.assertTrue(!commenting.isPresent());
 	}
 
 	@Test
@@ -47,6 +47,6 @@ public class TraitManagerTest extends AbstractTestCaseJU4 {
 		traitManager.putTrait(Commenting.class, "45", commenting);
 
 		final Option<Commenting> commenting2 = traitManager.findTrait(Commenting.class, "45");
-		Assert.assertTrue(commenting2.isDefined());
+		Assert.assertTrue(commenting2.isPresent());
 	}
 }

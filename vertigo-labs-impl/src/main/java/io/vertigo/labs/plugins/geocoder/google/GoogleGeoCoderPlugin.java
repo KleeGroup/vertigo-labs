@@ -18,11 +18,6 @@
  */
 package io.vertigo.labs.plugins.geocoder.google;
 
-import io.vertigo.labs.geocoder.GeoLocation;
-import io.vertigo.labs.impl.geocoder.GeoCoderPlugin;
-import io.vertigo.lang.Assertion;
-import io.vertigo.lang.Option;
-
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
@@ -53,6 +48,11 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import io.vertigo.labs.geocoder.GeoLocation;
+import io.vertigo.labs.impl.geocoder.GeoCoderPlugin;
+import io.vertigo.lang.Assertion;
+import io.vertigo.lang.Option;
+
 /**
  * @author spoitrenaud
  *
@@ -79,12 +79,12 @@ public final class GoogleGeoCoderPlugin implements GeoCoderPlugin {
 	public GoogleGeoCoderPlugin(final @Named("proxyHost") Option<String> proxyHost, @Named("proxyPort") final Option<String> proxyPort) {
 		Assertion.checkNotNull(proxyHost);
 		Assertion.checkNotNull(proxyPort);
-		Assertion.checkArgument((proxyHost.isDefined() && proxyPort.isDefined()) || (proxyHost.isEmpty() && proxyPort.isEmpty()), "les deux paramètres host et port doivent être tous les deux remplis ou vides");
+		Assertion.checkArgument((proxyHost.isPresent() && proxyPort.isPresent()) || (!proxyHost.isPresent() && !proxyPort.isPresent()), "les deux paramètres host et port doivent être tous les deux remplis ou vides");
 		//-----
-		if (proxyHost.isDefined()) {
-			proxy = Option.some(new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyHost.get(), Integer.parseInt(proxyPort.get()))));
+		if (proxyHost.isPresent()) {
+			proxy = Option.of(new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyHost.get(), Integer.parseInt(proxyPort.get()))));
 		} else {
-			proxy = Option.none();
+			proxy = Option.empty();
 		}
 	}
 
@@ -106,7 +106,7 @@ public final class GoogleGeoCoderPlugin implements GeoCoderPlugin {
 		Assertion.checkNotNull(url);
 		//-----
 		HttpURLConnection connection;
-		if (proxy.isDefined()) {
+		if (proxy.isPresent()) {
 			connection = (HttpURLConnection) url.openConnection(proxy.get());
 		} else {
 			connection = (HttpURLConnection) url.openConnection();

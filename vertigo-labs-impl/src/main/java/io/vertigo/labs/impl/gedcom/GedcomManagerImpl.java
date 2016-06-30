@@ -18,18 +18,6 @@
  */
 package io.vertigo.labs.impl.gedcom;
 
-import io.vertigo.core.resource.ResourceManager;
-import io.vertigo.dynamo.domain.model.DtList;
-import io.vertigo.dynamo.kvstore.KVStoreManager;
-import io.vertigo.dynamo.transaction.VTransactionManager;
-import io.vertigo.dynamo.transaction.VTransactionWritable;
-import io.vertigo.labs.gedcom.GedcomManager;
-import io.vertigo.labs.gedcom.Individual;
-import io.vertigo.labs.geocoder.GeoCoderManager;
-import io.vertigo.labs.geocoder.GeoLocation;
-import io.vertigo.lang.Assertion;
-import io.vertigo.lang.Option;
-
 import java.net.URL;
 import java.util.Collection;
 import java.util.Collections;
@@ -42,6 +30,18 @@ import javax.inject.Named;
 import org.gedcom4j.model.Family;
 import org.gedcom4j.model.IndividualEvent;
 import org.gedcom4j.parser.GedcomParser;
+
+import io.vertigo.core.resource.ResourceManager;
+import io.vertigo.dynamo.domain.model.DtList;
+import io.vertigo.dynamo.kvstore.KVStoreManager;
+import io.vertigo.dynamo.transaction.VTransactionManager;
+import io.vertigo.dynamo.transaction.VTransactionWritable;
+import io.vertigo.labs.gedcom.GedcomManager;
+import io.vertigo.labs.gedcom.Individual;
+import io.vertigo.labs.geocoder.GeoCoderManager;
+import io.vertigo.labs.geocoder.GeoLocation;
+import io.vertigo.lang.Assertion;
+import io.vertigo.lang.Option;
 
 public final class GedcomManagerImpl implements GedcomManager {
 	private final String collection;
@@ -169,7 +169,7 @@ public final class GedcomManagerImpl implements GedcomManager {
 			if (geoLocation == null) {
 				final Option<GeoLocation> storedLocation = kvStoreManager.find(collection, key, GeoLocation.class);
 				//System.out.println("    cache "+storedLocation.isDefined());
-				if (storedLocation.isEmpty()) {
+				if (!storedLocation.isPresent()) {
 					geoLocation = geoCoderManager.findLocation(key);
 					//-----
 					kvStoreManager.put(collection, key, geoLocation);
@@ -245,8 +245,8 @@ public final class GedcomManagerImpl implements GedcomManager {
 	//				//		System.out.println("  Wife " + family.wife.names.get(0).basic);
 	//						System.out.println("  Wife " + family.wife.names.get(0).givenName);
 	//				//		System.out.println("  Wife " + family.wife.names.get(0).nickname);
-	//						System.out.println("  Wife " + family.wife.names.get(0).surname); 
-	//						System.out.println("  Wife " + family.wife.events); 
+	//						System.out.println("  Wife " + family.wife.names.get(0).surname);
+	//						System.out.println("  Wife " + family.wife.events);
 	//				*/
 	//			}
 	//			if (family.wife != null) {
