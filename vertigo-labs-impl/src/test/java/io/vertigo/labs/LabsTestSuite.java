@@ -18,14 +18,13 @@
  */
 package io.vertigo.labs;
 
-import io.vertigo.labs.france.FranceManagerTest;
-import io.vertigo.labs.gedcom.GedcomManagerTest;
-import io.vertigo.labs.geocoder.google.GoogleGeoCoderManagerTest;
-import io.vertigo.labs.trait.TraitManagerTest;
-
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
+
+import io.vertigo.labs.france.FranceManagerTest;
+import io.vertigo.labs.gedcom.GedcomManagerTest;
+import io.vertigo.labs.trait.TraitManagerTest;
 
 /**
  * Test de l'implementation standard.
@@ -36,7 +35,6 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({
 		FranceManagerTest.class,
 		GedcomManagerTest.class,
-		GoogleGeoCoderManagerTest.class,
 		TraitManagerTest.class
 })
 public final class LabsTestSuite {
