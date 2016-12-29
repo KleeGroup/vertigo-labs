@@ -17,14 +17,11 @@
 		<version>0.9.1-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>vertigo-labs-reactor</artifactId>
+	<artifactId>vertigo-labs</artifactId>
 	<name>vertigo-incubator-reactor</name>
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>vertigo-folio-api</module>
-		<module>vertigo-folio-impl</module>
-
 		<module>vertigo-labs-api</module>
 		<module>vertigo-labs-impl</module>
 		<module>vertigo-trash</module>
