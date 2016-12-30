@@ -19,11 +19,9 @@
 package io.vertigo.labs.gedcom;
 
 import io.vertigo.dynamo.domain.model.DtObject;
-import io.vertigo.dynamo.domain.stereotype.DtDefinition;
 import io.vertigo.dynamo.domain.stereotype.Field;
-import io.vertigo.labs.geocoder.GeoLocation;
+import io.vertigo.geo.geocoder.GeoLocation;
 
-@DtDefinition
 public final class Individual implements DtObject {
 	/** SerialVersionUID. */
 	private static final long serialVersionUID = 1L;

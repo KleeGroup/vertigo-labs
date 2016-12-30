@@ -18,11 +18,12 @@
  */
 package io.vertigo.labs.trait;
 
+import java.util.Optional;
+
 import io.vertigo.lang.Component;
-import io.vertigo.lang.Option;
 
 public interface TraitManager extends Component {
-	<T extends Trait> Option<T> findTrait(Class<T> traitClass, String subjectId);
+	<T extends Trait> Optional<T> findTrait(Class<T> traitClass, String subjectId);
 
 	<T extends Trait> void putTrait(Class<T> traitClass, String subjectId, T trait);
 
