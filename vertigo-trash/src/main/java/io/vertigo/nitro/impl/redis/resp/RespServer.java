@@ -39,16 +39,11 @@ public final class RespServer implements Runnable {
 
 		@Override
 		public void run() {
-			//			try (PrintWriter out = new PrintWriter(socket.getOutputStream(), true)) {
 			try (BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 				for (RespCommand command = RespProtocol.readCommand(in); command != null; command = RespProtocol.readCommand(in)) {
 					respCommandHandler.onCommand(new RespWriter(socket.getOutputStream()), command);
 				}
-			}
-			//			} catch (IOException e) {
-			//				throw new RuntimeException(e);
-			//			}
-			catch (final IOException e) {
+			} catch (final IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

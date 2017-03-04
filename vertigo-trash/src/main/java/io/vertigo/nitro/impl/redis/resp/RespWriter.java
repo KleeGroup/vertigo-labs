@@ -1,9 +1,9 @@
 package io.vertigo.nitro.impl.redis.resp;
 
-import io.vertigo.lang.Assertion;
-
 import java.io.IOException;
 import java.io.OutputStream;
+
+import io.vertigo.lang.Assertion;
 
 public final class RespWriter {
 	private final OutputStream out;
