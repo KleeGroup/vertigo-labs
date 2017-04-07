@@ -1,7 +1,7 @@
-package io.vertigo.nitro.impl.redis;
+package io.vertigo.nitro.redis.impl;
 
-import io.vertigo.nitro.impl.redis.resp.RespClient;
 import io.vertigo.nitro.redis.RedisClient;
+import io.vertigo.nitro.redis.impl.resp.RespClient;
 
 import java.util.HashMap;
 import java.util.HashSet;

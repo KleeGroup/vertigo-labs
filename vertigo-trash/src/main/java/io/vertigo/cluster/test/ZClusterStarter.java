@@ -1,12 +1,12 @@
-package io.vertigo.nitro.cluster.test;
-
-import io.vertigo.nitro.cluster.ZCluster;
-import io.vertigo.nitro.cluster.ZClusterBuilder;
-import io.vertigo.nitro.cluster.util.ZProcessUtil;
+package io.vertigo.cluster.test;
 
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.List;
+
+import io.vertigo.cluster.ZCluster;
+import io.vertigo.cluster.ZClusterBuilder;
+import io.vertigo.cluster.util.ZProcessUtil;
 
 
 public final class ZClusterStarter {

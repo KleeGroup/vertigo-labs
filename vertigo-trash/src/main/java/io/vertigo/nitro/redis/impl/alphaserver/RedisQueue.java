@@ -1,4 +1,4 @@
-package io.vertigo.nitro.impl.redis.alphaserver;
+package io.vertigo.nitro.redis.impl.alphaserver;
 
 import java.util.ArrayList;
 import java.util.Collections;

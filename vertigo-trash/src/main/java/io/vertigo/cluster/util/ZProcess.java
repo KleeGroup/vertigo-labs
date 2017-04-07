@@ -1,4 +1,4 @@
-package io.vertigo.nitro.cluster.util;
+package io.vertigo.cluster.util;
 
 import io.vertigo.lang.Assertion;
 

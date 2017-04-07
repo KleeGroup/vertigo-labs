@@ -1,9 +1,4 @@
-package io.vertigo.nitro.impl.redis.alphaserver;
-
-import io.vertigo.nitro.impl.redis.resp.RespCommand;
-import io.vertigo.nitro.impl.redis.resp.RespCommandHandler;
-import io.vertigo.nitro.impl.redis.resp.RespServer;
-import io.vertigo.nitro.impl.redis.resp.RespWriter;
+package io.vertigo.nitro.redis.impl.alphaserver;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,6 +6,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import io.vertigo.nitro.redis.impl.resp.RespCommand;
+import io.vertigo.nitro.redis.impl.resp.RespCommandHandler;
+import io.vertigo.nitro.redis.impl.resp.RespServer;
+import io.vertigo.nitro.redis.impl.resp.RespWriter;
 
 public final class RedisServer implements RespCommandHandler {
 	private final RespServer respServer;

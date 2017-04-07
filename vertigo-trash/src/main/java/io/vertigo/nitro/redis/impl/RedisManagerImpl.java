@@ -1,4 +1,4 @@
-package io.vertigo.nitro.impl.redis;
+package io.vertigo.nitro.redis.impl;
 
 import io.vertigo.lang.Assertion;
 import io.vertigo.lang.Option;

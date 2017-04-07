@@ -1,8 +1,8 @@
 package io.vertigo.nitro.redis.benchmark;
 
-import io.vertigo.nitro.impl.redis.RedisClientImpl;
-import io.vertigo.nitro.impl.redis.alphaserver.RedisServer;
 import io.vertigo.nitro.redis.RedisClient;
+import io.vertigo.nitro.redis.impl.RedisClientImpl;
+import io.vertigo.nitro.redis.impl.alphaserver.RedisServer;
 
 import java.util.Calendar;
 

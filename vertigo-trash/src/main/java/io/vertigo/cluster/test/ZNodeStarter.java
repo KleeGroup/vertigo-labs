@@ -1,8 +1,8 @@
-package io.vertigo.nitro.cluster.test;
+package io.vertigo.cluster.test;
 
-import io.vertigo.nitro.cluster.ZCluster;
-import io.vertigo.nitro.cluster.ZClusterBuilder;
-import io.vertigo.nitro.cluster.ZNode;
+import io.vertigo.cluster.ZCluster;
+import io.vertigo.cluster.ZClusterBuilder;
+import io.vertigo.cluster.ZNode;
 
 public class ZNodeStarter {
 	public static void main(final String[] args) {

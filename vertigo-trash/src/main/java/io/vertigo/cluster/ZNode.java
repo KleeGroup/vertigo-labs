@@ -1,11 +1,11 @@
-package io.vertigo.nitro.cluster;
+package io.vertigo.cluster;
 
 import io.vertigo.lang.Assertion;
-import io.vertigo.nitro.impl.redis.resp.RespClient;
-import io.vertigo.nitro.impl.redis.resp.RespCommand;
-import io.vertigo.nitro.impl.redis.resp.RespCommandHandler;
-import io.vertigo.nitro.impl.redis.resp.RespProtocol;
-import io.vertigo.nitro.impl.redis.resp.RespServer;
+import io.vertigo.nitro.redis.impl.resp.RespClient;
+import io.vertigo.nitro.redis.impl.resp.RespCommand;
+import io.vertigo.nitro.redis.impl.resp.RespCommandHandler;
+import io.vertigo.nitro.redis.impl.resp.RespProtocol;
+import io.vertigo.nitro.redis.impl.resp.RespServer;
 
 import java.io.IOException;
 import java.io.OutputStream;
