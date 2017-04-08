@@ -1,4 +1,4 @@
-package io.vertigo.nitro.redis.impl;
+package io.vertigo.redis.impl;
 
 import java.util.Optional;
 
@@ -6,8 +6,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import io.vertigo.lang.Assertion;
-import io.vertigo.nitro.redis.RedisClient;
-import io.vertigo.nitro.redis.RedisManager;
+import io.vertigo.redis.RedisClient;
+import io.vertigo.redis.RedisManager;
 
 public final class RedisManagerImpl implements RedisManager {
 	private final String host;

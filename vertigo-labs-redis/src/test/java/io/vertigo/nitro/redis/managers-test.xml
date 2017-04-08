@@ -1,9 +1,0 @@
-<?xml version =	'1.0' encoding = 'ISO-8859-1'?>
-<config>
-	<module name="vertigo-labs">
-	   <component api="RedisManager" class="io.vertigo.nitro.impl.redis.RedisManagerImpl" >
-   	         <param name="host" value="localhost" />
-   	         <param name="port" value="6379" />
-	    </component>
-    </module>
-</config>

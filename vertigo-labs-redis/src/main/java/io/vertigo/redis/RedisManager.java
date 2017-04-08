@@ -1,4 +1,4 @@
-package io.vertigo.nitro.redis;
+package io.vertigo.redis;
 
 import io.vertigo.lang.Manager;
 

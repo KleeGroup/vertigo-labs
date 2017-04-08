@@ -1,7 +1,4 @@
-package io.vertigo.nitro.redis;
-
-import io.vertigo.AbstractTestCaseJU4;
-import io.vertigo.nitro.redis.impl.alphaserver.RedisServer;
+package io.vertigo.redis;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +10,10 @@ import javax.inject.Inject;
 import org.junit.Assert;
 import org.junit.Test;
 
+import io.vertigo.AbstractTestCaseJU4;
+import io.vertigo.redis.RedisClient;
+import io.vertigo.redis.RedisManager;
+
 public class RedisManagerTest extends AbstractTestCaseJU4 {
 	@Inject
 	private RedisManager redisManager;
@@ -21,8 +22,8 @@ public class RedisManagerTest extends AbstractTestCaseJU4 {
 
 	@Override
 	public void doSetUp() {
-		final RedisServer redisServer = new RedisServer(6379);
-		redisServer.start();
+		//		final RedisServer redisServer = new RedisServer(6379);
+		//		redisServer.start();
 		//----
 		redis = redisManager.createClient();
 		redis.flushAll();
@@ -169,23 +170,17 @@ public class RedisManagerTest extends AbstractTestCaseJU4 {
 		Assert.assertEquals(0, redis.llen("sports2"));
 		Assert.assertEquals(0, redis.llen("sports3"));
 
-		final Thread t1 = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				try (RedisClient redis2 = redisManager.createClient()) {
-					redis2.brpoplpush("sport3", "sports", 2);
-					redis2.lpush("sport2", "rugby");
-				}
+		final Thread t1 = new Thread(() -> {
+			try (RedisClient redis2 = redisManager.createClient()) {
+				redis2.brpoplpush("sport3", "sports", 2);
+				redis2.lpush("sport2", "rugby");
 			}
 		});
 		//---
-		final Thread t2 = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				try (RedisClient redis2 = redisManager.createClient()) {
-					redis2.lpush("sport3", "football");
-					redis2.brpoplpush("sport2", "sports", 2);
-				}
+		final Thread t2 = new Thread(() -> {
+			try (RedisClient redis2 = redisManager.createClient()) {
+				redis2.lpush("sport3", "football");
+				redis2.brpoplpush("sport2", "sports", 2);
 			}
 		});
 

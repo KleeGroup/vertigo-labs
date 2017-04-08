@@ -1,4 +1,4 @@
-package io.vertigo.nitro.redis.impl.resp;
+package io.vertigo.redis.impl.resp;
 
 import java.io.IOException;
 import java.io.OutputStream;

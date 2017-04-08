@@ -1,4 +1,4 @@
-package io.vertigo.nitro.redis.impl;
+package io.vertigo.redis.impl;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -7,10 +7,83 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import io.vertigo.nitro.redis.RedisClient;
-import io.vertigo.nitro.redis.impl.resp.RespClient;
+import io.vertigo.redis.RedisClient;
+import io.vertigo.redis.impl.resp.RespClient;
 
 public final class RedisClientImpl implements RedisClient {
+	enum Command {
+		//--- Keys
+		del,
+		//		dump,
+		exists,
+		expire,
+		//		expireat,
+		//		keys,
+		//		migrate
+		//		move,
+		//		object,
+		//		persist,
+		//		pexpire
+		//		pexpireat
+		//		pttl,
+		//		randomkey
+		//		rename
+		//		renamenx
+		//		restore
+		//		sort
+		//		touch
+		//		ttl
+		//		type
+		//		unlink
+		//		wait
+		//		scan
+		//---
+		blpop,
+		brpop,
+		brpoplpush,
+		lindex,
+		llen,
+		lpop,
+		lpush,
+		lpushx,
+		lrange,
+		lrem,
+		rpop,
+		rpush,
+		rpushx,
+		//---
+		pfadd,
+		pfcount,
+		pfmerge,
+		//---
+		hdel,
+		hexists,
+		hget,
+		hgetall,
+		hincrby,
+		hkeys,
+		hlen,
+		hset,
+		hsetnx,
+		hmset,
+		hvals,
+		//---connection
+		auth,
+		echo,
+		ping,
+		//		quit, 
+		//		select
+		//		swapdb
+		//---
+		append,
+		get,
+		set,
+		flushall,
+		sadd,
+		pop,
+		eval
+	}
+
 	private final RespClient tcpClient;
 
 	public RedisClientImpl(final String host, final int port) {
@@ -20,74 +93,72 @@ public final class RedisClientImpl implements RedisClient {
 	//-------------------------------------------------------------------------
 	//------------------------------list---------------------------------------
 	//-------------------------------------------------------------------------
-	//	BLPOP, BRPOP, BRPOPLPUSH, LINDEX, -LINSERT, LLEN, LPOP
-	//	LPUSH, LPUSHX, LRANGE, LREM, -LSET, -LTRIM, RPOP, -RPOPLPUSH, RPUSH, RPUSHX
+	//	-LINSERT
+	//	 -LSET, -LTRIM, RPOP, -RPOPLPUSH
 	//-------------------------------------------------------------------------
 	@Override
 	public List<String> blpop(final long timeout, final String... keys) {
-		final String[] args = args(timeout, keys);
-		return tcpClient.execArray("blpop", args);
+		return tcpClient.execArray(Command.blpop.name(), args(timeout, keys));
 	}
 
 	@Override
 	public List<String> brpop(final long timeout, final String... keys) {
-		final String[] args = args(timeout, keys);
-		return tcpClient.execArray("brpop", args);
+		return tcpClient.execArray(Command.brpop.name(), args(timeout, keys));
 	}
 
 	@Override
 	public String brpoplpush(final String source, final String destination, final long timeout) {
-		return tcpClient.execBulk("brpoplpush", source, destination, String.valueOf(timeout));
+		return tcpClient.execBulk(Command.brpoplpush.name(), source, destination, String.valueOf(timeout));
 	}
 
 	@Override
 	public String lindex(final String key, final int index) {
-		return tcpClient.execBulk("lindex", key, String.valueOf(index));
+		return tcpClient.execBulk(Command.lindex.name(), key, String.valueOf(index));
 	}
 
 	@Override
 	public long llen(final String key) {
-		return tcpClient.execLong("llen", key);
+		return tcpClient.execLong(Command.llen.name(), key);
 	}
 
 	@Override
 	public String lpop(final String key) {
-		return tcpClient.execBulk("lpop", key);
+		return tcpClient.execBulk(Command.lpop.name(), key);
 	}
 
 	@Override
 	public long lpush(final String key, final String value) {
-		return tcpClient.execLong("lpush", key, value);
+		return tcpClient.execLong(Command.lpush.name(), key, value);
 	}
 
 	@Override
 	public long lpushx(final String key, final String value) {
-		return tcpClient.execLong("lpushx", key, value);
+		return tcpClient.execLong(Command.lpushx.name(), key, value);
 	}
 
 	@Override
 	public List<String> lrange(final String key, final long start, final long stop) {
-		return tcpClient.execArray("lrange", key, String.valueOf(start), String.valueOf(stop));
+		return tcpClient.execArray(Command.lrange.name(), key, String.valueOf(start), String.valueOf(stop));
 	}
 
 	@Override
 	public long lrem(final String key, final long count, final String value) {
-		return tcpClient.execLong("lrem", key, String.valueOf(count), value);
+		return tcpClient.execLong(Command.lrem.name(), key, String.valueOf(count), value);
 	}
 
 	@Override
 	public String rpop(final String key) {
-		return tcpClient.execBulk("rpop", key);
+		return tcpClient.execBulk(Command.rpop.name(), key);
 	}
 
 	@Override
 	public long rpush(final String key, final String value) {
-		return tcpClient.execLong("rpush", key, value);
+		return tcpClient.execLong(Command.rpush.name(), key, value);
 	}
 
 	@Override
 	public long rpushx(final String key, final String value) {
-		return tcpClient.execLong("rpushx", key, value);
+		return tcpClient.execLong(Command.rpushx.name(), key, value);
 	}
 
 	//-------------------------------------------------------------------------
@@ -98,17 +169,17 @@ public final class RedisClientImpl implements RedisClient {
 	//-------------------------------------------------------------------------
 	@Override
 	public long pfadd(final String key, final String... elements) {
-		return tcpClient.execLong("pfadd", args(key, elements));
+		return tcpClient.execLong(Command.pfadd.name(), args(key, elements));
 	}
 
 	@Override
 	public long pfcount(final String... keys) {
-		return tcpClient.execLong("pfcount", keys);
+		return tcpClient.execLong(Command.pfcount.name(), keys);
 	}
 
 	@Override
 	public void pfmerge(final String destkey, final String... sourcekeys) {
-		tcpClient.execString("pfmerge", args(destkey, sourcekeys));
+		tcpClient.execString(Command.pfmerge.name(), args(destkey, sourcekeys));
 	}
 
 	//-------------------------------------------------------------------------
@@ -120,22 +191,22 @@ public final class RedisClientImpl implements RedisClient {
 	//-------------------------------------------------------------------------
 	@Override
 	public long hdel(final String key, final String... fields) {
-		return tcpClient.execLong("hdel", args(key, fields));
+		return tcpClient.execLong(Command.hdel.name(), args(key, fields));
 	}
 
 	@Override
 	public boolean hexists(final String key, final String field) {
-		return tcpClient.execBoolean("hexists", key, field);
+		return tcpClient.execBoolean(Command.hexists.name(), key, field);
 	}
 
 	@Override
 	public String hget(final String key, final String field) {
-		return tcpClient.execBulk("hget", key, field);
+		return tcpClient.execBulk(Command.hget.name(), key, field);
 	}
 
 	@Override
 	public Map<String, String> hgetAll(final String key) {
-		final List<String> values = tcpClient.execArray("hgetall", key);
+		final List<String> values = tcpClient.execArray(Command.hgetall.name(), key);
 		final Map<String, String> map = new HashMap<>();
 		for (int i = 0; i < (values.size() / 2); i++) {
 			map.put(values.get(2 * i), values.get(2 * i + 1));
@@ -145,38 +216,38 @@ public final class RedisClientImpl implements RedisClient {
 
 	@Override
 	public long hincrBy(final String key, final String field, final long increment) {
-		return tcpClient.execLong("hincrby", key, field, String.valueOf(increment));
+		return tcpClient.execLong(Command.hincrby.name(), key, field, String.valueOf(increment));
 	}
 
 	@Override
 	public Set<String> hkeys(final String key) {
-		return new HashSet<>(tcpClient.execArray("hkeys", key));
+		return new HashSet<>(tcpClient.execArray(Command.hkeys.name(), key));
 	}
 
 	@Override
 	public long hlen(final String key) {
-		return tcpClient.execLong("hlen", key);
+		return tcpClient.execLong(Command.hlen.name(), key);
 	}
 
 	@Override
 	public boolean hset(final String key, final String field, final String value) {
-		return tcpClient.execBoolean("hset", key, field, value);
+		return tcpClient.execBoolean(Command.hset.name(), key, field, value);
 	}
 
 	@Override
 	public boolean hsetnx(final String key, final String field, final String value) {
-		return tcpClient.execBoolean("hsetnx", key, field, value);
+		return tcpClient.execBoolean(Command.hsetnx.name(), key, field, value);
 	}
 
 	@Override
 	public void hmset(final String key, final Map<String, String> map) {
 		final String[] args = args(key, map);
-		tcpClient.execString("hmset", args);
+		tcpClient.execString(Command.hmset.name(), args);
 	}
 
 	@Override
 	public List<String> hvals(final String key) {
-		return tcpClient.execArray("hvals", key);
+		return tcpClient.execArray(Command.hvals.name(), key);
 	}
 
 	//-------------------------------------------------------------------------
@@ -185,67 +256,67 @@ public final class RedisClientImpl implements RedisClient {
 
 	@Override
 	public long append(final String key, final String value) {
-		return tcpClient.execLong("append", key, value);
+		return tcpClient.execLong(Command.append.name(), key, value);
 	}
 
 	@Override
 	public String get(final String key) {
-		return tcpClient.execBulk("get", key);
+		return tcpClient.execBulk(Command.get.name(), key);
 	}
 
 	@Override
 	public String set(final String key, final String value) {
-		return tcpClient.execString("set", key, value);
+		return tcpClient.execString(Command.set.name(), key, value);
 	}
 
 	@Override
 	public boolean exists(final String key) {
-		return tcpClient.execBoolean("exists", key);
+		return tcpClient.execBoolean(Command.exists.name(), key);
 	}
 
 	@Override
 	public boolean expire(final String key, final long seconds) {
-		return tcpClient.execBoolean("expire", key, String.valueOf(seconds));
+		return tcpClient.execBoolean(Command.expire.name(), key, String.valueOf(seconds));
 	}
 
 	@Override
 	public long del(final String... keys) {
-		return tcpClient.execLong("del", keys);
+		return tcpClient.execLong(Command.del.name(), keys);
 	}
 
 	@Override
 	public void flushAll() {
-		tcpClient.execString("flushall");
+		tcpClient.execString(Command.flushall.name());
 	}
 
 	@Override
 	public String ping() {
-		return tcpClient.execString("ping");
+		return tcpClient.execString(Command.ping.name());
 	}
 
 	@Override
 	public String echo(final String message) {
-		return tcpClient.execBulk("echo", message);
+		return tcpClient.execBulk(Command.echo.name(), message);
 	}
 
 	@Override
 	public String auth(final String password) {
-		return tcpClient.execString("auth", password);
+		return tcpClient.execString(Command.auth.name(), password);
 	}
 
 	@Override
 	public long sadd(final String key, final String... members) {
-		return tcpClient.execLong("sadd", args(key, members));
+		return tcpClient.execLong(Command.sadd.name(), args(key, members));
 	}
 
 	@Override
 	public String spop(final String key) {
-		return tcpClient.execBulk("pop", key);
+		return tcpClient.execBulk(Command.pop.name(), key);
 	}
 
 	@Override
 	public Object eval(final String script) {
-		return tcpClient.execEval("eval", script, String.valueOf(0));
+		return tcpClient.execEval(Command.eval.name(), script, String.valueOf(0));
 	}
 
 	@Override

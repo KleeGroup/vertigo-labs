@@ -1,14 +1,13 @@
-package io.vertigo.nitro.redis.benchmark;
-
-import io.vertigo.nitro.redis.RedisClient;
-import io.vertigo.nitro.redis.impl.RedisClientImpl;
-import io.vertigo.nitro.redis.impl.alphaserver.RedisServer;
+package io.vertigo.redis.benchmark;
 
 import java.util.Calendar;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import io.vertigo.redis.RedisClient;
+import io.vertigo.redis.impl.RedisClientImpl;
+import io.vertigo.redis.impl.alphaserver.RedisServer;
 import redis.clients.jedis.Jedis;
 
 public final class GetSetBenchmark {

@@ -1,4 +1,4 @@
-package io.vertigo.nitro.redis.impl.alphaserver;
+package io.vertigo.redis.impl.alphaserver;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

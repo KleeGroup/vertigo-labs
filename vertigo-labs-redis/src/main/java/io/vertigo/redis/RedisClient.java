@@ -1,4 +1,4 @@
-package io.vertigo.nitro.redis;
+package io.vertigo.redis;
 
 import java.util.List;
 import java.util.Map;
