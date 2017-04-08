@@ -12,10 +12,9 @@ public final class RespCommand {
 		Assertion.checkNotNull(name, "name is required");
 		Assertion.checkNotNull(args, "args is required, may be empty");
 		Arrays.stream(args).forEach(arg -> Assertion.checkNotNull(arg, "arg can not be null"));
-		//-------------------------------------------------
+		//---
 		this.name = name.toLowerCase();
 		this.args = args;
-
 	}
 
 	public String getName() {

@@ -1,20 +1,21 @@
 package io.vertigo.nitro.redis.impl;
 
-import io.vertigo.lang.Assertion;
-import io.vertigo.lang.Option;
-import io.vertigo.nitro.redis.RedisClient;
-import io.vertigo.nitro.redis.RedisManager;
+import java.util.Optional;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import io.vertigo.lang.Assertion;
+import io.vertigo.nitro.redis.RedisClient;
+import io.vertigo.nitro.redis.RedisManager;
+
 public final class RedisManagerImpl implements RedisManager {
 	private final String host;
 	private final int port;
-	private final Option<String> password;
+	private final Optional<String> password;
 
 	@Inject
-	public RedisManagerImpl(@Named("host") final String host, @Named("port") final int port, @Named("password") final Option<String> password) {
+	public RedisManagerImpl(@Named("host") final String host, @Named("port") final int port, @Named("password") final Optional<String> password) {
 		Assertion.checkArgNotEmpty(host);
 		Assertion.checkNotNull(password);
 		//---------------------------------------------------------------------
@@ -26,7 +27,7 @@ public final class RedisManagerImpl implements RedisManager {
 	@Override
 	public RedisClient createClient() {
 		final RedisClient redisClient = new RedisClientImpl(host, port);
-		if (password.isDefined()) {
+		if (password.isPresent()) {
 			redisClient.auth(password.get());
 		}
 		return redisClient;
