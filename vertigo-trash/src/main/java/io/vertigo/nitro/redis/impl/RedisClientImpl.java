@@ -1,14 +1,14 @@
 package io.vertigo.nitro.redis.impl;
 
-import io.vertigo.nitro.redis.RedisClient;
-import io.vertigo.nitro.redis.impl.resp.RespClient;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+
+import io.vertigo.nitro.redis.RedisClient;
+import io.vertigo.nitro.redis.impl.resp.RespClient;
 
 public final class RedisClientImpl implements RedisClient {
 	private final RespClient tcpClient;
@@ -125,7 +125,7 @@ public final class RedisClientImpl implements RedisClient {
 
 	@Override
 	public boolean hexists(final String key, final String field) {
-		return tcpClient.execLong("hexists", key, field) == 1;
+		return tcpClient.execBoolean("hexists", key, field);
 	}
 
 	@Override
@@ -160,12 +160,12 @@ public final class RedisClientImpl implements RedisClient {
 
 	@Override
 	public boolean hset(final String key, final String field, final String value) {
-		return tcpClient.execLong("hset", key, field, value) == 1;
+		return tcpClient.execBoolean("hset", key, field, value);
 	}
 
 	@Override
 	public boolean hsetnx(final String key, final String field, final String value) {
-		return tcpClient.execLong("hsetnx", key, field, value) == 1;
+		return tcpClient.execBoolean("hsetnx", key, field, value);
 	}
 
 	@Override
@@ -200,12 +200,12 @@ public final class RedisClientImpl implements RedisClient {
 
 	@Override
 	public boolean exists(final String key) {
-		return tcpClient.execLong("exists", key) == 1;
+		return tcpClient.execBoolean("exists", key);
 	}
 
 	@Override
 	public boolean expire(final String key, final long seconds) {
-		return tcpClient.execLong("expire", key, String.valueOf(seconds)) == 1;
+		return tcpClient.execBoolean("expire", key, String.valueOf(seconds));
 	}
 
 	@Override

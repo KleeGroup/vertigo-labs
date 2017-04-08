@@ -70,6 +70,10 @@ public final class RespClient implements AutoCloseable {
 		return (List<String>) RespProtocol.pushPull(RespType.RESP_ARRAY, in, writer, new RespCommand(command, args));
 	}
 
+	public boolean execBoolean(final String command, final String... args) {
+		return execLong(command, args) == 1;
+	}
+
 	public long execLong(final String command, final String... args) {
 		return (Long) RespProtocol.pushPull(RespType.RESP_INTEGER, in, writer, new RespCommand(command, args));
 	}
