@@ -1,9 +1,0 @@
-<?xml version =	'1.0' encoding = 'ISO-8859-1'?>
-<config>
-	<module name="vertigo-labs">
-	   <component api="RedisManager" class="io.vertigo.redis.impl.RedisManagerImpl" >
-   	         <param name="host" value="redis-14926.c10.us-east-1-3.ec2.cloud.redislabs.com" />
-   	         <param name="port" value="14926" />
-	    </component>
-    </module>
-</config>

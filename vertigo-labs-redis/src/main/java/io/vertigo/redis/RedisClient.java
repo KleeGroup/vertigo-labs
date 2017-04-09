@@ -5,25 +5,109 @@ import java.util.Map;
 import java.util.Set;
 
 public interface RedisClient extends AutoCloseable {
+	enum Command {
+		//--- Keys
+		del,
+		//		dump,
+		exists,
+		expire,
+		//		expireat,
+		//		keys,
+		//		migrate
+		//		move,
+		//		object,
+		//		persist,
+		//		pexpire
+		//		pexpireat
+		//		pttl,
+		//		randomkey
+		//		rename
+		//		renamenx
+		//		restore
+		//		sort
+		//		touch
+		//		ttl
+		//		type
+		//		unlink
+		//		wait
+		//		scan
+		//---list
+		blpop,
+		brpop,
+		brpoplpush,
+		lindex,
+		linsert,
+		llen,
+		lpop,
+		lpush,
+		lpushx,
+		lrange,
+		lrem,
+		lset,
+		ltrim,
+		rpop,
+		rpush,
+		rpushx,
+		//---
+		pfadd,
+		pfcount,
+		pfmerge,
+		//---
+		hdel,
+		hexists,
+		hget,
+		hgetall,
+		hincrby,
+		hkeys,
+		hlen,
+		hset,
+		hsetnx,
+		hmset,
+		hvals,
+		//---connection
+		auth,
+		echo,
+		ping,
+		//		quit,
+		//		select
+		//		swapdb
+		//---
+		append,
+		get,
+		set,
+		flushall,
+		sadd,
+		pop,
+		eval
+	}
+
+	public enum Position {
+		BEFORE,
+		AFTER
+	}
+
 	//-------------------------------------------------------------------------
 	//------------------------------list---------------------------------------
 	//-------------------------------------------------------------------------
 	//	BLPOP, BRPOP, BRPOPLPUSH, LINDEX, -LINSERT, LLEN, LPOP
 	//	LPUSH, LPUSHX, LRANGE, LREM, -LSET, -LTRIM, RPOP, -RPOPLPUSH, RPUSH, RPUSHX
 	//-------------------------------------------------------------------------
-	List<String> blpop(long timeout, String... keys);
 
-	List<String> brpop(long timeout, String... keys);
+	List<String> blpop(long timeout, String key, String... keys);
+
+	List<String> brpop(long timeout, String key, String... keys);
 
 	String brpoplpush(String source, String destination, long timeout);
 
 	String lindex(String key, int index);
 
+	long linsert(String key, Position position, String pivot, String value);
+
 	long llen(String key);
 
 	String lpop(String key);
 
-	long lpush(String key, String value);
+	long lpush(String key, String value, String... values);
 
 	long lpushx(String key, String value);
 
@@ -31,9 +115,13 @@ public interface RedisClient extends AutoCloseable {
 
 	long lrem(String key, long count, String value);
 
+	void lset(String key, long index, String value);
+
+	void ltrim(final String key, final long start, final long stop);
+
 	String rpop(String key);
 
-	long rpush(String key, String value);
+	long rpush(String key, String value, String... values);
 
 	long rpushx(String key, String value);
 

@@ -5,31 +5,30 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.inject.Inject;
-
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
-import io.vertigo.AbstractTestCaseJU4;
-import io.vertigo.redis.RedisClient;
-import io.vertigo.redis.RedisManager;
+import io.vertigo.redis.impl.RedisClientImpl;
 
-public class RedisManagerTest extends AbstractTestCaseJU4 {
-	@Inject
-	private RedisManager redisManager;
-
+public class RedisClientTest {
 	private RedisClient redis;
 
-	@Override
-	public void doSetUp() {
+	private static RedisClient createClient() {
+		return new RedisClientImpl("redis-14926.c10.us-east-1-3.ec2.cloud.redislabs.com", 14926);
+	}
+
+	@Before
+	public void setUp() {
 		//		final RedisServer redisServer = new RedisServer(6379);
 		//		redisServer.start();
 		//----
-		redis = redisManager.createClient();
+		redis = createClient();
 		redis.flushAll();
 	}
 
-	@Override
+	@After
 	public void doTearDown() {
 		if (redis != null) {
 			redis.close();
@@ -171,14 +170,14 @@ public class RedisManagerTest extends AbstractTestCaseJU4 {
 		Assert.assertEquals(0, redis.llen("sports3"));
 
 		final Thread t1 = new Thread(() -> {
-			try (RedisClient redis2 = redisManager.createClient()) {
+			try (RedisClient redis2 = createClient()) {
 				redis2.brpoplpush("sport3", "sports", 2);
 				redis2.lpush("sport2", "rugby");
 			}
 		});
 		//---
 		final Thread t2 = new Thread(() -> {
-			try (RedisClient redis2 = redisManager.createClient()) {
+			try (RedisClient redis2 = createClient()) {
 				redis2.lpush("sport3", "football");
 				redis2.brpoplpush("sport2", "sports", 2);
 			}

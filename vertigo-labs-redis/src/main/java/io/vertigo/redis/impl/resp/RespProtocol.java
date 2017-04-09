@@ -1,11 +1,11 @@
 package io.vertigo.redis.impl.resp;
 
-import io.vertigo.lang.Assertion;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import io.vertigo.lang.Assertion;
 
 public final class RespProtocol {
 	static final String CHARSET = "UTF-8";
@@ -49,7 +49,7 @@ public final class RespProtocol {
 	static Object pushPull(final RespType type, final BufferedReader in, final RespWriter writer, final RespCommand command) {
 		try {
 			push(writer, command);
-			return pull(in, type.getChar());
+			return pull(in, type);
 		} catch (final IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -60,7 +60,7 @@ public final class RespProtocol {
 		writer.writeCommand(command);
 	}
 
-	private static Object pull(final BufferedReader in, final char expected) throws IOException {
+	private static Object pull(final BufferedReader in, final RespType expectedType) throws IOException {
 		final String response = in.readLine();
 		//System.out.println(expected + ":" + response);
 		//---
@@ -69,11 +69,12 @@ public final class RespProtocol {
 			throw new RuntimeException(response);
 		}
 		//Hack pour g�rer un mauvais retour de brpoplpush
-		if (start == '*' && "*-1".equals(response)) {
-			return null;
-		}
+		//		if (start == '*' && "*-1".equals(response)) {
+		//			return null;
+		//		}
 		//----
-		Assertion.checkArgument('?' == expected || expected == response.charAt(0), "exepected {0}, find {1}", expected, response.charAt(0));
+		Assertion.checkArgument('?' == expectedType.getChar()
+				|| expectedType.getChar() == response.charAt(0), "exepected {0}, find {1}", expectedType, response.charAt(0));
 		//----
 		switch (start) {
 			case ':': //number
@@ -92,7 +93,7 @@ public final class RespProtocol {
 				final int m = Integer.valueOf(response.substring(1));
 				final List list = new ArrayList<>();
 				for (int i = 0; i < m; i++) {
-					list.add(pull(in, '?'));
+					list.add(pull(in, RespType.RESP_EVAL));
 				}
 				return list;
 			default:
