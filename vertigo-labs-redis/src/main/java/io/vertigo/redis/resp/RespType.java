@@ -1,4 +1,4 @@
-package io.vertigo.redis.impl.resp;
+package io.vertigo.redis.resp;
 
 enum RespType {
 	RESP_STRING('+'),

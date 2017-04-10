@@ -10,13 +10,13 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import io.vertigo.redis.impl.RedisClientImpl;
+import io.vertigo.redis.RedisClient;
 
 public class RedisClientTest {
 	private RedisClient redis;
 
 	private static RedisClient createClient() {
-		return new RedisClientImpl("redis-14926.c10.us-east-1-3.ec2.cloud.redislabs.com", 14926);
+		return new RedisClient("redis-14926.c10.us-east-1-3.ec2.cloud.redislabs.com", 14926);
 	}
 
 	@Before
@@ -205,7 +205,7 @@ public class RedisClientTest {
 		Assert.assertEquals(6, redis.pfcount("hll", "some-other-hll"));
 		//---
 		Assert.assertEquals(0, redis.hlen("words"));
-		redis.pfadd("words", "Longtemps, je me suis couch� de bonne heure. Parfois, � peine ma bougie �teinte, mes yeux se fermaient si vite que je n�avais pas le temps de me dire".split(" "));
+		redis.pfadd("words", "longtemps", "je me suis couch� de bonne heure. Parfois, � peine ma bougie �teinte, mes yeux se fermaient si vite que je n�avais pas le temps de me dire".split(" "));
 		Assert.assertEquals(26, redis.pfcount("words"));
 		//---
 		redis.pfadd("hll1", "foo", "bar", "zap", "a");

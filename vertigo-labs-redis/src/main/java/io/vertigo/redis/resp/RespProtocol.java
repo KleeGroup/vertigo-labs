@@ -1,4 +1,4 @@
-package io.vertigo.redis.impl.resp;
+package io.vertigo.redis.resp;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -46,21 +46,21 @@ public final class RespProtocol {
 		return new RespCommand(commandName, args);
 	}
 
-	static Object pushPull(final RespType type, final BufferedReader in, final RespWriter writer, final RespCommand command) {
+	static Object writeThenRead(final RespType type, final BufferedReader in, final RespWriter writer, final RespCommand command) {
 		try {
-			push(writer, command);
-			return pull(in, type);
+			write(writer, command);
+			return read(in, type);
 		} catch (final IOException e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	private static void push(final RespWriter writer, final RespCommand command) throws IOException {
+	private static void write(final RespWriter writer, final RespCommand command) throws IOException {
 		//System.out.println("exec command :" + command.getName());
 		writer.writeCommand(command);
 	}
 
-	private static Object pull(final BufferedReader in, final RespType expectedType) throws IOException {
+	private static Object read(final BufferedReader in, final RespType expectedType) throws IOException {
 		final String response = in.readLine();
 		//System.out.println(expected + ":" + response);
 		//---
@@ -69,12 +69,12 @@ public final class RespProtocol {
 			throw new RuntimeException(response);
 		}
 		//Hack pour g�rer un mauvais retour de brpoplpush
-		//		if (start == '*' && "*-1".equals(response)) {
-		//			return null;
-		//		}
+		if (expectedType == RespType.RESP_BULK && "*-1".equals(response)) {
+			return null;
+		}
 		//----
 		Assertion.checkArgument('?' == expectedType.getChar()
-				|| expectedType.getChar() == response.charAt(0), "exepected {0}, find {1}", expectedType, response.charAt(0));
+				|| expectedType.getChar() == response.charAt(0), "exepected '{0}', find '{1}'", expectedType.getChar(), start);
 		//----
 		switch (start) {
 			case ':': //number
@@ -93,7 +93,7 @@ public final class RespProtocol {
 				final int m = Integer.valueOf(response.substring(1));
 				final List list = new ArrayList<>();
 				for (int i = 0; i < m; i++) {
-					list.add(pull(in, RespType.RESP_EVAL));
+					list.add(read(in, RespType.RESP_EVAL));
 				}
 				return list;
 			default:

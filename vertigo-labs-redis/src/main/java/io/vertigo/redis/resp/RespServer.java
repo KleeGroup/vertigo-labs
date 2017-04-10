@@ -1,4 +1,4 @@
-package io.vertigo.redis.impl.resp;
+package io.vertigo.redis.resp;
 
 import java.io.BufferedReader;
 import java.io.IOException;

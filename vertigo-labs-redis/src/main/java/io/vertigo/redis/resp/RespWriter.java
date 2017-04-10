@@ -1,4 +1,4 @@
-package io.vertigo.redis.impl.resp;
+package io.vertigo.redis.resp;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -45,7 +45,7 @@ public final class RespWriter {
 	public void writeCommand(final RespCommand command) throws IOException {
 		//--- *Nb d'infos
 		write("*").write(command.args().length + 1).writeLN()
-				//				//--- cas du nom de la commande
+				//--- cas du nom de la commande
 				.writeBulkString(command.getName());
 		//--- cas des args
 		for (final String arg : command.args()) {

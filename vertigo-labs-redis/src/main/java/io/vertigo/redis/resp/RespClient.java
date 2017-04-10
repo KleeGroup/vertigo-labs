@@ -1,4 +1,4 @@
-package io.vertigo.redis.impl.resp;
+package io.vertigo.redis.resp;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -63,23 +63,23 @@ public final class RespClient implements AutoCloseable {
 	}
 
 	public Object execEval(final String command, final String... args) {
-		return RespProtocol.pushPull(RespType.RESP_EVAL, in, writer, new RespCommand(command, args));
+		return RespProtocol.writeThenRead(RespType.RESP_EVAL, in, writer, new RespCommand(command, args));
 	}
 
 	public List<String> execArray(final String command, final String... args) {
-		return (List<String>) RespProtocol.pushPull(RespType.RESP_ARRAY, in, writer, new RespCommand(command, args));
+		return (List<String>) RespProtocol.writeThenRead(RespType.RESP_ARRAY, in, writer, new RespCommand(command, args));
 	}
 
 	public long execLong(final String command, final String[] args) {
-		return (Long) RespProtocol.pushPull(RespType.RESP_INTEGER, in, writer, new RespCommand(command, args));
+		return (Long) RespProtocol.writeThenRead(RespType.RESP_INTEGER, in, writer, new RespCommand(command, args));
 	}
 
 	public String execString(final String command, final String[] args) {
-		return (String) RespProtocol.pushPull(RespType.RESP_STRING, in, writer, new RespCommand(command, args));
+		return (String) RespProtocol.writeThenRead(RespType.RESP_STRING, in, writer, new RespCommand(command, args));
 	}
 
 	public String execBulk(final String command, final String[] args) {
-		return (String) RespProtocol.pushPull(RespType.RESP_BULK, in, writer, new RespCommand(command, args));
+		return (String) RespProtocol.writeThenRead(RespType.RESP_BULK, in, writer, new RespCommand(command, args));
 	}
 
 	@Override

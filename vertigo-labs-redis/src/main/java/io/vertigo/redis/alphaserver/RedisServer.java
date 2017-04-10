@@ -1,4 +1,4 @@
-package io.vertigo.redis.impl.alphaserver;
+package io.vertigo.redis.alphaserver;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import io.vertigo.redis.impl.resp.RespCommand;
-import io.vertigo.redis.impl.resp.RespCommandHandler;
-import io.vertigo.redis.impl.resp.RespServer;
-import io.vertigo.redis.impl.resp.RespWriter;
+import io.vertigo.redis.resp.RespCommand;
+import io.vertigo.redis.resp.RespCommandHandler;
+import io.vertigo.redis.resp.RespServer;
+import io.vertigo.redis.resp.RespWriter;
 
 public final class RedisServer implements RespCommandHandler {
 	private final RespServer respServer;
@@ -42,7 +42,7 @@ public final class RedisServer implements RespCommandHandler {
 			System.out.println("   |-arg :" + arg);
 		}
 		switch (command.getName()) {
-		//-------------------------Connection----------------------------------
+			//-------------------------Connection----------------------------------
 			case "ping":
 				writer.writeSimpleString("PONG");
 				break;
@@ -393,7 +393,7 @@ public final class RedisServer implements RespCommandHandler {
 	//	private final Map<String, RespCommandHandler> commands = new HashMap<>();
 	//
 	//	private void init() {
-	//		//1. search all methods 
+	//		//1. search all methods
 	//		for (final Method method : ClassUtil.getAllMethods(this.getClass(), RedisCommand.class)) {
 	//			method.getParameterTypes();
 	//

@@ -6,8 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import io.vertigo.redis.RedisClient;
-import io.vertigo.redis.impl.RedisClientImpl;
-import io.vertigo.redis.impl.alphaserver.RedisServer;
+import io.vertigo.redis.alphaserver.RedisServer;
 import redis.clients.jedis.Jedis;
 
 public final class GetSetBenchmark {
@@ -43,7 +42,7 @@ public final class GetSetBenchmark {
 
 	@Test
 	public void playVedis() {
-		try (RedisClient redis = new RedisClientImpl(HOST, PORT)) {
+		try (RedisClient redis = new RedisClient(HOST, PORT)) {
 			redis.flushAll();
 
 			final long begin = Calendar.getInstance().getTimeInMillis();
