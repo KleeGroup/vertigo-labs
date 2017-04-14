@@ -27,7 +27,6 @@ public final class RespClient implements AutoCloseable {
 			//			System.out.println(">> + connected");
 
 			socket = new Socket(host, port);
-
 			// socket.setReuseAddress(true);
 			// socket.setKeepAlive(true); //Will monitor the TCP connection is valid
 			// socket.setTcpNoDelay(true); //Socket buffer Whetherclosed, to ensure timely delivery of data

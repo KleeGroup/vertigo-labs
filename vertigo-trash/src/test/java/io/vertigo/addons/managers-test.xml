@@ -11,7 +11,7 @@
 		</component>
 	</boot>	
 
-	<module name="vertigo-addons" api="false">
+	<module name="vertigo-addons">
 		<definitions>
 			<resource type="kpr" path="io/vertigo/addons/application.kpr" />
 			<resource type="classes" path="io.vertigo.addons.DtDefinitions" />
