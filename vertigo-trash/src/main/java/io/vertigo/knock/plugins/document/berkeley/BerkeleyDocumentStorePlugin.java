@@ -110,11 +110,5 @@ public final class BerkeleyDocumentStorePlugin implements DocumentStorePlugin, A
 			next = null;
 			return current;
 		}
-
-		/** {@inheritDoc} */
-		@Override
-		public void remove() {
-			throw new UnsupportedOperationException();
-		}
 	}
 }

@@ -180,10 +180,5 @@ public final class FSCrawlerPlugin implements CrawlerPlugin {
 					.withLastModified(getNormalizedLastModified(file))//
 					.build();
 		}
-
-		@Override
-		public void remove() {
-			throw new UnsupportedOperationException();
-		}
 	}
 }

@@ -160,11 +160,4 @@ final class FSFileIterator implements Iterator<File> {
 		}
 		return resultFiles;
 	}
-
-	/** {@inheritDoc} */
-	@Override
-	public void remove() {
-		throw new UnsupportedOperationException();
-	}
-
 }
