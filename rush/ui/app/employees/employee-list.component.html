@@ -1,0 +1,49 @@
+<div class="mdl-grid search-bar">
+    <div class="mdl-cell mdl-cell--10-col">
+        <div class="search-input">
+            <md-input-container>
+                <input md-input #searchBox id="search-box" (keyup)="search(searchBox.value)" value="{{(criteria | async).term}}" autocomplete="off"
+                />
+                <md-icon md-suffix>search</md-icon>
+            </md-input-container>
+        </div>
+    </div>
+    <div class="mdl-cell mdl-cell--2-col">
+    </div>
+</div>
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--2-col">
+        <div class="facets-container">
+            <h2>Filtres</h2>
+            <div *ngFor="let facet of (employees | async).facets" class="facet-box">
+                <div *ngIf="isFacetSelected(facet.code)" class="selected">
+                    <h3 (click)="removeFacet(facet.code)">{{facet.code}}:{{facet.facetValues[0].value}}</h3>
+                </div>
+                <div *ngIf="!isFacetSelected(facet.code)" [class.reduced]="facetValuesVisible">
+                    <h3 (click)="facetValuesVisible = !facetValuesVisible">{{facet.code}}</h3>
+                    <ul>
+                        <li *ngFor="let facetValue of facet.facetValues" (click)="addFacet(facet.code , facetValue.value)">
+                            <span>{{facetValue.value}} ({{facetValue.count}})</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mdl-cell mdl-cell--4-col ">
+        <md-list class="result ">
+            <md-list-item *ngFor="let employee of (employees | async).list " class="line " (click)="onSelect(employee) ">
+                <img md-list-avatar src="{{employee.avatarUrl}} " />
+                <h4 md-line>{{ employee.name }}</h4>
+                <p md-line>{{ employee.emp_id }}</p>
+                <md-icon>remove_red_eye</md-icon>
+            </md-list-item>
+        </md-list>
+        <button md-raised-button (click)="loadMore() ">Load More</button>
+    </div>
+    <div class="mdl-cell mdl-cell--6-col ">
+        <div *ngIf="selectedEmployee ">
+            <a [routerLink]="[ '/employees', selectedEmployee.emp_id] ">link</a>
+        </div>
+    </div>
+</div>

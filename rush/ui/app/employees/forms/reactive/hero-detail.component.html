@@ -1,0 +1,44 @@
+<h2>Hero Detail</h2>
+
+<h3><i>Just a FormControl</i></h3>
+
+<form [formGroup]="heroForm" novalidate (ngSubmit)="onSubmit()">
+
+    <label class="center-block">Name:
+        <input class="form-control" formControlName="name">
+    </label>
+
+    <div formGroupName="address">
+        <label class="center-block">Street:
+            <input class="form-control" formControlName="street">
+        </label>
+    
+        <label class="center-block">City:
+            <input class="form-control" formControlName="city">
+        </label>
+
+        <label class="center-block">State:
+            <select class="form-control" formControlName="state">
+                <option *ngFor="let state of states" [value]="state">{{state}}</option>
+            </select>
+        </label>
+
+        <label class="center-block">Zip Code:
+            <input class="form-control" formControlName="zip">
+        </label>
+    </div>
+
+    <label>Super power:</label>
+      <label class="center-block"><input type="radio" formControlName="power" value="flight">Flight</label>
+      <label class="center-block"><input type="radio" formControlName="power" value="x-ray vision">X-ray vision</label>
+      <label class="center-block"><input type="radio" formControlName="power" value="strength">Strength</label>
+
+    <label class="center-block">
+      <input type="checkbox" formControlName="sidekick">I have a sidekick.
+    </label>
+
+</form>
+
+<p>Form value: {{ heroForm.value | json }}</p>
+<p>Form status: {{ heroForm.status | json }}</p>
+

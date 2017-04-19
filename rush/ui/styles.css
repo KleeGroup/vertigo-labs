@@ -1,0 +1,34 @@
+.layout-menu-left {
+    background: #36b7b9;
+    position: fixed;
+    z-index: 2000;
+    width: 60px;
+    top: 0;
+    bottom: 0;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.layout-menu-left li, .layout-menu-left ul {
+    padding: 0;
+    margin: 0;
+}
+
+.layout-menu-left li {
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    padding: 0;
+    margin: 0px;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+    list-style: none;
+}
+
+.layout-content {
+    margin-left: 60px;
+    background-color: #FAFAFA;
+    min-height: 100%;
+}
+

@@ -1,0 +1,25 @@
+<div>
+  <form (ngSubmit)="onSubmit()" novalidate [formGroup]="form">
+    <div  class="form-row">
+        <df-field [field]="fields[1]" [form]="form"></df-field>
+    </div>
+    
+    <div class="form-row">
+        <div [formGroup]="form">
+          <label class="center-block">Numéro de voie:
+              <input class="form-control" formControlName="numeroVoie">
+          </label>
+        </div>
+    </div>
+
+    <div class="form-row">
+      <button type="submit" [disabled]="!form.valid">Enregistrer</button>
+    </div>
+  </form>
+  <div *ngIf="payLoad" class="form-row">
+    <strong i18n>Sauvegardé avec les valeurs suivantes :</strong><br>{{payLoad}}
+  </div>
+</div>
+
+<p>Form value: {{ form.value | json }}</p>
+<p>Form status: {{ form.status | json }}</p>
