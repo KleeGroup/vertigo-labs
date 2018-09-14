@@ -106,8 +106,11 @@ public final class LedgerManagerImpl implements LedgerManager {
 	}
 	
 	public void flush() {
-		String joinedData = simpleBuffer.stream().collect(Collectors.joining());
-		simpleBuffer.clear();
+		String joinedData;
+		synchronized (simpleBuffer) {
+			joinedData = simpleBuffer.stream().collect(Collectors.joining());
+			simpleBuffer.clear();
+		}
 
 		try {
 			LOGGER.info("Sending transaction to the Ethereum blockchain... Buffer:{}", joinedData);

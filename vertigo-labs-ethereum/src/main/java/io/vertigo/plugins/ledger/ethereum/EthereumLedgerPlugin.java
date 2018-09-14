@@ -53,7 +53,7 @@ import rx.Subscription;
 
 
 /**
- * Client RPC Ethereum
+ * Client RPC Ethereum (for Geth and Parity)
  * @author xdurand
  *
  */
@@ -66,7 +66,6 @@ public final class EthereumLedgerPlugin implements LedgerPlugin {
 	private Credentials credentials;
 	private LedgerAddress defaultDestAddr;
 	private LedgerAddress myPublicAddr;
-
 
 	@Inject
 	public EthereumLedgerPlugin(

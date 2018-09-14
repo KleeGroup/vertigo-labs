@@ -53,28 +53,28 @@ public interface LedgerManager extends Manager {
 	/**
 	 * Subscribe only to new messages and execute the consumer function when a message is sent to the public address of the wallet.
 	 * @param consumer
-	 * @return
+	 * @return Subscription Identifier
 	 */
 	String subscribeNewMessages(Consumer<LedgerTransaction> consumer);
 	
 	/**
 	 * Subscribe only to existing past messages only and execute the consumer function when a message is sent to the public address of the wallet.
 	 * @param consumer
-	 * @return
+	 * @return Subscription Identifier
 	 */
 	String subscribeExistingMessages(Consumer<LedgerTransaction> consumer);
 	
 	/**
 	 * Subscribe past and new messages and execute the consumer function when a message is sent to the public address of the wallet.
 	 * @param consumer
-	 * @return
+	 * @return Subscription Identifier
 	 */
 	String subscribeAllMessages(Consumer<LedgerTransaction> consumer);
 	
 	
 	/**
-	 * Unsubcribe an existing subscription by name
-	 * @param uniqueName
+	 * Unsubcribe an existing subscription by Identifier
+	 * @param subscriptionIdentifier Subscription Identifier
 	 */
-	void unsubscribe(String uniqueName);
+	void unsubscribe(String subscriptionIdentifier);
 }

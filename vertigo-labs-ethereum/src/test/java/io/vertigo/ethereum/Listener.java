@@ -62,3 +62,4 @@ public class Listener {
 		LOGGER.info("[Transaction] De {} \t à: {} \t Message :{} \t valeur :{}", tx.getFrom(), tx.getTo(), tx.getMessage(), tx.getValue());
 	}
 }
+
