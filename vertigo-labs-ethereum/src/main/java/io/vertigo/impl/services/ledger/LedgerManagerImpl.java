@@ -59,12 +59,12 @@ public final class LedgerManagerImpl implements LedgerManager {
 
 	@Inject
 	public LedgerManagerImpl(
-			@Named("queueSizeThreshold") int queueSizeThreshold,
-			@Named("autoFlushPeriod") int autoFlushPeriod,
+			@Named("queueSizeThreshold") int myQueueSizeThreshold,
+			@Named("autoFlushPeriod") int myAutoFlushPeriod,
 			LedgerPlugin ledgerPlugin) {
 		this.ledgerPlugin = ledgerPlugin;
-		this.queueSizeThreshold = queueSizeThreshold;
-		this.autoFlushPeriod = autoFlushPeriod;
+		this.queueSizeThreshold = myQueueSizeThreshold;
+		this.autoFlushPeriod = myAutoFlushPeriod;
 	}
 
 	private String dataToHash(String data) {

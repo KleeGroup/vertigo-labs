@@ -126,7 +126,7 @@ public final class EthereumLedgerPlugin implements LedgerPlugin {
 	public void subscribeNewMessages(String name, Consumer<LedgerTransaction> consumer) {
 		Assertion.checkArgNotEmpty(name);
 		//-----
-		Subscription subscription = web3j.catchUpToLatestTransactionObservable(DefaultBlockParameterName.EARLIEST)
+		Subscription subscription = web3j.transactionObservable()
 				.filter(tx -> tx.getTo().equals(myPublicAddr.getPublicAddress()))
 				.map(this::convertTransactionToLedgerTransaction)
 				.subscribe(consumer::accept);
