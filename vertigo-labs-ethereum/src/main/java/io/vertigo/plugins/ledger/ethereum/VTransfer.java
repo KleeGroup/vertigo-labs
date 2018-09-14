@@ -35,7 +35,7 @@ import org.web3j.utils.Numeric;
 
 public class VTransfer extends Transfer {
 
-	private static final BigInteger GAS_UNIT_PER_BIT = new BigInteger("68");
+	private static final BigInteger GAS_UNIT_PER_BIT = BigInteger.valueOf(68L);
 
 	public VTransfer(Web3j web3j, TransactionManager transactionManager) {
 		super(web3j, transactionManager);
@@ -58,8 +58,7 @@ public class VTransfer extends Transfer {
 	 * @throws TransactionException
 	 */
 	private TransactionReceipt send(
-			String toAddress, BigDecimal value, Convert.Unit unit, String message) throws IOException, InterruptedException,
-			TransactionException {
+			String toAddress, BigDecimal value, Convert.Unit unit, String message) throws IOException, TransactionException {
 
 		BigInteger gasPrice = requestCurrentGasPrice();
 
@@ -86,8 +85,7 @@ public class VTransfer extends Transfer {
 	 */
 	private TransactionReceipt send(
 			String toAddress, BigDecimal value, Convert.Unit unit, BigInteger gasPrice,
-			BigInteger gasLimit, String message) throws IOException, InterruptedException,
-			TransactionException {
+			BigInteger gasLimit, String message) throws IOException, TransactionException {
 
 		BigDecimal weiValue = Convert.toWei(value, unit);
 		if (!Numeric.isIntegerValue(weiValue)) {
