@@ -1,8 +1,5 @@
 package io.vertigo.ethereum;
 
-import java.io.IOException;
-import java.util.concurrent.ExecutionException;
-
 import javax.inject.Inject;
 
 import org.apache.logging.log4j.LogManager;
@@ -11,7 +8,6 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.web3j.crypto.CipherException;
 
 import io.vertigo.app.AutoCloseableApp;
 import io.vertigo.core.component.di.injector.DIInjector;
@@ -45,7 +41,7 @@ public class LedgerManagerEthereumTest {
 	}
 
 	@Test
-	public void writeDataTest() throws IOException, CipherException, InterruptedException, ExecutionException {
+	public void writeDataTest() {
 
 		String messageToAlice = "Bonjour";
 		LedgerAddress bobLedgerAddress = new LedgerAddress("Bob", "0x9a48b59e301794298fdc0f945da3fbd58cff5beb");
