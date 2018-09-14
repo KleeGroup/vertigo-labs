@@ -46,17 +46,17 @@ import io.vertigo.ledger.services.LedgerTransaction;
 public final class LedgerManagerImpl implements LedgerManager {
 
 	private static final Logger LOGGER = LogManager.getLogger(LedgerManagerImpl.class);
-	private final List<String> simpleBuffer = Collections.<String>synchronizedList(new ArrayList<String>());
+	private final List<String> simpleBuffer = Collections.<String> synchronizedList(new ArrayList<String>());
 
 	private LedgerPlugin ledgerPlugin;
 	private int queueSizeThreshold;
 	private int autoFlushPeriod;
 	private Instant startPeriodFlush = Instant.now();
-	
+
 	private AtomicLong subscribeNewMessagesCounter = new AtomicLong(0);
 	private AtomicLong subscribeExistingMessagesCounter = new AtomicLong(0);
 	private AtomicLong subscribeAllMessagesCounter = new AtomicLong(0);
-	
+
 	@Inject
 	public LedgerManagerImpl(
 			@Named("queueSizeThreshold") int queueSizeThreshold,
@@ -82,6 +82,7 @@ public final class LedgerManagerImpl implements LedgerManager {
 		return buffer.toString();
 	}
 
+	@Override
 	public String sendData(String data) {
 		String hash = dataToHash(data);
 		if (simpleBuffer.isEmpty()) {
@@ -100,11 +101,12 @@ public final class LedgerManagerImpl implements LedgerManager {
 		} else {
 			if (LOGGER.isDebugEnabled() && !simpleBuffer.isEmpty()) {
 				long nextRunInSeconds = ChronoUnit.SECONDS.between(now, startPeriodFlush.plusSeconds(autoFlushPeriod));
-				LOGGER.debug("Buffer size : {}/{}, Last flush: {}, Next flush in {} seconds", simpleBuffer.size(),queueSizeThreshold, startPeriodFlush, nextRunInSeconds);
+				LOGGER.debug("Buffer size : {}/{}, Last flush: {}, Next flush in {} seconds", simpleBuffer.size(), queueSizeThreshold, startPeriodFlush, nextRunInSeconds);
 			}
 		}
 	}
-	
+
+	@Override
 	public void flush() {
 		String joinedData;
 		synchronized (simpleBuffer) {
@@ -113,11 +115,11 @@ public final class LedgerManagerImpl implements LedgerManager {
 		}
 
 		try {
-			LOGGER.info("Sending transaction to the Ethereum blockchain... Buffer:{}", joinedData);
+			LOGGER.info("Sending transaction to the legder... Buffer:{}", joinedData);
 			ledgerPlugin.sendData(joinedData);
-			LOGGER.info("Transaction successfully written on the Ethereum blockchain.");
+			LOGGER.info("Transaction successfully written on the legder.");
 		} catch (Exception e) {
-			LOGGER.error("Exception while sending transaction on the Ethereum blockchain.", e);
+			LOGGER.error("Exception while sending transaction on the legder.", e);
 			throw WrappedException.wrap(e);
 		}
 

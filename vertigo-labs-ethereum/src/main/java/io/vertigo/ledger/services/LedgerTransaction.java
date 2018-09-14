@@ -27,140 +27,140 @@ import java.math.BigInteger;
  */
 public class LedgerTransaction {
 
-    private String hash;
-    private BigInteger nonce;
-    private String blockHash;
-    private BigInteger blockNumber;
-    private BigInteger transactionIndex;
-    private String from;
-    private String to;
-    private BigInteger value;
-    private String message;
-	
-    /**
+	private String hash;
+	private BigInteger nonce;
+	private String blockHash;
+	private BigInteger blockNumber;
+	private BigInteger transactionIndex;
+	private String from;
+	private String to;
+	private BigInteger value;
+	private String message;
+
+	/**
 	 * @return the hash
 	 */
 	public String getHash() {
 		return hash;
 	}
-	
+
 	/**
 	 * @param hash the hash to set
 	 */
 	public void setHash(String hash) {
 		this.hash = hash;
 	}
-	
+
 	/**
 	 * @return the nonce
 	 */
 	public BigInteger getNonce() {
 		return nonce;
 	}
-	
+
 	/**
 	 * @param nonce the nonce to set
 	 */
 	public void setNonce(BigInteger nonce) {
 		this.nonce = nonce;
 	}
-	
+
 	/**
 	 * @return the blockHash
 	 */
 	public String getBlockHash() {
 		return blockHash;
 	}
-	
+
 	/**
 	 * @param blockHash the blockHash to set
 	 */
 	public void setBlockHash(String blockHash) {
 		this.blockHash = blockHash;
 	}
-	
+
 	/**
 	 * @return the blockNumber
 	 */
 	public BigInteger getBlockNumber() {
 		return blockNumber;
 	}
-	
+
 	/**
 	 * @param blockNumber the blockNumber to set
 	 */
 	public void setBlockNumber(BigInteger blockNumber) {
 		this.blockNumber = blockNumber;
 	}
-	
+
 	/**
 	 * @return the transactionIndex
 	 */
 	public BigInteger getTransactionIndex() {
 		return transactionIndex;
 	}
-	
+
 	/**
 	 * @param transactionIndex the transactionIndex to set
 	 */
 	public void setTransactionIndex(BigInteger transactionIndex) {
 		this.transactionIndex = transactionIndex;
 	}
-	
+
 	/**
 	 * @return the from
 	 */
 	public String getFrom() {
 		return from;
 	}
-	
+
 	/**
 	 * @param from the from to set
 	 */
 	public void setFrom(String from) {
 		this.from = from;
 	}
-	
+
 	/**
 	 * @return the to
 	 */
 	public String getTo() {
 		return to;
 	}
-	
+
 	/**
 	 * @param to the to to set
 	 */
 	public void setTo(String to) {
 		this.to = to;
 	}
-	
+
 	/**
 	 * @return the value
 	 */
 	public BigInteger getValue() {
 		return value;
 	}
-	
+
 	/**
 	 * @param value the value to set
 	 */
 	public void setValue(BigInteger value) {
 		this.value = value;
 	}
-	
+
 	/**
 	 * @return the message
 	 */
 	public String getMessage() {
 		return message;
 	}
-	
+
 	/**
 	 * @param message the message to set
 	 */
 	public void setMessage(String message) {
 		this.message = message;
 	}
-    
+
 }

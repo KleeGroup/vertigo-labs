@@ -37,29 +37,28 @@ import io.vertigo.ledger.services.LedgerTransaction;
  *
  */
 public class Listener {
-	
+
 	private static final Logger LOGGER = LogManager.getLogger(Listener.class);
-	
+
 	@Inject
 	private LedgerManager ledgerManager;
-	
-	public static void main(String[] args) throws IOException, CipherException{
-		
+
+	public static void main(String[] args) throws IOException, CipherException {
+
 		Listener listener = new Listener();
 		listener.start();
 	}
-	
+
 	public void start() {
-		
+
 		try (AutoCloseableApp app = new AutoCloseableApp(MyAppConfig.config())) {
 			DIInjector.injectMembers(this, app.getComponentSpace());
 			ledgerManager.subscribeAllMessages(Listener::onTransaction);
-		};
-		
+		}
+
 	}
-	
+
 	public static void onTransaction(LedgerTransaction tx) {
 		LOGGER.info("[Transaction] De {} \t à: {} \t Message :{} \t valeur :{}", tx.getFrom(), tx.getTo(), tx.getMessage(), tx.getValue());
 	}
 }
-

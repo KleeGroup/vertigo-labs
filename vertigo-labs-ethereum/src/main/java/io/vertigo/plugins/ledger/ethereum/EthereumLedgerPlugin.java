@@ -51,7 +51,6 @@ import io.vertigo.ledger.services.LedgerAddress;
 import io.vertigo.ledger.services.LedgerTransaction;
 import rx.Subscription;
 
-
 /**
  * Client RPC Ethereum (for Geth and Parity)
  * @author xdurand
@@ -62,7 +61,7 @@ public final class EthereumLedgerPlugin implements LedgerPlugin {
 	private static final Logger LOGGER = LogManager.getLogger(EthereumLedgerPlugin.class);
 	private static final Map<String, Subscription> MAP_SUBSCRIPTIONS = new ConcurrentHashMap<>();
 
-	private Web3j web3j; 
+	private Web3j web3j;
 	private Credentials credentials;
 	private LedgerAddress defaultDestAddr;
 	private LedgerAddress myPublicAddr;
@@ -78,7 +77,7 @@ public final class EthereumLedgerPlugin implements LedgerPlugin {
 			@Named("walletPath") String walletPath) throws IOException, CipherException {
 		this.myPublicAddr = new LedgerAddress(myAccountName, myPublicAddr);
 		this.defaultDestAddr = new LedgerAddress(defaultDestAccountName, defaultDestPublicAddr);
-		
+
 		LOGGER.info("Connecting to RPC Ethereum Node: {}", urlRpcEthNode);
 		web3j = Web3j.build(new HttpService(urlRpcEthNode));
 		Web3ClientVersion web3ClientVersion = web3j.web3ClientVersion().send();
@@ -90,7 +89,7 @@ public final class EthereumLedgerPlugin implements LedgerPlugin {
 	public BigInteger getWalletBalance() {
 		return getBalance(myPublicAddr);
 	}
-	
+
 	@Override
 	public BigInteger getBalance(LedgerAddress publicAddr) {
 		EthGetBalance balance;
@@ -106,7 +105,7 @@ public final class EthereumLedgerPlugin implements LedgerPlugin {
 	public void sendData(String data) {
 		sendData(data, defaultDestAddr);
 	}
-	
+
 	public void sendData(String data, LedgerAddress destinationAdr) {
 
 		try {
@@ -117,7 +116,7 @@ public final class EthereumLedgerPlugin implements LedgerPlugin {
 			if (!transactionReceipt.isStatusOK()) {
 				throw new VSystemException("Ethereum write failed", transactionReceipt.getStatus());
 			}
-			
+
 		} catch (Exception e) {
 			throw WrappedException.wrap(e);
 		}
@@ -158,7 +157,7 @@ public final class EthereumLedgerPlugin implements LedgerPlugin {
 		LOGGER.info("Getting all messages sent to {}.", myPublicAddr);
 		MAP_SUBSCRIPTIONS.put(name, subscription);
 	}
-	
+
 	@Override
 	public void unsubscribe(String name) {
 		Assertion.checkArgNotEmpty(name);
@@ -168,7 +167,7 @@ public final class EthereumLedgerPlugin implements LedgerPlugin {
 
 	private LedgerTransaction convertTransactionToLedgerTransaction(Transaction transaction) {
 		LedgerTransaction ledgerTransaction = new LedgerTransaction();
-		
+
 		ledgerTransaction.setBlockHash(transaction.getBlockHash());
 		ledgerTransaction.setBlockNumber(transaction.getBlockNumber());
 		ledgerTransaction.setFrom(transaction.getFrom());
@@ -177,7 +176,7 @@ public final class EthereumLedgerPlugin implements LedgerPlugin {
 		ledgerTransaction.setTransactionIndex(transaction.getTransactionIndex());
 		ledgerTransaction.setValue(transaction.getValue());
 		ledgerTransaction.setMessage(transaction.getInput());
-		
+
 		return ledgerTransaction;
 	}
 

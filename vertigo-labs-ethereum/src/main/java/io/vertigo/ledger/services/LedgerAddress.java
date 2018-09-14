@@ -19,7 +19,6 @@
 
 package io.vertigo.ledger.services;
 
-
 public class LedgerAddress {
 
 	private String accountName;
@@ -63,7 +62,7 @@ public class LedgerAddress {
 	 */
 	@Override
 	public String toString() {
-		return "LedgerAddress: "+ accountName + " [" + publicAddress + "]";
+		return "LedgerAddress: " + accountName + " [" + publicAddress + "]";
 	}
-	
+
 }

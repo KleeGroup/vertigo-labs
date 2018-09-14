@@ -30,7 +30,7 @@ import io.vertigo.ledger.services.LedgerTransaction;
  *
  */
 public interface LedgerPlugin extends Plugin {
-	
+
 	/**
 	 * Sent data to the default address on the ledger.
 	 * @param data data in clear to store
@@ -42,14 +42,14 @@ public interface LedgerPlugin extends Plugin {
 	 * @return
 	 */
 	BigInteger getWalletBalance();
-	
+
 	/**
 	 * Get the current balance of the provided address
 	 * @param publicAddr
 	 * @return
 	 */
 	BigInteger getBalance(LedgerAddress publicAddr);
-	
+
 	/**
 	 * Subscribe only to new messages and execute the consumer function when a message is sent to the public address of the wallet.
 	 * @param name
@@ -70,7 +70,7 @@ public interface LedgerPlugin extends Plugin {
 	 * @param consumer
 	 */
 	void subscribeAllMessages(String name, Consumer<LedgerTransaction> consumer);
-	
+
 	/**
 	 * Unsubcribe an existing subscription by name
 	 * @param name
@@ -78,4 +78,3 @@ public interface LedgerPlugin extends Plugin {
 	void unsubscribe(String name);
 
 }
-

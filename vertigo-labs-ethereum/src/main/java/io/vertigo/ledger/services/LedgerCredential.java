@@ -23,7 +23,7 @@ public class LedgerCredential {
 
 	private String password;
 	private String walletPath;
-	
+
 	public LedgerCredential(String password, String walletPath) {
 		super();
 		this.password = password;
@@ -36,14 +36,14 @@ public class LedgerCredential {
 	public String getPassword() {
 		return password;
 	}
-	
+
 	/**
 	 * @param password the password to set
 	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	/**
 	 * @return the walletPath
 	 */

@@ -36,14 +36,14 @@ public final class LedgerFeatures extends Features {
 
 	private int queueSizeThreshold = 10;
 	private int autoFlushPeriod = 60;
-	
+
 	/**
 	 * Constructor.
 	 */
 	public LedgerFeatures() {
 		super("x-ledger");
 	}
-	
+
 	/**
 	 * 
 	 * @return  the feature
@@ -52,7 +52,7 @@ public final class LedgerFeatures extends Features {
 		this.queueSizeThreshold = queueSizeThreshold;
 		return this;
 	}
-	
+
 	/**
 	 * 
 	 * @return  the feature
@@ -61,26 +61,26 @@ public final class LedgerFeatures extends Features {
 		this.autoFlushPeriod = autoFlushPeriod;
 		return this;
 	}
-	
+
 	/**
 	 * Add Ethereum BlockChain Ledger
 	 * @return  the feature
 	 */
 	public LedgerFeatures withEthereumBlockChain(Param... params) {
 		getModuleConfigBuilder()
-			.addPlugin(EthereumLedgerPlugin.class, params);
+				.addPlugin(EthereumLedgerPlugin.class, params);
 		return this;
 	}
-	
+
 	/** {@inheritDoc} */
 	@Override
 	protected void buildFeatures() {
 		getModuleConfigBuilder()
-			.addComponent(DaemonManager.class, DaemonManagerImpl.class)
-			.addComponent(AnalyticsManager.class, AnalyticsManagerImpl.class)
-			.addComponent(LedgerManager.class, LedgerManagerImpl.class, 
-					Param.of("queueSizeThreshold", String.valueOf(queueSizeThreshold)),
-					Param.of("autoFlushPeriod", String.valueOf(autoFlushPeriod)));
+				.addComponent(DaemonManager.class, DaemonManagerImpl.class)
+				.addComponent(AnalyticsManager.class, AnalyticsManagerImpl.class)
+				.addComponent(LedgerManager.class, LedgerManagerImpl.class,
+						Param.of("queueSizeThreshold", String.valueOf(queueSizeThreshold)),
+						Param.of("autoFlushPeriod", String.valueOf(autoFlushPeriod)));
 	}
-	
+
 }

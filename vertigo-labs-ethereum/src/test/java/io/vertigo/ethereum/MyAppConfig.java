@@ -12,7 +12,7 @@ import io.vertigo.impl.services.ledger.LedgerFeatures;
  *
  */
 public class MyAppConfig {
-	
+
 	/**
 	 * Configuration de l'application pour Junit
 	 *

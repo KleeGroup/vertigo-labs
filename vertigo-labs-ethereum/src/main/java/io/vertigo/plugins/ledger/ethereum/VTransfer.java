@@ -36,17 +36,16 @@ import org.web3j.utils.Numeric;
 public class VTransfer extends Transfer {
 
 	private static final BigInteger GAS_UNIT_PER_BIT = new BigInteger("68");
-	
+
 	public VTransfer(Web3j web3j, TransactionManager transactionManager) {
 		super(web3j, transactionManager);
 	}
 
-	
 	/**
-     * 
-     * Given the duration required to execute a transaction, asyncronous execution is strongly
-     * recommended via {@link Transfer#sendFunds(String, BigDecimal, Convert.Unit)}.
-     * 
+	 * 
+	 * Given the duration required to execute a transaction, asyncronous execution is strongly
+	 * recommended via {@link Transfer#sendFunds(String, BigDecimal, Convert.Unit)}.
+	 * 
 	 * @param toAddress
 	 * @param value
 	 * @param unit
@@ -58,20 +57,20 @@ public class VTransfer extends Transfer {
 	 * @throws InterruptedException
 	 * @throws TransactionException
 	 */
-    private TransactionReceipt send(
-            String toAddress, BigDecimal value, Convert.Unit unit, String message) throws IOException, InterruptedException,
-            TransactionException {
-        
-        BigInteger gasPrice = requestCurrentGasPrice();
-        
-        int messageLength = message.length();
-		BigInteger bitSize = BigInteger.valueOf(messageLength % 2 == 0 ? messageLength/2 : messageLength/2 + 1);
-        BigInteger storageCost = GAS_UNIT_PER_BIT.multiply(bitSize);
-        BigInteger totalCost = GAS_LIMIT.add(storageCost);
-        
-        return send(toAddress, value, unit, gasPrice, totalCost, message);
-    }
-	
+	private TransactionReceipt send(
+			String toAddress, BigDecimal value, Convert.Unit unit, String message) throws IOException, InterruptedException,
+			TransactionException {
+
+		BigInteger gasPrice = requestCurrentGasPrice();
+
+		int messageLength = message.length();
+		BigInteger bitSize = BigInteger.valueOf(messageLength % 2 == 0 ? messageLength / 2 : messageLength / 2 + 1);
+		BigInteger storageCost = GAS_UNIT_PER_BIT.multiply(bitSize);
+		BigInteger totalCost = GAS_LIMIT.add(storageCost);
+
+		return send(toAddress, value, unit, gasPrice, totalCost, message);
+	}
+
 	/**
 	 * 
 	 * @param toAddress
@@ -85,63 +84,59 @@ public class VTransfer extends Transfer {
 	 * @throws InterruptedException
 	 * @throws TransactionException
 	 */
-    private TransactionReceipt send(
-            String toAddress, BigDecimal value, Convert.Unit unit, BigInteger gasPrice,
-            BigInteger gasLimit, String message) throws IOException, InterruptedException,
-            TransactionException {
+	private TransactionReceipt send(
+			String toAddress, BigDecimal value, Convert.Unit unit, BigInteger gasPrice,
+			BigInteger gasLimit, String message) throws IOException, InterruptedException,
+			TransactionException {
 
-        BigDecimal weiValue = Convert.toWei(value, unit);
-        if (!Numeric.isIntegerValue(weiValue)) {
-            throw new UnsupportedOperationException(
-                    "Non decimal Wei value provided: " + value + " " + unit.toString()
-                            + " = " + weiValue + " Wei");
-        }
+		BigDecimal weiValue = Convert.toWei(value, unit);
+		if (!Numeric.isIntegerValue(weiValue)) {
+			throw new UnsupportedOperationException(
+					"Non decimal Wei value provided: " + value + " " + unit.toString()
+							+ " = " + weiValue + " Wei");
+		}
 
-        String resolvedAddress = ensResolver.resolve(toAddress);
-        return send(resolvedAddress, message, weiValue.toBigIntegerExact(), gasPrice, gasLimit);
-    }
-	
+		String resolvedAddress = ensResolver.resolve(toAddress);
+		return send(resolvedAddress, message, weiValue.toBigIntegerExact(), gasPrice, gasLimit);
+	}
 
-    /**
-     * 
-     * @param web3j
-     * @param credentials
-     * @param toAddress
-     * @param value
-     * @param unit
-     * @param gasPrice
-     * @param gasLimit
-     * @param message
-     * @return
-     */
-    public static RemoteCall<TransactionReceipt> sendFunds(Web3j web3j, Credentials credentials,
-            String toAddress, BigDecimal value, Convert.Unit unit, BigInteger gasPrice,
-            BigInteger gasLimit, String message) {
+	/**
+	 * 
+	 * @param web3j
+	 * @param credentials
+	 * @param toAddress
+	 * @param value
+	 * @param unit
+	 * @param gasPrice
+	 * @param gasLimit
+	 * @param message
+	 * @return
+	 */
+	public static RemoteCall<TransactionReceipt> sendFunds(Web3j web3j, Credentials credentials,
+			String toAddress, BigDecimal value, Convert.Unit unit, BigInteger gasPrice,
+			BigInteger gasLimit, String message) {
 
-        TransactionManager transactionManager = new RawTransactionManager(web3j, credentials);
+		TransactionManager transactionManager = new RawTransactionManager(web3j, credentials);
 
-        return new RemoteCall<>(() ->
-                new VTransfer(web3j, transactionManager).send(toAddress, value, unit, gasPrice, gasLimit, message));
-    }
+		return new RemoteCall<>(() -> new VTransfer(web3j, transactionManager).send(toAddress, value, unit, gasPrice, gasLimit, message));
+	}
 
-    /**
-     * 
-     * @param web3j
-     * @param credentials
-     * @param toAddress
-     * @param value
-     * @param unit
-     * @param gasPrice
-     * @param gasLimit
-     * @param message
-     * @return
-     */
-    public static RemoteCall<TransactionReceipt> sendFunds(Web3j web3j, Credentials credentials,
-            String toAddress, BigDecimal value, Convert.Unit unit, String message) {
-        TransactionManager transactionManager = new RawTransactionManager(web3j, credentials);
-        return new RemoteCall<>(() ->
-                new VTransfer(web3j, transactionManager).send(toAddress, value, unit, message));
-    }
-    
+	/**
+	 * 
+	 * @param web3j
+	 * @param credentials
+	 * @param toAddress
+	 * @param value
+	 * @param unit
+	 * @param gasPrice
+	 * @param gasLimit
+	 * @param message
+	 * @return
+	 */
+	public static RemoteCall<TransactionReceipt> sendFunds(Web3j web3j, Credentials credentials,
+			String toAddress, BigDecimal value, Convert.Unit unit, String message) {
+		TransactionManager transactionManager = new RawTransactionManager(web3j, credentials);
+		return new RemoteCall<>(() -> new VTransfer(web3j, transactionManager).send(toAddress, value, unit, message));
+	}
+
 }
-

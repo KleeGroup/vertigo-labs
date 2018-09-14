@@ -24,54 +24,53 @@ import java.util.function.Consumer;
 import io.vertigo.core.component.Manager;
 
 public interface LedgerManager extends Manager {
-	
+
 	/**
 	 * Send data message on the ledger. The message is buffered with the strategy provided. 
 	 * @param data
 	 * @return
 	 */
 	String sendData(String data);
-	
+
 	/**
 	 * Force the buffer to be written on the ledger
 	 */
 	void flush();
-	
+
 	/**
 	 * Get the current balance of the provided address
 	 * @param addr
 	 * @return
 	 */
 	BigInteger getBalance(LedgerAddress addr);
-	
+
 	/**
 	 * Get the current balance of the wallet
 	 * @return
 	 */
 	BigInteger getMyBalance();
-	
+
 	/**
 	 * Subscribe only to new messages and execute the consumer function when a message is sent to the public address of the wallet.
 	 * @param consumer
 	 * @return Subscription Identifier
 	 */
 	String subscribeNewMessages(Consumer<LedgerTransaction> consumer);
-	
+
 	/**
 	 * Subscribe only to existing past messages only and execute the consumer function when a message is sent to the public address of the wallet.
 	 * @param consumer
 	 * @return Subscription Identifier
 	 */
 	String subscribeExistingMessages(Consumer<LedgerTransaction> consumer);
-	
+
 	/**
 	 * Subscribe past and new messages and execute the consumer function when a message is sent to the public address of the wallet.
 	 * @param consumer
 	 * @return Subscription Identifier
 	 */
 	String subscribeAllMessages(Consumer<LedgerTransaction> consumer);
-	
-	
+
 	/**
 	 * Unsubcribe an existing subscription by Identifier
 	 * @param subscriptionIdentifier Subscription Identifier
