@@ -11,7 +11,6 @@ import org.junit.Test;
 
 import io.vertigo.app.AutoCloseableApp;
 import io.vertigo.core.component.di.injector.DIInjector;
-import io.vertigo.ledger.services.LedgerAddress;
 import io.vertigo.ledger.services.LedgerManager;
 
 public class LedgerManagerEthereumTest {
@@ -43,18 +42,15 @@ public class LedgerManagerEthereumTest {
 	@Test
 	public void writeDataTest() {
 
-		String messageToAlice = "Bonjour";
-		LedgerAddress bobLedgerAddress = new LedgerAddress("Bob", "0x9a48b59e301794298fdc0f945da3fbd58cff5beb");
+		String messageToAlice = "Hello world";
 
 		LOGGER.info("My ETH Balance before : " + ledgerManager.getMyBalance());
-		LOGGER.info("Bob ETH Balance before : " + ledgerManager.getBalance(bobLedgerAddress));
 
 		ledgerManager.sendData(messageToAlice);
 		ledgerManager.flush();
 		//Thread.sleep(120_000);
 
 		LOGGER.info("My ETH Balance after: " + ledgerManager.getMyBalance());
-		LOGGER.info("Bob ETH Balance after: " + ledgerManager.getBalance(bobLedgerAddress));
 	}
 
 }

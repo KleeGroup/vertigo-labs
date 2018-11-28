@@ -33,6 +33,8 @@ import org.web3j.tx.Transfer;
 import org.web3j.utils.Convert;
 import org.web3j.utils.Numeric;
 
+import io.vertigo.ledger.services.LedgerTransactionPriorityEnum;
+
 public class VTransfer extends Transfer {
 
 	private static final BigInteger GAS_UNIT_PER_BIT = BigInteger.valueOf(68L);
@@ -43,7 +45,7 @@ public class VTransfer extends Transfer {
 
 	/**
 	 * 
-	 * Given the duration required to execute a transaction, asyncronous execution is strongly
+	 * Given the duration required to execute a transaction, asynchronous execution is strongly
 	 * recommended via {@link Transfer#sendFunds(String, BigDecimal, Convert.Unit)}.
 	 * 
 	 * @param toAddress
@@ -58,9 +60,11 @@ public class VTransfer extends Transfer {
 	 * @throws TransactionException
 	 */
 	private TransactionReceipt send(
-			String toAddress, BigDecimal value, Convert.Unit unit, String message) throws IOException, TransactionException {
+			String toAddress, BigDecimal value, Convert.Unit unit, String message, LedgerTransactionPriorityEnum priority) throws IOException, TransactionException {
 
-		BigInteger gasPrice = requestCurrentGasPrice();
+		BigDecimal currentGasPrice = new BigDecimal(requestCurrentGasPrice());
+		BigDecimal pmille = BigDecimal.valueOf(priority.getPermille());
+		BigInteger gasPrice = currentGasPrice.multiply(pmille).divide(BigDecimal.valueOf(1000)).toBigInteger();
 
 		int messageLength = message.length();
 		BigInteger bitSize = BigInteger.valueOf(messageLength % 2 == 0 ? messageLength / 2 : messageLength / 2 + 1);
@@ -129,12 +133,13 @@ public class VTransfer extends Transfer {
 	 * @param gasPrice
 	 * @param gasLimit
 	 * @param message
+	 * @param priority
 	 * @return
 	 */
 	public static RemoteCall<TransactionReceipt> sendFunds(Web3j web3j, Credentials credentials,
-			String toAddress, BigDecimal value, Convert.Unit unit, String message) {
+			String toAddress, BigDecimal value, Convert.Unit unit, String message, LedgerTransactionPriorityEnum priority) {
 		TransactionManager transactionManager = new RawTransactionManager(web3j, credentials);
-		return new RemoteCall<>(() -> new VTransfer(web3j, transactionManager).send(toAddress, value, unit, message));
+		return new RemoteCall<>(() -> new VTransfer(web3j, transactionManager).send(toAddress, value, unit, message, priority));
 	}
 
 }

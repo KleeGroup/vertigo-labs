@@ -49,6 +49,7 @@ import io.vertigo.lang.VSystemException;
 import io.vertigo.lang.WrappedException;
 import io.vertigo.ledger.services.LedgerAddress;
 import io.vertigo.ledger.services.LedgerTransaction;
+import io.vertigo.ledger.services.LedgerTransactionPriorityEnum;
 import rx.Subscription;
 
 /**
@@ -98,19 +99,24 @@ public final class EthereumLedgerPlugin implements LedgerPlugin {
 		} catch (InterruptedException | ExecutionException e) {
 			throw WrappedException.wrap(e);
 		}
+
+		if (balance.hasError()) {
+			throw new VSystemException(balance.getError().getMessage());
+		}
+
 		return balance.getBalance();
 	}
 
 	@Override
 	public void sendData(String data) {
-		sendData(data, defaultDestAddr);
+		sendData(data, defaultDestAddr, LedgerTransactionPriorityEnum.FAST);
 	}
 
-	public void sendData(String data, LedgerAddress destinationAdr) {
+	public void sendData(String data, LedgerAddress destinationAdr, LedgerTransactionPriorityEnum priority) {
 
 		try {
 			TransactionReceipt transactionReceipt = VTransfer.sendFunds(web3j, credentials, destinationAdr.getPublicAddress(),
-					BigDecimal.valueOf(0), Convert.Unit.WEI, data)
+					BigDecimal.valueOf(0), Convert.Unit.WEI, data, priority)
 					.send();
 
 			if (!transactionReceipt.isStatusOK()) {

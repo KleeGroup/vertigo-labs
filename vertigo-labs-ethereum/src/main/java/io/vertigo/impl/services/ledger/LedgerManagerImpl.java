@@ -82,9 +82,17 @@ public final class LedgerManagerImpl implements LedgerManager {
 		return buffer.toString();
 	}
 
+	private String dataToHex(String data) {
+		Assertion.checkArgNotEmpty(data);
+		//-----
+		return String.format("%x", new BigInteger(1, data.getBytes()));
+	}
+
 	@Override
 	public String sendData(String data) {
+		//TODO: Commenté pour la démo
 		String hash = dataToHash(data);
+		hash = dataToHex(data);
 		if (simpleBuffer.isEmpty()) {
 			startPeriodFlush = Instant.now();
 		}
