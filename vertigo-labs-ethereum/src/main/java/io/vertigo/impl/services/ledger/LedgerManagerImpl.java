@@ -90,9 +90,8 @@ public final class LedgerManagerImpl implements LedgerManager {
 
 	@Override
 	public String sendData(String data) {
-		//TODO: Commenté pour la démo
 		String hash = dataToHash(data);
-		hash = dataToHex(data);
+		hash = dataToHex(hash);
 		if (simpleBuffer.isEmpty()) {
 			startPeriodFlush = Instant.now();
 		}
