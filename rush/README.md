@@ -1,2 +1,0 @@
-# rush
-Everything you can imagine is real
